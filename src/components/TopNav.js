@@ -6,9 +6,10 @@ function TopNav() {
   return (
     <>
       <TestDiv>
-        <Link to="/">Home</Link>
-        <Link to="/Comunnity">Comunnity</Link>
-        <Link to="/Recommend">Recommend</Link>
+        <img src={require("../assets/Group_379.png")} alt="" />
+        <StyledLink to="/">홈</StyledLink>
+        <StyledLink to="/Comunnity">커뮤니티</StyledLink>
+        <StyledLink to="/Recommend">추천하개</StyledLink>
       </TestDiv>
     </>
   );
@@ -16,10 +17,19 @@ function TopNav() {
 
 ///////// Styled-components /////////
 const TestDiv = styled.div`
+  background-color: #ffffff;
+  position: fixed;
   display: flex;
   width: 100%;
   height: 64px;
-  background-color: red;
+  border-bottom: 1px solid #e5e5e5;
+`;
+
+const StyledLink = styled(Link)`
+  width: 100px;
+  line-height: 64px;
+  vertical-align: middle;
+  text-align: center;
 `;
 
 export default TopNav;

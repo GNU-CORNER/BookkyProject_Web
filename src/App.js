@@ -10,6 +10,11 @@ const GlobalStyle = createGlobalStyle`
 	body {
     margin : 0;
     padding : 0;
+
+  /* 스크롤바 hidden */
+  ::-webkit-scrollbar {
+    display: none;
+}
 }
 `;
 
@@ -31,5 +36,4 @@ function App() {
 const FlexDiv = styled.div`
   display: flex;
 `;
-
 export default App;

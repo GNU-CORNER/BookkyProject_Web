@@ -6,32 +6,31 @@ function SideNav() {
   return (
     <>
       <SideNavContainer>
-        <li>
-          <Link to="/Interests">관심 도서</Link>
-        </li>
-        <li>
-          <Link to="/Comunnity">내 글 보기</Link>
-        </li>
-        <li>
-          <Link to="/Profile">내 후기 보기</Link>
-        </li>
-        <li>
-          <Link to="/Login">Login</Link>
-        </li>
-        <li>
-          <Link to="/SignUp">SignUp</Link>
-        </li>
+        <StyledLink to="/Interests">관심 도서</StyledLink>
+        <StyledLink to="/Comunnity">내 글 보기</StyledLink>
+        <StyledLink to="/Profile">내 후기 보기</StyledLink>
+        <StyledLink to="/Login">Login</StyledLink>
+        <StyledLink to="/SignUp">SignUp</StyledLink>
       </SideNavContainer>
     </>
   );
 }
 
-const SideNavContainer = styled.ul`
-  margin: 0;
-  text-decoration: none;
+const SideNavContainer = styled.div`
+  position: fixed;
+  display: flex;
+  flex-direction: column;
   width: 160px;
   height: calc(100vh - 64px);
-  background-color: blue;
+  margin-top: 64px;
+  border-right: 1px solid #e5e5e5;
+  background-color: #ffffff;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+  margin-left: 12px;
 `;
 
 export default SideNav;
