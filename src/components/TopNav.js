@@ -20,13 +20,13 @@ function TopNav() {
         setRecommendActive("");
         break;
       }
-      case "/Comunnity": {
+      case "/comunnity": {
         setComunnityActive("3px solid #6c95ff");
         setHomeActive("");
         setRecommendActive("");
         break;
       }
-      case "/Recommend": {
+      case "/recommend": {
         setRecommendActive("3px solid #6c95ff");
         setComunnityActive("");
         setHomeActive("");
@@ -44,25 +44,56 @@ function TopNav() {
   useEffect(setBorderBottom, [location.pathname]);
 
   return (
-    <>
-      <TestDiv>
-        <img src={require("../assets/Group_379.png")} alt="" />
-        <StyledLink borderbottom={homeActive} to="/">
+    <TopNavContainer>
+      <StyledLink to="/">
+        <img
+          className="TopNavLogo"
+          src={require("../assets/Group_379.png")}
+          alt=""
+        />
+      </StyledLink>
+
+      <div className="dropdown">
+        <StyledLink className="dropbtn" to="/" borderbottom={homeActive}>
           홈
         </StyledLink>
-        <StyledLink borderbottom={comunnityActive} to="/Comunnity">
+      </div>
+
+      <div className="dropdown">
+        <StyledLink
+          className="dropbtn"
+          to="/comunnity"
+          borderbottom={comunnityActive}
+        >
           커뮤니티
         </StyledLink>
-        <StyledLink borderbottom={recommendActive} to="/Recommend">
-          추천하개
+        <div className="dropdown-content">
+          <StyledLink to="/comunnity">커뮤니티 홈</StyledLink>
+          <StyledLink to="/free">자유게시판</StyledLink>
+          <StyledLink to="/qa">Q{"&"}A게시판</StyledLink>
+        </div>
+      </div>
+
+      <div className="dropdown">
+        <StyledLink
+          className="dropbtn"
+          to="/recommend"
+          borderbottom={recommendActive}
+        >
+          추천받개
         </StyledLink>
-      </TestDiv>
-    </>
+        <div className="dropdown-content">
+          <StyledLink to="/recommend">추천받개 홈</StyledLink>
+          <StyledLink to="/detective">명탐정 북키</StyledLink>
+          <StyledLink to="/guide">안내견 북키</StyledLink>
+        </div>
+      </div>
+    </TopNavContainer>
   );
 }
 
 ///////// Styled-components /////////
-const TestDiv = styled.div`
+const TopNavContainer = styled.div`
   z-index: 99;
   background-color: #ffffff;
   position: fixed;
@@ -70,14 +101,63 @@ const TestDiv = styled.div`
   width: 100%;
   height: 64px;
   border-bottom: 1px solid #e5e5e5;
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    min-width: 130px;
+    line-height: 64px;
+  }
+
+  .dropbtn {
+    height: 100%;
+    text-align: center;
+    color: black;
+    padding: 0 16px;
+    font-size: 16px;
+  }
+
+  .dropdown-content {
+    z-index: 1;
+    position: absolute;
+    display: none;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid #6c95ff;
+    line-height: 30px;
+    background-color: #f5f5f5;
+    min-width: 130px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  }
+
+  .dropdown-content a {
+    color: black;
+    display: block;
+    padding: 12px 16px;
+  }
+
+  .dropdown-content a:hover {
+    color: #6c95ff;
+  }
+
+  .dropdown a:hover {
+    color: #6c95ff;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+    color: #6c95ff;
+  }
 `;
 
 const StyledLink = styled(Link)`
-  width: 100px;
-  line-height: 64px;
-  vertical-align: middle;
-  text-align: center;
   border-bottom: ${(props) => props.borderbottom};
+
+  img {
+    width: 100%;
+    line-height: 64px;
+  }
 `;
 
 export default TopNav;
