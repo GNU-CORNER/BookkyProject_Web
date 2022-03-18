@@ -27,7 +27,7 @@ function BookkyRoutes() {
         <Route path="/myinfo" element={<MyInfo />} />
 
         <Route path="/free" element={<FreeBoard />} />
-        <Route path="/qa" element={<QnaBoard />} />
+        <Route path="/qna" element={<QnaBoard />} />
 
         <Route path="/detective" element={<Detective />} />
         <Route path="/guide" element={<Guide />} />

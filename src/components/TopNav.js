@@ -26,7 +26,31 @@ function TopNav() {
         setRecommendActive("");
         break;
       }
+      case "/free": {
+        setComunnityActive("3px solid #6c95ff");
+        setHomeActive("");
+        setRecommendActive("");
+        break;
+      }
+      case "/qna": {
+        setComunnityActive("3px solid #6c95ff");
+        setHomeActive("");
+        setRecommendActive("");
+        break;
+      }
       case "/recommend": {
+        setRecommendActive("3px solid #6c95ff");
+        setComunnityActive("");
+        setHomeActive("");
+        break;
+      }
+      case "/detective": {
+        setRecommendActive("3px solid #6c95ff");
+        setComunnityActive("");
+        setHomeActive("");
+        break;
+      }
+      case "/guide": {
         setRecommendActive("3px solid #6c95ff");
         setComunnityActive("");
         setHomeActive("");
@@ -70,7 +94,7 @@ function TopNav() {
         <div className="dropdown-content">
           <StyledLink to="/comunnity">커뮤니티 홈</StyledLink>
           <StyledLink to="/free">자유게시판</StyledLink>
-          <StyledLink to="/qa">Q{"&"}A게시판</StyledLink>
+          <StyledLink to="/qna">Q{"&"}A게시판</StyledLink>
         </div>
       </div>
 
@@ -110,11 +134,16 @@ const TopNavContainer = styled.div`
     line-height: 64px;
   }
 
+  .dropdown a:hover {
+    color: #6c95ff;
+    transition: all 200ms;
+  }
+
   .dropbtn {
     height: 100%;
     text-align: center;
     color: black;
-    padding: 0 16px;
+    padding: 18px 16px;
     font-size: 16px;
   }
 
@@ -122,10 +151,10 @@ const TopNavContainer = styled.div`
     z-index: 1;
     position: absolute;
     display: none;
+    line-height: 30px;
     text-align: center;
     border-radius: 5px;
     border: 1px solid #6c95ff;
-    line-height: 30px;
     background-color: #f5f5f5;
     min-width: 130px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -137,14 +166,6 @@ const TopNavContainer = styled.div`
     padding: 12px 16px;
   }
 
-  .dropdown-content a:hover {
-    color: #6c95ff;
-  }
-
-  .dropdown a:hover {
-    color: #6c95ff;
-  }
-
   .dropdown:hover .dropdown-content {
     display: block;
     color: #6c95ff;
@@ -153,8 +174,7 @@ const TopNavContainer = styled.div`
 
 const StyledLink = styled(Link)`
   border-bottom: ${(props) => props.borderbottom};
-
-  img {
+  .TopNavLogo {
     width: 100%;
     line-height: 64px;
   }
