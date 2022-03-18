@@ -1,12 +1,12 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Home";
-import Coumunnity from "./Comunnity";
+import Comunnity from "./Comunnity";
 import Recommend from "./Recommend";
 import Login from "./Login";
 import Interests from "./Interests";
 import SignUp from "./SignUp";
-import Profile from "./Profile";
+import MyInfo from "./MyInfo";
 import styled from "styled-components";
 
 function BookkyRoutes() {
@@ -14,12 +14,12 @@ function BookkyRoutes() {
     <RoutesContainer>
       <Routes>
         <Route exact path="/" element={<Home />} />
-        <Route path="/Comunnity" element={<Coumunnity />} />
+        <Route path="/Comunnity" element={<Comunnity />} />
         <Route path="/Recommend" element={<Recommend />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Interests" element={<Interests />} />
         <Route path="/SignUp" element={<SignUp />} />
-        <Route path="/Profile" element={<Profile />} />
+        <Route path="/MyInfo" element={<MyInfo />} />
       </Routes>
     </RoutesContainer>
   );

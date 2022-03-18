@@ -1,4 +1,4 @@
-function Coumunnity() {
+function Comunnity() {
   return (
     <>
       <div>Hello Comunnity</div>
@@ -6,4 +6,4 @@ function Coumunnity() {
   );
 }
 
-export default Coumunnity;
+export default Comunnity;
