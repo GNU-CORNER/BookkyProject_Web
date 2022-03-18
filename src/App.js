@@ -6,6 +6,8 @@ import TopNav from "./components/TopNav";
 import SideNav from "./components/SideNav";
 import Routes from "./routes/Routes";
 
+let FrimaryColor = "#6C95FF";
+
 const GlobalStyle = createGlobalStyle`
 	body {
     margin : 0;

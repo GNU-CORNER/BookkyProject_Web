@@ -1,14 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Profile from "../routes/Profile";
 
 function SideNav() {
   return (
     <>
       <SideNavContainer>
+        <Profile />
         <StyledLink to="/Interests">관심 도서</StyledLink>
         <StyledLink to="/Comunnity">내 글 보기</StyledLink>
-        <StyledLink to="/Profile">내 후기 보기</StyledLink>
+        <StyledLink to="/MyInfo">내 후기 보기</StyledLink>
         <StyledLink to="/Login">Login</StyledLink>
         <StyledLink to="/SignUp">SignUp</StyledLink>
       </SideNavContainer>
@@ -16,6 +18,7 @@ function SideNav() {
   );
 }
 
+///////// Styled-components /////////
 const SideNavContainer = styled.div`
   position: fixed;
   display: flex;
