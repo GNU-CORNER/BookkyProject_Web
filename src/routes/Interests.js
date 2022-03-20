@@ -1,7 +1,30 @@
 function Interests() {
   return (
     <>
-      <div>Hello Interests</div>
+      <div>hello</div> <div>hello</div>
+      <div>hello</div>
+      <div>hello</div>
+      <h1>ddf</h1>
+      <h1>ddf</h1>
+      <h1>ddf</h1>
+      <h1>ddf</h1>
+      <h1>ddf</h1>
+      <h1>ddf</h1>
+      <h1>ddf</h1>
+      <h1>ddf</h1>
+      <h1>ddf</h1>
+      <h1>ddf</h1>
+      <h1>ddf</h1>
+      <h1>ddf</h1>
+      <h1>ddf</h1>
+      <h1>ddf</h1>
+      <h1>ddf</h1>
+      <h1>ddf</h1>
+      <h1>ddf</h1>
+      <h1>ddf</h1>
+      <h1>ddf</h1>
+      <h1>ddf</h1>
+      <h1>ddf</h1>
     </>
   );
 }
