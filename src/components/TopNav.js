@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
+import SearchBar from "./SearchBar";
 
 function TopNav() {
   const [homeActive, setHomeActive] = useState("");
@@ -112,6 +113,7 @@ function TopNav() {
           <StyledLink to="/guide">안내견 북키</StyledLink>
         </div>
       </div>
+      <SearchBar />
     </TopNavContainer>
   );
 }
@@ -128,9 +130,8 @@ const TopNavContainer = styled.div`
 
   .dropdown {
     position: relative;
-    display: inline-block;
     text-align: center;
-    min-width: 130px;
+    flex: 0 0 130px;
     line-height: 64px;
   }
 
