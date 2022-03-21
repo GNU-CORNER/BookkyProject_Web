@@ -71,11 +71,7 @@ function TopNav() {
   return (
     <TopNavContainer>
       <StyledLink to="/">
-        <img
-          className="TopNavLogo"
-          src={require("../assets/Group_379.png")}
-          alt=""
-        />
+        <img src={require("../assets/Group_379.png")} alt="" />
       </StyledLink>
 
       <div className="dropdown">
@@ -127,6 +123,7 @@ const TopNavContainer = styled.div`
   width: 100%;
   height: 64px;
   border-bottom: 1px solid #e5e5e5;
+  font-weight: bold;
 
   .dropdown {
     position: relative;
@@ -175,9 +172,9 @@ const TopNavContainer = styled.div`
 
 const StyledLink = styled(Link)`
   border-bottom: ${(props) => props.borderbottom};
-  .TopNavLogo {
-    width: 100%;
-    line-height: 64px;
+
+  img {
+    width: 170px;
   }
 `;
 

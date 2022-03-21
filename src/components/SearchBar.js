@@ -3,21 +3,41 @@ import styled from "styled-components";
 function SearchBar() {
   return (
     <SearchBarContainer>
-      <TextField type="text" placeholder="제목 또는 태그로 검색" />
-      <img src={require("../assets/plus.png")} width="30px" />
+      <TextField>
+        <input type="text" placeholder="제목 또는 태그로 검색" />
+      </TextField>
+      <img src={require("../assets/icon-magnify.png")} />
     </SearchBarContainer>
   );
 }
 
 const SearchBarContainer = styled.div`
-  line-height: 32px;
+  position: relative;
+  line-height: 35px;
   margin: auto 160px auto auto;
+
+  img {
+    position: absolute;
+    top: 11px;
+    right: 8px;
+    width: 18px;
+  }
 `;
 
-const TextField = styled.input`
-  border: 1px solid red;
-  border-radius: 5px;
-  width: 300px;
+const TextField = styled.div`
+  position: relative;
+
+  input {
+    width: 20vw;
+    padding-left: 10px;
+    border: 2px solid #d3d3d3;
+    border-radius: 5px;
+    outline-color: #6c95ff;
+
+    :focus {
+      border: 2.5px solid #6c95ff;
+    }
+  }
 `;
 
 export default SearchBar;

@@ -31,7 +31,7 @@ const HomeContainer = styled.div`
 const MainHeader = styled.div`
   position: relative;
   border-radius: 0 0 20px 20px;
-  height: 20vh;
+  height: 25vh;
   background-color: #6c95ff;
 `;
 

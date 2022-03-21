@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import Comunnity from "./Comunnity";
 import Recommend from "./Recommend";
-import Login from "./Login";
+import Error from "./Error";
 import Interests from "./Interests";
 import SignUp from "./SignUp";
 import MyInfo from "./MyInfo";
@@ -21,7 +21,6 @@ function BookkyRoutes() {
         <Route exact path="/" element={<Home />} />
         <Route path="/comunnity" element={<Comunnity />} />
         <Route path="/recommend" element={<Recommend />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/interests" element={<Interests />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/myinfo" element={<MyInfo />} />
@@ -31,6 +30,8 @@ function BookkyRoutes() {
 
         <Route path="/detective" element={<Detective />} />
         <Route path="/guide" element={<Guide />} />
+
+        <Route path="/error" element={<Error />} />
       </Routes>
     </RoutesContainer>
   );
