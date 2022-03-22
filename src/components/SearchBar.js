@@ -29,7 +29,7 @@ const TextField = styled.div`
 
   input {
     width: 20vw;
-    padding-left: 10px;
+    padding: 0 30px 0 10px;
     border: 2px solid #d3d3d3;
     border-radius: 5px;
     outline-color: #6c95ff;

@@ -6,7 +6,7 @@ function Profile() {
   if (!Token) {
     return (
       <ProfileContainer>
-        <StyledImg src={require("../assets/profiletest.jpg")} />
+        <StyledImg src={require("../assets/welcome.png")} />
         <h3>
           <span>처음 오셨군요</span>
           <br /> 반가워요 !
@@ -17,7 +17,11 @@ function Profile() {
     return (
       <ProfileContainer>
         <StyledImg src={require("../assets/profiletest.jpg")} />
-        <h3>{"닉네임"}님 반가워요 !</h3>
+        <h3>
+          <span>{"저니녁"}</span>님
+          <br />
+          반가워요 !
+        </h3>
       </ProfileContainer>
     );
   }

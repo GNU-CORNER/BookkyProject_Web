@@ -6,9 +6,11 @@ function Home() {
     <HomeContainer>
       <MainHeader>
         <Title>
-          오늘 <br />
-          <TitleSpan>{"닉네임"}</TitleSpan>님에게 <br />
-          추천하는 책이에요 !
+          <p>오늘</p>
+          <p>
+            <span>{`" 저니녁 "`}</span> 님에게
+          </p>
+          <p>추천하는 책이에요 !</p>
         </Title>
       </MainHeader>
       <div>
@@ -29,20 +31,26 @@ const HomeContainer = styled.div`
 `;
 
 const MainHeader = styled.div`
+  display: flex;
+  align-items: center;
   position: relative;
   border-radius: 0 0 20px 20px;
+  max-height: 250px;
   height: 25vh;
   background-color: #6c95ff;
 `;
 
-const Title = styled.h1`
+const Title = styled.p`
   color: #f5f5f5;
-  font-weight: bold;
-  font-size: 1.6rem;
-`;
+  font-size: 1.8em;
+  color: white;
+  font-weight: 500;
+  padding-left: 5vw;
 
-const TitleSpan = styled.span`
-  color: black;
+  span {
+    color: black;
+    font-weight: bold;
+  }
 `;
 
 const TagTitle = styled.h2`

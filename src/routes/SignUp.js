@@ -15,7 +15,10 @@ function SignUp() {
       <SignUpContainer>
         <PageHeader title="회원가입" />
         <InputArea>
-          <p>닉네임</p>
+          <div className="Header">환영합니다 !</div>
+          <p>
+            닉네임 <span>(10자 이내)</span>
+          </p>
           <input
             type="text"
             value={nickName}
@@ -28,6 +31,7 @@ function SignUp() {
             <input
               type="email"
               value={email}
+              maxlength="35"
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
@@ -40,6 +44,7 @@ function SignUp() {
           <input
             type="text"
             value={verifiNumber}
+            maxlength="6"
             onChange={(e) => {
               setVerifiNumber(e.target.value);
             }}
@@ -77,12 +82,27 @@ const InputArea = styled.div`
   margin: auto;
   min-width: 400px;
   width: 25vw;
-  margin-top: 9vh;
+  margin-top: 5vh;
   /* border: 1px solid blue; */
+
+  .Header {
+    width: fit-content;
+    font-size: 2em;
+    font-weight: 700;
+    text-align: center;
+    margin: auto;
+    border-bottom: 3px solid #6c95ff;
+    margin-bottom: 5vh;
+  }
 
   p {
     font-weight: bold;
     padding-left: 10px;
+
+    span {
+      color: #6c95ff;
+      font-size: 0.8em;
+    }
   }
   input {
     width: 100%;
