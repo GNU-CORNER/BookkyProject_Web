@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Profile from "../routes/Profile";
+import LoginModal from "./LoginModal";
 
 const Token = "";
 
@@ -12,9 +13,7 @@ function SideNav() {
       <>
         <SideNavContainer>
           <Profile />
-          <StyledLink to="hello" className="LoginBtn">
-            로그인
-          </StyledLink>
+          <LoginModal />
           <StyledLink to="/signup" className="SignUpBtn">
             개서적이 처음이신가요?
           </StyledLink>
@@ -44,17 +43,6 @@ const SideNavContainer = styled.div`
   margin-top: 64px;
   border-right: 1px solid #e5e5e5;
   background-color: #ffffff;
-
-  .LoginBtn {
-    margin: 15px auto 15px auto;
-    width: 145px;
-    line-height: 25px;
-    color: white;
-    border-radius: 20px;
-    background-color: #6c95ff;
-    text-align: center;
-    font-size: 0.8em;
-  }
 
   .SignUpBtn {
     color: #6c95ff;

@@ -83,6 +83,7 @@ const InputArea = styled.div`
   min-width: 400px;
   width: 25vw;
   margin-top: 5vh;
+
   /* border: 1px solid blue; */
 
   .Header {

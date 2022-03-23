@@ -6,7 +6,7 @@ import axios from "axios";
 
 const Dumy = [
   {
-    id: 1,
+    BID: 1,
     TITLE: "리액트를 다루는 기술",
 
     thumnail:
@@ -15,7 +15,7 @@ const Dumy = [
     PUBLISHER: "한빛미디어",
   },
   {
-    id: 2,
+    BID: 2,
     TITLE: "실전 SPA 개발 리액트 with 타입스크립트 + 스프링 부트 ",
     thumnail:
       "https://image.aladin.co.kr/product/28772/71/cover150/e972539312_1.jpg",
@@ -23,7 +23,7 @@ const Dumy = [
     PUBLISHER: "이지스 퍼블리싱",
   },
   {
-    id: 3,
+    BID: 3,
     TITLE: "Do it! 리액트 네이티브 앱 프로그래밍 ",
     thumnail:
       "https://image.aladin.co.kr/product/26993/87/cover150/k372730617_1.jpg",
@@ -31,7 +31,7 @@ const Dumy = [
     PUBLISHER: "인사이트",
   },
   {
-    id: 4,
+    BID: 4,
     TITLE: "Do it! 리액트 프로그래밍 정석 ",
     thumnail:
       "https://image.aladin.co.kr/product/23178/95/cover150/k332637108_1.jpg",
@@ -39,7 +39,7 @@ const Dumy = [
     PUBLISHER: "위키북스",
   },
   {
-    id: 1,
+    BID: 5,
     TITLE: "리액트를 다루는 기술",
 
     thumnail:
@@ -48,7 +48,7 @@ const Dumy = [
     PUBLISHER: "한빛미디어",
   },
   {
-    id: 2,
+    BID: 6,
     TITLE: "실전 SPA 개발 리액트 with 타입스크립트 + 스프링 부트 ",
     thumnail:
       "https://image.aladin.co.kr/product/28772/71/cover150/e972539312_1.jpg",
@@ -56,7 +56,7 @@ const Dumy = [
     PUBLISHER: "이지스 퍼블리싱",
   },
   {
-    id: 3,
+    BID: 7,
     TITLE: "Do it! 리액트 네이티브 앱 프로그래밍 ",
     thumnail:
       "https://image.aladin.co.kr/product/26993/87/cover150/k372730617_1.jpg",
@@ -64,7 +64,7 @@ const Dumy = [
     PUBLISHER: "인사이트",
   },
   {
-    id: 4,
+    BID: 8,
     TITLE: "Do it! 리액트 프로그래밍 정석 ",
     thumnail:
       "https://image.aladin.co.kr/product/23178/95/cover150/k332637108_1.jpg",
@@ -72,7 +72,7 @@ const Dumy = [
     PUBLISHER: "위키북스",
   },
   {
-    id: 5,
+    BID: 9,
     TITLE: "리액트를 다루는 기술",
 
     thumnail:
@@ -81,7 +81,7 @@ const Dumy = [
     PUBLISHER: "한빛미디어",
   },
   {
-    id: 6,
+    BID: 10,
     TITLE: "실전 SPA 개발 리액트 with 타입스크립트 + 스프링 부트 ",
     thumnail:
       "https://image.aladin.co.kr/product/28772/71/cover150/e972539312_1.jpg",
@@ -89,7 +89,7 @@ const Dumy = [
     PUBLISHER: "이지스 퍼블리싱",
   },
   {
-    id: 7,
+    BID: 11,
     TITLE: "Do it! 리액트 네이티브 앱 프로그래밍 ",
     thumnail:
       "https://image.aladin.co.kr/product/26993/87/cover150/k372730617_1.jpg",
@@ -97,7 +97,7 @@ const Dumy = [
     PUBLISHER: "인사이트",
   },
   {
-    id: 8,
+    BID: 12,
     TITLE: "Do it! 리액트 프로그래밍 정석 ",
     thumnail:
       "https://image.aladin.co.kr/product/23178/95/cover150/k332637108_1.jpg",
@@ -119,7 +119,7 @@ function SpreadBooks() {
         headers: {
           Authorization: token,
         },
-        params: { quantity: "10", page: "1" },
+        params: { quantity: "25", page: "1" },
       })
       .then((res) => {
         console.log(res.data.result);
@@ -194,6 +194,10 @@ const Contents = styled.div`
 
 const Test = styled.div`
   margin: 0 100px;
+
+  :hover {
+    overflow-y: hidden;
+  }
 `;
 
 export default SpreadBooks;

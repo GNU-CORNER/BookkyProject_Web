@@ -40,7 +40,7 @@ const MainHeader = styled.div`
   background-color: #6c95ff;
 `;
 
-const Title = styled.p`
+const Title = styled.div`
   color: #f5f5f5;
   font-size: 1.8em;
   color: white;
