@@ -97,6 +97,7 @@ const InputArea = styled.div`
   }
 
   p {
+    font-size: 0.9em;
     font-weight: bold;
     padding-left: 10px;
 
@@ -111,7 +112,7 @@ const InputArea = styled.div`
     margin-bottom: 20px;
     padding: 0 10px;
     background-color: #f3f3f3;
-    border: 2px solid #f3f3f3;
+    border: 3px solid #f3f3f3;
     border-radius: 5px;
     outline-color: #6c95ff;
 

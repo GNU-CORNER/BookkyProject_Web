@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Login from "./Login";
+import { useLocation } from "react-router-dom";
 
 const ModalContainer = styled.div`
   margin: 0 auto;
@@ -37,6 +38,9 @@ function LoginModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const location = useLocation();
+
+  React.useEffect(handleClose, [location]);
 
   return (
     <ModalContainer>

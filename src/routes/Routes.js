@@ -13,6 +13,7 @@ import Detective from "./Detective";
 import Guide from "./Guide";
 
 import styled from "styled-components";
+import FindPassWord from "./FindPassword";
 
 function BookkyRoutes() {
   return (
@@ -23,6 +24,7 @@ function BookkyRoutes() {
         <Route path="/recommend" element={<Recommend />} />
         <Route path="/interests" element={<Interests />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/find" element={<FindPassWord />} />
         <Route path="/myinfo" element={<MyInfo />} />
 
         <Route path="/free" element={<FreeBoard />} />
