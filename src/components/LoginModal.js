@@ -7,33 +7,6 @@ import Fade from "@mui/material/Fade";
 import Login from "./Login";
 import { useLocation } from "react-router-dom";
 
-const ModalContainer = styled.div`
-  margin: 0 auto;
-
-  .LoginBtn {
-    margin: 15px auto 15px auto;
-    width: 145px;
-    line-height: 25px;
-    color: white;
-    border-radius: 20px;
-    background-color: #6c95ff;
-    text-align: center;
-    font-size: 0.8em;
-  }
-`;
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 1000,
-  bgcolor: "background.paper",
-  borderRadius: 2,
-  boxShadow: 24,
-  p: 4,
-};
-
 function LoginModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -67,5 +40,32 @@ function LoginModal() {
     </ModalContainer>
   );
 }
+
+const ModalContainer = styled.div`
+  margin: 0 auto;
+
+  .LoginBtn {
+    margin: 15px auto 15px auto;
+    width: 145px;
+    line-height: 25px;
+    color: white;
+    border-radius: 20px;
+    background-color: #6c95ff;
+    text-align: center;
+    font-size: 0.8em;
+  }
+`;
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 1000,
+  bgcolor: "background.paper",
+  borderRadius: 2,
+  boxShadow: 24,
+  p: 4,
+};
 
 export default LoginModal;

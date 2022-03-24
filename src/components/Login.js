@@ -12,33 +12,38 @@ function Login() {
       <div className="LogoArea">
         <img src={require("../assets/Logo.png")} />
       </div>
-
       <div className="LoginArea">
         <div className="Header">로그인</div>
-        <input
-          value={email}
-          placeholder="이메일"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          value={password}
-          placeholder="비밀번호"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <LoginBtn onClick={() => console.log("회원가입")}>로그인</LoginBtn>
+        <form>
+          <input
+            type="email"
+            value={email}
+            autoComplete="username"
+            placeholder="이메일"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            autoComplete="current-password"
+            value={password}
+            placeholder="비밀번호"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </form>
+        <LoginBtn onClick={() => console.log(email, password)}>로그인</LoginBtn>
         <LoginOption>
           <Link to="/signup">회원가입</Link>
           <Link to="/find">로그인에 문제가 있나요?</Link>
         </LoginOption>
         <div className="SocialLogin-title">SNS 간편로그인</div>
         <SocialLogin>
-          <div>
+          <div onClick={() => alert("네이버 로그인")}>
             <img src={require("../assets/Social_Naver.png")} />
           </div>
-          <div>
+          <div onClick={() => alert("카카오 로그인")}>
             <img src={require("../assets/Social_Kakao.png")} />
           </div>
-          <div>
+          <div onClick={() => alert("구글 로그인")}>
             <img src={require("../assets/Social_Google.png")} />
           </div>
         </SocialLogin>
@@ -51,16 +56,6 @@ const LoginContainer = styled.div`
   display: flex;
   min-height: 512px;
   text-align: center;
-
-  .Header {
-    width: fit-content;
-    font-size: 2em;
-    font-weight: 700;
-    text-align: center;
-    margin: 4vh auto;
-    border-bottom: 3px solid #6c95ff;
-    margin-bottom: 5vh;
-  }
 
   .LogoArea {
     flex-basis: 40%;
@@ -92,6 +87,17 @@ const LoginContainer = styled.div`
       }
     }
   }
+
+  .Header {
+    width: fit-content;
+    font-size: 2em;
+    font-weight: 700;
+    text-align: center;
+    margin: 4vh auto;
+    border-bottom: 3px solid #6c95ff;
+    margin-bottom: 5vh;
+  }
+
   .SocialLogin-title {
     position: relative;
     width: 50%;
@@ -111,6 +117,7 @@ const LoginBtn = styled.div`
   border-radius: 5px;
   color: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 
   :hover {
@@ -138,7 +145,7 @@ const SocialLogin = styled.div`
   div {
     line-height: 40px;
     margin: auto;
-    /* border: 1px solid yellow; */
+    cursor: pointer;
 
     img {
       width: 36px;
