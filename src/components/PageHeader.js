@@ -6,10 +6,11 @@ const Header = styled.p`
   font-weight: bold;
 `;
 
-const PageHeader = ({ title }) => {
+const PageHeader = ({ title, subTitle }) => {
   return (
     <>
       <Header>{title}</Header>
+      <div>{subTitle}</div>
     </>
   );
 };

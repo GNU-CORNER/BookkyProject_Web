@@ -1,88 +1,114 @@
 import { useState } from "react";
 import styled from "styled-components";
 import PageHeader from "../components/PageHeader";
+import axios from "axios";
 
 function SignUp() {
   const [nickName, setNickName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-
   const [verifiNumber, setVerifiNumber] = useState("");
 
+  function SendSignUp(nickName, email, password) {
+    console.log(nickName, email, password);
+
+    const params = JSON.stringify({
+      email: email,
+      nickname: nickName,
+      pwToken: password,
+    });
+
+    axios
+      .post("http://203.255.3.144:8002/v1/test1", params, {
+        "Content-Type": "application/json",
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  }
+
   return (
-    <>
-      <SignUpContainer>
-        <PageHeader title="회원가입" />
+    <SignUpContainer>
+      <PageHeader title="회원가입" />
+      <Frame>
         <InputArea>
-          <div className="Header">환영합니다 !</div>
-          <p>
-            닉네임 <span>(10자 이내)</span>
-          </p>
-          <input
-            type="text"
-            value={nickName}
-            onChange={(e) => {
-              setNickName(e.target.value);
-            }}
-          />
-          <p>이메일</p>
-          <EmailVerifiArea>
+          <form>
+            <div className="Header">환영합니다 !</div>
+            <p>
+              닉네임 <span>(10자 이내)</span>
+            </p>
             <input
-              type="email"
-              value={email}
-              maxlength="35"
+              type="text"
+              value={nickName}
               onChange={(e) => {
-                setEmail(e.target.value);
+                setNickName(e.target.value);
               }}
             />
-            <button onClick={() => alert("인증번호가 전송되었습니다")}>
-              인증번호 받기
-            </button>
-          </EmailVerifiArea>
-          <p>인증번호</p>
-          <input
-            type="text"
-            value={verifiNumber}
-            maxlength="6"
-            onChange={(e) => {
-              setVerifiNumber(e.target.value);
-            }}
-          />
-          <p>비밀번호</p>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-          <p>비밀번호 확인</p>
-          <input
-            type="password"
-            value={passwordConfirm}
-            onChange={(e) => {
-              setPasswordConfirm(e.target.value);
-            }}
-          />
-          <SignUpBtn onClick={() => console.log(nickName)}>회원가입</SignUpBtn>
+            <p>이메일</p>
+            <EmailVerifiArea>
+              <input
+                type="email"
+                value={email}
+                maxLength="35"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
+              <button onClick={() => alert("인증번호가 전송되었습니다")}>
+                인증번호 받기
+              </button>
+            </EmailVerifiArea>
+            <p>인증번호</p>
+            <input
+              type="text"
+              value={verifiNumber}
+              maxLength="6"
+              onChange={(e) => {
+                setVerifiNumber(e.target.value);
+              }}
+            />
+            <p>비밀번호</p>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+            <p>비밀번호 확인</p>
+            <input
+              type="password"
+              value={passwordConfirm}
+              onChange={(e) => {
+                setPasswordConfirm(e.target.value);
+              }}
+            />
+            <SignUpBtn onClick={() => SendSignUp(nickName, email, password)}>
+              회원가입
+            </SignUpBtn>
+          </form>
         </InputArea>
-      </SignUpContainer>
-    </>
+
+        <img src={require("../assets/Bookky_SignUp.png")} />
+      </Frame>
+    </SignUpContainer>
   );
 }
 
 const SignUpContainer = styled.div`
   width: calc(100vw - 160px);
   height: 85vh;
+  display: flex;
+  flex-direction: column;
   /* border: 1px solid red; */
 `;
 
 const InputArea = styled.div`
   margin: auto;
+  margin-right: 8vw;
   min-width: 400px;
   width: 25vw;
-  margin-top: 5vh;
 
   /* border: 1px solid blue; */
 
@@ -152,6 +178,15 @@ const EmailVerifiArea = styled.div`
     background-color: #6c95ff;
     border: 1px solid #6c95ff;
     border-radius: 5px;
+  }
+`;
+
+const Frame = styled.div`
+  display: flex;
+
+  img {
+    width: 468px;
+    margin: 5vh auto 5vh 0;
   }
 `;
 export default SignUp;

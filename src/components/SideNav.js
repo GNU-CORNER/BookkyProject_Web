@@ -1,22 +1,28 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Profile from "../routes/Profile";
-import LoginModal from "./LoginModal";
-
-const Token = "";
+import Profile from "./Profile";
+import LoginModalContainer from "../redux-containers/LoginModalContainer";
+import { useSelector, useDispatch } from "react-redux";
+import { updateUser } from "../modules/userData";
 
 function SideNav() {
-  //사용자가 로그인 안했을 때, 했을 때
-  if (!Token) {
+  const user = useSelector((state) => state.userData);
+  console.log("userselect", user);
+  const dispatch = useDispatch();
+
+  // 유저 accessToken이 있을 때 (회원)
+  if (user.accessToken) {
     return (
       <>
         <SideNavContainer>
           <Profile />
-          <LoginModal />
-          <StyledLink to="/signup" className="SignUpBtn">
-            개서적이 처음이신가요?
-          </StyledLink>
+          <StyledLink to="/interests">관심 도서</StyledLink>
+          <StyledLink to="/comunnity">내 글 보기</StyledLink>
+          <StyledLink to="/myinfo">내 후기 보기</StyledLink>
+          <button onClick={() => dispatch(updateUser("", "", ""))}>
+            로그아웃
+          </button>
         </SideNavContainer>
       </>
     );
@@ -25,9 +31,10 @@ function SideNav() {
       <>
         <SideNavContainer>
           <Profile />
-          <StyledLink to="/interests">관심 도서</StyledLink>
-          <StyledLink to="/comunnity">내 글 보기</StyledLink>
-          <StyledLink to="/myinfo">내 후기 보기</StyledLink>
+          <LoginModalContainer />
+          <StyledLink to="/signup" className="SignUpBtn">
+            개서적이 처음이신가요?
+          </StyledLink>
         </SideNavContainer>
       </>
     );

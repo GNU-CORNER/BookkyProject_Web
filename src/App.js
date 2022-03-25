@@ -5,8 +5,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 import TopNav from "./components/TopNav";
 import SideNav from "./components/SideNav";
 import Routes from "./routes/Routes";
-
-let FrimaryColor = "#6C95FF";
+import CounterContainer from "./redux-containers/CounterContainer";
+import TodosContainer from "./redux-containers/TodosContainer";
 
 const GlobalStyle = createGlobalStyle`
 	body {
@@ -23,6 +23,9 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   return (
     <>
+      {/* <CounterContainer />
+      <hr />
+      <TodosContainer /> */}
       <GlobalStyle />
       <Router>
         <TopNav />

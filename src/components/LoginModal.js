@@ -4,36 +4,33 @@ import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import Login from "./Login";
 import { useLocation } from "react-router-dom";
+import LoginContainer from "../redux-containers/LoginContainer";
 
-function LoginModal() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+function LoginModal({ modal, modalOpen }) {
   const location = useLocation();
 
-  React.useEffect(handleClose, [location]);
+  React.useEffect(() => modalOpen(false), [location]);
 
   return (
     <ModalContainer>
-      <button className="LoginBtn" onClick={handleOpen}>
+      <button className="LoginBtn" onClick={() => modalOpen(true)}>
         로그인
       </button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
-        open={open}
-        onClose={handleClose}
+        open={modal}
+        onClose={() => modalOpen(false)}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,
         }}
       >
-        <Fade in={open}>
+        <Fade in={modal}>
           <Box sx={style}>
-            <Login />
+            <LoginContainer />
           </Box>
         </Fade>
       </Modal>

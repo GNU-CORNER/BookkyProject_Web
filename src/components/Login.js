@@ -1,16 +1,52 @@
-import { style } from "@mui/system";
+import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-function Login() {
+function Login({ modalOpen, updateUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  function SendLogin(email, password) {
+    console.log(email, password);
+
+    const params = JSON.stringify({
+      email: email,
+      pwToken: password,
+    });
+
+    axios
+      .post("http://203.255.3.144:8002/v1/test1", params, {
+        "Content-Type": "application/json",
+      })
+      .then((res) => {
+        console.log(res);
+        console.log(
+          "updateUser 완료. \n토큰 : ",
+          res.data.access_token,
+          "\n이메일 : ",
+          res.data.result.email,
+          "\n닉네임 : ",
+          res.data.result.nickname
+        );
+
+        if (res.data.success === true) {
+          updateUser(
+            res.data.access_token,
+            res.data.result.email,
+            res.data.result.nickname
+          );
+          modalOpen(false);
+        } else {
+          console.log("로그인 에러");
+        }
+      });
+  }
 
   return (
     <LoginContainer>
       <div className="LogoArea">
-        <img src={require("../assets/Logo.png")} />
+        <img src={require("../assets/Bookky_Login.png")} />
       </div>
       <div className="LoginArea">
         <div className="Header">로그인</div>
@@ -30,7 +66,7 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </form>
-        <LoginBtn onClick={() => console.log(email, password)}>로그인</LoginBtn>
+        <LoginBtn onClick={() => SendLogin(email, password)}>로그인</LoginBtn>
         <LoginOption>
           <Link to="/signup">회원가입</Link>
           <Link to="/find">로그인에 문제가 있나요?</Link>

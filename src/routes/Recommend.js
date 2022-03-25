@@ -1,7 +1,9 @@
+import PageHeader from "../components/PageHeader";
+
 function Recommend() {
   return (
     <>
-      <div>Hello Recommend</div>
+      <PageHeader title="추천받개 홈" />
     </>
   );
 }

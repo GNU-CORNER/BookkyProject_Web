@@ -1,26 +1,29 @@
 import styled from "styled-components";
-
-const Token = "";
+import { useSelector } from "react-redux";
 
 function Profile() {
-  if (!Token) {
+  const user = useSelector((state) => state.userData);
+
+  // 유저 accessToken이 있을 때 (회원)
+  if (user.accessToken) {
+    return (
+      <ProfileContainer>
+        <StyledImg src={require("../assets/profiletest.jpg")} />
+        <h3>
+          <span>{user.nickname}</span>님
+          <br />
+          반가워요 !
+        </h3>
+      </ProfileContainer>
+    );
+  } else {
+    // 유저 accessToken이 없을 때 (비회원)
     return (
       <ProfileContainer>
         <StyledImg src={require("../assets/welcome.png")} />
         <h3>
           <span>처음 오셨군요</span>
           <br /> 반가워요 !
-        </h3>
-      </ProfileContainer>
-    );
-  } else {
-    return (
-      <ProfileContainer>
-        <StyledImg src={require("../assets/profiletest.jpg")} />
-        <h3>
-          <span>{"저니녁"}</span>님
-          <br />
-          반가워요 !
         </h3>
       </ProfileContainer>
     );

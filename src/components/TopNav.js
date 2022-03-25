@@ -90,6 +90,7 @@ function TopNav() {
         </StyledLink>
         <div className="dropdown-content">
           <StyledLink to="/comunnity">커뮤니티 홈</StyledLink>
+          <StyledLink to="/hot">H🔥T게시판</StyledLink>
           <StyledLink to="/free">자유게시판</StyledLink>
           <StyledLink to="/qna">Q{"&"}A게시판</StyledLink>
         </div>
