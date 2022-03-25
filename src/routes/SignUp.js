@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import PageHeader from "../components/PageHeader";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
   const [nickName, setNickName] = useState("");
@@ -10,9 +11,9 @@ function SignUp() {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [verifiNumber, setVerifiNumber] = useState("");
 
-  function SendSignUp(nickName, email, password) {
-    console.log(nickName, email, password);
+  const navigate = useNavigate();
 
+  function SendSignUp(nickName, email, password) {
     const params = JSON.stringify({
       email: email,
       nickname: nickName,
@@ -24,13 +25,16 @@ function SignUp() {
         "Content-Type": "application/json",
       })
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
+        if (res.data.success === true) {
+          navigate("/");
+        }
       });
   }
 
   return (
     <SignUpContainer>
-      <PageHeader title="회원가입" />
+      <PageHeader title="회원가입" subTitle="지금 바로, 북키와 함께하세요 !" />
       <Frame>
         <InputArea>
           <form>
@@ -90,7 +94,7 @@ function SignUp() {
           </form>
         </InputArea>
 
-        <img src={require("../assets/Bookky_SignUp.png")} />
+        <img src={require("../assets/Bookky_SignUp.png")} alt="" />
       </Frame>
     </SignUpContainer>
   );

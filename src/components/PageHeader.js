@@ -1,16 +1,27 @@
 import styled from "styled-components";
 
 const Header = styled.p`
-  margin: 3vh auto 0 3.5vw;
+  width: fit-content;
+  margin: 2vh auto 0 2.5vw;
   font-size: 1.75em;
   font-weight: bold;
+`;
+
+const Explain = styled.p`
+  width: 50vw;
+  margin: 0 5px;
+  font-size: 0.65em;
+  font-weight: initial;
+  color: #c1c1c1;
 `;
 
 const PageHeader = ({ title, subTitle }) => {
   return (
     <>
-      <Header>{title}</Header>
-      <div>{subTitle}</div>
+      <Header>
+        {title}
+        <Explain>{subTitle}</Explain>
+      </Header>
     </>
   );
 };

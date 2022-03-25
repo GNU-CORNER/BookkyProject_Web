@@ -1,14 +1,19 @@
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import SpreadBooks from "../components/SpreadBooks";
 
 function Home() {
+  const user = useSelector((state) => state.userData);
+  console.log(user);
+
   return (
     <HomeContainer>
       <MainHeader>
         <Title>
-          <p>오늘</p>
+          <p>{user.accessToken ? "오늘" : "북키가"}</p>
           <p>
-            <span>{`" 저니녁 "`}</span> 님에게
+            <span>{user.accessToken ? user.nickname : "처음 오신 당신"}</span>
+            {user.accessToken ? " 님" : ""}에게
           </p>
           <p>추천하는 책이에요 !</p>
         </Title>
@@ -42,15 +47,20 @@ const MainHeader = styled.div`
 
 const Title = styled.div`
   color: #f5f5f5;
-  font-size: 1.8em;
+  font-size: 2em;
   color: white;
-  font-weight: 500;
+  font-weight: 550;
   padding-left: 5vw;
 
   span {
     color: black;
-    font-weight: bold;
   }
+
+  /* 드래그 방지 CSS */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 `;
 
 const TagTitle = styled.h2`

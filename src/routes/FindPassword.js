@@ -5,9 +5,8 @@ import PageHeader from "../components/PageHeader";
 function FindPassWord() {
   const [email, setEmail] = useState("");
   const [verifiNumber, setVerifiNumber] = useState("");
-
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [passwordConfirm, setPasswordConfirm] = useState("");
 
   return (
     <>
@@ -54,7 +53,7 @@ const InputArea = styled.div`
   margin: auto;
   min-width: 400px;
   width: 25vw;
-  margin-top: 5vh;
+  margin-top: 15vh;
 
   /* border: 1px solid blue; */
 

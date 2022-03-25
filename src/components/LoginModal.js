@@ -4,14 +4,9 @@ import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import { useLocation } from "react-router-dom";
 import LoginContainer from "../redux-containers/LoginContainer";
 
 function LoginModal({ modal, modalOpen }) {
-  const location = useLocation();
-
-  React.useEffect(() => modalOpen(false), [location]);
-
   return (
     <ModalContainer>
       <button className="LoginBtn" onClick={() => modalOpen(true)}>

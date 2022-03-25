@@ -5,8 +5,6 @@ import { BrowserRouter as Router } from "react-router-dom";
 import TopNav from "./components/TopNav";
 import SideNav from "./components/SideNav";
 import Routes from "./routes/Routes";
-import CounterContainer from "./redux-containers/CounterContainer";
-import TodosContainer from "./redux-containers/TodosContainer";
 
 const GlobalStyle = createGlobalStyle`
 	body {
@@ -16,16 +14,13 @@ const GlobalStyle = createGlobalStyle`
   /* 스크롤바 hidden */
   ::-webkit-scrollbar {
     display: none;
-}
+  }
 }
 `;
 
 function App() {
   return (
     <>
-      {/* <CounterContainer />
-      <hr />
-      <TodosContainer /> */}
       <GlobalStyle />
       <Router>
         <TopNav />

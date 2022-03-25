@@ -46,7 +46,7 @@ function Login({ modalOpen, updateUser }) {
   return (
     <LoginContainer>
       <div className="LogoArea">
-        <img src={require("../assets/Bookky_Login.png")} />
+        <img src={require("../assets/Bookky_Login.png")} alt="" />
       </div>
       <div className="LoginArea">
         <div className="Header">로그인</div>
@@ -74,13 +74,13 @@ function Login({ modalOpen, updateUser }) {
         <div className="SocialLogin-title">SNS 간편로그인</div>
         <SocialLogin>
           <div onClick={() => alert("네이버 로그인")}>
-            <img src={require("../assets/Social_Naver.png")} />
+            <img src={require("../assets/Social_Naver.png")} alt="" />
           </div>
           <div onClick={() => alert("카카오 로그인")}>
-            <img src={require("../assets/Social_Kakao.png")} />
+            <img src={require("../assets/Social_Kakao.png")} alt="" />
           </div>
           <div onClick={() => alert("구글 로그인")}>
-            <img src={require("../assets/Social_Google.png")} />
+            <img src={require("../assets/Social_Google.png")} alt="" />
           </div>
         </SocialLogin>
       </div>
