@@ -1,14 +1,24 @@
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import SpreadBooks from "../components/SpreadBooks";
+import { useDispatch } from "react-redux";
+
+import { useCookies } from "react-cookie";
 
 function Home() {
+  const user = useSelector((state) => state.userData);
+  console.log(user);
+
   return (
     <HomeContainer>
       <MainHeader>
         <Title>
-          오늘 <br />
-          <TitleSpan>{"닉네임"}</TitleSpan>님에게 <br />
-          추천하는 책이에요 !
+          <p>{user.accessToken ? "오늘" : "북키가"}</p>
+          <p>
+            <span>{user.accessToken ? user.nickname : "처음 오신 당신"}</span>
+            {user.accessToken ? " 님" : ""}에게
+          </p>
+          <p>추천하는 책이에요 !</p>
         </Title>
       </MainHeader>
       <div>
@@ -29,20 +39,31 @@ const HomeContainer = styled.div`
 `;
 
 const MainHeader = styled.div`
+  display: flex;
+  align-items: center;
   position: relative;
   border-radius: 0 0 20px 20px;
-  height: 20vh;
+  max-height: 250px;
+  height: 25vh;
   background-color: #6c95ff;
 `;
 
-const Title = styled.h1`
+const Title = styled.div`
   color: #f5f5f5;
-  font-weight: bold;
-  font-size: 1.6rem;
-`;
+  font-size: 2em;
+  color: white;
+  font-weight: 550;
+  padding-left: 5vw;
 
-const TitleSpan = styled.span`
-  color: black;
+  span {
+    color: black;
+  }
+
+  /* 드래그 방지 CSS */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 `;
 
 const TagTitle = styled.h2`

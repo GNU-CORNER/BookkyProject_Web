@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
 
-function FreeBoard() {
+function HotBoard() {
   const location = useLocation();
   console.log(location.pathname);
 
@@ -12,4 +12,4 @@ function FreeBoard() {
   );
 }
 
-export default FreeBoard;
+export default HotBoard;

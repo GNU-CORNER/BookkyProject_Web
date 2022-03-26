@@ -4,7 +4,10 @@
 * FrameWork/Library List
   - Create-React-App
   - React
-  - React-Redux
-  - React-router-dom
-  - Styled-components
+  - react-redux
+  - redux-devtools-extension
+  - react-router-dom
+  - styled-components
   - Tailwind CSS
+  - @mui/material
+  - react-horizontal-scrolling-menu

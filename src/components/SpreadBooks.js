@@ -3,21 +3,20 @@ import styled from "styled-components";
 import ScrollMenu from "react-horizontal-scroll-menu";
 import { ArrowLeft, ArrowRight } from "./Arrows";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 function SpreadBooks() {
   const [BookData, setBookData] = useState([{}]);
-
-  const token =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVSUQiOjF9.42pHNsjEYT_V4R-7O1qDGv7cg-dAciKuqwksz0J6-Fw";
+  const user = useSelector((state) => state.userData);
 
   // 서버 데이터 통신 (책 목록)
   function getData() {
     axios
       .get("http://203.255.3.144:8002/v1/test2/0", {
         headers: {
-          Authorization: token,
+          Authorization: user.accessToken,
         },
-        params: { quantity: "10", page: "1" },
+        params: { quantity: "25", page: "1" },
       })
       .then((res) => {
         console.log(res.data.result);
@@ -30,7 +29,7 @@ function SpreadBooks() {
   const BookCard = (book) => {
     return (
       <BookCardContainer>
-        <ResizeImg src={book.thumnail} />
+        <ResizeImg src={book.thumnail} alt="이미지 로드 오류" />
         <Contents bold fontSize="1.2rem">
           {book.title}
         </Contents>
@@ -92,6 +91,10 @@ const Contents = styled.div`
 
 const Test = styled.div`
   margin: 0 100px;
+
+  :hover {
+    overflow-y: hidden;
+  }
 `;
 
 export default SpreadBooks;

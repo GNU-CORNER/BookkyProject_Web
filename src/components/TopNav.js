@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
+import SearchBar from "./SearchBar";
 
 function TopNav() {
   const [homeActive, setHomeActive] = useState("");
@@ -70,11 +71,7 @@ function TopNav() {
   return (
     <TopNavContainer>
       <StyledLink to="/">
-        <img
-          className="TopNavLogo"
-          src={require("../assets/Group_379.png")}
-          alt=""
-        />
+        <img src={require("../assets/Group_379.png")} alt="" />
       </StyledLink>
 
       <div className="dropdown">
@@ -93,6 +90,7 @@ function TopNav() {
         </StyledLink>
         <div className="dropdown-content">
           <StyledLink to="/comunnity">커뮤니티 홈</StyledLink>
+          <StyledLink to="/hot">H🔥T게시판</StyledLink>
           <StyledLink to="/free">자유게시판</StyledLink>
           <StyledLink to="/qna">Q{"&"}A게시판</StyledLink>
         </div>
@@ -112,6 +110,7 @@ function TopNav() {
           <StyledLink to="/guide">안내견 북키</StyledLink>
         </div>
       </div>
+      <SearchBar />
     </TopNavContainer>
   );
 }
@@ -125,12 +124,12 @@ const TopNavContainer = styled.div`
   width: 100%;
   height: 64px;
   border-bottom: 1px solid #e5e5e5;
+  font-weight: bold;
 
   .dropdown {
     position: relative;
-    display: inline-block;
     text-align: center;
-    min-width: 130px;
+    flex: 0 0 130px;
     line-height: 64px;
   }
 
@@ -174,9 +173,9 @@ const TopNavContainer = styled.div`
 
 const StyledLink = styled(Link)`
   border-bottom: ${(props) => props.borderbottom};
-  .TopNavLogo {
-    width: 100%;
-    line-height: 64px;
+
+  img {
+    width: 170px;
   }
 `;
 

@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import Comunnity from "./Comunnity";
 import Recommend from "./Recommend";
-import Login from "./Login";
+import Error from "./Error";
 import Interests from "./Interests";
 import SignUp from "./SignUp";
 import MyInfo from "./MyInfo";
@@ -13,6 +13,8 @@ import Detective from "./Detective";
 import Guide from "./Guide";
 
 import styled from "styled-components";
+import FindPassWord from "./FindPassword";
+import HotBoard from "./HotBoard";
 
 function BookkyRoutes() {
   return (
@@ -21,16 +23,19 @@ function BookkyRoutes() {
         <Route exact path="/" element={<Home />} />
         <Route path="/comunnity" element={<Comunnity />} />
         <Route path="/recommend" element={<Recommend />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/interests" element={<Interests />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/find" element={<FindPassWord />} />
         <Route path="/myinfo" element={<MyInfo />} />
 
         <Route path="/free" element={<FreeBoard />} />
         <Route path="/qna" element={<QnaBoard />} />
+        <Route path="/hot" element={<HotBoard />} />
 
         <Route path="/detective" element={<Detective />} />
         <Route path="/guide" element={<Guide />} />
+
+        <Route path="/error" element={<Error />} />
       </Routes>
     </RoutesContainer>
   );
