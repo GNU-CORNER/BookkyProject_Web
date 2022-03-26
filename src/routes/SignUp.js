@@ -10,7 +10,6 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [verifiNumber, setVerifiNumber] = useState("");
-
   const navigate = useNavigate();
 
   function SendSignUp(nickName, email, password) {
@@ -25,7 +24,7 @@ function SignUp() {
         "Content-Type": "application/json",
       })
       .then((res) => {
-        console.log(res.data);
+        console.log("응답", res);
         if (res.data.success === true) {
           navigate("/");
         }

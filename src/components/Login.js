@@ -1,14 +1,35 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 function Login({ modalOpen, updateUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [autologin, setAutoLogin] = useState(false);
+  const [cookies, setCookie] = useCookies();
 
-  function SendLogin(email, password) {
-    console.log(email, password);
+  // 체크박스 Checked 여부
+  const checked = (autologin) => {
+    if (autologin === true) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  // 로그인 버튼 클릭 시
+  function SendLogin(email, password, autologin) {
+    console.log(email, password, autologin);
+    console.log(autologin);
+
+    // 자동로그인 체크했을 때,
+    if (autologin === true) {
+      setCookie("autologin", true);
+    } else {
+      setCookie("autologin", false);
+    }
 
     const params = JSON.stringify({
       email: email,
@@ -31,11 +52,15 @@ function Login({ modalOpen, updateUser }) {
         );
 
         if (res.data.success === true) {
+          console.log("응답", res.data.refresh_token);
+          localStorage.setItem("email", email);
+          localStorage.setItem("password", password);
           updateUser(
             res.data.access_token,
             res.data.result.email,
             res.data.result.nickname
           );
+          setCookie("refresh_token", res.data.refresh_token);
           modalOpen(false);
         } else {
           console.log("로그인 에러");
@@ -52,6 +77,13 @@ function Login({ modalOpen, updateUser }) {
         <div className="Header">로그인</div>
         <form>
           <input
+            type="checkbox"
+            checked={checked(autologin)}
+            onChange={() => {
+              autologin ? setAutoLogin(false) : setAutoLogin(true);
+            }}
+          />
+          <input
             type="email"
             value={email}
             autoComplete="username"
@@ -66,10 +98,16 @@ function Login({ modalOpen, updateUser }) {
             onChange={(e) => setPassword(e.target.value)}
           />
         </form>
-        <LoginBtn onClick={() => SendLogin(email, password)}>로그인</LoginBtn>
+        <LoginBtn onClick={() => SendLogin(email, password, autologin)}>
+          로그인
+        </LoginBtn>
         <LoginOption>
-          <Link to="/signup">회원가입</Link>
-          <Link to="/find">로그인에 문제가 있나요?</Link>
+          <Link to="/signup" onClick={() => modalOpen(false)}>
+            회원가입
+          </Link>
+          <Link to="/find" onClick={() => modalOpen(false)}>
+            로그인에 문제가 있나요?
+          </Link>
         </LoginOption>
         <div className="SocialLogin-title">SNS 간편로그인</div>
         <SocialLogin>

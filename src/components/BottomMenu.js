@@ -2,12 +2,21 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateUser } from "../modules/userData";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 function BottomMenu() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userData);
   const location = useLocation();
+  const [cookies, setCookie, removeCookie] = useCookies();
+
   console.log("userselect", user);
+
+  const logout = () => {
+    removeCookie("autologin");
+    dispatch(updateUser("", "", ""));
+    location.pathname = "/";
+  };
 
   // 유저 accessToken이 있을 때 (회원)
   if (user.accessToken) {
@@ -24,13 +33,7 @@ function BottomMenu() {
           <img src={require("../assets/BottomMenu/DarkMode.png")} alt="" />{" "}
           다크모드
         </button>
-        <button
-          className="LogoutBtn btn"
-          onClick={() => {
-            dispatch(updateUser("", "", ""));
-            location.pathname = "/";
-          }}
-        >
+        <button className="LogoutBtn btn" onClick={logout}>
           로그아웃
         </button>
       </BottomMenuContainer>

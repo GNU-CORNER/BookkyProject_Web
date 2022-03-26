@@ -24,7 +24,7 @@ function SpreadBooks() {
       });
   }
 
-  useEffect(getData);
+  useEffect(getData, []);
 
   const BookCard = (book) => {
     return (
