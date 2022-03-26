@@ -2,49 +2,12 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import SpreadBooks from "../components/SpreadBooks";
 import { useDispatch } from "react-redux";
-import axios from "axios";
-import { updateUser } from "../modules/userData";
-import { useEffect } from "react";
+
 import { useCookies } from "react-cookie";
 
 function Home() {
   const user = useSelector((state) => state.userData);
   console.log(user);
-  const dispatch = useDispatch();
-  const cookies = useCookies();
-
-  console.log(cookies);
-  console.log("여긴작동하나?");
-
-  const AutoLogin = () => {
-    if (cookies[0].autologin === "true") {
-      axios
-        .post(
-          "http://203.255.3.144:8002/v1/test1",
-          JSON.stringify({
-            email: localStorage.getItem("email"),
-            pwToken: localStorage.getItem("password"),
-          }),
-          {
-            "Content-Type": "application/json",
-          }
-        )
-        .then((res) => {
-          if (res.data.success === true) {
-            dispatch(
-              updateUser(
-                res.data.access_token,
-                res.data.result.email,
-                res.data.result.nickname
-              )
-            );
-          } else {
-            console.log("로그인 에러");
-          }
-        });
-    }
-  };
-  useEffect(AutoLogin, []);
 
   return (
     <HomeContainer>
