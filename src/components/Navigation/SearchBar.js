@@ -6,7 +6,7 @@ function SearchBar() {
       <TextField>
         <input type="text" placeholder="제목 또는 태그로 검색" />
       </TextField>
-      <img src={require("../assets/icon-magnify.png")} alt="" />
+      <img src={require("../../assets/icon-magnify.png")} alt="" />
     </SearchBarContainer>
   );
 }

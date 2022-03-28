@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import LoginModal from "../components/LoginModal";
+import LoginModal from "../components/Login/LoginModal";
 import { modalOpen } from "../modules/loginModal";
 
 const LoginModalContainer = ({ modal, modalOpen }) => {

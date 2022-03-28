@@ -1,18 +1,14 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import SpreadBooks from "../components/SpreadBooks";
-import { useDispatch } from "react-redux";
-
-import { useCookies } from "react-cookie";
+import SpreadBooks from "../components/Home/SpreadBooks";
 
 function Home() {
   const user = useSelector((state) => state.userData);
-  console.log(user);
 
   return (
     <HomeContainer>
       <MainHeader>
-        <Title>
+        <Title className="nodrag">
           <p>{user.accessToken ? "오늘" : "북키가"}</p>
           <p>
             <span>{user.accessToken ? user.nickname : "처음 오신 당신"}</span>
@@ -58,12 +54,6 @@ const Title = styled.div`
   span {
     color: black;
   }
-
-  /* 드래그 방지 CSS */
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 `;
 
 const TagTitle = styled.h2`

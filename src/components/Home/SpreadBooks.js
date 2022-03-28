@@ -16,7 +16,7 @@ function SpreadBooks() {
         headers: {
           Authorization: user.accessToken,
         },
-        params: { quantity: "25", page: "1" },
+        params: { quantity: "100", page: "1" },
       })
       .then((res) => {
         console.log(res.data.result);
@@ -51,7 +51,7 @@ function SpreadBooks() {
               <BookCard
                 key={book.BID}
                 title={book.TITLE}
-                thumnail={book.thumnail}
+                thumnail={book.thumbnailImage}
                 author={book.AUTHOR}
                 publisher={book.PUBLISHER}
               />

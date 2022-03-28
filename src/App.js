@@ -1,8 +1,8 @@
 import React from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import { BrowserRouter as Router } from "react-router-dom";
-import TopNav from "./components/TopNav";
-import SideNav from "./components/SideNav";
+import TopNav from "./components/Navigation/TopNav";
+import SideNav from "./components/Navigation/SideNav";
 import Routes from "./routes/Routes";
 import { useCookies } from "react-cookie";
 import axios from "axios";
@@ -19,7 +19,13 @@ const GlobalStyle = createGlobalStyle`
   ::-webkit-scrollbar {
     display: none;
   }
-}
+  .nodrag {
+    /* 드래그 방지 CSS */
+    -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}}
 `;
 
 function App() {

@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import Login from "../components/Login";
+import Login from "../components/Login/Login";
 import { updateUser } from "../modules/userData";
 import { modalOpen } from "../modules/loginModal";
 

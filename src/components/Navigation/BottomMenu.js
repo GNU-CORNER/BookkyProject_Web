@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { updateUser } from "../modules/userData";
+import { updateUser } from "../../modules/userData";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
 import { useCookies } from "react-cookie";
@@ -27,10 +27,11 @@ function BottomMenu() {
           className="btn"
           onClick={() => console.log("내 정보")}
         >
-          <img src={require("../assets/BottomMenu/MyInfo.png")} alt="" />내 정보
+          <img src={require("../../assets/BottomMenu/MyInfo.png")} alt="" />내
+          정보
         </Link>
         <button className="btn" onClick={() => console.log("다크모드")}>
-          <img src={require("../assets/BottomMenu/DarkMode.png")} alt="" />{" "}
+          <img src={require("../../assets/BottomMenu/DarkMode.png")} alt="" />{" "}
           다크모드
         </button>
         <button className="LogoutBtn btn" onClick={logout}>
@@ -42,7 +43,7 @@ function BottomMenu() {
     return (
       <BottomMenuContainer>
         <button className="btn" onClick={() => console.log("다크모드")} alt="">
-          <img src={require("../assets/BottomMenu/DarkMode.png")} alt="" />{" "}
+          <img src={require("../../assets/BottomMenu/DarkMode.png")} alt="" />{" "}
           다크모드
         </button>
       </BottomMenuContainer>

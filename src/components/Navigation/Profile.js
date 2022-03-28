@@ -8,7 +8,7 @@ function Profile() {
   if (user.accessToken) {
     return (
       <ProfileContainer>
-        <StyledImg src={require("../assets/profiletest.jpg")} />
+        <StyledImg src={require("../../assets/profiletest.jpg")} />
         <h3>
           <span>{user.nickname}</span>님
           <br />
@@ -20,7 +20,7 @@ function Profile() {
     // 유저 accessToken이 없을 때 (비회원)
     return (
       <ProfileContainer>
-        <StyledImg src={require("../assets/welcome.png")} />
+        <StyledImg src={require("../../assets/welcome.png")} />
         <h3>
           <span>처음 오셨군요</span>
           <br /> 반가워요 !

@@ -71,7 +71,7 @@ function TopNav() {
   return (
     <TopNavContainer>
       <StyledLink to="/">
-        <img src={require("../assets/Group_379.png")} alt="" />
+        <img src={require("../../assets/Group_379.png")} alt="" />
       </StyledLink>
 
       <div className="dropdown">
