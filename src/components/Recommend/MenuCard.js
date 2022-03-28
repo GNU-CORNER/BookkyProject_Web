@@ -2,12 +2,11 @@ import styled from "styled-components";
 
 function MenuCard({ title, explain, url, isnew }) {
   function RenderNew() {
-    if (isnew) {
+    if (isnew)
       return <img className="img" src={require("../../assets/new.png")} />;
-    } else {
-      return <></>;
-    }
+    else return <></>;
   }
+
   return (
     <>
       <MenuCardContainer className="nodrag">
@@ -60,5 +59,11 @@ const MenuCardContainer = styled.div`
   .explain {
     margin-left: 3vw;
   }
+`;
+
+const BackgroundImg = styled.img`
+  position: absolute;
+  right: 20px;
+  width: 150px;
 `;
 export default MenuCard;

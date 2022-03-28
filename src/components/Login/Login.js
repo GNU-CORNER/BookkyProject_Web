@@ -71,18 +71,11 @@ function Login({ modalOpen, updateUser }) {
   return (
     <LoginContainer>
       <div className="LogoArea">
-        <img src={require("../../assets/Bookky_Login.png")} alt="" />
+        <img src={require("../../assets/Bookky/Bookky_Login.png")} alt="" />
       </div>
       <div className="LoginArea">
         <div className="Header">로그인</div>
         <form>
-          <input
-            type="checkbox"
-            checked={checked(autologin)}
-            onChange={() => {
-              autologin ? setAutoLogin(false) : setAutoLogin(true);
-            }}
-          />
           <input
             type="email"
             value={email}
@@ -101,6 +94,16 @@ function Login({ modalOpen, updateUser }) {
         <LoginBtn onClick={() => SendLogin(email, password, autologin)}>
           로그인
         </LoginBtn>
+        <AutoLoginBtn checked={checked(autologin)}>
+          <input
+            className="checkbox"
+            type="checkbox"
+            onChange={() => {
+              autologin ? setAutoLogin(false) : setAutoLogin(true);
+            }}
+          />
+          자동로그인
+        </AutoLoginBtn>
         <LoginOption>
           <Link to="/signup" onClick={() => modalOpen(false)}>
             회원가입
@@ -125,6 +128,19 @@ function Login({ modalOpen, updateUser }) {
     </LoginContainer>
   );
 }
+
+const AutoLoginBtn = styled.div`
+  width: 70%;
+  margin: 10px auto;
+  text-align: initial;
+  color: gray;
+  font-size: 0.8em;
+
+  .checkbox {
+    margin: 5px !important;
+    width: initial !important;
+  }
+`;
 
 const LoginContainer = styled.div`
   display: flex;
@@ -176,7 +192,7 @@ const LoginContainer = styled.div`
     position: relative;
     width: 50%;
     font-size: 0.8em;
-    margin: 4vh auto 2vh auto;
+    margin: 1vh auto 2vh auto;
     padding-top: 2vh;
     border-top: 1px solid #f1f1f1;
   }
@@ -184,7 +200,8 @@ const LoginContainer = styled.div`
 
 const LoginBtn = styled.div`
   width: 70%;
-  margin: 20px auto;
+  margin: auto;
+  margin-top: 20px;
   line-height: 55px;
   text-align: center;
   background-color: #6c95ff;
@@ -205,6 +222,7 @@ const LoginOption = styled.div`
   display: flex;
 
   a {
+    margin-top: 40px;
     font-size: 0.8em;
     flex-basis: 50%;
     color: gray;

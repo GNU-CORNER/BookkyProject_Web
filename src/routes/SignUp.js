@@ -93,7 +93,7 @@ function SignUp() {
           </form>
         </InputArea>
 
-        <img src={require("../assets/Bookky_SignUp.png")} alt="" />
+        <img src={require("../assets/Bookky/Bookky_SignUp.png")} alt="" />
       </Frame>
     </SignUpContainer>
   );
