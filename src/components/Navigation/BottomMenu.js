@@ -61,10 +61,10 @@ const BottomMenuContainer = styled.div`
     background-color: #f7f7f7;
     display: block;
     width: 80%;
-    line-height: 40px;
-    margin: 10px auto;
+    line-height: 35px;
+    margin: 8px auto;
     padding-left: 15px;
-    border-radius: 30px;
+    border-radius: 4px;
     font-size: 0.8em;
     border: 2px solid #6e95ff;
     font-weight: bold;
@@ -74,7 +74,7 @@ const BottomMenuContainer = styled.div`
     img {
       position: absolute;
       left: 15px;
-      top: 11px;
+      top: 9px;
       width: 18px;
     }
 

@@ -4,6 +4,7 @@ import ScrollMenu from "react-horizontal-scroll-menu";
 import { ArrowLeft, ArrowRight } from "./Arrows";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import BookCard from "./BookCard";
 
 function SpreadBooks() {
   const [BookData, setBookData] = useState([{}]);
@@ -16,7 +17,7 @@ function SpreadBooks() {
         headers: {
           Authorization: user.accessToken,
         },
-        params: { quantity: "100", page: "1" },
+        params: { quantity: "25", page: "1" },
       })
       .then((res) => {
         console.log(res.data.result);
@@ -26,28 +27,9 @@ function SpreadBooks() {
 
   useEffect(getData, []);
 
-  const BookCard = (book) => {
-    return (
-      <BookCardContainer>
-        <ResizeImg
-          className="nodrag"
-          src={book.thumnail}
-          alt="이미지 로드 오류"
-          draggable={false}
-        />
-        <Contents bold fontSize="1.2rem">
-          {book.title}
-        </Contents>
-        <Contents fontSize="0.9rem">
-          {book.author} / {book.publisher}
-        </Contents>
-      </BookCardContainer>
-    );
-  };
-
   return (
     <>
-      <Test>
+      <BooksContainer>
         <ScrollMenu
           alignCenter={false}
           wheel={false}
@@ -66,41 +48,23 @@ function SpreadBooks() {
             );
           })}
         />
-      </Test>
+      </BooksContainer>
     </>
   );
 }
 
 ///////// Styled-components /////////
-const BookCardContainer = styled.div`
-  text-align: center;
-  width: 190px;
-  margin: 20px;
-`;
 
-const ResizeImg = styled.img`
-  width: 170px;
-  height: 220px;
-  border: 1px solid #e7e7e7;
-  display: inline-block;
-  object-fit: fill;
-`;
-
-const Contents = styled.div`
-  width: 180px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  font-size: ${(props) => props.fontSize};
-  font-weight: ${(props) => (props.bold ? "bold" : "")};
-`;
-
-const Test = styled.div`
+const BooksContainer = styled.div`
   margin: 0 100px;
   transition: all 0.3s;
 
+  .scroll-menu-arrow {
+    padding: 20px;
+  }
+
   .menu-item-wrapper {
-    border: 2px solid #e5e5e5;
+    border: 2px solid #f7f7f7;
     border-radius: 4px;
     margin: 0 10px;
     transition: all 0.3s;

@@ -3,10 +3,10 @@ import styled from "styled-components";
 const Arrow = ({ direction }) => {
   switch (direction) {
     case "left": {
-      return <Image src={require("../../assets/leftArrow.png")} alt="" />;
+      return <Image src={require("../../assets/leftArrow2.png")} alt="" />;
     }
     case "right": {
-      return <Image src={require("../../assets/rightArrow.png")} alt="" />;
+      return <Image src={require("../../assets/rightArrow2.png")} alt="" />;
     }
     default: {
       return <></>;
@@ -15,7 +15,7 @@ const Arrow = ({ direction }) => {
 };
 
 const Image = styled.img`
-  width: 256px;
+  width: 500px;
 `;
 
 export const ArrowLeft = Arrow({ direction: "left" });

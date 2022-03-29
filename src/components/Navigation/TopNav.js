@@ -81,7 +81,7 @@ function TopNav() {
       </StyledLink>
 
       <div className="dropdown">
-        <StyledLink className="dropbtn" to="/" borderbottom={homeActive}>
+        <StyledLink className="dropbtn home" to="/" borderbottom={homeActive}>
           홈
         </StyledLink>
       </div>
@@ -138,6 +138,10 @@ const TopNavContainer = styled.div`
     text-align: center;
     flex: 0 0 130px;
     line-height: 64px;
+  }
+
+  .home {
+    padding: 18px 40px !important;
   }
 
   .dropdown a:hover {
