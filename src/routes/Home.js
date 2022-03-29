@@ -38,7 +38,7 @@ const MainHeader = styled.div`
   display: flex;
   align-items: center;
   position: relative;
-  border-radius: 0 0 20px 20px;
+  border-radius: 0 0 15px 15px;
   max-height: 250px;
   height: 25vh;
   background-color: #6c95ff;

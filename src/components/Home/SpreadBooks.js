@@ -29,7 +29,12 @@ function SpreadBooks() {
   const BookCard = (book) => {
     return (
       <BookCardContainer>
-        <ResizeImg src={book.thumnail} alt="이미지 로드 오류" />
+        <ResizeImg
+          className="nodrag"
+          src={book.thumnail}
+          alt="이미지 로드 오류"
+          draggable={false}
+        />
         <Contents bold fontSize="1.2rem">
           {book.title}
         </Contents>
@@ -44,11 +49,14 @@ function SpreadBooks() {
     <>
       <Test>
         <ScrollMenu
+          alignCenter={false}
+          wheel={false}
           arrowLeft={ArrowLeft}
           arrowRight={ArrowRight}
           data={BookData.map((book) => {
             return (
               <BookCard
+                className="nodrag"
                 key={book.BID}
                 title={book.TITLE}
                 thumnail={book.thumbnailImage}
@@ -66,22 +74,20 @@ function SpreadBooks() {
 ///////// Styled-components /////////
 const BookCardContainer = styled.div`
   text-align: center;
-  width: 200px;
-  border: 1px solid #e5e5e5;
-  border-radius: 10px;
-  background-color: #f7f7f7;
+  width: 190px;
   margin: 20px;
 `;
 
 const ResizeImg = styled.img`
   width: 170px;
-  height: 244px;
+  height: 220px;
+  border: 1px solid #e7e7e7;
   display: inline-block;
-  object-fit: contain;
+  object-fit: fill;
 `;
 
 const Contents = styled.div`
-  width: 200px;
+  width: 180px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -91,9 +97,17 @@ const Contents = styled.div`
 
 const Test = styled.div`
   margin: 0 100px;
+  transition: all 0.3s;
 
-  :hover {
-    overflow-y: hidden;
+  .menu-item-wrapper {
+    border: 2px solid #e5e5e5;
+    border-radius: 4px;
+    margin: 0 10px;
+    transition: all 0.3s;
+
+    :hover {
+      border: 2px solid #6e95ff;
+    }
   }
 `;
 

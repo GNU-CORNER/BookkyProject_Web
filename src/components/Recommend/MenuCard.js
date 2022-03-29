@@ -36,7 +36,7 @@ const MenuCardContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   border: 2px solid #6e95ff;
-  border-radius: 5px;
+  border-radius: 4px;
   width: 750px;
   height: 300px;
   color: #6e95ff;

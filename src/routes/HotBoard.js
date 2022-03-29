@@ -7,7 +7,7 @@ function HotBoard() {
 
   return (
     <>
-      <PageHeader title="자유게시판" />
+      <PageHeader title="H🔥T 게시판" subTitle="떠오르고 있는 인기 글이에요" />
     </>
   );
 }

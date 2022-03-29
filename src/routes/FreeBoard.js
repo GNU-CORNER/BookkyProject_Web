@@ -7,7 +7,7 @@ function FreeBoard() {
 
   return (
     <>
-      <PageHeader title="자유게시판" />
+      <PageHeader title="자유게시판" subTitle="자유롭게 의견을 나누세요" />
     </>
   );
 }

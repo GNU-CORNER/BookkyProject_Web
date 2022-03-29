@@ -159,7 +159,7 @@ const TopNavContainer = styled.div`
     display: none;
     line-height: 30px;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 4px;
     border: 1px solid #6c95ff;
     background-color: #f5f5f5;
     min-width: 130px;
