@@ -15,6 +15,7 @@ import Guide from "./Guide";
 import styled from "styled-components";
 import FindPassWord from "./FindPassword";
 import HotBoard from "./HotBoard";
+import TradeBoard from "./TradeBoard";
 
 function BookkyRoutes() {
   return (
@@ -31,6 +32,7 @@ function BookkyRoutes() {
         <Route path="/free" element={<FreeBoard />} />
         <Route path="/qna" element={<QnaBoard />} />
         <Route path="/hot" element={<HotBoard />} />
+        <Route path="/trade" element={<TradeBoard />} />
 
         <Route path="/detective" element={<Detective />} />
         <Route path="/guide" element={<Guide />} />

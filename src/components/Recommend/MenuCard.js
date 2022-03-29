@@ -7,10 +7,19 @@ function MenuCard({ title, explain, url, isnew }) {
     else return <></>;
   }
 
+  function RenderImg({ kind }) {
+    switch (kind) {
+      case "명탐정 북키":
+        return <img className="img" src={require("../../assets/new.png")} />;
+      default:
+        return <></>;
+    }
+  }
   return (
     <>
       <MenuCardContainer className="nodrag">
         <RenderNew />
+        <RenderImg />
         <div className="contents">
           <div className="title">{title}</div>
           <div className="explain">{explain}</div>

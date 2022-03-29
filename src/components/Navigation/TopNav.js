@@ -39,6 +39,12 @@ function TopNav() {
         setRecommendActive("");
         break;
       }
+      case "/trade": {
+        setComunnityActive("3px solid #6c95ff");
+        setHomeActive("");
+        setRecommendActive("");
+        break;
+      }
       case "/recommend": {
         setRecommendActive("3px solid #6c95ff");
         setComunnityActive("");
@@ -93,6 +99,7 @@ function TopNav() {
           <StyledLink to="/hot">H🔥T게시판</StyledLink>
           <StyledLink to="/free">자유게시판</StyledLink>
           <StyledLink to="/qna">Q{"&"}A게시판</StyledLink>
+          <StyledLink to="/trade">중고장터</StyledLink>
         </div>
       </div>
 
