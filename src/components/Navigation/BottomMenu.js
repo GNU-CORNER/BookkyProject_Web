@@ -16,6 +16,8 @@ function BottomMenu() {
   const logout = () => {
     removeCookie("autologin");
     dispatch(updateUser("", "", ""));
+    localStorage.removeItem("email");
+    localStorage.removeItem("password");
     location.pathname = "/";
   };
 
@@ -66,7 +68,7 @@ const BottomMenuContainer = styled.div`
     line-height: 35px;
     margin: 8px auto;
     padding-left: 15px;
-    border-radius: 4px;
+    border-radius: 30px;
     font-size: 0.8em;
     border: 2px solid #6e95ff;
     font-weight: bold;

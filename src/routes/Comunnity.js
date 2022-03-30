@@ -117,7 +117,7 @@ function Comunnity() {
         <div className="hotBoard">
           <BoardTitle title="H🔥T게시판" kind="hot" />
           {dumys
-            .filter((post) => post.kind == "hot")
+            .filter((post) => post.kind === "hot")
             .map((post) => (
               <PostTitle title={post.title} key={post.id} />
             ))}
@@ -125,7 +125,7 @@ function Comunnity() {
         <div className="freeBoard">
           <BoardTitle title="자유게시판" kind="free" />
           {dumys
-            .filter((post) => post.kind == "free")
+            .filter((post) => post.kind === "free")
             .map((post) => (
               <PostTitle title={post.title} key={post.id} />
             ))}
@@ -133,7 +133,7 @@ function Comunnity() {
         <div className="qnaBoard">
           <BoardTitle title="Q&amp;A게시판" kind="qna" />
           {dumys
-            .filter((post) => post.kind == "qna")
+            .filter((post) => post.kind === "qna")
             .map((post) => (
               <PostTitle title={post.title} key={post.id} />
             ))}
@@ -141,7 +141,7 @@ function Comunnity() {
         <div className="tradeBoard">
           <BoardTitle title="중고장터" kind="trade" />
           {dumys
-            .filter((post) => post.kind == "trade")
+            .filter((post) => post.kind === "trade")
             .map((post) => (
               <PostTitle title={post.title} key={post.id} />
             ))}

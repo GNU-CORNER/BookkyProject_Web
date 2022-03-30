@@ -54,7 +54,7 @@ function App() {
   };
 
   // 최초 렌더링 시 AutoLogin()
-  useEffect(AutoLogin, []);
+  useEffect(AutoLogin, [cookies]);
 
   // App View
   return (

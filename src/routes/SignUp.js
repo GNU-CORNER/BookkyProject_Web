@@ -11,30 +11,114 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [verifiNumber, setVerifiNumber] = useState("");
+  const [verifiNumber, setVerifiNumber] = useState();
   const navigate = useNavigate();
+  const [verifiPlaceholder, setPlaceholder] = useState("");
+  const [sendEmail, setsendEmail] = useState(0);
+  const [isVerified, setVerified] = useState(false);
 
   // 회원가입 버튼 클릭 시
   function SendSignUp(nickName, email, password) {
-    // 통신 - 데이터 (이메일, 닉네임, 비밀번호)
+    if (isVerified === true) {
+      // 통신 - 데이터 (이메일, 닉네임, 비밀번호)
+      const params = JSON.stringify({
+        email: email,
+        nickname: nickName,
+        pwToken: password,
+      });
+
+      // 통신 - 회원가입 데이터 전송
+      axios
+        .post("http://203.255.3.144:8002/v1/test1", params, {
+          "Content-Type": "application/json",
+        })
+        .then((res) => {
+          console.log("응답", res);
+          if (res.data.success === true) {
+            navigate("/");
+          }
+        });
+    } else {
+      alert("이메일이 인증되지 않았습니다");
+    }
+  }
+
+  // 인증번호 받기 버튼 클릭 시
+  function SendEmailVerifi(email) {
     const params = JSON.stringify({
       email: email,
-      nickname: nickName,
-      pwToken: password,
     });
 
-    // 통신 - 회원가입 데이터 전송
+    // 통신 - 인증 이메일 전송 요청 (이메일)
     axios
-      .post("http://203.255.3.144:8002/v1/test1", params, {
+      .post("http://203.255.3.144:8002/v1/test", params, {
         "Content-Type": "application/json",
       })
       .then((res) => {
-        console.log("응답", res);
         if (res.data.success === true) {
-          navigate("/");
+          alert("인증번호가 전송되었습니다");
+          setsendEmail(1);
+        } else {
+          alert(res.data.errorMessage);
         }
       });
   }
+
+  // 인증번호 확인 버튼 클릭 시
+  function SendVerifiNumber(email, verifiNumber) {
+    const params = JSON.stringify({
+      email: email,
+      code: verifiNumber,
+    });
+
+    // 통신 - 인증정보 전송 (이메일, 입력된 인증번호)
+    axios
+      .post("http://203.255.3.144:8002/v1/test3", params, {
+        "Content-Type": "application/json",
+      })
+      .then((res) => {
+        if (res.data.success === true) {
+          alert("인증에 성공하였습니다");
+          setsendEmail(0);
+          setVerified(true);
+        } else {
+          alert("인증에 실패하였습니다");
+          console.log(res.data.errorMessage);
+        }
+      });
+  }
+
+  // 이메일 전송여부에 따른 인증번호 input의 출력
+  const Verifi = () => {
+    // 이메일 전송에 성공했을 때
+    if (sendEmail) {
+      return (
+        <VerifiNumberArea>
+          <p>인증번호</p>
+          <input
+            className="verifiNumber"
+            type="text"
+            value={verifiNumber}
+            placeholder={verifiPlaceholder}
+            maxLength="8"
+            onChange={(e) => {
+              setVerifiNumber(e.target.value);
+            }}
+          />
+          <button
+            type="button"
+            onClick={() => SendVerifiNumber(email, verifiNumber)}
+          >
+            인증번호 확인
+          </button>
+        </VerifiNumberArea>
+      );
+    }
+    // 이메일 전송에 실패했을 때
+    else {
+      return <></>;
+    }
+  };
 
   // 회원가입 View
   return (
@@ -59,24 +143,21 @@ function SignUp() {
               <input
                 type="email"
                 value={email}
+                disabled={isVerified ? true : false} // 인증이 되었으면 disabled
                 maxLength="35"
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
               />
-              <button onClick={() => alert("인증번호가 전송되었습니다")}>
-                인증번호 받기
-              </button>
+              {isVerified ? (
+                <></>
+              ) : (
+                <button type="button" onClick={() => SendEmailVerifi(email)}>
+                  인증번호 받기
+                </button>
+              )}
             </EmailVerifiArea>
-            <p>인증번호</p>
-            <input
-              type="text"
-              value={verifiNumber}
-              maxLength="6"
-              onChange={(e) => {
-                setVerifiNumber(e.target.value);
-              }}
-            />
+            <Verifi />
             <p>비밀번호</p>
             <input
               type="password"
@@ -107,20 +188,19 @@ function SignUp() {
 
 //////////////////////////////////////// Styled-Components
 const SignUpContainer = styled.div`
+  position: relative;
   width: calc(100vw - 160px);
-  height: 85vh;
   display: flex;
   flex-direction: column;
-  /* border: 1px solid red; */
 `;
 
 const InputArea = styled.div`
-  margin: auto;
-  margin-right: 8vw;
+  position: relative;
   min-width: 400px;
-  width: 25vw;
-
-  /* border: 1px solid blue; */
+  margin: auto;
+  margin-right: 5vw;
+  min-height: 70vh;
+  min-width: 400px;
 
   .Header {
     width: fit-content;
@@ -142,8 +222,10 @@ const InputArea = styled.div`
       font-size: 0.8em;
     }
   }
+
   input {
-    width: 100%;
+    width: 22vw;
+    min-width: 400px;
     height: 45px;
     margin-bottom: 20px;
     padding: 0 10px;
@@ -159,15 +241,17 @@ const InputArea = styled.div`
 `;
 
 const SignUpBtn = styled.div`
-  width: 100%;
+  position: absolute;
+  width: 22vw;
+  min-width: 400px;
   line-height: 55px;
+  bottom: 30px;
   text-align: center;
-  margin-top: 45px;
   background-color: #6c95ff;
-  border-radius: 5px;
+  border-radius: 4px;
   color: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 
   :hover {
     box-shadow: 0 5px 7px rgba(0, 0, 0, 0.25);
@@ -178,11 +262,29 @@ const EmailVerifiArea = styled.div`
   position: relative;
 
   button {
+    display: ${(props) => props.display};
     font-size: 0.8em;
     position: absolute;
     width: 100px;
     line-height: 30px;
-    top: 6.5px;
+    top: 10%;
+    right: 2%;
+    color: white;
+    background-color: #6c95ff;
+    border: 1px solid #6c95ff;
+    border-radius: 5px;
+  }
+`;
+
+const VerifiNumberArea = styled.div`
+  position: relative;
+
+  button {
+    font-size: 0.8em;
+    position: absolute;
+    width: 100px;
+    line-height: 30px;
+    top: 32.5%;
     right: 9px;
     color: white;
     background-color: #6c95ff;
@@ -192,6 +294,7 @@ const EmailVerifiArea = styled.div`
 `;
 
 const Frame = styled.div`
+  min-height: 75vh;
   display: flex;
 
   img {

@@ -1,18 +1,24 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 // SideBar - 내 프로필
 function Profile() {
   // 변수 선언
   const user = useSelector((state) => state.userData);
+  const navigate = useNavigate();
 
   // 회원일 때 (userData에 유저 accessToken이 있을 때)
   if (user.accessToken) {
     return (
       <ProfileContainer>
-        <StyledImg src={require("../../assets/profiletest.jpg")} />
+        <StyledImg
+          onClick={() => navigate("/myinfo")}
+          src={require("../../assets/welcome.png")}
+          alt=""
+        />
         <h3>
-          <span>{user.nickname}</span>님
+          <span onClick={() => navigate("/myinfo")}>{user.nickname}</span>님
           <br />
           반가워요 !
         </h3>
@@ -41,8 +47,16 @@ const ProfileContainer = styled.div`
   text-align: center;
   font-weight: bold;
 
-  span {
+  span,
+  img {
     color: #6c95ff;
+    transition: all 0.3s;
+    text-decoration: underline 1px solid #ffffff;
+
+    :hover {
+      text-decoration: underline 1px solid #6c95ff;
+      cursor: pointer;
+    }
   }
 
   h3 {
