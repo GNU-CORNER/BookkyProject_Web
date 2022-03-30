@@ -3,9 +3,12 @@ import { useSelector } from "react-redux";
 import InterestBooks from "../components/MyInfo/InterestBooks";
 import InterestField from "../components/MyInfo/InterestField";
 
+// SideBar - 내 정보
 function MyInfo() {
+  // 변수 정의
   const user = useSelector((state) => state.userData);
 
+  // 내 정보 View
   return (
     <MyInfoContainer>
       <MainHeader>
@@ -33,6 +36,8 @@ function MyInfo() {
     </MyInfoContainer>
   );
 }
+
+//////////////////////////////////////// Styled-Components
 const ContentContainer = styled.div`
   margin-top: 3vh;
   display: grid;

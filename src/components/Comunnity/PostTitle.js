@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
+// 커뮤니티 홈 - 게시글 제목
 const PostTitle = ({ title, kind }) => {
   return (
+    // onClick 추후 URL 이동으로 수정할 것. (3/30)
     <PostTitleContainer onClick={() => console.log(title, "클릭")}>
       <Contents>
         <img src={require("../../assets/post.png")} />
@@ -11,6 +13,7 @@ const PostTitle = ({ title, kind }) => {
   );
 };
 
+//////////////////////////////////////// Styled-Components
 const PostTitleContainer = styled.div`
   margin: 0 20px;
   line-height: 40px;

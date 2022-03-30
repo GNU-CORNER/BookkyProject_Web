@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
+// 커뮤니티 - 게시글 한 개마다의 표현 단위
 const PostCard = ({ title, content }) => {
+  // PostCard View
   return (
     <PostCardContainer>
       <div className="title">{title}test</div>
@@ -9,6 +11,7 @@ const PostCard = ({ title, content }) => {
   );
 };
 
+//////////////////////////////////////// Styled-Components
 const PostCardContainer = styled.div`
   border: 1px solid gray;
   min-height: 80px;

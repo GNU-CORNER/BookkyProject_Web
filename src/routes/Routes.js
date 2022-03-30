@@ -17,6 +17,7 @@ import FindPassWord from "./FindPassword";
 import HotBoard from "./HotBoard";
 import TradeBoard from "./TradeBoard";
 
+// 전체 URL 경로에 대한 명세
 function BookkyRoutes() {
   return (
     <RoutesContainer>
@@ -43,6 +44,7 @@ function BookkyRoutes() {
   );
 }
 
+//////////////////////////////////////// Styled-Components
 const RoutesContainer = styled.div`
   margin: 64px 0 0 160px;
 `;

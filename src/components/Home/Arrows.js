@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+// Home - 책 가로 스크롤 뷰의 화살표
 const Arrow = ({ direction }) => {
   switch (direction) {
     case "left": {
@@ -14,6 +15,7 @@ const Arrow = ({ direction }) => {
   }
 };
 
+//////////////////////////////////////// Styled-Components
 const Image = styled.img`
   width: 500px;
 `;

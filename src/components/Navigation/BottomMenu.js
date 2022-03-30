@@ -1,35 +1,33 @@
 import { useSelector, useDispatch } from "react-redux";
-import { updateUser } from "../../modules/userData";
+import { updateUser } from "../../redux-modules/userData";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
+// SideBar - 하단 메뉴 (내 정보, 다크모드, 로그아웃)
 function BottomMenu() {
+  // 변수 선언
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.userData);
   const location = useLocation();
-  const [cookies, setCookie, removeCookie] = useCookies();
+  const [, , removeCookie] = useCookies();
+  const user = useSelector((state) => state.userData);
 
-  console.log("userselect", user);
-
+  // 로그아웃 버튼 클릭 시
   const logout = () => {
     removeCookie("autologin");
     dispatch(updateUser("", "", ""));
     location.pathname = "/";
   };
 
-  // 유저 accessToken이 있을 때 (회원)
+  // 회원일 때 (userData에 유저 accessToken이 있을 때)
   if (user.accessToken) {
     return (
       <BottomMenuContainer>
-        <Link
-          to="/myinfo"
-          className="btn"
-          onClick={() => console.log("내 정보")}
-        >
+        <Link to="/myinfo" className="btn">
           <img src={require("../../assets/BottomMenu/MyInfo.png")} alt="" />내
           정보
         </Link>
+        {/* 다크모드 추후 구현할 것(03/30) */}
         <button className="btn" onClick={() => console.log("다크모드")}>
           <img src={require("../../assets/BottomMenu/DarkMode.png")} alt="" />{" "}
           다크모드
@@ -39,11 +37,14 @@ function BottomMenu() {
         </button>
       </BottomMenuContainer>
     );
-  } else {
+  }
+
+  // 비회원일 때 (userData에 유저 accessToken이 없을 때)
+  else {
     return (
       <BottomMenuContainer>
-        <button className="btn" onClick={() => console.log("다크모드")} alt="">
-          <img src={require("../../assets/BottomMenu/DarkMode.png")} alt="" />{" "}
+        <button className="btn" onClick={() => console.log("다크모드")}>
+          <img src={require("../../assets/BottomMenu/DarkMode.png")} alt="" />
           다크모드
         </button>
       </BottomMenuContainer>
@@ -51,6 +52,7 @@ function BottomMenu() {
   }
 }
 
+//////////////////////////////////////// Styled-Components
 const BottomMenuContainer = styled.div`
   width: 100%;
   position: absolute;
@@ -94,4 +96,5 @@ const BottomMenuContainer = styled.div`
     }
   }
 `;
+
 export default BottomMenu;

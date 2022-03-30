@@ -4,11 +4,13 @@ import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+// LoginModal - 로그인 View 구성
 function Login({ modalOpen, updateUser }) {
+  // 변수 선언
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [autologin, setAutoLogin] = useState(false);
-  const [cookies, setCookie] = useCookies();
+  const [, setCookie] = useCookies();
 
   // 체크박스 Checked 여부
   const checked = (autologin) => {
@@ -31,26 +33,21 @@ function Login({ modalOpen, updateUser }) {
       setCookie("autologin", false);
     }
 
+    // 통신 - 데이터 (이메일, 비밀번호)
     const params = JSON.stringify({
       email: email,
       pwToken: password,
     });
 
+    // 통신 - 로그인 데이터 전송
     axios
       .post("http://203.255.3.144:8002/v1/test1", params, {
         "Content-Type": "application/json",
       })
       .then((res) => {
         console.log(res);
-        console.log(
-          "updateUser 완료. \n토큰 : ",
-          res.data.access_token,
-          "\n이메일 : ",
-          res.data.result.email,
-          "\n닉네임 : ",
-          res.data.result.nickname
-        );
 
+        // 로그인 통신 성공 시
         if (res.data.success === true) {
           console.log("응답", res.data.refresh_token);
           localStorage.setItem("email", email);
@@ -62,12 +59,15 @@ function Login({ modalOpen, updateUser }) {
           );
           setCookie("refresh_token", res.data.refresh_token);
           modalOpen(false);
-        } else {
-          console.log("로그인 에러");
+        }
+        // 로그인 통신 실패 시
+        else {
+          console.log("로그인 실패");
         }
       });
   }
 
+  // 로그인 View
   return (
     <LoginContainer>
       <div className="LogoArea">
@@ -129,19 +129,7 @@ function Login({ modalOpen, updateUser }) {
   );
 }
 
-const AutoLoginBtn = styled.div`
-  width: 70%;
-  margin: 10px auto;
-  text-align: initial;
-  color: gray;
-  font-size: 0.8em;
-
-  .checkbox {
-    margin: 5px !important;
-    width: initial !important;
-  }
-`;
-
+//////////////////////////////////////// Styled-Components
 const LoginContainer = styled.div`
   display: flex;
   min-height: 512px;
@@ -213,6 +201,19 @@ const LoginBtn = styled.div`
 
   :hover {
     box-shadow: 0 5px 7px rgba(0, 0, 0, 0.25);
+  }
+`;
+
+const AutoLoginBtn = styled.div`
+  width: 70%;
+  margin: 10px auto;
+  text-align: initial;
+  color: gray;
+  font-size: 0.8em;
+
+  .checkbox {
+    margin: 5px !important;
+    width: initial !important;
   }
 `;
 

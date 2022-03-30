@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
+// 커뮤니티 홈 - 게시판 바로가기 제목
 const BoardTitle = ({ title, kind }) => {
   const navigate = useNavigate();
   return (
@@ -13,6 +14,7 @@ const BoardTitle = ({ title, kind }) => {
   );
 };
 
+//////////////////////////////////////// Styled-Components
 const Title = styled.div`
   position: relative;
   background-color: #6e95ff;

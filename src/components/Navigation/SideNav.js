@@ -6,11 +6,12 @@ import LoginModalContainer from "../../redux-containers/LoginModalContainer";
 import { useSelector } from "react-redux";
 import BottomMenu from "./BottomMenu";
 
+// 사이드 네비게이션 바
 function SideNav() {
+  // 변수 선언
   const user = useSelector((state) => state.userData);
-  console.log("userselect", user);
 
-  // 유저 accessToken이 있을 때 (회원)
+  // 회원일 때 (userData에 유저 accessToken이 있을 때)
   if (user.accessToken) {
     return (
       <>
@@ -31,7 +32,10 @@ function SideNav() {
         </SideNavContainer>
       </>
     );
-  } else {
+  }
+
+  // 비회원일 때 (userData에 유저 accessToken이 없을 때)
+  else {
     return (
       <>
         <SideNavContainer>
@@ -47,7 +51,7 @@ function SideNav() {
   }
 }
 
-///////// Styled-components /////////
+//////////////////////////////////////// Styled-Components
 const SideNavContainer = styled.div`
   display: flex;
   flex-direction: column;

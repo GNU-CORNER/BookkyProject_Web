@@ -3,9 +3,12 @@ import PageHeader from "../components/PageHeader";
 import MenuCard from "../components/Recommend/MenuCard";
 import { useSelector } from "react-redux";
 
+// 추천받개 - 안내견 북키
 function Guide() {
+  // 변수 정의
   const MenuList = useSelector((state) => state.recommend);
 
+  // 안내견 북키 View
   return (
     <GuideContainer>
       <PageHeader
@@ -33,6 +36,7 @@ function Guide() {
   );
 }
 
+//////////////////////////////////////// Styled-Components
 const GuideContainer = styled.div`
   width: calc(100vw - 160px);
 `;

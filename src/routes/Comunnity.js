@@ -3,6 +3,7 @@ import BoardTitle from "../components/Comunnity/BoardTitle";
 import PostTitle from "../components/Comunnity/PostTitle";
 import PageHeader from "../components/PageHeader";
 
+// 게시글 더미데이터
 const dumys = [
   {
     kind: "hot",
@@ -106,7 +107,9 @@ const dumys = [
   },
 ];
 
+// 커뮤니티 홈
 function Comunnity() {
+  // 커뮤니티 홈 View
   return (
     <ComunnityContainer>
       <PageHeader title="커뮤니티 홈" subTitle="최신 글 모아보기" />
@@ -148,6 +151,7 @@ function Comunnity() {
   );
 }
 
+//////////////////////////////////////// Styled-Components
 const ComunnityContainer = styled.div`
   width: calc(100vw - 160px);
 `;
@@ -185,4 +189,5 @@ const ContentsContainer = styled.div`
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   }
 `;
+
 export default Comunnity;

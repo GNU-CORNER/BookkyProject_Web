@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import PageHeader from "../components/PageHeader";
 
+// 추천받개 - 명탐정 북키
 function Detective() {
+  // 명탐정 북키 View
   return (
     <DetectiveContainer>
       <PageHeader
@@ -12,6 +14,7 @@ function Detective() {
   );
 }
 
+//////////////////////////////////////// Styled-Components
 const DetectiveContainer = styled.div`
   width: calc(100vw - 160px);
 `;

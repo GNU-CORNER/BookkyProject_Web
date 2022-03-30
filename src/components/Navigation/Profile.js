@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
+// SideBar - 내 프로필
 function Profile() {
+  // 변수 선언
   const user = useSelector((state) => state.userData);
 
-  // 유저 accessToken이 있을 때 (회원)
+  // 회원일 때 (userData에 유저 accessToken이 있을 때)
   if (user.accessToken) {
     return (
       <ProfileContainer>
@@ -16,8 +18,10 @@ function Profile() {
         </h3>
       </ProfileContainer>
     );
-  } else {
-    // 유저 accessToken이 없을 때 (비회원)
+  }
+
+  // 비회원일 때 (userData에 유저 accessToken이 없을 때)
+  else {
     return (
       <ProfileContainer>
         <StyledImg src={require("../../assets/welcome.png")} />
@@ -30,6 +34,7 @@ function Profile() {
   }
 }
 
+//////////////////////////////////////// Styled-Components
 const ProfileContainer = styled.div`
   margin-top: 3vh;
   border-bottom: 1px solid #e5e5e5;

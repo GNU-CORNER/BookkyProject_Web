@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
+// TopNav - 검색창 View
 function SearchBar() {
+  // 검색창 View
   return (
     <SearchBarContainer>
       <TextField>
@@ -11,6 +13,7 @@ function SearchBar() {
   );
 }
 
+//////////////////////////////////////// Styled-Components
 const SearchBarContainer = styled.div`
   position: relative;
   line-height: 35px;

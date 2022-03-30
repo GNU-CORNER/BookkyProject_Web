@@ -4,7 +4,9 @@ import PageHeader from "../components/PageHeader";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+// 회원가입
 function SignUp() {
+  // 변수 선언
   const [nickName, setNickName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,13 +14,16 @@ function SignUp() {
   const [verifiNumber, setVerifiNumber] = useState("");
   const navigate = useNavigate();
 
+  // 회원가입 버튼 클릭 시
   function SendSignUp(nickName, email, password) {
+    // 통신 - 데이터 (이메일, 닉네임, 비밀번호)
     const params = JSON.stringify({
       email: email,
       nickname: nickName,
       pwToken: password,
     });
 
+    // 통신 - 회원가입 데이터 전송
     axios
       .post("http://203.255.3.144:8002/v1/test1", params, {
         "Content-Type": "application/json",
@@ -31,6 +36,7 @@ function SignUp() {
       });
   }
 
+  // 회원가입 View
   return (
     <SignUpContainer>
       <PageHeader title="회원가입" subTitle="지금 바로, 북키와 함께하세요 !" />
@@ -99,6 +105,7 @@ function SignUp() {
   );
 }
 
+//////////////////////////////////////// Styled-Components
 const SignUpContainer = styled.div`
   width: calc(100vw - 160px);
   height: 85vh;

@@ -3,17 +3,19 @@ import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
 import SearchBar from "./SearchBar";
 
+// 상단 네비게이션 바
 function TopNav() {
+  // 변수 선언
   const [homeActive, setHomeActive] = useState("");
   const [comunnityActive, setComunnityActive] = useState("");
   const [recommendActive, setRecommendActive] = useState("");
-
   const location = useLocation();
 
-  // TopNav 현재 탭 표시
+  // setBorderBottom() : TopNav 현재 탭 표시
   const setBorderBottom = () => {
-    console.log("경로 이동 = ", location.pathname);
+    console.log("경로 이동, in", location.pathname);
 
+    // 현재 URL에 따른 Border-bottom 표시
     switch (location.pathname) {
       case "/": {
         setHomeActive("3px solid #6c95ff");
@@ -72,8 +74,10 @@ function TopNav() {
     }
   };
 
+  // URL이 바뀌면, setBorderBottom()
   useEffect(setBorderBottom, [location.pathname]);
 
+  // 상단 네비게이션 View
   return (
     <TopNavContainer>
       <StyledLink to="/">
@@ -122,7 +126,7 @@ function TopNav() {
   );
 }
 
-///////// Styled-components /////////
+//////////////////////////////////////// Styled-Components
 const TopNavContainer = styled.div`
   z-index: 99;
   background-color: #ffffff;

@@ -6,11 +6,13 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import BookCard from "./BookCard";
 
+// Home - 책 목록 가로 스크롤 뷰 출력
 function SpreadBooks() {
+  // 변수 선언
   const [BookData, setBookData] = useState([{}]);
   const user = useSelector((state) => state.userData);
 
-  // 서버 데이터 통신 (책 목록)
+  // getData() : 서버 데이터 통신 함수 (책 목록 불러오기)
   function getData() {
     axios
       .get("http://203.255.3.144:8002/v1/test2/0", {
@@ -25,8 +27,10 @@ function SpreadBooks() {
       });
   }
 
+  // 최초 렌더링 시, getData()
   useEffect(getData, []);
 
+  // 책 목록 출력
   return (
     <>
       <BooksContainer>
@@ -53,8 +57,7 @@ function SpreadBooks() {
   );
 }
 
-///////// Styled-components /////////
-
+//////////////////////////////////////// Styled-Components
 const BooksContainer = styled.div`
   margin: 0 100px;
   transition: all 0.3s;

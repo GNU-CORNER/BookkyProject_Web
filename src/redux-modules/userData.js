@@ -1,10 +1,10 @@
-//액션타입 정의
-// 방법 : 액션타입은 대문자로 정의, 문자열 내용은 "모듈이름 / 액션이름"
+// 사용자의 데이터를 관리
+// 액션타입 정의 : 액션타입은 대문자로 정의, 문자열 내용은 "모듈이름 / 액션이름"
 const UPDATE_USER = "userData/UPDATE_USER";
 const UPDATE_ACCESS_TOKEN = "userData/UPDATE_ACCESS_TOKEN";
 const UPDATE_USER_NICKNAME = "userData/UPDATE_USER_NICKNAME";
 
-// 액션 생성함수. 함수를 만들고 타입을 지정해줘야 한다.  export 필수 !!
+// 액션 생성함수. 함수를 만들고 타입을 지정. export 필수
 export const updateUser = (accessToken, email, nickname) => ({
   type: UPDATE_USER,
   accessToken,
@@ -20,7 +20,7 @@ export const updateUserNickname = (nickname) => ({
   nickname,
 });
 
-//초기상태 및 리듀서(예시에서의 counter) 만들기
+//초기상태와 Reducer 정의
 const initialState = {
   accessToken: "",
   email: "",

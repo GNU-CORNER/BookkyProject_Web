@@ -1,12 +1,15 @@
 import styled from "styled-components";
 
+// 추천받개 - 메뉴 한 개마다의 표현 단위
 function MenuCard({ title, explain, url, isnew }) {
+  // 신 메뉴 표시 (NEW 뱃지)
   function RenderNew() {
     if (isnew)
       return <img className="img" src={require("../../assets/new.png")} />;
     else return <></>;
   }
 
+  // 메뉴 종류에 따른 배경 그림 지정 (작동하게 끔 수정할 것 03/30)
   function RenderImg({ kind }) {
     switch (kind) {
       case "명탐정 북키":
@@ -15,6 +18,8 @@ function MenuCard({ title, explain, url, isnew }) {
         return <></>;
     }
   }
+
+  // MenuCard View
   return (
     <>
       <MenuCardContainer className="nodrag">
@@ -30,6 +35,7 @@ function MenuCard({ title, explain, url, isnew }) {
   );
 }
 
+//////////////////////////////////////// Styled-Components
 const MenuCardContainer = styled.div`
   position: relative;
   display: flex;
@@ -70,9 +76,4 @@ const MenuCardContainer = styled.div`
   }
 `;
 
-const BackgroundImg = styled.img`
-  position: absolute;
-  right: 20px;
-  width: 150px;
-`;
 export default MenuCard;

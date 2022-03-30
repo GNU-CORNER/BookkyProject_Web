@@ -3,9 +3,12 @@ import styled from "styled-components";
 import PageHeader from "../components/PageHeader";
 import MenuCard from "../components/Recommend/MenuCard";
 
+// 추천받개 홈
 function Recommend() {
+  // 변수 정의
   const MenuList = useSelector((state) => state.recommend);
 
+  // 추천받개 홈 View
   return (
     <RecommendContainer>
       <PageHeader
@@ -32,6 +35,8 @@ function Recommend() {
     </RecommendContainer>
   );
 }
+
+//////////////////////////////////////// Styled-Components
 const RecommendContainer = styled.div`
   width: calc(100vw - 160px);
 `;
@@ -44,4 +49,5 @@ const MenuContainer = styled.div`
   justify-content: center;
   grid-template-columns: repeat(auto-fit, minmax(750px, 750px));
 `;
+
 export default Recommend;

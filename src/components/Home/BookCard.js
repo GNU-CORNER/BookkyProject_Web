@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+// Home - SpreadBooks - 책 한 권마다의 표현 단위
 const BookCard = (book) => {
   return (
     <BookCardContainer>
@@ -19,6 +20,7 @@ const BookCard = (book) => {
   );
 };
 
+//////////////////////////////////////// Styled-Components
 const BookCardContainer = styled.div`
   text-align: center;
   width: 190px;

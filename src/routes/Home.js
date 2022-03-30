@@ -2,13 +2,16 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import SpreadBooks from "../components/Home/SpreadBooks";
 
+// Home
 function Home() {
   const user = useSelector((state) => state.userData);
 
+  // Home View
   return (
     <HomeContainer>
       <MainHeader>
         <Title className="nodrag">
+          {/* 회원/비회원에 따른 문구 출력 */}
           <p>{user.accessToken ? "오늘" : "북키가"}</p>
           <p>
             <span>{user.accessToken ? user.nickname : "처음 오신 당신"}</span>
@@ -29,7 +32,7 @@ function Home() {
   );
 }
 
-///////// Styled-components /////////
+//////////////////////////////////////// Styled-Components
 const HomeContainer = styled.div`
   width: calc(100vw - 160px);
 `;

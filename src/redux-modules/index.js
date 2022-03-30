@@ -1,14 +1,10 @@
 import { combineReducers } from "redux";
-import counter from "./counter";
-import todos from "./todos";
 import userData from "./userData";
 import modalOpen from "./loginModal";
 import recommend from "./recommend";
 
-// 리듀서들을 합쳐주는 combineReducers
+// Reducer를 모두 합쳐주는 combineReducers => rootReducer 정의
 const rootReducer = combineReducers({
-  counter,
-  todos,
   userData,
   modalOpen,
   recommend,

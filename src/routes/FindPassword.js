@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import PageHeader from "../components/PageHeader";
 
+// 비밀번호 찾기 (기능 구현해야함 03/30)
 function FindPassWord() {
+  // 변수 정의
   const [email, setEmail] = useState("");
   const [verifiNumber, setVerifiNumber] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [passwordConfirm, setPasswordConfirm] = useState("");
+  // const [password, setPassword] = useState(""); (임시 주석)
+  // const [passwordConfirm, setPasswordConfirm] = useState(""); (임시 주석)
 
+  // 비밀번호 찾기 View
   return (
     <>
       <FindContainer>
@@ -44,6 +47,8 @@ function FindPassWord() {
     </>
   );
 }
+
+//////////////////////////////////////// Styled-Components
 const FindContainer = styled.div`
   width: calc(100vw - 160px);
   height: 85vh;
@@ -54,8 +59,6 @@ const InputArea = styled.div`
   min-width: 400px;
   width: 25vw;
   margin-top: 15vh;
-
-  /* border: 1px solid blue; */
 
   .Header {
     width: fit-content;
@@ -125,4 +128,5 @@ const EmailVerifiArea = styled.div`
     border-radius: 5px;
   }
 `;
+
 export default FindPassWord;
