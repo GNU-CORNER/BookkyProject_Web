@@ -33,10 +33,9 @@ function App() {
           }
         )
         .then((res) => {
-          console.log(res);
-
           // 로그인 통신 성공 시
           if (res.data.success === true) {
+            console.log("자동로그인 성공");
             dispatch(
               updateUser(
                 res.data.access_token,
@@ -54,7 +53,7 @@ function App() {
   };
 
   // 최초 렌더링 시 AutoLogin()
-  useEffect(AutoLogin, [cookies]);
+  useEffect(AutoLogin, [cookies, dispatch]);
 
   // App View
   return (

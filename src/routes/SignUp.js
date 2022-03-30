@@ -13,7 +13,6 @@ function SignUp() {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [verifiNumber, setVerifiNumber] = useState();
   const navigate = useNavigate();
-  const [verifiPlaceholder, setPlaceholder] = useState("");
   const [sendEmail, setsendEmail] = useState(0);
   const [isVerified, setVerified] = useState(false);
 
@@ -99,7 +98,6 @@ function SignUp() {
             className="verifiNumber"
             type="text"
             value={verifiNumber}
-            placeholder={verifiPlaceholder}
             maxLength="8"
             onChange={(e) => {
               setVerifiNumber(e.target.value);

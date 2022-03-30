@@ -22,13 +22,12 @@ function SpreadBooks() {
         params: { quantity: "25", page: "1" },
       })
       .then((res) => {
-        console.log(res.data.result);
         setBookData(res.data.result);
       });
   }
 
   // 최초 렌더링 시, getData()
-  useEffect(getData, []);
+  useEffect(getData, [user.accessToken]);
 
   // 책 목록 출력
   return (

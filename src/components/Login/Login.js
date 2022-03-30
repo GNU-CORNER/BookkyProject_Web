@@ -45,11 +45,8 @@ function Login({ modalOpen, updateUser }) {
         "Content-Type": "application/json",
       })
       .then((res) => {
-        console.log(res);
-
         // 로그인 통신 성공 시
         if (res.data.success === true) {
-          console.log("응답", res.data.refresh_token);
           localStorage.setItem("email", email);
           localStorage.setItem("password", password);
           updateUser(

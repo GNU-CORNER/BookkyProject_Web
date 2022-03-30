@@ -15,6 +15,7 @@ function BottomMenu() {
   // 로그아웃 버튼 클릭 시
   const logout = () => {
     removeCookie("autologin");
+    removeCookie("refresh_token");
     dispatch(updateUser("", "", ""));
     localStorage.removeItem("email");
     localStorage.removeItem("password");
