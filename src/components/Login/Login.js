@@ -41,7 +41,7 @@ function Login({ modalOpen, updateUser }) {
 
     // 통신 - 로그인 데이터 전송
     axios
-      .post("http://203.255.3.144:8002/v1/test1", params, {
+      .post("http://203.255.3.144:8002/v1/user/signin", params, {
         "Content-Type": "application/json",
       })
       .then((res) => {

@@ -5,7 +5,10 @@ const ContentsHeader = ({ title }) => {
 };
 
 const Title = styled.div`
+  width: fit-content;
   font-size: 1.2em;
-  padding: 15px 30px;
+  padding: 10px 5px 10px 0;
+  font-weight: bold;
+  border-bottom: 3px solid #6c95ff;
 `;
 export default ContentsHeader;

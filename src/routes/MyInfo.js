@@ -4,6 +4,7 @@ import InterestBooks from "../components/MyInfo/InterestBooks";
 import InterestField from "../components/MyInfo/InterestField";
 import PostCard from "../components/PostCard";
 import ContentsHeader from "../components/MyInfo/ContentsHeader";
+import More from "../components/MyInfo/More";
 
 const dumys = [
   {
@@ -28,6 +29,7 @@ const dumys = [
 function MyInfo() {
   // 변수 정의
   const user = useSelector((state) => state.userData);
+  const myposts = useSelector((state) => state.posts.myposts);
 
   // 내 정보 View
   return (
@@ -46,27 +48,35 @@ function MyInfo() {
       </MainHeader>
       <ContentContainer>
         <div className="interestField">
-          <ContentsHeader title={user.nickname + "님의 관심분야 목록이에요"} />
+          <ContentsHeader
+            title={"🐶 " + user.nickname + "님의 관심분야 목록이에요"}
+          />
           <InterestField />
         </div>
+        <div className="myPost">
+          <ContentsHeader title={"🐶 " + user.nickname + "님이 쓴 글이에요"} />
+          <div className="posts">
+            {myposts.map((post) => (
+              <PostCard
+                key={post.id}
+                title={post.title}
+                content={post.contents}
+                likes={post.likes}
+                comments={post.comments}
+              />
+            ))}
+            <More />
+          </div>
+        </div>
         <div className="interestBooks">
-          <ContentsHeader title={user.nickname + "님의 관심도서 목록이에요"} />
+          <ContentsHeader
+            title={"🐶 " + user.nickname + "님의 관심도서 목록이에요"}
+          />
           <InterestBooks />
         </div>
-        <div className="myPost">
-          <ContentsHeader title={user.nickname + "님이 쓴 글이에요 ✏ ️"} />
-          {dumys.map((post) => (
-            <PostCard
-              key={post.id}
-              title={post.title}
-              content={post.contents}
-              likes={post.likes}
-              comments={post.comments}
-            />
-          ))}
-        </div>
+
         <div className="myReview">
-          <ContentsHeader title={user.nickname + "님이 쓴 후기에요 ✏ "} />
+          <ContentsHeader title={"🐶 " + user.nickname + "님이 쓴 후기에요"} />
           gdgd
         </div>
       </ContentContainer>
@@ -79,32 +89,47 @@ const ContentContainer = styled.div`
   margin-top: 3vh;
   display: grid;
   grid-template-columns: repeat(auto-fit, 750px);
-  grid-template-rows: repeat(6, 80px);
+  grid-template-rows: repeat(auto-fit, 280px);
   justify-content: center;
   column-gap: 3vw;
   row-gap: 3vh;
 
   //나중에 반응형 수정할 때, grid rows, grid row 수정할 것(03/30)
   .interestField {
-    border: 1px solid #6e95ff;
-    grid-row: 1 / 3;
-    border-radius: 5px;
+    padding: 0 20px;
+    border: 2px solid #6e95ff;
+    height: 300px;
+    /* grid-row: 1 / 3; */
+    border-radius: 4px;
   }
 
   .interestBooks {
-    border: 1px solid #6e95ff;
-    grid-row: 3 / 7;
-    border-radius: 5px;
+    padding: 0 20px;
+    border: 2px solid #6e95ff;
+    height: 300px;
+
+    /* grid-row: 3 / 7; */
+    border-radius: 4px;
   }
   .myPost {
-    border: 1px solid #6e95ff;
-    grid-row: -7 / -4;
-    border-radius: 5px;
+    padding: 0 20px;
+    height: 300px;
+    border: 2px solid #6e95ff;
+    border-radius: 4px;
+
+    .posts {
+      display: flex;
+      flex-direction: column;
+      height: 245px;
+      justify-content: center;
+    }
   }
   .myReview {
-    border: 1px solid #6e95ff;
-    grid-row: -4 / -1;
-    border-radius: 5px;
+    padding: 0 20px;
+    height: 300px;
+    border: 2px solid #6e95ff;
+    /* grid-row: -4 / -1; */
+    border-radius: 4px;
   }
 `;
 
@@ -127,7 +152,8 @@ const Title = styled.div`
   color: white;
   font-weight: 550;
   padding-left: 5vw;
-  s span {
+
+  span {
     color: black;
   }
 

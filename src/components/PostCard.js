@@ -8,9 +8,9 @@ const PostCard = ({ title, content, likes, comments }) => {
       <div className="flex-area">
         <div className="title">{title}</div>
         <div className="counts">
-          <img src={require("../assets/like.png")} />
+          <img src={require("../assets/like.png")} alt="" />
           <p>{likes}</p>
-          <img src={require("../assets/comment.png")} />
+          <img src={require("../assets/comment.png")} alt="" />
           <p>{comments}</p>
         </div>
       </div>
@@ -23,14 +23,22 @@ const PostCard = ({ title, content, likes, comments }) => {
 const PostCardContainer = styled.div`
   border: 1px solid #d5d5d5;
   border-radius: 4px;
-  min-height: 60px;
-  margin: 5px 2vw;
-  padding: 15px;
+  min-height: 90px;
+  max-height: 90px;
+  margin: -1px 0;
+  padding: 10px;
+  transition: all 0.2s;
+
+  :hover {
+    background-color: rgba(110, 149, 255, 0.2);
+    cursor: pointer;
+  }
 
   .flex-area {
     display: flex;
     justify-content: space-between;
   }
+
   .title {
     position: relative;
     font-size: 1.1em;

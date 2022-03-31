@@ -23,7 +23,7 @@ function App() {
       // 통신 - 로그인 시도 (이메일, 비밀번호)
       axios
         .post(
-          "http://203.255.3.144:8002/v1/test1",
+          "http://203.255.3.144:8002/v1/user/signin",
           JSON.stringify({
             email: localStorage.getItem("email"),
             pwToken: localStorage.getItem("password"),

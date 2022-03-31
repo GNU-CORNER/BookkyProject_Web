@@ -6,14 +6,17 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import Notice from "../components/Comunnity/Notice";
 
-// 커뮤니티 - 중고장터
-function TradeBoard() {
-  const posts = useSelector((state) => state.posts.trade);
+// SideBar - 내 글 보기
+function MyPost() {
+  const posts = useSelector((state) => state.posts.myposts);
 
-  // 중고장터 View
+  // 내 글 보기 View
   return (
-    <TradeBoardContainer>
-      <PageHeader title="중고장터" subTitle="읽지 않는 책을 사고 파세요" />
+    <MyPostContainer>
+      <PageHeader
+        title="내 글 보기"
+        subTitle="커뮤니티에서 내가 작성한 글이에요"
+      />
       <Posts>
         <Notice notice="상대방을 비방하는 글은 자제해주세요" />
         {posts.map((post) => (
@@ -29,12 +32,12 @@ function TradeBoard() {
       <Stack className="pagination" spacing={2}>
         <Pagination count={10} color="primary" />
       </Stack>
-    </TradeBoardContainer>
+    </MyPostContainer>
   );
 }
 
 //////////////////////////////////////// Styled-Components
-const TradeBoardContainer = styled.div`
+const MyPostContainer = styled.div`
   width: calc(100vw - 160px);
 
   .pagination {
@@ -46,4 +49,4 @@ const Posts = styled.div`
   margin: 2vh 72px;
 `;
 
-export default TradeBoard;
+export default MyPost;

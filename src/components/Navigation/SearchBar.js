@@ -17,7 +17,7 @@ function SearchBar() {
 const SearchBarContainer = styled.div`
   position: relative;
   line-height: 35px;
-  margin: auto 160px auto auto;
+  margin: auto 100px auto auto;
 
   img {
     position: absolute;

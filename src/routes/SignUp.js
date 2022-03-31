@@ -28,7 +28,7 @@ function SignUp() {
 
       // 통신 - 회원가입 데이터 전송
       axios
-        .post("http://203.255.3.144:8002/v1/test1", params, {
+        .post("http://203.255.3.144:8002/v1/user/signup", params, {
           "Content-Type": "application/json",
         })
         .then((res) => {
@@ -50,7 +50,7 @@ function SignUp() {
 
     // 통신 - 인증 이메일 전송 요청 (이메일)
     axios
-      .post("http://203.255.3.144:8002/v1/test", params, {
+      .post("http://203.255.3.144:8002/v1/user/email", params, {
         "Content-Type": "application/json",
       })
       .then((res) => {
@@ -72,7 +72,7 @@ function SignUp() {
 
     // 통신 - 인증정보 전송 (이메일, 입력된 인증번호)
     axios
-      .post("http://203.255.3.144:8002/v1/test3", params, {
+      .post("http://203.255.3.144:8002/v1/user/check", params, {
         "Content-Type": "application/json",
       })
       .then((res) => {

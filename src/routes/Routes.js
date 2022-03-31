@@ -16,6 +16,7 @@ import styled from "styled-components";
 import FindPassWord from "./FindPassword";
 import HotBoard from "./HotBoard";
 import TradeBoard from "./TradeBoard";
+import MyPost from "./MyPosts";
 
 // 전체 URL 경로에 대한 명세
 function BookkyRoutes() {
@@ -25,9 +26,12 @@ function BookkyRoutes() {
         <Route exact path="/" element={<Home />} />
         <Route path="/comunnity" element={<Comunnity />} />
         <Route path="/recommend" element={<Recommend />} />
-        <Route path="/interests" element={<Interests />} />
+
         <Route path="/signup" element={<SignUp />} />
         <Route path="/find" element={<FindPassWord />} />
+
+        <Route path="/interests" element={<Interests />} />
+        <Route path="/myposts" element={<MyPost />} />
         <Route path="/myinfo" element={<MyInfo />} />
 
         <Route path="/free" element={<FreeBoard />} />

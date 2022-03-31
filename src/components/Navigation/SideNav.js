@@ -21,7 +21,7 @@ function SideNav() {
             <StyledLink to="/interests" className="MenuBtn">
               관심 도서
             </StyledLink>
-            <StyledLink to="/comunnity" className="MenuBtn">
+            <StyledLink to="/myposts" className="MenuBtn">
               내 글 보기
             </StyledLink>
             <StyledLink to="/myinfo" className="MenuBtn">

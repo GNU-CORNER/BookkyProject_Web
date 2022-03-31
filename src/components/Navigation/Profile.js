@@ -30,9 +30,12 @@ function Profile() {
   else {
     return (
       <ProfileContainer>
-        <StyledImg src={require("../../assets/welcome.png")} />
+        <StyledImg
+          className="non-member"
+          src={require("../../assets/welcome.png")}
+        />
         <h3>
-          <span>처음 오셨군요</span>
+          <span className="non-member">처음 오셨군요</span>
           <br /> 반가워요 !
         </h3>
       </ProfileContainer>
@@ -46,6 +49,16 @@ const ProfileContainer = styled.div`
   border-bottom: 1px solid #e5e5e5;
   text-align: center;
   font-weight: bold;
+
+  .non-member {
+    text-decoration: none;
+    cursor: initial;
+  }
+
+  .non-member:hover {
+    text-decoration: none;
+    cursor: initial;
+  }
 
   span,
   img {
