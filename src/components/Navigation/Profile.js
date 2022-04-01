@@ -8,8 +8,8 @@ function Profile() {
   const user = useSelector((state) => state.userData);
   const navigate = useNavigate();
 
-  // 회원일 때 (userData에 유저 accessToken이 있을 때)
-  if (user.accessToken) {
+  // 회원일 때 (userData에 유저 nickname이 있을 때)
+  if (user.nickname) {
     return (
       <ProfileContainer>
         <StyledImg
@@ -26,7 +26,7 @@ function Profile() {
     );
   }
 
-  // 비회원일 때 (userData에 유저 accessToken이 없을 때)
+  // 비회원일 때 (userData에 유저 nickname이 없을 때)
   else {
     return (
       <ProfileContainer>

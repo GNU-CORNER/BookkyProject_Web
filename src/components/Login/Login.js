@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import SocialGoogle from "./SocialGoogle";
 
 // LoginModal - 로그인 View 구성
 function Login({ modalOpen, updateUser }) {
@@ -23,9 +24,6 @@ function Login({ modalOpen, updateUser }) {
 
   // 로그인 버튼 클릭 시
   function SendLogin(email, password, autologin) {
-    console.log(email, password, autologin);
-    console.log(autologin);
-
     // 자동로그인 체크했을 때,
     if (autologin === true) {
       setCookie("autologin", true);
@@ -45,16 +43,30 @@ function Login({ modalOpen, updateUser }) {
         "Content-Type": "application/json",
       })
       .then((res) => {
+        // 통신에 성공했을 때, 쿠키의 만료시간 생성 (만료시간 == 1시간)
+        const expires = new Date();
+        expires.setMinutes(expires.getMinutes() + 60);
+
         // 로그인 통신 성공 시
         if (res.data.success === true) {
-          localStorage.setItem("email", email);
-          localStorage.setItem("password", password);
+          // autologin이 true일 때만, 로컬스토리지에 로그인 정보 저장
+          if (autologin === true) {
+            localStorage.setItem("email", email);
+            localStorage.setItem("password", password);
+          }
+          // 로그인 유지를 위한 로그인 정보 쿠키 저장 (만료시간 == 1시간)
+          setCookie("email", email, {
+            expires: expires,
+          });
+          setCookie("pwToken", password, {
+            expires: expires,
+          });
+          setCookie("refresh_token", res.data.refresh_token);
           updateUser(
             res.data.access_token,
             res.data.result.email,
             res.data.result.nickname
           );
-          setCookie("refresh_token", res.data.refresh_token);
           modalOpen(false);
         }
         // 로그인 통신 실패 시
@@ -117,9 +129,8 @@ function Login({ modalOpen, updateUser }) {
           <div onClick={() => alert("카카오 로그인")}>
             <img src={require("../../assets/Social_Kakao.png")} alt="" />
           </div>
-          <div onClick={() => alert("구글 로그인")}>
-            <img src={require("../../assets/Social_Google.png")} alt="" />
-          </div>
+
+          <SocialGoogle />
         </SocialLogin>
       </div>
     </LoginContainer>

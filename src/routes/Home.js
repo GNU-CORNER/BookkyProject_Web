@@ -12,10 +12,10 @@ function Home() {
       <MainHeader>
         <Title className="nodrag">
           {/* 회원/비회원에 따른 문구 출력 */}
-          <p>{user.accessToken ? "오늘" : "북키가"}</p>
+          <p>{user.nickname ? "오늘" : "북키가"}</p>
           <p>
-            <span>{user.accessToken ? user.nickname : "처음 오신 당신"}</span>
-            {user.accessToken ? " 님" : ""}에게
+            <span>{user.nickname ? user.nickname : "처음 오신 당신"}</span>
+            {user.nickname ? " 님" : ""}에게
           </p>
           <p>추천하는 책이에요 !</p>
         </Title>

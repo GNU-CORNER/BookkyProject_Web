@@ -11,8 +11,8 @@ function SideNav() {
   // 변수 선언
   const user = useSelector((state) => state.userData);
 
-  // 회원일 때 (userData에 유저 accessToken이 있을 때)
-  if (user.accessToken) {
+  // 회원일 때 (userData에 유저 nickname이 있을 때)
+  if (user.nickname) {
     return (
       <>
         <SideNavContainer mainColor={"#"}>
@@ -34,7 +34,7 @@ function SideNav() {
     );
   }
 
-  // 비회원일 때 (userData에 유저 accessToken이 없을 때)
+  // 비회원일 때 (userData에 유저 nickname이 없을 때)
   else {
     return (
       <>

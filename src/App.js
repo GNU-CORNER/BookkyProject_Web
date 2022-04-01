@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { createGlobalStyle } from "styled-components";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, useLocation } from "react-router-dom";
 import TopNav from "./components/Navigation/TopNav";
 import SideNav from "./components/Navigation/SideNav";
 import Routes from "./routes/Routes";
@@ -15,18 +15,33 @@ function App() {
   // 변수 정의
   const cookies = useCookies();
   const dispatch = useDispatch();
+  const [email, setEmail] = useState(undefined);
+  const [pwToken, setPwToken] = useState(undefined);
 
+  // 최초 email, pwToken 설정
+  const Init = () => {
+    // Case 1 : 자동로그인이 true 일 때는 로컬스토리지의 email, pwToken 사용
+    if (cookies[0].autologin === "true") {
+      setEmail(localStorage.getItem("email"));
+      setPwToken(localStorage.getItem("password"));
+    }
+    // Case 2 : 다른 경우에는 쿠키의 email, pwToken 사용
+    else if (cookies[0].email !== "" && cookies[0].pwToken !== "") {
+      setEmail(cookies[0].email);
+      setPwToken(cookies[0].pwToken);
+    }
+  };
   // 자동로그인 통신
   const AutoLogin = () => {
-    // 쿠키 내의 autologin이 true일 때
-    if (cookies[0].autologin === "true") {
+    // email, pwToken이 undefined가 아닐 때만 통신 (불필요한 통신 방지)
+    if ((email !== undefined) | (pwToken !== undefined)) {
       // 통신 - 로그인 시도 (이메일, 비밀번호)
       axios
         .post(
           "http://203.255.3.144:8002/v1/user/signin",
           JSON.stringify({
-            email: localStorage.getItem("email"),
-            pwToken: localStorage.getItem("password"),
+            email: email,
+            pwToken: pwToken,
           }),
           {
             "Content-Type": "application/json",
@@ -52,8 +67,9 @@ function App() {
     }
   };
 
-  // 최초 렌더링 시 AutoLogin()
-  useEffect(AutoLogin, [cookies, dispatch]);
+  // 최초 렌더링 시, Init() AutoLogin()
+  useEffect(Init, []);
+  useEffect(AutoLogin, [email, pwToken]);
 
   // App View
   return (
