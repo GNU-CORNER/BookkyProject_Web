@@ -207,7 +207,7 @@ const InputArea = styled.div`
     text-align: center;
     margin: auto;
     border-bottom: 3px solid #6c95ff;
-    margin-bottom: 5vh;
+    margin-bottom: 6vh;
   }
 
   p {

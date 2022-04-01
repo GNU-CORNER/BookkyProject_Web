@@ -27,7 +27,7 @@ function SpreadBooks() {
   }
 
   // 최초 렌더링 시, getData()
-  useEffect(getData, [user.nickname]);
+  useEffect(getData, []);
 
   // 책 목록 출력
   return (

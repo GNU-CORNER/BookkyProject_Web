@@ -21,6 +21,7 @@ import Error from "./Error";
 
 import FindPassWord from "./Authentication/FindPassword";
 import SignUp from "./Authentication/SignUp";
+import SignUpMore from "./Authentication/SignUpMore";
 
 // 전체 URL 경로에 대한 명세
 function BookkyRoutes() {
@@ -32,6 +33,7 @@ function BookkyRoutes() {
         <Route path="/recommend" element={<Recommend />} />
 
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/signupmore" element={<SignUpMore />} />
         <Route path="/find" element={<FindPassWord />} />
 
         <Route path="/interests" element={<Interests />} />
