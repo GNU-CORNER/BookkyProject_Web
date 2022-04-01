@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import PageHeader from "../components/PageHeader";
+import PageHeader from "../../components/PageHeader";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -178,7 +178,7 @@ function SignUp() {
           </form>
         </InputArea>
 
-        <img src={require("../assets/Bookky/Bookky_SignUp.png")} alt="" />
+        <img src={require("../../assets/Bookky/Bookky_SignUp.png")} alt="" />
       </Frame>
     </SignUpContainer>
   );

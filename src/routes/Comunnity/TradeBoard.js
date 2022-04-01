@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
-import PageHeader from "../components/PageHeader";
+import PageHeader from "../../components/PageHeader";
 import styled from "styled-components";
-import PostCard from "../components/PostCard";
+import PostCard from "../../components/PostCard";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import Notice from "../components/Comunnity/Notice";
+import Notice from "../../components/Comunnity/Notice";
 
 // 커뮤니티 - 중고장터
 function TradeBoard() {
@@ -39,6 +39,7 @@ const TradeBoardContainer = styled.div`
 
   .pagination {
     align-items: center;
+    margin: 40px 0 50px 0;
   }
 `;
 const Posts = styled.div`

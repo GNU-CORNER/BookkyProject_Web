@@ -1,22 +1,26 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Home from "./Home";
-import Comunnity from "./Comunnity";
-import Recommend from "./Recommend";
-import Error from "./Error";
-import Interests from "./Interests";
-import SignUp from "./SignUp";
-import MyInfo from "./MyInfo";
-import FreeBoard from "./FreeBoard";
-import QnaBoard from "./QnaBoard";
-import Detective from "./Detective";
-import Guide from "./Guide";
-
 import styled from "styled-components";
-import FindPassWord from "./FindPassword";
-import HotBoard from "./HotBoard";
-import TradeBoard from "./TradeBoard";
-import MyPost from "./MyPosts";
+
+import Home from "./Home";
+
+import MyInfo from "./MyInfo/MyInfo";
+import Interests from "./MyInfo/Interests";
+
+import Comunnity from "./Comunnity/Comunnity";
+import HotBoard from "./Comunnity/HotBoard";
+import FreeBoard from "./Comunnity/FreeBoard";
+import QnaBoard from "./Comunnity/QnaBoard";
+import TradeBoard from "./Comunnity/TradeBoard";
+import MyPost from "./MyInfo/MyPosts";
+
+import Recommend from "./Recommend/Recommend";
+import Detective from "./Recommend/Detective";
+import Guide from "./Recommend/Guide";
+import Error from "./Error";
+
+import FindPassWord from "./Authentication/FindPassword";
+import SignUp from "./Authentication/SignUp";
 
 // 전체 URL 경로에 대한 명세
 function BookkyRoutes() {

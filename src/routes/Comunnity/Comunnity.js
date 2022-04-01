@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import BoardTitle from "../components/Comunnity/BoardTitle";
-import PostTitle from "../components/Comunnity/PostTitle";
-import PageHeader from "../components/PageHeader";
+import BoardTitle from "../../components/Comunnity/BoardTitle";
+import PostTitle from "../../components/Comunnity/PostTitle";
+import PageHeader from "../../components/PageHeader";
 import { useSelector } from "react-redux";
 
 // 커뮤니티 홈

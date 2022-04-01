@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import PageHeader from "../components/PageHeader";
+import PageHeader from "../../components/PageHeader";
 
 // 추천받개 - 명탐정 북키
 function Detective() {

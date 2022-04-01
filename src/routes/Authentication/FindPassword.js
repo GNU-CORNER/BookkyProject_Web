@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import PageHeader from "../components/PageHeader";
+import PageHeader from "../../components/PageHeader";
 
 // 비밀번호 찾기 (기능 구현해야함 03/30)
 function FindPassWord() {

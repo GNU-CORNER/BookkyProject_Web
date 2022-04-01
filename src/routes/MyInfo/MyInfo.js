@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import InterestBooks from "../components/MyInfo/InterestBooks";
-import InterestField from "../components/MyInfo/InterestField";
-import PostCard from "../components/PostCard";
-import ContentsHeader from "../components/MyInfo/ContentsHeader";
-import More from "../components/MyInfo/More";
+import InterestBooks from "../../components/MyInfo/InterestBooks";
+import InterestField from "../../components/MyInfo/InterestField";
+import PostCard from "../../components/PostCard";
+import ContentsHeader from "../../components/MyInfo/ContentsHeader";
+import More from "../../components/MyInfo/More";
 
 const dumys = [
   {

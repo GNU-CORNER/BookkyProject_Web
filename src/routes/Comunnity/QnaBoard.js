@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import PageHeader from "../components/PageHeader";
+import PageHeader from "../../components/PageHeader";
 
 // 커뮤니티 - Q&A게시판
 function QnaBoard() {
