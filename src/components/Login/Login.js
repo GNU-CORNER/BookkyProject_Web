@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useCookies } from "react-cookie";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import SocialGoogle from "./SocialGoogle";
@@ -11,7 +12,8 @@ function Login({ modalOpen, updateUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [autologin, setAutoLogin] = useState(false);
-  const [, setCookie] = useCookies();
+  const dispatch = useDispatch();
+  const [cookies, setCookie] = useCookies();
 
   // 체크박스 Checked 여부
   const checked = (autologin) => {
@@ -45,9 +47,10 @@ function Login({ modalOpen, updateUser }) {
       .then((res) => {
         // 로그인 통신 성공 시
         if (res.data.success === true) {
+          console.log("성공");
           // 통신에 성공했을 때, 쿠키의 만료시간 생성 (만료시간 == 1시간)
           const expires = new Date();
-          expires.setMinutes(expires.getMinutes() + 60);
+          expires.setMinutes(expires.getMinutes() + 1);
           // autologin이 true일 때만, 로컬스토리지에 로그인 정보 저장
           if (autologin === true) {
             localStorage.setItem("email", email);
@@ -61,10 +64,12 @@ function Login({ modalOpen, updateUser }) {
             expires: expires,
           });
           setCookie("refresh_token", res.data.refresh_token);
-          updateUser(
-            res.data.access_token,
-            res.data.result.email,
-            res.data.result.nickname
+          dispatch(
+            updateUser(
+              res.data.access_token,
+              res.data.result.email,
+              res.data.result.nickname
+            )
           );
           modalOpen(false);
         }

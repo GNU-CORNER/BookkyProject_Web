@@ -84,6 +84,9 @@ function SignUp() {
           alert("인증에 실패하였습니다");
           console.log(res.data.errorMessage);
         }
+      })
+      .catch((error) => {
+        console.log(error.response.data);
       });
   }
 

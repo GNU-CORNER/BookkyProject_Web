@@ -14,7 +14,7 @@ const SignUpMore = () => {
   const navigate = useNavigate();
 
   // 회원가입 버튼 클릭 시
-  function SendSignUp() {
+  function SendSignUp(nickName) {
     // 통신 - 데이터 (이메일, 닉네임, 비밀번호)
     const params = JSON.stringify({
       email: user.email,
@@ -22,6 +22,7 @@ const SignUpMore = () => {
       pwToken: user.accessToken,
     });
 
+    console.log("추가정보전송", params);
     // 통신 - 회원가입 데이터 전송
     axios
       .post("http://203.255.3.144:8002/v1/user/signup", params, {
@@ -33,6 +34,9 @@ const SignUpMore = () => {
           dispatch(updateUser(user.accessToken, user.email, nickName));
           navigate("/");
         }
+      })
+      .catch((error) => {
+        console.log(error.response.data);
       });
   }
 
