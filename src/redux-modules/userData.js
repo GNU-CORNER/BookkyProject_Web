@@ -3,14 +3,17 @@
 const UPDATE_USER = "userData/UPDATE_USER";
 const UPDATE_ACCESS_TOKEN = "userData/UPDATE_ACCESS_TOKEN";
 const UPDATE_USER_NICKNAME = "userData/UPDATE_USER_NICKNAME";
+const UPDATE_USER_PASSWORD = "userData/UPDATE_USER_PASSWORD";
 
 // 액션 생성함수. 함수를 만들고 타입을 지정. export 필수
-export const updateUser = (accessToken, email, nickname) => ({
+export const updateUser = (accessToken, email, loginMethod, nickname) => ({
   type: UPDATE_USER,
   accessToken,
   email,
+  loginMethod,
   nickname,
 });
+
 export const updateAccessToken = (accessToken) => ({
   type: UPDATE_ACCESS_TOKEN,
   accessToken,
@@ -19,12 +22,18 @@ export const updateUserNickname = (nickname) => ({
   type: UPDATE_USER_NICKNAME,
   nickname,
 });
+export const updateUserPassword = (password) => ({
+  type: UPDATE_USER_PASSWORD,
+  password,
+});
 
 //초기상태와 Reducer 정의
 const initialState = {
   accessToken: "",
   email: "",
+  loginMethod: -1,
   nickname: "",
+  password: "",
 };
 
 function userData(state = initialState, action) {
@@ -34,6 +43,7 @@ function userData(state = initialState, action) {
         accessToken: action.accessToken,
         email: action.email,
         nickname: action.nickname,
+        loginMethod: action.loginMethod,
       };
     case UPDATE_ACCESS_TOKEN:
       return {
@@ -44,6 +54,11 @@ function userData(state = initialState, action) {
       return {
         ...state,
         nickname: action.nickname,
+      };
+    case UPDATE_USER_PASSWORD:
+      return {
+        ...state,
+        password: action.password,
       };
     default:
       return state;

@@ -13,7 +13,7 @@ function Login({ modalOpen, updateUser }) {
   const [password, setPassword] = useState("");
   const [autologin, setAutoLogin] = useState(false);
   const dispatch = useDispatch();
-  const [cookies, setCookie] = useCookies();
+  const [, setCookie] = useCookies();
 
   // 체크박스 Checked 여부
   const checked = (autologin) => {
@@ -37,6 +37,7 @@ function Login({ modalOpen, updateUser }) {
     const params = JSON.stringify({
       email: email,
       pwToken: password,
+      loginMethod: 0,
     });
 
     // 통신 - 로그인 데이터 전송
@@ -47,27 +48,32 @@ function Login({ modalOpen, updateUser }) {
       .then((res) => {
         // 로그인 통신 성공 시
         if (res.data.success === true) {
-          console.log("성공");
           // 통신에 성공했을 때, 쿠키의 만료시간 생성 (만료시간 == 1시간)
           const expires = new Date();
-          expires.setMinutes(expires.getMinutes() + 1);
+          expires.setMinutes(expires.getMinutes() + 60);
           // autologin이 true일 때만, 로컬스토리지에 로그인 정보 저장
           if (autologin === true) {
             localStorage.setItem("email", email);
             localStorage.setItem("password", password);
+            localStorage.setItem("loginMethod", 0);
           }
           // 로그인 유지를 위한 로그인 정보 쿠키 저장 (만료시간 == 1시간)
           setCookie("email", email, {
             expires: expires,
           });
-          setCookie("pwToken", password, {
+          setCookie("password", password, {
+            expires: expires,
+          });
+          setCookie("loginMethod", 0, {
             expires: expires,
           });
           setCookie("refresh_token", res.data.refresh_token);
+          // Redux - 현재 유저 정보 업데이트
           dispatch(
             updateUser(
-              res.data.access_token,
+              password,
               res.data.result.email,
+              res.data.result.loginMethod,
               res.data.result.nickname
             )
           );

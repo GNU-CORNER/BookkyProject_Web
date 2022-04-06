@@ -3,6 +3,9 @@ import styled from "styled-components";
 import PageHeader from "../../components/PageHeader";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../../redux-modules/userData";
 
 // 회원가입
 function SignUp() {
@@ -15,6 +18,8 @@ function SignUp() {
   const navigate = useNavigate();
   const [sendEmail, setsendEmail] = useState(0);
   const [isVerified, setVerified] = useState(false);
+  const dispatch = useDispatch();
+  const [, setCookie] = useCookies();
 
   // 회원가입 버튼 클릭 시
   function SendSignUp(nickName, email, password) {
@@ -24,6 +29,7 @@ function SignUp() {
         email: email,
         nickname: nickName,
         pwToken: password,
+        loginMethod: 0,
       });
 
       // 통신 - 회원가입 데이터 전송
@@ -32,8 +38,31 @@ function SignUp() {
           "Content-Type": "application/json",
         })
         .then((res) => {
-          console.log("응답", res);
           if (res.data.success === true) {
+            // 통신에 성공했을 때, 쿠키의 만료시간 생성 (만료시간 == 1시간)
+            const expires = new Date();
+            expires.setMinutes(expires.getMinutes() + 60);
+
+            // 로그인 유지를 위한 로그인 정보 쿠키 저장 (만료시간 == 1시간)
+            setCookie("email", email, {
+              expires: expires,
+            });
+            setCookie("pwToken", password, {
+              expires: expires,
+            });
+            setCookie("LoginMethod", 0, {
+              expires: expires,
+            });
+            setCookie("refresh_token", res.data.refresh_token);
+            // Redux - 현재 유저 정보 업데이트
+            dispatch(
+              updateUser(
+                password,
+                res.data.result.email,
+                res.data.result.loginMethod,
+                res.data.result.nickname
+              )
+            );
             navigate("/");
           }
         });
@@ -44,15 +73,15 @@ function SignUp() {
 
   // 인증번호 받기 버튼 클릭 시
   function SendEmailVerifi(email) {
-    const params = JSON.stringify({
-      email: email,
-    });
+    const params = {
+      params: {
+        email: email,
+      },
+    };
 
     // 통신 - 인증 이메일 전송 요청 (이메일)
     axios
-      .post("http://203.255.3.144:8002/v1/user/email", params, {
-        "Content-Type": "application/json",
-      })
+      .get("http://203.255.3.144:8002/v1/user/email", params)
       .then((res) => {
         if (res.data.success === true) {
           alert("인증번호가 전송되었습니다");
@@ -60,7 +89,8 @@ function SignUp() {
         } else {
           alert(res.data.errorMessage);
         }
-      });
+      })
+      .catch((error) => console.log(error));
   }
 
   // 인증번호 확인 버튼 클릭 시

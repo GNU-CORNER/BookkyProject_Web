@@ -5,33 +5,58 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../redux-modules/userData";
+import { useCookies } from "react-cookie";
 
 const SignUpMore = () => {
   // 변수 선언
   const user = useSelector((state) => state.userData);
   const dispatch = useDispatch();
   const [nickName, setNickName] = useState("");
+  const [, setCookie] = useCookies();
   const navigate = useNavigate();
 
   // 회원가입 버튼 클릭 시
   function SendSignUp(nickName) {
-    // 통신 - 데이터 (이메일, 닉네임, 비밀번호)
+    // 통신 - 데이터 (이메일, 닉네임, 비밀번호, 로그인메소드)
     const params = JSON.stringify({
       email: user.email,
       nickname: nickName,
       pwToken: user.accessToken,
+      loginMethod: user.loginMethod,
     });
 
-    console.log("추가정보전송", params);
     // 통신 - 회원가입 데이터 전송
     axios
       .post("http://203.255.3.144:8002/v1/user/signup", params, {
         "Content-Type": "application/json",
       })
       .then((res) => {
-        console.log("응답", res);
+        //로그인 통신 성공 시
         if (res.data.success === true) {
-          dispatch(updateUser(user.accessToken, user.email, nickName));
+          // 통신에 성공했을 때, 쿠키의 만료시간 생성 (만료시간 == 1시간)
+          const expires = new Date();
+          expires.setMinutes(expires.getMinutes() + 60);
+
+          // 로그인 유지를 위한 로그인 정보 쿠키 저장 (만료시간 == 1시간)
+          setCookie("email", user.email, {
+            expires: expires,
+          });
+          setCookie("pwToken", user.accessToken, {
+            expires: expires,
+          });
+          setCookie("LoginMethod", user.loginMethod, {
+            expires: expires,
+          });
+          setCookie("refresh_token", res.data.refresh_token);
+          // Redux - 현재 유저 정보 업데이트
+          dispatch(
+            updateUser(
+              user.accessToken,
+              res.data.result.email,
+              res.data.result.loginMethod,
+              res.data.result.nickname
+            )
+          );
           navigate("/");
         }
       })

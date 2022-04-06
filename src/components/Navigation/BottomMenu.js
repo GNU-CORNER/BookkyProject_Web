@@ -17,10 +17,12 @@ function BottomMenu() {
     removeCookie("autologin");
     removeCookie("refresh_token");
     removeCookie("email");
-    removeCookie("pwToken");
+    removeCookie("password");
+    removeCookie("loginMethod");
     dispatch(updateUser("", "", ""));
     localStorage.removeItem("email");
     localStorage.removeItem("password");
+    localStorage.removeItem("loginMethod");
     location.pathname = "/";
   };
 

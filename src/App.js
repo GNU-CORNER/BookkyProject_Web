@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled, { createGlobalStyle } from "styled-components";
-import { BrowserRouter as Router, useLocation } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import TopNav from "./components/Navigation/TopNav";
 import SideNav from "./components/Navigation/SideNav";
 import Routes from "./routes/Routes";
@@ -16,32 +16,36 @@ function App() {
   const cookies = useCookies();
   const dispatch = useDispatch();
   const [email, setEmail] = useState(undefined);
-  const [pwToken, setPwToken] = useState(undefined);
+  const [password, setPassword] = useState(undefined);
+  const [loginMethod, setLoginMethod] = useState(undefined);
 
   // 최초 email, pwToken 설정
   const Init = () => {
     // Case 1 : 자동로그인이 true 일 때는 로컬스토리지의 email, pwToken 사용
     if (cookies[0].autologin === "true") {
       setEmail(localStorage.getItem("email"));
-      setPwToken(localStorage.getItem("password"));
+      setPassword(localStorage.getItem("password"));
+      setLoginMethod(localStorage.getItem("loginMethod"));
     }
     // Case 2 : 다른 경우에는 쿠키의 email, pwToken 사용
-    else if (cookies[0].email !== "" && cookies[0].pwToken !== "") {
+    else if (cookies[0].email !== "" && cookies[0].password !== "") {
       setEmail(cookies[0].email);
-      setPwToken(cookies[0].pwToken);
+      setPassword(cookies[0].password);
+      setLoginMethod(cookies[0].loginMethod);
     }
   };
   // 자동로그인 통신
   const AutoLogin = () => {
     // email, pwToken이 undefined가 아닐 때만 통신 (불필요한 통신 방지)
-    if ((email !== undefined) | (pwToken !== undefined)) {
+    if ((email !== undefined) | (password !== undefined)) {
       // 통신 - 로그인 시도 (이메일, 비밀번호)
       axios
         .post(
           "http://203.255.3.144:8002/v1/user/signin",
           JSON.stringify({
             email: email,
-            pwToken: pwToken,
+            pwToken: password,
+            loginMethod: loginMethod,
           }),
           {
             "Content-Type": "application/json",
@@ -53,8 +57,9 @@ function App() {
             console.log("자동로그인 성공");
             dispatch(
               updateUser(
-                res.data.access_token,
+                password,
                 res.data.result.email,
+                res.data.result.loginMethod,
                 res.data.result.nickname
               )
             );
@@ -68,8 +73,8 @@ function App() {
   };
 
   // 최초 렌더링 시, Init() AutoLogin()
-  useEffect(Init, []);
-  useEffect(AutoLogin, [email, pwToken]);
+  useEffect(Init, [cookies]);
+  useEffect(AutoLogin, [email, password, loginMethod, dispatch]);
 
   // App View
   return (

@@ -1,8 +1,7 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import SpreadBooks from "../components/Home/SpreadBooks";
-import axios from "axios";
-import { useEffect } from "react";
+
 // Home
 function Home() {
   const user = useSelector((state) => state.userData);
