@@ -20,14 +20,9 @@ function Home() {
           <p>추천하는 책이에요 !</p>
         </Title>
       </MainHeader>
-      <div>
-        <TagTitle>{"React"}</TagTitle>
+      <BooksContainer>
         <SpreadBooks />
-      </div>
-      <div>
-        <TagTitle>{"JavaScript"}</TagTitle>
-        <SpreadBooks />
-      </div>
+      </BooksContainer>
     </HomeContainer>
   );
 }
@@ -59,10 +54,23 @@ const Title = styled.div`
   }
 `;
 
-const TagTitle = styled.h2`
-  font-weight: bold;
-  font-size: 30px;
-  padding: 5vh 0 0 5vw;
-`;
+const BooksContainer = styled.div`
+  margin: 0 100px;
+  transition: all 0.3s;
 
+  .scroll-menu-arrow {
+    padding: 20px;
+  }
+
+  .menu-item-wrapper {
+    border: 2px solid #f7f7f7;
+    border-radius: 4px;
+    margin: 0 10px;
+    transition: all 0.3s;
+
+    :hover {
+      border: 2px solid #6e95ff;
+    }
+  }
+`;
 export default Home;

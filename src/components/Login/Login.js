@@ -58,6 +58,7 @@ function Login({ modalOpen, updateUser }) {
             localStorage.setItem("loginMethod", 0);
           }
           // 로그인 유지를 위한 로그인 정보 쿠키 저장 (만료시간 == 1시간)
+
           setCookie("email", email, {
             expires: expires,
           });
