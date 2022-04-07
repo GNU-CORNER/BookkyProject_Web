@@ -19,6 +19,7 @@ function Recommend() {
         {MenuList.map((menu) => (
           <MenuCard
             key={menu.title}
+            kind={menu.kind}
             title={menu.title}
             explain={menu.explain}
             thumnail={menu.thumnail}
@@ -28,6 +29,7 @@ function Recommend() {
           />
         ))}
         <MenuCard
+          kind="새로운 아이디어"
           title="북키가 새로운 아이디어를 생각중이에요"
           explain="추후 추가될 기능을 기대해주세요"
         />

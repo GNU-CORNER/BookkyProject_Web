@@ -3,21 +3,18 @@ import styled from "styled-components";
 import ScrollMenu from "react-horizontal-scroll-menu";
 import { ArrowLeft, ArrowRight } from "./Arrows";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import BookCard from "./BookCard";
 import Loading from "../Loading";
+import { updateHomeBooks } from "../../redux-modules/books";
 
 // Home - 책 목록 가로 스크롤 뷰 출력
 function SpreadBooks() {
   // 변수 선언
-  const [dataSet, setBookData] = useState([
-    {
-      tag: "",
-      data: [],
-    },
-  ]);
+  const dataSet = useSelector((state) => state.books.homeBooks);
   const user = useSelector((state) => state.userData);
   const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
 
   // getData() : 서버 데이터 통신 함수 (책 목록 불러오기)
   function getData() {
@@ -29,8 +26,8 @@ function SpreadBooks() {
         params: { quantity: "10", page: "1" },
       })
       .then((res) => {
-        console.log("책 목록", res);
-        setBookData(res.data.result);
+        console.log(res.data.result);
+        dispatch(updateHomeBooks(res.data.result));
         setLoading(false);
       });
   }
@@ -64,17 +61,19 @@ function SpreadBooks() {
   }
 
   // 최초 렌더링 시, getData()
-  useEffect(getData, [user.accessToken]);
+  useEffect(getData, [user.accessToken, dispatch]);
 
   // 책 목록 출력
   return (
     <>
       {dataSet.map((el) => {
         return (
-          <>
-            <TagTitle>{el.tag}</TagTitle>
+          <div key={el.tag}>
+            <TagTitle>
+              <div>{el.tag}</div>
+            </TagTitle>
             {mapTags(el.data)}
-          </>
+          </div>
         );
       })}
     </>
@@ -86,6 +85,13 @@ function SpreadBooks() {
 const TagTitle = styled.h2`
   font-weight: bold;
   font-size: 30px;
-  padding: 5vh 0 0 5vw;
+  padding: 7vh 0 2vh 1vw;
+
+  div {
+    width: fit-content;
+    padding: 0 15px;
+    border-left: 10px solid #6e95ff;
+    border-radius: 4px;
+  }
 `;
 export default SpreadBooks;

@@ -22,15 +22,18 @@ const BookCard = (book) => {
 
 //////////////////////////////////////// Styled-Components
 const BookCardContainer = styled.div`
-  text-align: center;
   width: 190px;
   margin: 10px 20px;
+  text-align: center;
 `;
 
 const ResizeImg = styled.img`
   width: 170px;
   height: 220px;
-  border: 1px solid #e7e7e7;
+  margin: 5px;
+  border: 2px solid #f1f1f1;
+  border-radius: 4px;
+  box-shadow: 2px 2px 3px 2px #e1e1e1;
   display: inline-block;
   object-fit: fill;
 `;

@@ -249,7 +249,6 @@ const initialState = {
     },
   ],
   myposts: [
-    ,
     {
       id: 7,
       title: "게시글들 제목보면 ㄹㅇ 정신팔릴듯 정신 팝니다~",
@@ -271,28 +270,28 @@ function posts(state = initialState, action) {
   switch (action.type) {
     case UPDATE_HOT:
       return {
-        hot: action.posts,
         ...state,
+        hot: action.posts,
       };
     case UPDATE_FREE:
       return {
-        free: action.posts,
         ...state,
+        free: action.posts,
       };
     case UPDATE_QNA:
       return {
-        qna: action.posts,
         ...state,
+        qna: action.posts,
       };
     case UPDATE_TRADE:
       return {
-        trade: action.posts,
         ...state,
+        trade: action.posts,
       };
     case UPDATE_MYPOSTS:
       return {
-        myposts: action.posts,
         ...state,
+        myposts: action.posts,
       };
     default:
       return state;

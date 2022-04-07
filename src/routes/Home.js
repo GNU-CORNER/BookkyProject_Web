@@ -50,7 +50,7 @@ const Title = styled.div`
   padding-left: 5vw;
 
   span {
-    color: black;
+    color: #ffd86d;
   }
 `;
 
@@ -63,7 +63,7 @@ const BooksContainer = styled.div`
   }
 
   .menu-item-wrapper {
-    border: 2px solid #f7f7f7;
+    border: 2px solid #f1f1f1;
     border-radius: 4px;
     margin: 0 10px;
     transition: all 0.3s;

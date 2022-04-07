@@ -1,19 +1,43 @@
 import styled from "styled-components";
 
 // 추천받개 - 메뉴 한 개마다의 표현 단위
-function MenuCard({ title, explain, url, isnew }) {
+function MenuCard({ title, explain, isnew, kind }) {
   // 신 메뉴 표시 (NEW 뱃지)
   function RenderNew() {
     if (isnew)
-      return <img className="img" src={require("../../assets/new.png")} />;
+      return (
+        <img className="img" src={require("../../assets/new.png")} alt="" />
+      );
     else return <></>;
   }
 
-  // 메뉴 종류에 따른 배경 그림 지정 (작동하게 끔 수정할 것 03/30)
-  function RenderImg({ kind }) {
+  // 메뉴 종류에 따른 배경 그림 지정
+  function RenderImg() {
     switch (kind) {
       case "명탐정 북키":
-        return <img className="img" src={require("../../assets/new.png")} />;
+        return (
+          <img
+            className="BackGroundImg detective"
+            src={require("../../assets/Bookky/Bookky_Detective.png")}
+            alt=""
+          />
+        );
+      case "안내견 북키":
+        return (
+          <img
+            className="BackGroundImg"
+            src={require("../../assets/Bookky/Bookky_Guide.png")}
+            alt=""
+          />
+        );
+      case "새로운 아이디어":
+        return (
+          <img
+            className="BackGroundImg"
+            src={require("../../assets/Bookky/Bookky_Thinking.png")}
+            alt=""
+          />
+        );
       default:
         return <></>;
     }
@@ -24,12 +48,13 @@ function MenuCard({ title, explain, url, isnew }) {
     <>
       <MenuCardContainer className="nodrag">
         <RenderNew />
-        <RenderImg />
         <div className="contents">
           <div className="title">{title}</div>
           <div className="explain">{explain}</div>
         </div>
-        <div className="Bookky"></div>
+        <div className="Bookky">
+          <RenderImg />
+        </div>
       </MenuCardContainer>
     </>
   );
@@ -55,6 +80,7 @@ const MenuCardContainer = styled.div`
     left: -25px;
     width: 70px;
   }
+
   :hover {
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   }
@@ -73,6 +99,18 @@ const MenuCardContainer = styled.div`
 
   .explain {
     margin-left: 3vw;
+  }
+
+  .BackGroundImg {
+    position: absolute;
+    opacity: 0.5;
+    right: 3vw;
+    top: 10px;
+    height: 280px;
+  }
+
+  .detective {
+    right: 4.5vw;
   }
 `;
 

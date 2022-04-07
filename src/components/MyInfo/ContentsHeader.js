@@ -9,6 +9,6 @@ const Title = styled.div`
   font-size: 1.2em;
   padding: 10px 5px 10px 0;
   font-weight: bold;
-  border-bottom: 3px solid #6c95ff;
+  border-bottom: 2px solid #6c95ff;
 `;
 export default ContentsHeader;

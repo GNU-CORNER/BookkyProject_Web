@@ -6,25 +6,6 @@ import PostCard from "../../components/PostCard";
 import ContentsHeader from "../../components/MyInfo/ContentsHeader";
 import More from "../../components/MyInfo/More";
 
-const dumys = [
-  {
-    id: 1,
-    title: "제목이다 인마",
-    contents:
-      "자유 게시판입니다.1 자유 게시판입니다. 자유 게시판입니다. 자유 게시판입니다. 자유 게시판입니다. 자유 게시판입니다. 자유 게시판입니다. ,,,",
-    likes: 3,
-    comments: 5,
-  },
-  {
-    id: 2,
-    title: "제목이다 인마2",
-    contents:
-      "자유 게시판입니다2. 자유 게시판입니다. 자유 게시판입니다. 자유 게시판입니다. 자유 게시판입니다. 자유 게시판입니다. 자유 게시판입니다. ,,,",
-    likes: 5,
-    comments: 5,
-  },
-];
-
 // SideBar - 내 정보
 function MyInfo() {
   // 변수 정의
@@ -41,8 +22,9 @@ function MyInfo() {
             {user.accessToken ? " 님" : ""}의 정보입니다
           </p>
           <p className="sub">
-            총 <span>{"5"}개</span>의 관심분야, <span>{"3"}개</span>의
-            관심도서가 있네요 !
+            - <span>{"4"}개</span>의 관심분야, <span>{"15"}권</span>의 관심도서,{" "}
+            <span>{"2"}개</span>의 게시글, <span>{"3"}개</span>의 리뷰가 있네요
+            !
           </p>
         </Title>
       </MainHeader>
@@ -54,7 +36,9 @@ function MyInfo() {
           <InterestField />
         </div>
         <div className="myPost">
-          <ContentsHeader title={"🐶 " + user.nickname + "님이 쓴 글이에요"} />
+          <ContentsHeader
+            title={"🐶 " + user.nickname + "님이 작성한 게시글이에요"}
+          />
           <div className="posts">
             {myposts.map((post) => (
               <PostCard
@@ -76,7 +60,9 @@ function MyInfo() {
         </div>
 
         <div className="myReview">
-          <ContentsHeader title={"🐶 " + user.nickname + "님이 쓴 후기에요"} />
+          <ContentsHeader
+            title={"🐶 " + user.nickname + "님이 작성한 후기에요"}
+          />
           gdgd
         </div>
       </ContentContainer>
@@ -144,7 +130,7 @@ const MainHeader = styled.div`
   border-radius: 0 0 15px 15px;
   max-height: 250px;
   height: 20vh;
-  background-color: #6c95ff;
+  background-color: #6e95ff;
 `;
 const Title = styled.div`
   color: #f5f5f5;
@@ -154,11 +140,12 @@ const Title = styled.div`
   padding-left: 5vw;
 
   span {
-    color: black;
+    color: #ffd86d;
   }
 
   .sub {
     font-size: 0.7em;
+    font-weight: 500;
   }
 `;
 
