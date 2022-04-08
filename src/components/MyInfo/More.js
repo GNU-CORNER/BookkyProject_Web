@@ -19,9 +19,11 @@ const MoreBtn = styled.div`
   border-radius: 4px;
   transition: all 0.3s;
   font-weight: bold;
+
   :hover {
-    background-color: #d5d5d5;
-    color: black;
+    border: 1px solid #6e95ff;
+    background-color: #6e95ff;
+    color: white;
     cursor: pointer;
   }
 `;

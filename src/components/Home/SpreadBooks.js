@@ -4,7 +4,7 @@ import ScrollMenu from "react-horizontal-scroll-menu";
 import { ArrowLeft, ArrowRight } from "./Arrows";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import BookCard from "./BookCard";
+import BookCard from "./Cards/BookCard";
 import Loading from "../Loading";
 import { updateHomeBooks } from "../../redux-modules/books";
 
@@ -19,15 +19,14 @@ function SpreadBooks() {
   // getData() : 서버 데이터 통신 함수 (책 목록 불러오기)
   function getData() {
     axios
-      .get("http://203.255.3.144:8002/v1/test2/1", {
+      .get("http://203.255.3.144:8002/v1/home", {
         headers: {
-          Authorization: user.accessToken,
+          "access-token": user.accessToken,
         },
-        params: { quantity: "10", page: "1" },
       })
       .then((res) => {
-        console.log(res.data.result);
-        dispatch(updateHomeBooks(res.data.result));
+        console.log(res);
+        dispatch(updateHomeBooks(res.data.result.bookList));
         setLoading(false);
       });
   }

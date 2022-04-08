@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import PageHeader from "../../components/PageHeader";
-import MenuCard from "../../components/Recommend/MenuCard";
+import MenuCard from "../../components/Home/Cards/MenuCard";
 import { useSelector } from "react-redux";
 
 // 추천받개 - 안내견 북키

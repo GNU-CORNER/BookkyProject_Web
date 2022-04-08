@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Home from "./Home";
 
 import MyInfo from "./MyInfo/MyInfo";
-import Interests from "./MyInfo/Interests";
+import Interests from "./MyInfo/InterestBooks";
 
 import Comunnity from "./Comunnity/Comunnity";
 import HotBoard from "./Comunnity/HotBoard";

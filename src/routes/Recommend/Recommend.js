@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import PageHeader from "../../components/PageHeader";
-import MenuCard from "../../components/Recommend/MenuCard";
+import MenuCard from "../../components/Home/Cards/MenuCard";
 
 // 추천받개 홈
 function Recommend() {

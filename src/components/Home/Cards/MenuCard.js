@@ -6,7 +6,7 @@ function MenuCard({ title, explain, isnew, kind }) {
   function RenderNew() {
     if (isnew)
       return (
-        <img className="img" src={require("../../assets/new.png")} alt="" />
+        <img className="img" src={require("../../../assets/new.png")} alt="" />
       );
     else return <></>;
   }
@@ -18,7 +18,7 @@ function MenuCard({ title, explain, isnew, kind }) {
         return (
           <img
             className="BackGroundImg detective"
-            src={require("../../assets/Bookky/Bookky_Detective.png")}
+            src={require("../../../assets/Bookky/Bookky_Detective.png")}
             alt=""
           />
         );
@@ -26,7 +26,7 @@ function MenuCard({ title, explain, isnew, kind }) {
         return (
           <img
             className="BackGroundImg"
-            src={require("../../assets/Bookky/Bookky_Guide.png")}
+            src={require("../../../assets/Bookky/Bookky_Guide.png")}
             alt=""
           />
         );
@@ -34,7 +34,7 @@ function MenuCard({ title, explain, isnew, kind }) {
         return (
           <img
             className="BackGroundImg"
-            src={require("../../assets/Bookky/Bookky_Thinking.png")}
+            src={require("../../../assets/Bookky/Bookky_Thinking.png")}
             alt=""
           />
         );
@@ -104,13 +104,13 @@ const MenuCardContainer = styled.div`
   .BackGroundImg {
     position: absolute;
     opacity: 0.5;
-    right: 3vw;
+    right: 2vw;
     top: 10px;
     height: 280px;
   }
 
   .detective {
-    right: 4.5vw;
+    right: 4vw;
   }
 `;
 

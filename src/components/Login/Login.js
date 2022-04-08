@@ -46,6 +46,7 @@ function Login({ modalOpen, updateUser }) {
         "Content-Type": "application/json",
       })
       .then((res) => {
+        console.log(res);
         // 로그인 통신 성공 시
         if (res.data.success === true) {
           // 통신에 성공했을 때, 쿠키의 만료시간 생성 (만료시간 == 1시간)
@@ -71,10 +72,11 @@ function Login({ modalOpen, updateUser }) {
           // Redux - 현재 유저 정보 업데이트
           dispatch(
             updateUser(
-              password,
+              res.data.access_token,
               res.data.result.email,
               res.data.result.loginMethod,
-              res.data.result.nickname
+              res.data.result.nickname,
+              password
             )
           );
           modalOpen(false);
@@ -88,7 +90,7 @@ function Login({ modalOpen, updateUser }) {
 
   // 로그인 View
   return (
-    <LoginContainer>
+    <LoginContainer className="nodrag">
       <div className="LogoArea">
         <img src={require("../../assets/Bookky/Bookky_Login.png")} alt="" />
       </div>
@@ -117,11 +119,12 @@ function Login({ modalOpen, updateUser }) {
           <input
             className="checkbox"
             type="checkbox"
+            id="autoLogin"
             onChange={() => {
               autologin ? setAutoLogin(false) : setAutoLogin(true);
             }}
           />
-          자동로그인
+          <label htmlFor="autoLogin">로그인 유지하기</label>
         </AutoLoginBtn>
         <LoginOption>
           <Link to="/signup" onClick={() => modalOpen(false)}>
@@ -232,6 +235,14 @@ const AutoLoginBtn = styled.div`
   .checkbox {
     margin: 5px !important;
     width: initial !important;
+
+    :hover {
+      cursor: pointer;
+    }
+  }
+
+  label:hover {
+    cursor: pointer;
   }
 `;
 

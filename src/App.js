@@ -52,15 +52,18 @@ function App() {
           }
         )
         .then((res) => {
+          console.log(res);
           // 로그인 통신 성공 시
           if (res.data.success === true) {
             console.log("자동로그인 성공");
             dispatch(
               updateUser(
-                password,
+                res.data.access_token,
                 res.data.result.email,
                 res.data.result.loginMethod,
-                res.data.result.nickname
+                res.data.result.nickname,
+                password,
+                res.data.result.tag_array
               )
             );
           }

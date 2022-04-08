@@ -7,8 +7,10 @@ const ContentsHeader = ({ title }) => {
 const Title = styled.div`
   width: fit-content;
   font-size: 1.2em;
-  padding: 10px 5px 10px 0;
+  margin: 10px 5px 10px 0;
+  padding-left: 10px;
   font-weight: bold;
-  border-bottom: 2px solid #6c95ff;
+  border-radius: 4px;
+  border-left: 10px solid #6c95ff;
 `;
 export default ContentsHeader;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import BookCard from "../../components/Home/BookCard";
+import BookCard from "../../components/Home/Cards/BookCard";
 
 // SideBar - 내 관심도서
 function Interests() {
@@ -25,10 +25,9 @@ function Interests() {
       <ContentContainer>
         {mybooks.map((book) => {
           return (
-            <div className="border">
+            <div className="border" key={book.BID}>
               <BookCard
                 className="nodrag"
-                key={book.BID}
                 title={book.TITLE}
                 thumnail={book.thumbnailImage}
                 author={book.AUTHOR}

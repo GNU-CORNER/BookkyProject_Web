@@ -46,7 +46,7 @@ function Profile() {
 //////////////////////////////////////// Styled-Components
 const ProfileContainer = styled.div`
   margin-top: 3vh;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e7eb;
   text-align: center;
   font-weight: bold;
 

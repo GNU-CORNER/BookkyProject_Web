@@ -55,10 +55,12 @@ const SocialGoogle = () => {
           // Redux - 현재 유저 정보 업데이트
           dispatch(
             updateUser(
-              password,
+              res.data.access_token,
               res.data.result.email,
               res.data.result.loginMethod,
-              res.data.result.nickname
+              res.data.result.nickname,
+              password,
+              res.data.result.tag_array
             )
           );
         }

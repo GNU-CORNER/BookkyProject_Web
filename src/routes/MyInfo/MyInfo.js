@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import InterestBooks from "../../components/MyInfo/InterestBooks";
-import InterestField from "../../components/MyInfo/InterestField";
+import InterestBooks from "../../components/MyInfo/MyInfoInterestBooks";
+import InterestField from "../../components/MyInfo/MyInfoInterestField";
 import PostCard from "../../components/PostCard";
 import ContentsHeader from "../../components/MyInfo/ContentsHeader";
 import More from "../../components/MyInfo/More";
@@ -30,15 +30,11 @@ function MyInfo() {
       </MainHeader>
       <ContentContainer>
         <div className="interestField">
-          <ContentsHeader
-            title={"🐶 " + user.nickname + "님의 관심분야 목록이에요"}
-          />
+          <ContentsHeader title={user.nickname + "님의 관심분야에요"} />
           <InterestField />
         </div>
         <div className="myPost">
-          <ContentsHeader
-            title={"🐶 " + user.nickname + "님이 작성한 게시글이에요"}
-          />
+          <ContentsHeader title={user.nickname + "님이 작성한 게시글이에요"} />
           <div className="posts">
             {myposts.map((post) => (
               <PostCard
@@ -53,16 +49,12 @@ function MyInfo() {
           </div>
         </div>
         <div className="interestBooks">
-          <ContentsHeader
-            title={"🐶 " + user.nickname + "님의 관심도서 목록이에요"}
-          />
+          <ContentsHeader title={user.nickname + "님의 관심도서에요"} />
           <InterestBooks />
         </div>
 
         <div className="myReview">
-          <ContentsHeader
-            title={"🐶 " + user.nickname + "님이 작성한 후기에요"}
-          />
+          <ContentsHeader title={user.nickname + "님이 작성한 후기에요"} />
           gdgd
         </div>
       </ContentContainer>
