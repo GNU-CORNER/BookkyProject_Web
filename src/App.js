@@ -1,62 +1,84 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import { BrowserRouter as Router } from "react-router-dom";
-import TopNav from "./components/TopNav";
-import SideNav from "./components/SideNav";
+import TopNav from "./components/Navigation/TopNav";
+import SideNav from "./components/Navigation/SideNav";
 import Routes from "./routes/Routes";
 import { useCookies } from "react-cookie";
 import axios from "axios";
-import { updateUser } from "./modules/userData";
+import { updateUser } from "./redux-modules/userData";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-const GlobalStyle = createGlobalStyle`
-	body {
-    margin : 0;
-    padding : 0;
-
-  /* 스크롤바 hidden */
-  ::-webkit-scrollbar {
-    display: none;
-  }
-}
-`;
-
+// App() : 최상위 컴포넌트
 function App() {
+  // 변수 정의
   const cookies = useCookies();
   const dispatch = useDispatch();
+  const [email, setEmail] = useState(undefined);
+  const [password, setPassword] = useState(undefined);
+  const [loginMethod, setLoginMethod] = useState(undefined);
 
-  // 자동로그인 통신 :: 쿠키에 자동로그인 정보가 있으면, 로컬스토리지 내의 데이터를 활용하여 로그인 통신 시도
-  const AutoLogin = () => {
+  // 최초 email, pwToken 설정
+  const Init = () => {
+    // Case 1 : 자동로그인이 true 일 때는 로컬스토리지의 email, pwToken 사용
     if (cookies[0].autologin === "true") {
+      setEmail(localStorage.getItem("email"));
+      setPassword(localStorage.getItem("password"));
+      setLoginMethod(localStorage.getItem("loginMethod"));
+    }
+    // Case 2 : 다른 경우에는 쿠키의 email, pwToken 사용
+    else if (cookies[0].email !== "" && cookies[0].password !== "") {
+      setEmail(cookies[0].email);
+      setPassword(cookies[0].password);
+      setLoginMethod(cookies[0].loginMethod);
+    }
+  };
+  // 자동로그인 통신
+  const AutoLogin = () => {
+    // email, pwToken이 undefined가 아닐 때만 통신 (불필요한 통신 방지)
+    if ((email !== undefined) | (password !== undefined)) {
+      // 통신 - 로그인 시도 (이메일, 비밀번호)
       axios
         .post(
-          "http://203.255.3.144:8002/v1/test1",
+          "http://203.255.3.144:8002/v1/user/signin",
           JSON.stringify({
-            email: localStorage.getItem("email"),
-            pwToken: localStorage.getItem("password"),
+            email: email,
+            pwToken: password,
+            loginMethod: loginMethod,
           }),
           {
             "Content-Type": "application/json",
           }
         )
         .then((res) => {
+          // 로그인 통신 성공 시
           if (res.data.success === true) {
+            console.log("자동로그인 성공");
             dispatch(
               updateUser(
-                res.data.access_token,
-                res.data.result.email,
-                res.data.result.nickname
+                res.data.result.access_token,
+                res.data.result.userData.email,
+                res.data.result.userData.loginMethod,
+                res.data.result.userData.nickname,
+                password,
+                res.data.result.userData.tag_array
               )
             );
-          } else {
-            console.log("로그인 에러");
+          }
+          // 로그인 통신 실패 시
+          else {
+            console.log("로그인 실패");
           }
         });
     }
   };
-  useEffect(AutoLogin, []);
 
+  // 최초 렌더링 시, Init() AutoLogin()
+  useEffect(Init, [cookies]);
+  useEffect(AutoLogin, [email, password, loginMethod, dispatch]);
+
+  // App View
   return (
     <>
       <GlobalStyle />
@@ -71,7 +93,26 @@ function App() {
   );
 }
 
+//////////////////////////////////////// Styled-Components
 const FlexDiv = styled.div`
   display: flex;
+`;
+
+const GlobalStyle = createGlobalStyle`
+	body {
+    margin : 0;
+    padding : 0;
+
+  /* 스크롤바 hidden */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  .nodrag {
+    /* 드래그 방지 CSS */
+    -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}}
 `;
 export default App;

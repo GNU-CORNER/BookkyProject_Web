@@ -1,39 +1,33 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import SpreadBooks from "../components/SpreadBooks";
-import { useDispatch } from "react-redux";
+import SpreadBooks from "../components/Home/SpreadBooks";
 
-import { useCookies } from "react-cookie";
-
+// Home
 function Home() {
   const user = useSelector((state) => state.userData);
-  console.log(user);
 
+  // Home View
   return (
     <HomeContainer>
       <MainHeader>
-        <Title>
-          <p>{user.accessToken ? "오늘" : "북키가"}</p>
+        <Title className="nodrag">
+          {/* 회원/비회원에 따른 문구 출력 */}
+          <p>{user.nickname ? "오늘" : "북키가"}</p>
           <p>
-            <span>{user.accessToken ? user.nickname : "처음 오신 당신"}</span>
-            {user.accessToken ? " 님" : ""}에게
+            <span>{user.nickname ? user.nickname : "처음 오신 당신"}</span>
+            {user.nickname ? " 님" : ""}에게
           </p>
           <p>추천하는 책이에요 !</p>
         </Title>
       </MainHeader>
-      <div>
-        <TagTitle>{"React"}</TagTitle>
+      <BooksContainer>
         <SpreadBooks />
-      </div>
-      <div>
-        <TagTitle>{"JavaScript"}</TagTitle>
-        <SpreadBooks />
-      </div>
+      </BooksContainer>
     </HomeContainer>
   );
 }
 
-///////// Styled-components /////////
+//////////////////////////////////////// Styled-Components
 const HomeContainer = styled.div`
   width: calc(100vw - 160px);
 `;
@@ -42,7 +36,7 @@ const MainHeader = styled.div`
   display: flex;
   align-items: center;
   position: relative;
-  border-radius: 0 0 20px 20px;
+  border-radius: 0 0 15px 15px;
   max-height: 250px;
   height: 25vh;
   background-color: #6c95ff;
@@ -56,20 +50,27 @@ const Title = styled.div`
   padding-left: 5vw;
 
   span {
-    color: black;
+    color: #ffd86d;
+  }
+`;
+
+const BooksContainer = styled.div`
+  margin: 0 100px;
+  transition: all 0.3s;
+
+  .scroll-menu-arrow {
+    padding: 20px;
   }
 
-  /* 드래그 방지 CSS */
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-`;
+  .menu-item-wrapper {
+    border: 2px solid #f1f1f1;
+    border-radius: 4px;
+    margin: 0 10px;
+    transition: all 0.3s;
 
-const TagTitle = styled.h2`
-  font-weight: bold;
-  font-size: 30px;
-  padding: 5vh 0 0 5vw;
+    :hover {
+      border: 2px solid #6e95ff;
+    }
+  }
 `;
-
 export default Home;
