@@ -6,7 +6,7 @@ import LoginModalContainer from "../../redux-containers/LoginModalContainer";
 import { useSelector } from "react-redux";
 import BottomMenu from "./BottomMenu";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
-import TagCard from "../Home/Cards/TagCard";
+import TagCard from "../Cards/TagCard";
 
 // 사이드 네비게이션 바
 function SideNav() {

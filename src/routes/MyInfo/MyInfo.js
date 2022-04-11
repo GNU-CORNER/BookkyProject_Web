@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import InterestBooks from "../../components/MyInfo/MyInfoInterestBooks";
 import InterestField from "../../components/MyInfo/MyInfoInterestField";
-import PostCard from "../../components/PostCard";
+import PostCard from "../../components/Cards/PostCard";
 import ContentsHeader from "../../components/MyInfo/ContentsHeader";
 import More from "../../components/MyInfo/More";
 

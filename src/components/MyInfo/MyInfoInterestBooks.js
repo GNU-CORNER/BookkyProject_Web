@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import SmallBookCard from "../Home/Cards/SmallBookCard";
+import SmallBookCard from "../Cards/SmallBookCard";
 
 //MyInfo - 내 관심도서 컴포넌트
 const InterestBooks = () => {

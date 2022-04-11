@@ -4,7 +4,7 @@ import ScrollMenu from "react-horizontal-scroll-menu";
 import { ArrowLeft, ArrowRight } from "./Arrows";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import BookCard from "./Cards/BookCard";
+import BookCard from "../Cards/BookCard";
 import Loading from "../Loading";
 import { updateHomeBooks } from "../../redux-modules/books";
 
@@ -18,6 +18,7 @@ function SpreadBooks() {
 
   // getData() : 서버 데이터 통신 함수 (책 목록 불러오기)
   function getData() {
+    console.log("요놈인데");
     axios
       .get("http://203.255.3.144:8002/v1/home", {
         headers: {
@@ -25,7 +26,6 @@ function SpreadBooks() {
         },
       })
       .then((res) => {
-        console.log(res);
         dispatch(updateHomeBooks(res.data.result.bookList));
         setLoading(false);
       });
@@ -80,7 +80,6 @@ function SpreadBooks() {
 }
 
 //////////////////////////////////////// Styled-Components
-
 const TagTitle = styled.h2`
   font-weight: bold;
   font-size: 30px;

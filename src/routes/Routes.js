@@ -1,11 +1,13 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import Home from "./Home";
 
 import MyInfo from "./MyInfo/MyInfo";
 import Interests from "./MyInfo/InterestBooks";
+import SetInterests from "./MyInfo/SetInterests";
 
 import Comunnity from "./Comunnity/Comunnity";
 import HotBoard from "./Comunnity/HotBoard";
@@ -25,6 +27,14 @@ import SignUpMore from "./Authentication/SignUpMore";
 
 // 전체 URL 경로에 대한 명세
 function BookkyRoutes() {
+  const user = useSelector((state) => state.userData);
+  const navigate = useNavigate();
+
+  function isNullInterestField() {
+    if (user.tagArray === null) navigate("/setinterests");
+  }
+
+  useEffect(isNullInterestField, [navigate, user]);
   return (
     <RoutesContainer>
       <Routes>
@@ -48,6 +58,7 @@ function BookkyRoutes() {
         <Route path="/detective" element={<Detective />} />
         <Route path="/guide" element={<Guide />} />
 
+        <Route path="/setinterests" element={<SetInterests />} />
         <Route path="/error" element={<Error />} />
       </Routes>
     </RoutesContainer>

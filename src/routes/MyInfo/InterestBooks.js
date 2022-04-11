@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import BookCard from "../../components/Home/Cards/BookCard";
+import BookCard from "../../components/Cards/BookCard";
 
 // SideBar - 내 관심도서
 function Interests() {

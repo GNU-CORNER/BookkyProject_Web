@@ -15,7 +15,7 @@ const SocialGoogle = () => {
   // Google 통신에 성공했을 때
   const onSuccess = (res) => {
     dispatch(modalOpen(false));
-    dispatch(updateUser(res.googleId, res.profileObj.email, 2));
+    dispatch(updateUser("", res.profileObj.email, 2, "", res.googleId));
 
     // Google에서 가져온 Email과 tokenID(=password)로 Bookky 서버에서 회원 조회
     hasNickname(res.profileObj.email, res.googleId);
@@ -29,6 +29,7 @@ const SocialGoogle = () => {
       loginMethod: 2,
     });
 
+    console.log("여기는 소셜로그인", params);
     // 통신 - 로그인 데이터 전송
     axios
       .post("http://203.255.3.144:8002/v1/user/signin", params, {
@@ -48,19 +49,19 @@ const SocialGoogle = () => {
           setCookie("password", password, {
             expires: expires,
           });
-          setCookie("loginMethod", res.data.result.loginMethod, {
+          setCookie("loginMethod", res.data.result.userData.loginMethod, {
             expires: expires,
           });
-          setCookie("refresh_token", res.data.refresh_token);
+          setCookie("refresh_token", res.data.result.refresh_token);
           // Redux - 현재 유저 정보 업데이트
           dispatch(
             updateUser(
-              res.data.access_token,
-              res.data.result.email,
-              res.data.result.loginMethod,
-              res.data.result.nickname,
+              res.data.result.access_token,
+              res.data.result.userData.email,
+              res.data.result.userData.loginMethod,
+              res.data.result.userData.nickname,
               password,
-              res.data.result.tag_array
+              res.data.result.userData.tag_array
             )
           );
         }
@@ -77,7 +78,7 @@ const SocialGoogle = () => {
     <GoogleLogin
       clientId="89666983957-jbbsucr16fc11g0fdpgkvmehj12n3b8v.apps.googleusercontent.com"
       onSuccess={(res) => onSuccess(res)}
-      onFailure={(res) => console.log("실패 !", res)}
+      onFailure={(res) => console.log("구글 소셜 로그인 실패 !", res)}
     />
   );
 };

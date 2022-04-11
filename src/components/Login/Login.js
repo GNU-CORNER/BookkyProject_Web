@@ -46,7 +46,6 @@ function Login({ modalOpen, updateUser }) {
         "Content-Type": "application/json",
       })
       .then((res) => {
-        console.log(res);
         // 로그인 통신 성공 시
         if (res.data.success === true) {
           // 통신에 성공했을 때, 쿠키의 만료시간 생성 (만료시간 == 1시간)
@@ -68,15 +67,16 @@ function Login({ modalOpen, updateUser }) {
           setCookie("loginMethod", 0, {
             expires: expires,
           });
-          setCookie("refresh_token", res.data.refresh_token);
+          setCookie("refresh_token", res.data.result.refresh_token);
           // Redux - 현재 유저 정보 업데이트
           dispatch(
             updateUser(
-              res.data.access_token,
-              res.data.result.email,
-              res.data.result.loginMethod,
-              res.data.result.nickname,
-              password
+              res.data.result.access_token,
+              res.data.result.userData.email,
+              res.data.result.userData.loginMethod,
+              res.data.result.userData.nickname,
+              password,
+              res.data.result.userData.tag_array
             )
           );
           modalOpen(false);

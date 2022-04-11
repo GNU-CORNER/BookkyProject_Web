@@ -333,4 +333,5 @@ const Frame = styled.div`
     margin: 5vh auto 5vh 0;
   }
 `;
+
 export default SignUp;
