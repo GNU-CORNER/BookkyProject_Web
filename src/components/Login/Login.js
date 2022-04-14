@@ -136,12 +136,12 @@ function Login({ modalOpen, updateUser }) {
         </LoginOption>
         <div className="SocialLogin-title">SNS 간편로그인</div>
         <SocialLogin>
-          <div onClick={() => alert("네이버 로그인")}>
+          {/* <div onClick={() => alert("네이버 로그인")}>
             <img src={require("../../assets/Social_Naver.png")} alt="" />
           </div>
           <div onClick={() => alert("카카오 로그인")}>
             <img src={require("../../assets/Social_Kakao.png")} alt="" />
-          </div>
+          </div> */}
 
           <SocialGoogle />
         </SocialLogin>

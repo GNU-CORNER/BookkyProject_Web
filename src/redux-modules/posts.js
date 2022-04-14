@@ -32,7 +32,7 @@ const initialState = {
     },
     {
       id: 3,
-      title: "제목이다 인마3",
+      title: "제목이다",
       contents:
         "세번째 핫게글임 다 핫게글임 ^^* 다 핫게글임 ^^*다 핫게글임 ^^*다 핫게글임 ^^*",
       likes: 5,
@@ -41,13 +41,13 @@ const initialState = {
     {
       id: 4,
       title: "네번째 핫게글인데",
-      contents: "이거 다 내가 손으로 입력하고있음 레전드지; ",
+      contents: "네번째 핫게글 ",
       likes: 5,
       comments: 5,
     },
     {
       id: 5,
-      title: "이게 귀찮다 슬슬",
+      title: "이게 5번째 !",
       contents: "핫게글인데..",
       likes: 5,
       comments: 5,
@@ -61,28 +61,28 @@ const initialState = {
     },
     {
       id: 7,
-      title: "짱 귀찮네 핫게글임",
+      title: "짱 핫게글임",
       contents: "다 핫게글임 ^^*",
       likes: 5,
       comments: 5,
     },
     {
       id: 8,
-      title: "제목이다 인마2",
-      contents: "짱 귀찮네 핫게글임짱 귀찮네 핫게글임",
+      title: "제목이다 ",
+      contents: "짱  핫게글임짱  핫게글임",
       likes: 5,
       comments: 5,
     },
     {
       id: 9,
-      title: "제목이다 인마213",
-      contents: "다 황혁주 ^^*",
+      title: "제목이다 ",
+      contents: "다 핫게글~ ^^*",
       likes: 5,
       comments: 5,
     },
     {
       id: 10,
-      title: "김우석 인마2",
+      title: "핫게글",
       contents: "다 핫게글임 ^*~~ ^^*",
       likes: 5,
       comments: 5,
@@ -115,14 +115,14 @@ const initialState = {
     },
     {
       id: 4,
-      title: "카틀라스를 이렇게 열심히 만들어봐라",
+      title: "최고",
       contents: "ㄹㅇㅋㅋ 그렇지 않냐 인혁아",
       likes: 5,
       comments: 5,
     },
     {
       id: 5,
-      title: "진작에 완성햇을듯",
+      title: "메롱",
       contents:
         "ㅋㅋㅋㅋㅋ유 게시판입니다. 자유 게시판입니다. 자유 게시판입니다. 자유 게시판입니다. ,,,",
       likes: 5,
@@ -151,9 +151,9 @@ const initialState = {
     },
     {
       id: 9,
-      title: "스콤에 가야한다는 전설이 있다.",
+      title: " 전설의 게시글",
       contents:
-        "오늘도 개바빴는데 내일은 어떨까 자유 게시판입니다. 자유 게시판입니다. 자유 게시판입니다. ,,,",
+        "내일은 어떨까 자유 게시판입니다. 자유 게시판입니다. 자유 게시판입니다. ,,,",
       likes: 5,
       comments: 5,
     },
@@ -176,14 +176,14 @@ const initialState = {
     },
     {
       id: 4,
-      title: "카틀라스를 이렇게 열심히 만들어봐라?? 이거맞나요?",
-      contents: "ㄹㅇㅋㅋ 그렇지 않냐 인혁아ㅋㅋㅋㅋ",
+      title: "우와",
+      contents: "ㄹㅇㅋㅋ 우와ㅋㅋㅋㅋ",
       likes: 5,
       comments: 5,
     },
     {
       id: 5,
-      title: "진작에 완성햇을듯??.. 과연 완성가능할까요? 질문하빈다",
+      title: "테스트 게시글",
       contents:
         "ㅋㅋㅋㅋㅋ유 게시판입니다. 여긴 큐엔에이 게시판입니다. 여긴 큐엔에이 게시판입니다. 여긴 큐엔에이 게시판입니다. ,,,",
       likes: 5,
@@ -198,7 +198,7 @@ const initialState = {
     },
     {
       id: 7,
-      title: "노래가 흘러나오고있나요? 스콤알바가기 싫은데",
+      title: "노래가 흘러나오고있나요?",
       contents: "제목은 바로 죽을만큼 아파서 가수 엠씨몽",
       likes: 5,
       comments: 5,
@@ -228,21 +228,21 @@ const initialState = {
     },
     {
       id: 6,
-      title: "김우석이 먹다남긴 떡볶이 팝니다",
+      title: "떡볶이 팝니다",
       contents: "몸과 마음이 모두 지친시간 게시판입니다. ,,,",
       likes: 5,
       comments: 5,
     },
     {
       id: 7,
-      title: "게시글들 제목보면 ㄹㅇ 정신팔릴듯 정신 팝니다~",
+      title: "책 팝니다~",
       contents: "제목은 바로 죽을만큼 아파서 가수 엠씨몽",
       likes: 5,
       comments: 5,
     },
     {
       id: 8,
-      title: "진짜 죽겠다 이러다 진짜 죽나요?",
+      title: "안녕하세요?",
       contents: "내일 공강이지만.. 게시판입니다. ,,,",
       likes: 5,
       comments: 5,
@@ -251,14 +251,14 @@ const initialState = {
   myposts: [
     {
       id: 7,
-      title: "게시글들 제목보면 ㄹㅇ 정신팔릴듯 정신 팝니다~",
+      title: "안녕하세요~",
       contents: "제목은 바로 죽을만큼 아파서 가수 엠씨몽",
       likes: 5,
       comments: 5,
     },
     {
       id: 8,
-      title: "진짜 죽겠다 이러다 진짜 죽나요?",
+      title: "안녕하세요 진짜 ",
       contents: "내일 공강이지만.. 게시판입니다. ,,,",
       likes: 5,
       comments: 5,

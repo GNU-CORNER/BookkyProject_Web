@@ -31,10 +31,12 @@ function BookkyRoutes() {
   const navigate = useNavigate();
 
   function isNullInterestField() {
-    if (user.tagArray === null) navigate("/setinterests");
+    if (user.tagArray === null) {
+      // navigate("/setinterests");
+    }
   }
 
-  useEffect(isNullInterestField, [navigate, user]);
+  useEffect(isNullInterestField, [navigate, user.tagArray]);
   return (
     <RoutesContainer>
       <Routes>

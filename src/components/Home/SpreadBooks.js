@@ -26,6 +26,7 @@ function SpreadBooks() {
         },
       })
       .then((res) => {
+        console.log(res);
         dispatch(updateHomeBooks(res.data.result.bookList));
         setLoading(false);
       });

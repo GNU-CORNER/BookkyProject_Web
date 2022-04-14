@@ -81,7 +81,7 @@ function TopNav() {
   return (
     <TopNavContainer>
       <StyledLink to="/">
-        <img src={require("../../assets/Group_379.png")} alt="" />
+        <img src={require("../../assets/Bookky/Bookky_Logo.png")} alt="" />
       </StyledLink>
 
       <div className="dropdown">
@@ -98,7 +98,7 @@ function TopNav() {
         >
           커뮤니티
         </StyledLink>
-        <div className="dropdown-content">
+        <div className="dropdown-content a">
           <StyledLink to="/comunnity">커뮤니티 홈</StyledLink>
           <StyledLink to="/hot">H🔥T게시판</StyledLink>
           <StyledLink to="/free">자유게시판</StyledLink>
@@ -190,7 +190,7 @@ const StyledLink = styled(Link)`
   border-bottom: ${(props) => props.borderbottom};
 
   img {
-    width: 170px;
+    width: 160px;
   }
 `;
 

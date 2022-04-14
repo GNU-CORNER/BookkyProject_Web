@@ -57,10 +57,12 @@ function SignUp() {
             // Redux - 현재 유저 정보 업데이트
             dispatch(
               updateUser(
+                res.data.result.access_token,
+                res.data.result.userData.email,
+                res.data.result.userData.loginMethod,
+                res.data.result.userData.nickname,
                 password,
-                res.data.result.email,
-                res.data.result.loginMethod,
-                res.data.result.nickname
+                res.data.result.userData.tagArray
               )
             );
             navigate("/");
