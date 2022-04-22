@@ -3,7 +3,7 @@ import styled from "styled-components";
 import PostCard from "../../components/Cards/PostCard";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import Notice from "../../components/Comunnity/Notice";
+import Notice from "../../components/Community/Notice";
 import { useSelector } from "react-redux";
 
 // 커뮤니티 - HOT 게시판

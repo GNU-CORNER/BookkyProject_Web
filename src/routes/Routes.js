@@ -10,11 +10,11 @@ import MyInfo from "./MyInfo/MyInfo";
 import Interests from "./MyInfo/InterestBooks";
 import SetInterests from "./MyInfo/SetInterests";
 
-import Comunnity from "./Comunnity/Comunnity";
-import HotBoard from "./Comunnity/HotBoard";
-import FreeBoard from "./Comunnity/FreeBoard";
-import QnaBoard from "./Comunnity/QnaBoard";
-import TradeBoard from "./Comunnity/TradeBoard";
+import Community from "./Community/Community";
+import HotBoard from "./Community/HotBoard";
+import FreeBoard from "./Community/FreeBoard";
+import QnaBoard from "./Community/QnaBoard";
+import TradeBoard from "./Community/TradeBoard";
 import MyPost from "./MyInfo/MyPosts";
 
 import Recommend from "./Recommend/Recommend";
@@ -42,7 +42,7 @@ function BookkyRoutes() {
     <RoutesContainer>
       <Routes>
         <Route exact path="/" element={<Home />} />
-        <Route path="/comunnity" element={<Comunnity />} />
+        <Route path="/Community" element={<Community />} />
         <Route path="/recommend" element={<Recommend />} />
 
         <Route path="/signup" element={<SignUp />} />

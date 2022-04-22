@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import BoardTitle from "../../components/Comunnity/BoardTitle";
-import PostTitle from "../../components/Comunnity/PostTitle";
+import BoardTitle from "../../components/Community/BoardTitle";
+import PostTitle from "../../components/Community/PostTitle";
 import PageHeader from "../../components/PageHeader";
 import { useSelector } from "react-redux";
 
 // 커뮤니티 홈
-function Comunnity() {
+function Community() {
   // 변수 선언
   const posts_hot = useSelector((state) => state.posts.hot);
   const posts_free = useSelector((state) => state.posts.free);
@@ -14,7 +14,7 @@ function Comunnity() {
 
   // 커뮤니티 홈 View
   return (
-    <ComunnityContainer>
+    <CommunityContainer>
       <PageHeader title="커뮤니티 홈" subTitle="최신 글 모아보기" />
       <ContentsContainer>
         <div className="hotBoard">
@@ -42,12 +42,12 @@ function Comunnity() {
           ))}
         </div>
       </ContentsContainer>
-    </ComunnityContainer>
+    </CommunityContainer>
   );
 }
 
 //////////////////////////////////////// Styled-Components
-const ComunnityContainer = styled.div`
+const CommunityContainer = styled.div`
   width: calc(100vw - 160px);
 `;
 
@@ -87,4 +87,4 @@ const ContentsContainer = styled.div`
   }
 `;
 
-export default Comunnity;
+export default Community;
