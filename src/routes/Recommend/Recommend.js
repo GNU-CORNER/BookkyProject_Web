@@ -46,10 +46,10 @@ const RecommendContainer = styled.div`
 const MenuContainer = styled.div`
   margin-top: 5vh;
   display: grid;
-  row-gap: 3vw;
-  column-gap: 3vw;
   justify-content: center;
   grid-template-columns: repeat(auto-fit, minmax(750px, 750px));
+  row-gap: 3vw;
+  column-gap: 3vw;
 `;
 
 export default Recommend;

@@ -7,10 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import BookCard from "../Cards/BookCard";
 import Loading from "../Loading";
 import { updateHomeBooks } from "../../redux-modules/books";
+import { useNavigate } from "react-router-dom";
 
 // Home - 책 목록 가로 스크롤 뷰 출력
 function SpreadBooks() {
   // 변수 선언
+  const navigate = useNavigate();
   const dataSet = useSelector((state) => state.books.homeBooks);
   const user = useSelector((state) => state.userData);
   const [loading, setLoading] = useState(true);
@@ -18,7 +20,6 @@ function SpreadBooks() {
 
   // getData() : 서버 데이터 통신 함수 (책 목록 불러오기)
   function getData() {
-    console.log("요놈인데");
     axios
       .get("http://203.255.3.144:8002/v1/home", {
         headers: {
@@ -27,6 +28,7 @@ function SpreadBooks() {
       })
       .then((res) => {
         console.log(res);
+        console.log(res.data.result.bookList);
         dispatch(updateHomeBooks(res.data.result.bookList));
         setLoading(false);
       });
@@ -48,6 +50,7 @@ function SpreadBooks() {
             return (
               <BookCard
                 className="nodrag"
+                onClick={() => navigate("/books/" + el.BID)}
                 key={el.BID}
                 title={el.TITLE}
                 thumnail={el.thumbnailImage}

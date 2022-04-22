@@ -190,7 +190,8 @@ const StyledLink = styled(Link)`
   border-bottom: ${(props) => props.borderbottom};
 
   img {
-    width: 160px;
+    margin: 10px 20px 0 20px;
+    width: 120px;
   }
 `;
 

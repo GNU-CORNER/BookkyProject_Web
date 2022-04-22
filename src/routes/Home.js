@@ -13,6 +13,7 @@ function Home() {
         <Title className="nodrag">
           {/* 회원/비회원에 따른 문구 출력 */}
           <p>{user.nickname ? "오늘" : "북키가"}</p>
+
           <p>
             <span>{user.nickname ? user.nickname : "처음 오신 당신"}</span>
             {user.nickname ? " 님" : ""}에게
@@ -20,6 +21,7 @@ function Home() {
           <p>추천하는 책이에요 !</p>
         </Title>
       </MainHeader>
+
       <BooksContainer>
         <SpreadBooks />
       </BooksContainer>
@@ -57,7 +59,7 @@ const Title = styled.div`
 const BooksContainer = styled.div`
   margin: 0 100px;
   transition: all 0.3s;
-
+  margin-bottom: 10vh;
   .scroll-menu-arrow {
     padding: 20px;
   }

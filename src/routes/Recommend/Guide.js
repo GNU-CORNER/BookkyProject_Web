@@ -19,6 +19,7 @@ function Guide() {
         {MenuList.filter((menu) => menu.kind === "안내견 북키").map((menu) => (
           <MenuCard
             key={menu.title}
+            kind={menu.kind}
             title={menu.title}
             explain={menu.explain}
             thumnail={menu.thumnail}

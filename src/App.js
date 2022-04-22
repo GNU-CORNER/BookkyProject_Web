@@ -104,9 +104,7 @@ const GlobalStyle = createGlobalStyle`
     padding : 0;
 
   /* 스크롤바 hidden */
-  ::-webkit-scrollbar {
-    display: none;
-  }
+
   .nodrag {
     /* 드래그 방지 CSS */
     -webkit-user-select: none;

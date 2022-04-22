@@ -54,7 +54,7 @@ const ContentContainer = styled.div`
   .border {
     display: grid;
     justify-content: center;
-    border: 2px solid #f1f1f1;
+    border: 2pwx solid #f1f1f1;
     transition: all 0.3s;
     border-radius: 4px;
 

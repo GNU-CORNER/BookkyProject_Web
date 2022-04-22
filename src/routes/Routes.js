@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import Home from "./Home";
+import BookDetail from "./BookDetail";
 
 import MyInfo from "./MyInfo/MyInfo";
 import Interests from "./MyInfo/InterestBooks";
@@ -32,7 +33,7 @@ function BookkyRoutes() {
 
   function isNullInterestField() {
     if (user.tagArray === null) {
-      // navigate("/setinterests");
+      navigate("/setinterests");
     }
   }
 
@@ -61,7 +62,9 @@ function BookkyRoutes() {
         <Route path="/guide" element={<Guide />} />
 
         <Route path="/setinterests" element={<SetInterests />} />
-        <Route path="/error" element={<Error />} />
+        <Route path="/books/:BID" element={<BookDetail />} />
+
+        <Route path="*" element={<Error />} />
       </Routes>
     </RoutesContainer>
   );
