@@ -33,6 +33,7 @@ function SideNav() {
           <Profile />
 
           <div className="sidemenu-area">
+            <div className="explain">바로가기</div>
             <StyledLink to="/interests" className="MenuBtn">
               관심 도서
             </StyledLink>
@@ -43,7 +44,7 @@ function SideNav() {
               내 후기 보기
             </StyledLink>
           </div>
-          <StyledAccordion>
+          {/* <StyledAccordion>
             <AccordionSummary
               expandIcon={
                 <img
@@ -60,7 +61,7 @@ function SideNav() {
               <SpreadTags />
               <More to="/myinfo">더 보기</More>
             </AccordionDetails>
-          </StyledAccordion>
+          </StyledAccordion> */}
           <BottomMenu />
         </SideNavContainer>
       </>
@@ -73,7 +74,9 @@ function SideNav() {
       <>
         <SideNavContainer>
           <Profile />
+
           <LoginModalContainer />
+
           <StyledLink to="/signup" className="SignUpBtn">
             개서적이 처음이신가요?
           </StyledLink>
@@ -99,11 +102,22 @@ const SideNavContainer = styled.div`
     display: flex;
     flex-direction: column;
     padding: 2.5px 0;
+
+    .explain {
+      color: #808080;
+      font-size: 0.8em;
+      margin: 5px 10px;
+    }
   }
 
   .MenuBtn {
-    margin: 5px 20px;
+    margin: 5px 25px;
     font-weight: bold;
+    transition: all 0.3s;
+
+    :hover {
+      margin-left: 35px;
+    }
   }
 
   .SignUpBtn {

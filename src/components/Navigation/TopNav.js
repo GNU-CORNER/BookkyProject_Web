@@ -7,7 +7,7 @@ import SearchBar from "./SearchBar";
 function TopNav() {
   // 변수 선언
   const [homeActive, setHomeActive] = useState("");
-  const [comunnityActive, setComunnityActive] = useState("");
+  const [CommunityActive, setCommunityActive] = useState("");
   const [recommendActive, setRecommendActive] = useState("");
   const location = useLocation();
 
@@ -19,55 +19,55 @@ function TopNav() {
     switch (location.pathname) {
       case "/": {
         setHomeActive("3px solid #6c95ff");
-        setComunnityActive("");
+        setCommunityActive("");
         setRecommendActive("");
         break;
       }
-      case "/comunnity": {
-        setComunnityActive("3px solid #6c95ff");
+      case "/Community": {
+        setCommunityActive("3px solid #6c95ff");
         setHomeActive("");
         setRecommendActive("");
         break;
       }
       case "/free": {
-        setComunnityActive("3px solid #6c95ff");
+        setCommunityActive("3px solid #6c95ff");
         setHomeActive("");
         setRecommendActive("");
         break;
       }
       case "/qna": {
-        setComunnityActive("3px solid #6c95ff");
+        setCommunityActive("3px solid #6c95ff");
         setHomeActive("");
         setRecommendActive("");
         break;
       }
       case "/trade": {
-        setComunnityActive("3px solid #6c95ff");
+        setCommunityActive("3px solid #6c95ff");
         setHomeActive("");
         setRecommendActive("");
         break;
       }
       case "/recommend": {
         setRecommendActive("3px solid #6c95ff");
-        setComunnityActive("");
+        setCommunityActive("");
         setHomeActive("");
         break;
       }
       case "/detective": {
         setRecommendActive("3px solid #6c95ff");
-        setComunnityActive("");
+        setCommunityActive("");
         setHomeActive("");
         break;
       }
       case "/guide": {
         setRecommendActive("3px solid #6c95ff");
-        setComunnityActive("");
+        setCommunityActive("");
         setHomeActive("");
         break;
       }
       default: {
         setRecommendActive("");
-        setComunnityActive("");
+        setCommunityActive("");
         setHomeActive("");
         break;
       }
@@ -93,13 +93,13 @@ function TopNav() {
       <div className="dropdown">
         <StyledLink
           className="dropbtn"
-          to="/comunnity"
-          borderbottom={comunnityActive}
+          to="/community"
+          borderbottom={CommunityActive}
         >
           커뮤니티
         </StyledLink>
         <div className="dropdown-content a">
-          <StyledLink to="/comunnity">커뮤니티 홈</StyledLink>
+          <StyledLink to="/community">커뮤니티 홈</StyledLink>
           <StyledLink to="/hot">H🔥T게시판</StyledLink>
           <StyledLink to="/free">자유게시판</StyledLink>
           <StyledLink to="/qna">Q{"&"}A게시판</StyledLink>

@@ -33,11 +33,14 @@ const ResizeImg = styled.img`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   margin: 5px;
-  border: 2px solid #f1f1f1;
-  border-radius: 4px;
-  box-shadow: 2px 2px 3px 2px #e1e1e1;
+  box-shadow: 2px 1px 2px 2px black;
   display: inline-block;
   object-fit: fill;
+  transition: all 0.3s;
+
+  :hover {
+    transform: scale(1.07);
+  }
 `;
 
 const Contents = styled.div`

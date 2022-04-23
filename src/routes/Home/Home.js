@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import SpreadBooks from "../components/Home/SpreadBooks";
+import SpreadBooks from "../../components/Home/SpreadBooks";
 
 // Home
 function Home() {
@@ -31,7 +31,7 @@ function Home() {
 
 //////////////////////////////////////// Styled-Components
 const HomeContainer = styled.div`
-  width: calc(100vw - 160px);
+  width: calc(100vw - 177px);
 `;
 
 const MainHeader = styled.div`
@@ -57,7 +57,7 @@ const Title = styled.div`
 `;
 
 const BooksContainer = styled.div`
-  margin: 0 100px;
+  margin: 0 80px;
   transition: all 0.3s;
   margin-bottom: 10vh;
   .scroll-menu-arrow {

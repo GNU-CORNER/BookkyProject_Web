@@ -6,9 +6,8 @@ const BoardTitle = ({ title, kind }) => {
   const navigate = useNavigate();
   return (
     <Title>
-      <div onClick={() => navigate(`../${kind}`)}>{title}</div>
-      <div className="Link" onClick={() => navigate(`../${kind}`)}>
-        {">"}
+      <div className="title" onClick={() => navigate(`../${kind}`)}>
+        {title} {">"}
       </div>
     </Title>
   );
@@ -25,24 +24,23 @@ const Title = styled.div`
   border-bottom: 2px solid #6e95ff;
   font-size: 1.4em;
   font-weight: 500;
-
+  display: flex;
   div {
     width: fit-content;
+
     :hover {
       cursor: pointer;
     }
   }
 
-  .Link {
-    position: absolute;
-    font-size: 1.2em;
-    bottom: 0;
-    right: 15px;
+  .title {
+    margin-left: 0px;
+    transition: all 0.3s;
+
     :hover {
-      cursor: pointer;
+      margin-left: 10px;
     }
   }
 `;
 
-const GoBoard = styled(Link)``;
 export default BoardTitle;

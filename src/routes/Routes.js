@@ -3,7 +3,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-import Home from "./Home";
+import Home from "./Home/Home";
 import BookDetail from "./BookDetail";
 
 import MyInfo from "./MyInfo/MyInfo";
@@ -25,6 +25,8 @@ import Error from "./Error";
 import FindPassWord from "./Authentication/FindPassword";
 import SignUp from "./Authentication/SignUp";
 import SignUpMore from "./Authentication/SignUpMore";
+import SearchResult from "./SearchResult";
+import TagDetail from "./Home/TagDetail";
 
 // 전체 URL 경로에 대한 명세
 function BookkyRoutes() {
@@ -42,7 +44,7 @@ function BookkyRoutes() {
     <RoutesContainer>
       <Routes>
         <Route exact path="/" element={<Home />} />
-        <Route path="/Community" element={<Community />} />
+        <Route path="/community" element={<Community />} />
         <Route path="/recommend" element={<Recommend />} />
 
         <Route path="/signup" element={<SignUp />} />
@@ -63,6 +65,8 @@ function BookkyRoutes() {
 
         <Route path="/setinterests" element={<SetInterests />} />
         <Route path="/books/:BID" element={<BookDetail />} />
+        <Route path="/tag/:TID" element={<TagDetail />} />
+        <Route path="/search" element={<SearchResult />} />
 
         <Route path="*" element={<Error />} />
       </Routes>

@@ -5,11 +5,32 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import Notice from "../../components/Community/Notice";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { useEffect } from "react";
 
 // 커뮤니티 - 자유게시판
 function FreeBoard() {
   // 변수 선언
   const posts = useSelector((state) => state.posts.free);
+  const user = useSelector((state) => state.userData);
+
+  function getPosts() {
+    axios
+      .get(
+        "http://203.255.3.144:8002/v1/community/postlist/0",
+        {
+          quantity: 10,
+        },
+        {
+          headers: {
+            "access-token": user.accessToken,
+          },
+        }
+      )
+      .then((res) => console.log(res));
+  }
+
+  useEffect(getPosts, []);
 
   // 자유게시판 View
   return (

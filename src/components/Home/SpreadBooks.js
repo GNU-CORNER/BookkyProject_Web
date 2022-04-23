@@ -73,7 +73,11 @@ function SpreadBooks() {
         return (
           <div key={el.tag}>
             <TagTitle>
-              <div>{el.tag}</div>
+              <div>
+                <span onClick={() => navigate("/tag/" + el.tag)}>
+                  {el.tag + " >"}
+                </span>
+              </div>
             </TagTitle>
             {mapTags(el.data)}
           </div>
@@ -88,12 +92,22 @@ const TagTitle = styled.h2`
   font-weight: bold;
   font-size: 30px;
   padding: 7vh 0 2vh 1vw;
+  overflow: hidden;
 
   div {
     width: fit-content;
     padding: 0 15px;
     border-left: 10px solid #6e95ff;
     border-radius: 4px;
+
+    span {
+      margin-left: 0px;
+      transition: all 0.3s;
+    }
+    span:hover {
+      margin-left: 10px;
+      cursor: pointer;
+    }
   }
 `;
 export default SpreadBooks;

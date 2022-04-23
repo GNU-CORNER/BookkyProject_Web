@@ -15,9 +15,7 @@ const TagCardContainer = styled.div`
   border-radius: 4px;
   font-size: 0.9em;
   width: fit-content;
-  max-width: 100px;
   padding: 3px 5px;
-  margin: 5px auto;
   border: 1px solid #6e95ff;
   text-overflow: ellipsis;
   overflow: hidden;

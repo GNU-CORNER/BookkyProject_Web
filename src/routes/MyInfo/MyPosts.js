@@ -4,7 +4,7 @@ import styled from "styled-components";
 import PostCard from "../../components/Cards/PostCard";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import Notice from "../../components/Comunnity/Notice";
+import Notice from "../../components/Community/Notice";
 
 // SideBar - 내 글 보기
 function MyPost() {
