@@ -13,6 +13,7 @@ function FreeBoard() {
   // 변수 선언
   const posts = useSelector((state) => state.posts.free);
   const user = useSelector((state) => state.userData);
+  const SideNavState = useSelector((state) => state.SideNavState);
 
   function getPosts() {
     axios
@@ -34,7 +35,7 @@ function FreeBoard() {
 
   // 자유게시판 View
   return (
-    <FreeBoardContainer>
+    <FreeBoardContainer width={SideNavState.width}>
       <PageHeader title="자유게시판" subTitle="자유롭게 의견을 나누세요" />
       <Posts>
         <Notice notice="상대방을 비방하는 글은 자제해주세요" />
@@ -57,7 +58,7 @@ function FreeBoard() {
 
 //////////////////////////////////////// Styled-Components
 const FreeBoardContainer = styled.div`
-  width: calc(100vw - 160px);
+  width: ${(props) => props.width};
 
   .pagination {
     align-items: center;

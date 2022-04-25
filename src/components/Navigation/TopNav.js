@@ -23,7 +23,7 @@ function TopNav() {
         setRecommendActive("");
         break;
       }
-      case "/Community": {
+      case "/community": {
         setCommunityActive("3px solid #6c95ff");
         setHomeActive("");
         setRecommendActive("");

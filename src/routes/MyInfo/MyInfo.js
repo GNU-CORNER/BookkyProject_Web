@@ -11,10 +11,11 @@ function MyInfo() {
   // 변수 정의
   const user = useSelector((state) => state.userData);
   const myposts = useSelector((state) => state.posts.myposts);
+  const SideNavState = useSelector((state) => state.SideNavState);
 
   // 내 정보 View
   return (
-    <MyInfoContainer>
+    <MyInfoContainer width={SideNavState.width}>
       <MainHeader>
         <Title className="nodrag">
           <p>
@@ -64,6 +65,8 @@ function MyInfo() {
 
 //////////////////////////////////////// Styled-Components
 const ContentContainer = styled.div`
+  width: ${(props) => props.width};
+
   margin-top: 3vh;
   display: grid;
   grid-template-columns: repeat(auto-fit, 750px);

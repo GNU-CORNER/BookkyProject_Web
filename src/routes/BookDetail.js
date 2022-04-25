@@ -6,6 +6,7 @@ import PageHeader from "../components/PageHeader";
 import BookDetailHeader from "../components/BookDetail/BookDetailHeader";
 import ReviewCard from "../components/Cards/ReviewCard";
 import ReviewWriting from "../components/BookDetail/ReviewWriting";
+import { useSelector } from "react-redux";
 
 // 도서 상세정보
 function BookDetail() {
@@ -13,6 +14,7 @@ function BookDetail() {
   const postNum = location.pathname.split("/")[2];
   const [book, setBook] = useState({ BOOK_INDEX: "" });
   const [fold, setFold] = useState(true);
+  const SideNavState = useSelector((state) => state.SideNavState);
 
   function getBookData() {
     axios.get("http://203.255.3.144:8002/v1/books/" + postNum).then((res) => {
@@ -25,7 +27,7 @@ function BookDetail() {
 
   // 도서 상세정보 View
   return (
-    <BookDetailContainer>
+    <BookDetailContainer width={SideNavState.width}>
       <PageHeader title="도서 상세정보" subTitle="선택한 책의 정보에요" />
       <Summary>
         <img src={book.thumbnailImage} alt="book thumbnail" />
@@ -113,7 +115,7 @@ function BookDetail() {
 
 //////////////////////////////////////// Styled-Components
 const BookDetailContainer = styled.div`
-  width: calc(100vw - 160px);
+  width: ${(props) => props.width};
 `;
 
 const Summary = styled.div`

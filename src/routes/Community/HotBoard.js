@@ -10,10 +10,11 @@ import { useSelector } from "react-redux";
 function HotBoard() {
   // 변수 선언
   const posts = useSelector((state) => state.posts.hot);
+  const SideNavState = useSelector((state) => state.SideNavState);
 
   // HOT 게시판 View
   return (
-    <HotBoardContainer>
+    <HotBoardContainer width={SideNavState.width}>
       <PageHeader title="H🔥T 게시판" subTitle="떠오르고 있는 인기 글이에요" />
       <Posts>
         <Notice notice="상대방을 비방하는 글은 자제해주세요" />
@@ -36,7 +37,7 @@ function HotBoard() {
 
 //////////////////////////////////////// Styled-Components
 const HotBoardContainer = styled.div`
-  width: calc(100vw - 160px);
+  width: ${(props) => props.width};
 
   .pagination {
     align-items: center;

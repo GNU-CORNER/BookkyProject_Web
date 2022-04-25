@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import SearchBookCard from "../components/Cards/SearchBookCard";
@@ -8,9 +9,10 @@ const test = ["1", "2", "3", "3", "3"];
 // 검색 결과 화면
 const SearchResult = () => {
   const query = useLocation().state.query;
+  const SideNavState = useSelector((state) => state.SideNavState);
 
   return (
-    <SearchResultContainer>
+    <SearchResultContainer width={SideNavState.width}>
       <PageHeader title="검색 결과" />
       <Contents>
         <div className="explain">
@@ -30,7 +32,7 @@ const SearchResult = () => {
 };
 
 const SearchResultContainer = styled.div`
-  width: calc(100vw - 160px);
+  width: ${(props) => props.width};
 
   .explain {
     font-size: 1.1em;

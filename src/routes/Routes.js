@@ -76,7 +76,7 @@ function BookkyRoutes() {
 
 //////////////////////////////////////// Styled-Components
 const RoutesContainer = styled.div`
-  margin: 64px 0 0 160px;
+  margin: 64px 0 0 auto;
 `;
 
 export default BookkyRoutes;

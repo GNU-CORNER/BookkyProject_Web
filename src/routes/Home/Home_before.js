@@ -24,9 +24,7 @@ function Home() {
         </Title>
         <TodayBooks />
       </MainHeader>
-      <BooksContainer>
-        <SpreadBooks />
-      </BooksContainer>
+      <BooksContainer>{/* <SpreadBooks /> */}</BooksContainer>
     </HomeContainer>
   );
 }

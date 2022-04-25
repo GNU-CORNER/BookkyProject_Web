@@ -3,10 +3,12 @@ import styled from "styled-components";
 import PageHeader from "../../components/PageHeader";
 import FirstStep from "../../components/MyInfo/SetInterests/FirstStep";
 import SecondStep from "../../components/MyInfo/SetInterests/SecondStep";
+import { useSelector } from "react-redux";
 
 // 관심분야 설정
 const Setinterests = () => {
   const [step, setStep] = useState(1);
+  const SideNavState = useSelector((state) => state.SideNavState);
 
   function NextStep() {
     if (step === 1) {
@@ -16,7 +18,7 @@ const Setinterests = () => {
     }
   }
   return (
-    <SetInterestsContainer>
+    <SetInterestsContainer width={SideNavState.width}>
       <PageHeader
         title={"관심분야 설정 [" + step + "/2]"}
         subTitle="당신의 관심분야를 선택해주세요"
@@ -38,7 +40,8 @@ const Setinterests = () => {
 //////////////////////////////////////// Styled-Components
 const SetInterestsContainer = styled.div`
   position: relative;
-  width: calc(100vw - 160px);
+  width: ${(props) => props.width};
+
   display: flex;
   flex-direction: column;
 `;

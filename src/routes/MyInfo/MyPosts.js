@@ -9,10 +9,11 @@ import Notice from "../../components/Community/Notice";
 // SideBar - 내 글 보기
 function MyPost() {
   const posts = useSelector((state) => state.posts.myposts);
+  const SideNavState = useSelector((state) => state.SideNavState);
 
   // 내 글 보기 View
   return (
-    <MyPostContainer>
+    <MyPostContainer width={SideNavState.width}>
       <PageHeader
         title="내 글 보기"
         subTitle="커뮤니티에서 내가 작성한 글이에요"
@@ -38,7 +39,7 @@ function MyPost() {
 
 //////////////////////////////////////// Styled-Components
 const MyPostContainer = styled.div`
-  width: calc(100vw - 160px);
+  width: ${(props) => props.width};
 
   .pagination {
     align-items: center;

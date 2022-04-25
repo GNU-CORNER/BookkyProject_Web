@@ -9,10 +9,11 @@ import Notice from "../../components/Community/Notice";
 // 커뮤니티 - 중고장터
 function TradeBoard() {
   const posts = useSelector((state) => state.posts.trade);
+  const SideNavState = useSelector((state) => state.SideNavState);
 
   // 중고장터 View
   return (
-    <TradeBoardContainer>
+    <TradeBoardContainer width={SideNavState.width}>
       <PageHeader title="중고장터" subTitle="읽지 않는 책을 사고 파세요" />
       <Posts>
         <Notice notice="상대방을 비방하는 글은 자제해주세요" />
@@ -35,7 +36,7 @@ function TradeBoard() {
 
 //////////////////////////////////////// Styled-Components
 const TradeBoardContainer = styled.div`
-  width: calc(100vw - 160px);
+  width: ${(props) => props.width};
 
   .pagination {
     align-items: center;

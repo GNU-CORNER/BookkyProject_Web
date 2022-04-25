@@ -7,10 +7,11 @@ function Interests() {
   // 변수 정의
   const user = useSelector((state) => state.userData);
   const mybooks = useSelector((state) => state.books.interests);
+  const SideNavState = useSelector((state) => state.SideNavState);
 
   // 관심도서 View
   return (
-    <InterstsContainer>
+    <InterstsContainer width={SideNavState.width}>
       <MainHeader>
         <Title className="nodrag">
           <p>
@@ -43,6 +44,8 @@ function Interests() {
 
 //////////////////////////////////////// Styled-Components
 const ContentContainer = styled.div`
+  width: ${(props) => props.width};
+
   margin-top: 3vh;
   display: grid;
   grid-template-columns: repeat(auto-fit, 250px);

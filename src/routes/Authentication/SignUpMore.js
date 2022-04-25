@@ -10,6 +10,7 @@ import { useCookies } from "react-cookie";
 const SignUpMore = () => {
   // 변수 선언
   const user = useSelector((state) => state.userData);
+  const SideNavState = useSelector((state) => state.SideNavState);
   const dispatch = useDispatch();
   const [nickName, setNickName] = useState("");
   const [, setCookie] = useCookies();
@@ -66,7 +67,7 @@ const SignUpMore = () => {
   }
 
   return (
-    <SignUpContainer>
+    <SignUpContainer width={SideNavState.width}>
       <PageHeader title="회원가입" subTitle="지금 바로, 북키와 함께하세요 !" />
       <Frame>
         <InputArea>
@@ -99,8 +100,8 @@ const SignUpMore = () => {
 
 //////////////////////////////////////// Styled-Components
 const SignUpContainer = styled.div`
+  width: ${(props) => props.width};
   position: relative;
-  width: calc(100vw - 160px);
   display: flex;
   flex-direction: column;
 `;

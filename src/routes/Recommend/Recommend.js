@@ -7,10 +7,11 @@ import MenuCard from "../../components/Cards/MenuCard";
 function Recommend() {
   // 변수 정의
   const MenuList = useSelector((state) => state.recommend);
+  const SideNavState = useSelector((state) => state.SideNavState);
 
   // 추천받개 홈 View
   return (
-    <RecommendContainer>
+    <RecommendContainer width={SideNavState.width}>
       <PageHeader
         title="추천받개 홈"
         subTitle="무슨 책을 읽어야할지 모르겠다구요? 북키가 도와줄게요 !"
@@ -40,7 +41,7 @@ function Recommend() {
 
 //////////////////////////////////////// Styled-Components
 const RecommendContainer = styled.div`
-  width: calc(100vw - 160px);
+  width: ${(props) => props.width};
 `;
 
 const MenuContainer = styled.div`

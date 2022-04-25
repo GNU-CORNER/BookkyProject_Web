@@ -7,14 +7,16 @@ import { useSelector } from "react-redux";
 // 커뮤니티 홈
 function Community() {
   // 변수 선언
+
   const posts_hot = useSelector((state) => state.posts.hot);
   const posts_free = useSelector((state) => state.posts.free);
   const posts_qna = useSelector((state) => state.posts.qna);
   const posts_trade = useSelector((state) => state.posts.trade);
+  const SideNavState = useSelector((state) => state.SideNavState);
 
   // 커뮤니티 홈 View
   return (
-    <CommunityContainer>
+    <CommunityContainer width={SideNavState.width}>
       <PageHeader title="커뮤니티 홈" subTitle="최신 글 모아보기" />
       <ContentsContainer>
         <div className="hotBoard">
@@ -48,7 +50,7 @@ function Community() {
 
 //////////////////////////////////////// Styled-Components
 const CommunityContainer = styled.div`
-  width: calc(100vw - 160px);
+  width: ${(props) => props.width};
 `;
 
 const ContentsContainer = styled.div`

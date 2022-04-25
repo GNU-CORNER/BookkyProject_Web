@@ -7,10 +7,11 @@ import { useSelector } from "react-redux";
 function Guide() {
   // 변수 정의
   const MenuList = useSelector((state) => state.recommend);
+  const SideNavState = useSelector((state) => state.SideNavState);
 
   // 안내견 북키 View
   return (
-    <GuideContainer>
+    <GuideContainer width={SideNavState.width}>
       <PageHeader
         title="안내견 북키"
         subTitle="북키의 로드맵을 참고하여 학습해보세요"
@@ -39,7 +40,7 @@ function Guide() {
 
 //////////////////////////////////////// Styled-Components
 const GuideContainer = styled.div`
-  width: calc(100vw - 160px);
+  width: ${(props) => props.width};
 `;
 
 const MenuContainer = styled.div`

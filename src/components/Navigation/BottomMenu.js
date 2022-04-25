@@ -26,42 +26,19 @@ function BottomMenu() {
     location.pathname = "/";
   };
 
-  // 회원일 때 (userData에 유저 nickname이 있을 때)
-  if (user.nickname) {
-    return (
-      <BottomMenuContainer>
-        <Link to="/myinfo" className="btn">
-          <img src={require("../../assets/BottomMenu/MyInfo.png")} alt="" />내
-          정보
-        </Link>
-        {/* 다크모드 추후 구현할 것(03/30) */}
-        <button className="btn" onClick={() => console.log("다크모드")}>
-          <img src={require("../../assets/BottomMenu/DarkMode.png")} alt="" />{" "}
-          다크모드
-        </button>
-        <button className="LogoutBtn btn" onClick={logout}>
-          로그아웃
-        </button>
-      </BottomMenuContainer>
-    );
-  }
-
-  // 비회원일 때 (userData에 유저 nickname이 없을 때)
-  else {
-    return (
-      <BottomMenuContainer>
-        <button className="btn" onClick={() => console.log("다크모드")}>
-          <img src={require("../../assets/BottomMenu/DarkMode.png")} alt="" />
-          다크모드
-        </button>
-      </BottomMenuContainer>
-    );
-  }
+  return (
+    <BottomMenuContainer>
+      <button className="btn" onClick={() => console.log("다크모드")}>
+        <img src={require("../../assets/BottomMenu/night-mode.png")} alt="" />
+        DARK
+      </button>
+    </BottomMenuContainer>
+  );
 }
 
 //////////////////////////////////////// Styled-Components
 const BottomMenuContainer = styled.div`
-  width: 100%;
+  width: 70%;
   position: absolute;
   bottom: 10px;
 
@@ -71,11 +48,12 @@ const BottomMenuContainer = styled.div`
     display: block;
     width: 80%;
     line-height: 35px;
-    margin: 8px auto;
-    padding-left: 15px;
+    margin: 0 auto;
+    padding-left: 25px;
     border-radius: 30px;
     font-size: 0.8em;
-    border: 2px solid #6e95ff;
+    border: 2px solid #808080;
+    color: #808080;
     font-weight: bold;
     text-align: center;
     transition: all 0.4s;
@@ -88,7 +66,7 @@ const BottomMenuContainer = styled.div`
     }
 
     :hover {
-      background-color: #6e95ff;
+      background-color: #808080;
       color: #ffffff;
     }
   }
