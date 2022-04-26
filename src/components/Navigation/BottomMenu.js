@@ -1,30 +1,8 @@
-import { useSelector, useDispatch } from "react-redux";
-import { updateUser } from "../../redux-modules/userData";
 import styled from "styled-components";
-import { Link, useLocation } from "react-router-dom";
-import { useCookies } from "react-cookie";
 
 // SideBar - 하단 메뉴 (내 정보, 다크모드, 로그아웃)
 function BottomMenu() {
   // 변수 선언
-  const dispatch = useDispatch();
-  const location = useLocation();
-  const [, , removeCookie] = useCookies();
-  const user = useSelector((state) => state.userData);
-
-  // 로그아웃 버튼 클릭 시
-  const logout = () => {
-    removeCookie("autologin");
-    removeCookie("refresh_token");
-    removeCookie("email");
-    removeCookie("password");
-    removeCookie("loginMethod");
-    dispatch(updateUser("", "", ""));
-    localStorage.removeItem("email");
-    localStorage.removeItem("password");
-    localStorage.removeItem("loginMethod");
-    location.pathname = "/";
-  };
 
   return (
     <BottomMenuContainer>

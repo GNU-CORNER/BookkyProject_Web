@@ -1,4 +1,3 @@
-import zIndex from "@mui/material/styles/zIndex";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { setFold } from "../../redux-modules/sideNav";
@@ -17,6 +16,7 @@ const SideNavFoldBtn = () => {
         <img
           className="left"
           src={require("../../assets/icons/to-left-arrow.png")}
+          alt="Sidenav-fold-btn left"
         />
       </SideNavFoldBtnContainer>
     );
@@ -29,6 +29,7 @@ const SideNavFoldBtn = () => {
         <img
           className="right"
           src={require("../../assets/icons/to-right-arrow.png")}
+          alt="Sidenav-fold-btn Right"
         />
       </SideNavFoldBtnContainer>
     );

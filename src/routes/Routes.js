@@ -26,7 +26,7 @@ import FindPassWord from "./Authentication/FindPassword";
 import SignUp from "./Authentication/SignUp";
 import SignUpMore from "./Authentication/SignUpMore";
 import SearchResult from "./SearchResult";
-import TagDetail from "./Home/TagDetail";
+import TagDetail from "./TagDetail";
 
 // 전체 URL 경로에 대한 명세
 function BookkyRoutes() {

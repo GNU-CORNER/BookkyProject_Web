@@ -9,7 +9,6 @@ import axios from "axios";
 import { updateUser } from "./redux-modules/userData";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setFold } from "./redux-modules/sideNav";
 import SideNavFoldBtn from "./components/Navigation/SideNavFoldBtn";
 
 // App() : 최상위 컴포넌트
@@ -105,6 +104,7 @@ const FlexDiv = styled.div`
 `;
 
 const GlobalStyle = createGlobalStyle`
+
   :root {
     --main-color : #6e95ff;
     --sub-color : #FFA24D;
@@ -113,6 +113,10 @@ const GlobalStyle = createGlobalStyle`
     --none-folded-width : calc(100vw - 160px);
     --folded-width : calc(100vw);
   }
+  
+  ::-webkit-scrollbar {
+  display: none;
+}
 
 	body {
     margin : 0;

@@ -1,31 +1,34 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import SpreadBooks from "../../components/Home/SpreadBooks";
 import TodayBooks from "../../components/Home/TodayBooks";
+import Title from "../../components/Home/Title";
+import RecommendByTag from "../../components/Home/RecommendByTag";
 
-// Home
+// Home new ver.
 function Home() {
-  const user = useSelector((state) => state.userData);
   const SideNavState = useSelector((state) => state.SideNavState);
 
   // Home View
   return (
     <HomeContainer width={SideNavState.width}>
       <MainHeader>
-        <Title className="nodrag">
-          {/* 회원/비회원에 따른 문구 출력 */}
-          <p>{user.nickname ? "오늘" : "북키가"}</p>
-
-          <p>
-            <span>{user.nickname ? user.nickname : "처음 오신 당신"}</span>
-            {user.nickname ? " 님" : ""}에게
-          </p>
-          <p>추천하는 책이에요 !</p>
-        </Title>
+        <Title />
         <TodayBooks />
       </MainHeader>
       <BooksContainer>
-        <SpreadBooks />
+        <div>
+          <div className="title">태그 별 추천</div>
+          <RecommendByTag />
+        </div>
+        <div className="lowerArea">
+          <div>
+            <div className="title">커뮤니티</div>
+          </div>
+          <div>
+            <div className="title">Banner</div>
+            <img src={require("../../assets/testBanner.png")} alt="" />
+          </div>
+        </div>
       </BooksContainer>
     </HomeContainer>
   );
@@ -41,33 +44,31 @@ const MainHeader = styled.div`
   align-items: center;
   position: relative;
   border-radius: 15px;
-  height: 200px;
+  height: 180px;
   background-color: #6c95ff;
   margin: 5px 10px;
-`;
-
-const Title = styled.div`
-  color: #f5f5f5;
-  font-size: 1.6em;
-  color: white;
-  padding-left: 72px;
-
-  span {
-    color: #ffd86d;
-  }
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 `;
 
 const BooksContainer = styled.div`
-  margin: 0 80px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 80px;
+  align-items: center;
   transition: all 0.3s;
 
-  .menu-item-wrapper {
-    transition: all 0.3s;
-    border: 2px solid #ffffff;
+  .title {
+    border-left: 10px solid #6e95ff;
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 10px;
+  }
 
-    :hover {
-      border: 2px solid var(--main-color);
-    }
+  .lowerArea {
+    display: grid;
+    grid-template-columns: 60% 40%;
   }
 `;
 

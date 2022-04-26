@@ -134,7 +134,6 @@ const TopNavContainer = styled.div`
   display: flex;
   width: 100%;
   height: 64px;
-  border-bottom: 1px solid #e5e5e5;
   font-weight: bold;
 
   .dropdown {
