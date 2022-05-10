@@ -45,7 +45,6 @@ function Interests() {
 //////////////////////////////////////// Styled-Components
 const ContentContainer = styled.div`
   width: ${(props) => props.width};
-
   margin-top: 3vh;
   display: grid;
   grid-template-columns: repeat(auto-fit, 250px);
@@ -57,7 +56,7 @@ const ContentContainer = styled.div`
   .border {
     display: grid;
     justify-content: center;
-    border: 2pwx solid #f1f1f1;
+    border: 2px solid #f1f1f1;
     transition: all 0.3s;
     border-radius: 4px;
 
@@ -69,17 +68,18 @@ const ContentContainer = styled.div`
 `;
 
 const InterstsContainer = styled.div`
-  width: calc(100vw - 160px);
+  width: ${(props) => props.width};
 `;
 
 const MainHeader = styled.div`
   display: flex;
   align-items: center;
   position: relative;
-  border-radius: 0 0 15px 15px;
+  border-radius: 15px;
   max-height: 250px;
-  height: 20vh;
+  height: 180px;
   background-color: #6c95ff;
+  margin: 5px 10px;
 `;
 const Title = styled.div`
   color: #f5f5f5;

@@ -8,17 +8,18 @@ const InterestBooks = () => {
 
   return (
     <InterestFieldContainer>
-      {mybooks.map((book) => {
-        return (
-          <SmallBookCard
-            key={book.BID}
-            className="nodrag"
-            title={book.TITLE}
-            thumnail={book.thumbnailImage}
-            author={book.AUTHOR}
-            publisher={book.PUBLISHER}
-          />
-        );
+      {mybooks.map((book, cnt) => {
+        if (cnt < 4)
+          return (
+            <SmallBookCard
+              key={book.BID}
+              className="nodrag"
+              title={book.TITLE}
+              thumnail={book.thumbnailImage}
+              author={book.AUTHOR}
+              publisher={book.PUBLISHER}
+            />
+          );
       })}
     </InterestFieldContainer>
   );

@@ -4,13 +4,12 @@ import styled from "styled-components";
 // Home - SpreadBooks - 책 한 권마다의 표현 단위
 const BookCard = (book) => {
   const navigate = useNavigate();
-
   return (
     <BookCardContainer
       width={"170px"}
       onClick={
         book.more
-          ? () => navigate("/tag/" + book.bid)
+          ? () => navigate("/tag/" + book.nowTID)
           : () => navigate("/books/" + book.bid)
       }
     >
@@ -18,6 +17,7 @@ const BookCard = (book) => {
         className="nodrag"
         src={book.thumnail}
         alt="이미지 로드 오류"
+        width={"140px"}
         height={"180px"}
         draggable={false}
       />
@@ -45,6 +45,10 @@ const BookCardContainer = styled.div`
     cursor: pointer;
     border: 2px solid #6e95ff;
   }
+
+  :hover img {
+    transform: scale(1.05);
+  }
 `;
 
 const ResizeImg = styled.img`
@@ -55,10 +59,6 @@ const ResizeImg = styled.img`
   object-fit: contain;
   transition: all 0.4s;
   border: 2px solid var(--bright-base-color);
-
-  :hover {
-    transform: scale(1.05);
-  }
 `;
 
 const Contents = styled.div`

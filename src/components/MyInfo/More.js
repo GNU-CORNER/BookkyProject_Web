@@ -12,7 +12,7 @@ const More = () => {
 const MoreBtn = styled.div`
   text-align: center;
   line-height: 43px;
-  background-color: #f1f1f1;
+  background-color: #f9f9f9;
   color: gray;
   border: 1px solid #d5d5d5;
   min-height: 45px;

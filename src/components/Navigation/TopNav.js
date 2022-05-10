@@ -148,7 +148,7 @@ const TopNavContainer = styled.div`
   }
 
   .dropdown a:hover {
-    color: #6c95ff;
+    color: #6e95ff;
     transition: all 200ms;
   }
 
@@ -168,7 +168,7 @@ const TopNavContainer = styled.div`
     text-align: center;
     border-radius: 4px;
     border: 1px solid #6c95ff;
-    background-color: #f5f5f5;
+    background-color: var(--bright-base-color);
     min-width: 130px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   }

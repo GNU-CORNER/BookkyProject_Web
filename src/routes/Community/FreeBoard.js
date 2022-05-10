@@ -7,6 +7,7 @@ import Notice from "../../components/Community/Notice";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // 커뮤니티 - 자유게시판
 function FreeBoard() {
@@ -14,6 +15,8 @@ function FreeBoard() {
   const posts = useSelector((state) => state.posts.free);
   const user = useSelector((state) => state.userData);
   const SideNavState = useSelector((state) => state.SideNavState);
+  const navigate = useNavigate();
+  const boardName = useLocation().pathname.split("/")[1];
 
   function getPosts() {
     axios
@@ -50,8 +53,15 @@ function FreeBoard() {
         ))}
       </Posts>
       <Stack className="pagination" spacing={2}>
-        <Pagination count={10} color="primary" />
+        <Pagination count={5} color="primary" />
       </Stack>
+      <button
+        onClick={() =>
+          navigate("/writepost", { state: { boardName: boardName } })
+        }
+      >
+        헬로
+      </button>
     </FreeBoardContainer>
   );
 }
@@ -66,7 +76,6 @@ const FreeBoardContainer = styled.div`
   }
 `;
 const Posts = styled.div`
-  padding: 1px 36px;
   margin: 2vh 72px;
 `;
 

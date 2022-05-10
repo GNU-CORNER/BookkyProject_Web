@@ -67,7 +67,7 @@ function Profile() {
 
 //////////////////////////////////////// Styled-Components
 const ProfileContainer = styled.div`
-  height: 200px;
+  height: 190px;
   text-align: center;
   font-weight: bold;
   display: flex;
@@ -87,6 +87,8 @@ const ProfileContainer = styled.div`
 
   span,
   img {
+    margin: 5px;
+    line-height: 1.3em;
     color: #6c95ff;
     transition: all 0.3s;
     text-decoration: underline 1px solid #ffffff;
@@ -98,6 +100,7 @@ const ProfileContainer = styled.div`
   }
 
   .LogoutBtn {
+    margin-top: 10px;
     font-size: 0.8em;
     color: #ff6d94;
     text-decoration: underline 1px solid #ff6d94;

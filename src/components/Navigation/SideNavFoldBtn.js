@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { setFold } from "../../redux-modules/sideNav";
 
+// Sidebar 접기 버튼 >> <<
 const SideNavFoldBtn = () => {
   const SideNavState = useSelector((state) => state.SideNavState);
   const dispatch = useDispatch();

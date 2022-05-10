@@ -27,6 +27,7 @@ import SignUp from "./Authentication/SignUp";
 import SignUpMore from "./Authentication/SignUpMore";
 import SearchResult from "./SearchResult";
 import TagDetail from "./TagDetail";
+import WritePost from "./Community/WritePost";
 
 // 전체 URL 경로에 대한 명세
 function BookkyRoutes() {
@@ -59,6 +60,7 @@ function BookkyRoutes() {
         <Route path="/qna" element={<QnaBoard />} />
         <Route path="/hot" element={<HotBoard />} />
         <Route path="/trade" element={<TradeBoard />} />
+        <Route path="/writepost" element={<WritePost />} />
 
         <Route path="/detective" element={<Detective />} />
         <Route path="/guide" element={<Guide />} />

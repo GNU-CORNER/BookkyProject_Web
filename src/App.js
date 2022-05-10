@@ -112,6 +112,8 @@ const GlobalStyle = createGlobalStyle`
     --dark-base-color : #000000;
     --none-folded-width : calc(100vw - 160px);
     --folded-width : calc(100vw);
+    line-height: 1;
+
   }
   
   ::-webkit-scrollbar {

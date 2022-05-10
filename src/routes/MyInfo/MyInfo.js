@@ -66,7 +66,6 @@ function MyInfo() {
 //////////////////////////////////////// Styled-Components
 const ContentContainer = styled.div`
   width: ${(props) => props.width};
-
   margin-top: 3vh;
   display: grid;
   grid-template-columns: repeat(auto-fit, 750px);
@@ -77,28 +76,13 @@ const ContentContainer = styled.div`
 
   //나중에 반응형 수정할 때, grid rows, grid row 수정할 것(03/30)
   .interestField {
-    padding: 0 20px;
-    border: 2px solid #6e95ff;
-    height: 300px;
-    /* grid-row: 1 / 3; */
-    border-radius: 4px;
   }
 
   .interestBooks {
-    padding: 0 20px;
-    border: 2px solid #6e95ff;
-    height: 300px;
-
-    /* grid-row: 3 / 7; */
-    border-radius: 4px;
   }
   .myPost {
-    padding: 0 20px;
-    height: 300px;
-    border: 2px solid #6e95ff;
-    border-radius: 4px;
-
     .posts {
+      margin: 0 5px;
       display: flex;
       flex-direction: column;
       height: 245px;
@@ -106,26 +90,22 @@ const ContentContainer = styled.div`
     }
   }
   .myReview {
-    padding: 0 20px;
-    height: 300px;
-    border: 2px solid #6e95ff;
-    /* grid-row: -4 / -1; */
-    border-radius: 4px;
   }
 `;
 
 const MyInfoContainer = styled.div`
-  width: calc(100vw - 160px);
+  width: ${(props) => props.width};
 `;
 
 const MainHeader = styled.div`
   display: flex;
   align-items: center;
   position: relative;
-  border-radius: 0 0 15px 15px;
+  border-radius: 15px;
   max-height: 250px;
-  height: 20vh;
-  background-color: #6e95ff;
+  height: 180px;
+  background-color: #6c95ff;
+  margin: 5px 10px;
 `;
 const Title = styled.div`
   color: #f5f5f5;

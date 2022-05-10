@@ -51,19 +51,24 @@ const MainHeader = styled.div`
 `;
 
 const BooksContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 0 80px;
-  align-items: center;
-  transition: all 0.3s;
+  display: grid;
+  transition: all 0.2s;
+  justify-content: center;
 
   .title {
-    border-left: 10px solid #6e95ff;
-    border-radius: 5px;
-    padding-left: 10px;
     font-size: 1.2em;
     font-weight: bold;
-    margin: 10px;
+    margin: 1.5vh 0;
+
+    ::before {
+      content: "";
+      display: inline-block;
+      vertical-align: -4px;
+      width: 5px;
+      margin-right: 8px;
+      height: 1.2em;
+      background-color: #6e95ff;
+    }
   }
 
   .lowerArea {

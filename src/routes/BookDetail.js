@@ -17,10 +17,12 @@ function BookDetail() {
   const SideNavState = useSelector((state) => state.SideNavState);
 
   function getBookData() {
-    axios.get("http://203.255.3.144:8002/v1/books/" + postNum).then((res) => {
-      console.log(res.data.result.bookList);
-      setBook(res.data.result.bookList);
-    });
+    axios
+      .get("http://203.255.3.144:8002/v1/books/detail/" + postNum)
+      .then((res) => {
+        console.log(res.data.result.bookList);
+        setBook(res.data.result.bookList);
+      });
   }
 
   useEffect(getBookData, [postNum]);
@@ -86,11 +88,12 @@ function BookDetail() {
           <BookDetailHeader title="목차" />
           <div>
             {book.BOOK_INDEX.split("^^").map((el, cnt = 0) => {
-              cnt++;
               if (fold === false) {
                 return <div key={cnt}>{el}</div>;
               } else if (fold === true && cnt <= 20) {
                 return <div key={cnt}>{el}</div>;
+              } else {
+                return <></>;
               }
             })}
             <div className="foldBtn" onClick={() => setFold(!fold)}>

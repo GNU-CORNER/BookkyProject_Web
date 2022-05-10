@@ -66,9 +66,9 @@ const SideNavContainer = styled.div`
   transition: all 0.4s;
 
   .sidemenu-area {
+    margin-top: 1.5vh;
     display: flex;
     flex-direction: column;
-    padding: 10px 0;
 
     .explain {
       color: #808080;
@@ -78,7 +78,7 @@ const SideNavContainer = styled.div`
   }
 
   .MenuBtn {
-    margin: 5px 25px;
+    margin: 10px 25px;
     font-weight: bold;
     transition: all 0.3s;
 

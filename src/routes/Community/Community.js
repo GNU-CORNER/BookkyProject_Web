@@ -54,7 +54,7 @@ const CommunityContainer = styled.div`
 `;
 
 const ContentsContainer = styled.div`
-  margin-top: 5vh;
+  margin-top: 2vh;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(750px, 750px));
   grid-template-rows: repeat(2, 300px);

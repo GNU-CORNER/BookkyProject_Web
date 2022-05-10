@@ -21,7 +21,6 @@ const NoticeContainer = styled.div`
   font-size: 0.9em;
   font-weight: 500;
   color: gray;
-
   img {
     margin: 0 10px;
     width: 28px;

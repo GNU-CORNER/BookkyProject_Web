@@ -5,12 +5,14 @@ import PostCard from "../../components/Cards/PostCard";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import Notice from "../../components/Community/Notice";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // 커뮤니티 - 중고장터
 function TradeBoard() {
   const posts = useSelector((state) => state.posts.trade);
   const SideNavState = useSelector((state) => state.SideNavState);
-
+  const navigate = useNavigate();
+  const boardName = useLocation().pathname.split("/")[1];
   // 중고장터 View
   return (
     <TradeBoardContainer width={SideNavState.width}>
@@ -30,6 +32,13 @@ function TradeBoard() {
       <Stack className="pagination" spacing={2}>
         <Pagination count={10} color="primary" />
       </Stack>
+      <button
+        onClick={() =>
+          navigate("/writepost", { state: { boardName: boardName } })
+        }
+      >
+        헬로
+      </button>
     </TradeBoardContainer>
   );
 }
@@ -44,7 +53,6 @@ const TradeBoardContainer = styled.div`
   }
 `;
 const Posts = styled.div`
-  padding: 1px 36px;
   margin: 2vh 72px;
 `;
 

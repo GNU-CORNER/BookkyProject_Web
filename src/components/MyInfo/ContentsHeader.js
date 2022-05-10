@@ -5,12 +5,17 @@ const ContentsHeader = ({ title }) => {
 };
 
 const Title = styled.div`
-  width: fit-content;
   font-size: 1.2em;
-  margin: 10px 5px 10px 0;
-  padding-left: 10px;
   font-weight: bold;
-  border-radius: 4px;
-  border-left: 10px solid #6c95ff;
+
+  ::before {
+    content: "";
+    display: inline-block;
+    width: 5px;
+    height: 1.2em;
+    margin-right: 8px;
+    vertical-align: -4px;
+    background-color: var(--main-color);
+  }
 `;
 export default ContentsHeader;
