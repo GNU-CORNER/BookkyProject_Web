@@ -1,10 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 // 커뮤니티 - 게시글 한 개마다의 표현 단위
-const PostCard = ({ title, content, likes, comments }) => {
+const PostCard = ({ pid, title, content, likes, comments, board }) => {
+  const navigate = useNavigate();
+
   // PostCard View
   return (
-    <PostCardContainer>
+    <PostCardContainer
+      onClick={() => navigate("/postdetail/" + board + "/" + pid)}
+    >
       <div className="flex-area">
         <div className="title">{title}</div>
         <div className="counts">

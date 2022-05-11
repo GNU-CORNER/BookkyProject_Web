@@ -42,6 +42,7 @@ const WritePost = () => {
   }
 
   useEffect(init, [location]);
+
   return (
     <WritePostContainer width={SideNavState.width}>
       <PageHeader title="게시글 작성" subTitle={boardName} />
@@ -77,11 +78,24 @@ const WritePostContainer = styled.div`
 `;
 
 const InputArea = styled.div`
-  margin-top: 10px;
+  margin: 10px 0;
+  position: relative;
+
   .submit {
-    text-align: right;
+    display: flex;
+    justify-self: flex-end;
     margin-right: 72px;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #6e95ff;
+    color: white;
+    font-weight: bold;
+    width: fit-content;
+    :hover {
+      cursor: pointer;
+    }
   }
+
   display: grid;
   grid-template-rows: 50px 100px 100px 50vh;
 

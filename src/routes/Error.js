@@ -4,7 +4,7 @@ function Error() {
   return (
     <>
       {/* <img src={require("../assets/Bookky/")}/> */}
-      <div>gd</div>
+      <div>오류일거야</div>
     </>
   );
 }

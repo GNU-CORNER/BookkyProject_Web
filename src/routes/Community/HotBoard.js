@@ -5,7 +5,6 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import Notice from "../../components/Community/Notice";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
 
 // 커뮤니티 - HOT 게시판
 function HotBoard() {
@@ -47,6 +46,7 @@ const HotBoardContainer = styled.div`
 `;
 const Posts = styled.div`
   margin: 2vh 72px;
+  min-height: 70vh;
 `;
 
 export default HotBoard;
