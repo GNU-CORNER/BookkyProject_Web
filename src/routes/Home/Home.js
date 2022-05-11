@@ -26,7 +26,10 @@ function Home() {
           </div>
           <div>
             <div className="title">Banner</div>
-            <img src={require("../../assets/testBanner.png")} alt="" />
+            <img
+              src={require("../../assets/icons/home/testBanner.png")}
+              alt=""
+            />
           </div>
         </div>
       </BooksContainer>

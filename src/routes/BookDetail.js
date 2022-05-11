@@ -43,7 +43,7 @@ function BookDetail() {
           <p>#리액트 #C++ #C언어 #자바스크립트</p>
           <div className="naver_banner">
             <img
-              src={require("../assets/naver_banner.png")}
+              src={require("../assets/icons/login/naver_banner.png")}
               alt="naver_banner"
             />
             <p>책 사러 갈땐?</p>

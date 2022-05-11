@@ -92,7 +92,7 @@ function Login({ modalOpen, updateUser }) {
   return (
     <LoginContainer className="nodrag">
       <div className="LogoArea">
-        <img src={require("../../assets/Bookky/Bookky_Login.png")} alt="" />
+        <img src={require("../../assets/Bookky/북키_로그인.png")} alt="" />
       </div>
       <div className="LoginArea">
         <div className="Header">로그인</div>

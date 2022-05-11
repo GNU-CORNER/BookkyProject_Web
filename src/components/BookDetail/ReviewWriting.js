@@ -14,7 +14,7 @@ const ReviewWriting = () => {
       <InputArea>
         <textarea placeholder="욕설 및 비속어는 자제해주세요" />
         <div className="writing">
-          <img src={require("../../assets/icons/writing.png")} />작 성
+          <img src={require("../../assets/icons/community/plus.png")} />작 성
         </div>
       </InputArea>
     </ReviewWritingContainer>

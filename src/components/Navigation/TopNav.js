@@ -81,7 +81,7 @@ function TopNav() {
   return (
     <TopNavContainer>
       <StyledLink to="/">
-        <img src={require("../../assets/Bookky/Bookky_Logo.png")} alt="" />
+        <img src={require("../../assets/Bookky/북키_메인로고.png")} alt="" />
       </StyledLink>
 
       <div className="dropdown">

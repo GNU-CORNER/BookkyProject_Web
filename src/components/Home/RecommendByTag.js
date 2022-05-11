@@ -88,7 +88,7 @@ const RecommendByTag = () => {
           <BookCard
             className="nodrag"
             title={"#" + nowSelect.tag}
-            thumnail={require("../../assets/icons/more.png")}
+            thumnail={require("../../assets/icons/home/more.png")}
             more={true}
             nowTID={nowTID}
           />

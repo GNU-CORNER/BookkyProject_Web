@@ -10,7 +10,10 @@ const BookSelectArea = () => {
     return (
       <BookSelectAreaContainer>
         <div className="img-area">
-          <img className="none" src={require("../../assets/icons/plus.png")} />
+          <img
+            className="none"
+            src={require("../../assets/icons/community/plus.png")}
+          />
         </div>
         <div className="text-area">
           <h1>원하는 도서를 추가해보세요</h1>

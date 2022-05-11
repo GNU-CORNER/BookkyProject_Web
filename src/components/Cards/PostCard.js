@@ -8,9 +8,12 @@ const PostCard = ({ title, content, likes, comments }) => {
       <div className="flex-area">
         <div className="title">{title}</div>
         <div className="counts">
-          <img src={require("../../assets/like.png")} alt="" />
+          <img src={require("../../assets/icons/community/like.png")} alt="" />
           <p>{likes}</p>
-          <img src={require("../../assets/comment.png")} alt="" />
+          <img
+            src={require("../../assets/icons/community/comment.png")}
+            alt=""
+          />
           <p>{comments}</p>
         </div>
       </div>

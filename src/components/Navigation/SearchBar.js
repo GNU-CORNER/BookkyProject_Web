@@ -22,7 +22,7 @@ function SearchBar() {
           onChange={(e) => setInput(e.target.value)}
         />
       </TextField>
-      <img src={require("../../assets/icon-magnify.png")} alt="" />
+      <img src={require("../../assets/icons/topNav/icon-magnify.png")} alt="" />
     </SearchBarContainer>
   );
 }

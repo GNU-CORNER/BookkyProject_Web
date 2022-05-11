@@ -27,8 +27,8 @@ const Setinterests = () => {
         <img
           src={require("../../assets/Bookky/" +
             (step === 1
-              ? "Bookky_Pick_Interest1.png"
-              : "Bookky_Pick_Interest2.png"))}
+              ? "북키_관심분야설정_1.png"
+              : "북키_관심분야설정_2.png"))}
           alt=""
         />
         <NextStep />

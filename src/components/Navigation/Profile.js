@@ -33,7 +33,7 @@ function Profile() {
       <ProfileContainer>
         <StyledImg
           onClick={() => navigate("/myinfo")}
-          src={require("../../assets/welcome.png")}
+          src={require("../../assets/icons/sideNav/welcome.png")}
           alt=""
         />
         <h3>
@@ -54,7 +54,7 @@ function Profile() {
       <ProfileContainer>
         <StyledImg
           className="non-member"
-          src={require("../../assets/welcome.png")}
+          src={require("../../assets/icons/sideNav/welcome.png")}
         />
         <h3>
           <span className="non-member">처음 오셨군요</span>

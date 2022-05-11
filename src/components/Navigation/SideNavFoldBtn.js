@@ -16,7 +16,7 @@ const SideNavFoldBtn = () => {
       >
         <img
           className="left"
-          src={require("../../assets/icons/to-left-arrow.png")}
+          src={require("../../assets/icons/sideNav/to-left-arrow.png")}
           alt="Sidenav-fold-btn left"
         />
       </SideNavFoldBtnContainer>
@@ -29,7 +29,7 @@ const SideNavFoldBtn = () => {
       >
         <img
           className="right"
-          src={require("../../assets/icons/to-right-arrow.png")}
+          src={require("../../assets/icons/sideNav/to-right-arrow.png")}
           alt="Sidenav-fold-btn Right"
         />
       </SideNavFoldBtnContainer>

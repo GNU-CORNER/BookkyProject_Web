@@ -6,7 +6,7 @@ const PostTitle = ({ title, kind }) => {
     // onClick 추후 URL 이동으로 수정할 것. (3/30)
     <PostTitleContainer onClick={() => console.log(title, "클릭")}>
       <Contents>
-        <img src={require("../../assets/post.png")} alt="" />
+        <img src={require("../../assets/icons/community/post.png")} alt="" />
         <Title>{title}</Title>
       </Contents>
     </PostTitleContainer>

@@ -214,7 +214,7 @@ function SignUp() {
           </form>
         </InputArea>
 
-        <img src={require("../../assets/Bookky/Bookky_SignUp.png")} alt="" />
+        <img src={require("../../assets/Bookky/북키_회원가입.png")} alt="" />
       </Frame>
     </SignUpContainer>
   );

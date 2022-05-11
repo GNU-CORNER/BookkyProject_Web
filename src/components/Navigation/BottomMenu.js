@@ -7,7 +7,10 @@ function BottomMenu() {
   return (
     <BottomMenuContainer>
       <button className="btn" onClick={() => console.log("다크모드")}>
-        <img src={require("../../assets/BottomMenu/night-mode.png")} alt="" />
+        <img
+          src={require("../../assets/icons/sideNav/night-mode.png")}
+          alt=""
+        />
         DARK
       </button>
     </BottomMenuContainer>

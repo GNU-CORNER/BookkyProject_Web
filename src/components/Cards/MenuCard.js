@@ -6,7 +6,11 @@ function MenuCard({ title, explain, isnew, kind }) {
   function RenderNew() {
     if (isnew)
       return (
-        <img className="img" src={require("../../assets/new.png")} alt="" />
+        <img
+          className="img"
+          src={require("../../assets/icons/recommend/new.png")}
+          alt=""
+        />
       );
     else return <></>;
   }
@@ -18,7 +22,7 @@ function MenuCard({ title, explain, isnew, kind }) {
         return (
           <img
             className="BackGroundImg detective"
-            src={require("../../assets/Bookky/Bookky_Detective.png")}
+            src={require("../../assets/Bookky/북키_추천받개_명탐정북키.png")}
             alt=""
           />
         );
@@ -26,7 +30,7 @@ function MenuCard({ title, explain, isnew, kind }) {
         return (
           <img
             className="BackGroundImg"
-            src={require("../../assets/Bookky/Bookky_Guide.png")}
+            src={require("../../assets/Bookky/북키_추천받개_안내견북키.png")}
             alt=""
           />
         );
@@ -34,7 +38,7 @@ function MenuCard({ title, explain, isnew, kind }) {
         return (
           <img
             className="BackGroundImg"
-            src={require("../../assets/Bookky/Bookky_Thinking.png")}
+            src={require("../../assets/Bookky/북키_추천받개_생각.png")}
             alt=""
           />
         );
