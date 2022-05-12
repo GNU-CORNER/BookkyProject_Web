@@ -111,7 +111,7 @@ const FreeBoardContainer = styled.div`
   }
 `;
 const Posts = styled.div`
-  margin: 2vh 72px;
+  margin: 2vh 250px;
   min-height: 70vh;
 `;
 
@@ -126,7 +126,7 @@ const Bottom = styled.div`
     border-radius: 4px;
     background-color: #6e95ff;
     position: absolute;
-    right: 72px;
+    right: 250px;
     color: white;
     font-weight: bold;
 

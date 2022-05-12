@@ -1,6 +1,8 @@
+import { Token } from "@mui/icons-material";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import BookSelectArea from "../../components/Community/BookSelectArea";
 import PageHeader from "../../components/PageHeader";
@@ -8,13 +10,16 @@ import PageHeader from "../../components/PageHeader";
 // 커뮤니티 - 글쓰기
 const WritePost = () => {
   // 변수 선언
-  const [slug, setSlug] = useState(0);
+  const today = new Date();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.userData);
+  const SideNavState = useSelector((state) => state.SideNavState);
   const location = useLocation().state;
   const [boardName, setBoardname] = useState("");
-  const SideNavState = useSelector((state) => state.SideNavState);
+  const [slug, setSlug] = useState(0);
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
-  const [book, setBook] = useState("");
+  const [BID, setBID] = useState(0);
   const [picture, setPicture] = useState("");
 
   // 최초 렌더링 시 초기화
@@ -41,8 +46,46 @@ const WritePost = () => {
     }
   }
 
+  // onSubmit() : 글쓰기 버튼 클릭 시, 서버와 통신하여 게시글 작성
+  function onSubmit() {
+    function setPathName() {
+      switch (slug) {
+        case 0:
+          return "free";
+        case 1:
+          return "trade";
+        case 2:
+          return "qna";
+        default:
+          return "";
+      }
+    }
+
+    // 통신 - 데이터 (이메일, 비밀번호)
+    const params = JSON.stringify({
+      title: title,
+      contents: contents,
+      BID: BID,
+    });
+
+    axios
+      .post(
+        "http://203.255.3.144:8002/v1/community/writepost/" + slug,
+        params,
+        {
+          headers: {
+            "access-token": user.accessToken,
+          },
+          "Content-Type": "application/json",
+        }
+      )
+      .then((res) => {
+        navigate(`/${setPathName()}/1`);
+      });
+  }
   useEffect(init, [location]);
 
+  // 게시글 작성하기 View
   return (
     <WritePostContainer width={SideNavState.width}>
       <PageHeader title="게시글 작성" subTitle={boardName} />
@@ -53,6 +96,10 @@ const WritePost = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
+        <p className="createAt">
+          Created at{" "}
+          {`${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`}
+        </p>
         <BookSelectArea />
         <ImgSelectArea>
           <div>x</div>
@@ -64,7 +111,7 @@ const WritePost = () => {
           value={contents}
           onChange={(e) => setContents(e.target.value)}
         />
-        <div className="submit" onClick={() => console.log(title, contents)}>
+        <div className="submit" onClick={onSubmit}>
           글작성
         </div>
       </InputArea>
@@ -78,9 +125,15 @@ const WritePostContainer = styled.div`
 `;
 
 const InputArea = styled.div`
-  margin: 10px 0;
+  margin: 2vh 250px;
   position: relative;
 
+  .createAt {
+    margin: 0 72px;
+    color: #d5d5d5;
+    line-height: 20px;
+    margin-bottom: 10px;
+  }
   .submit {
     display: flex;
     justify-self: flex-end;
@@ -97,11 +150,11 @@ const InputArea = styled.div`
   }
 
   display: grid;
-  grid-template-rows: 50px 100px 100px 50vh;
+  grid-template-rows: 45px 30px 100px 100px 50vh;
 
   textarea {
     border-radius: 4px;
-    margin: 0px 72px 10px 72px;
+    margin: 0px 72px 5px 72px;
     resize: none;
     background-color: #f5f5f5;
     padding: 10px;
@@ -130,7 +183,7 @@ const ImgSelectArea = styled.div`
   display: flex;
 
   div {
-    border: 2px solid #6e95ff;
+    border: 2px solid #d5d5d5;
     border-radius: 4px;
     width: 80px;
     height: 100%;

@@ -8,7 +8,11 @@ const PostCard = ({ pid, title, content, likes, comments, board }) => {
   // PostCard View
   return (
     <PostCardContainer
-      onClick={() => navigate("/postdetail/" + board + "/" + pid)}
+      onClick={() =>
+        navigate("/postdetail/" + board + "/" + pid, {
+          state: { pid: pid, board: board },
+        })
+      }
     >
       <div className="flex-area">
         <div className="title">{title}</div>

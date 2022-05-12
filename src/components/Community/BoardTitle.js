@@ -6,7 +6,7 @@ const BoardTitle = ({ title, kind }) => {
   const navigate = useNavigate();
   return (
     <Title>
-      <div className="title" onClick={() => navigate(`../${kind}`)}>
+      <div className="title" onClick={() => navigate(`../${kind}/1`)}>
         {title} {">"}
       </div>
     </Title>

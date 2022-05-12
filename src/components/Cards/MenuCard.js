@@ -87,6 +87,12 @@ const MenuCardContainer = styled.div`
 
   :hover {
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    cursor: pointer;
+  }
+
+  :hover .BackGroundImg {
+    overflow: hidden;
+    transform: scale(1.1);
   }
 
   .contents {
@@ -108,13 +114,14 @@ const MenuCardContainer = styled.div`
   .BackGroundImg {
     position: absolute;
     opacity: 0.5;
-    right: 2vw;
-    top: 10px;
-    height: 280px;
+    right: 3vw;
+    top: 20px;
+    height: 250px;
+    transition: all 0.3s;
   }
 
   .detective {
-    right: 4vw;
+    right: 5vw;
   }
 `;
 

@@ -9,12 +9,7 @@ const BookSelectArea = () => {
   else
     return (
       <BookSelectAreaContainer>
-        <div className="img-area">
-          <img
-            className="none"
-            src={require("../../assets/icons/community/plus.png")}
-          />
-        </div>
+        <div className="img-area"></div>
         <div className="text-area">
           <h1>원하는 도서를 추가해보세요</h1>
           <h3>여기를 눌러서 추가할 도서를 검색하세요</h3>
@@ -27,7 +22,7 @@ const BookSelectAreaContainer = styled.div`
   width: fit-content;
   margin: 0 72px;
   padding: 5px 15px;
-  border: 1px solid #d9d9d9;
+  border: 2px solid #d5d5d5;
   border-radius: 4px;
   display: flex;
   transition: all 0.3s;
@@ -36,13 +31,17 @@ const BookSelectAreaContainer = styled.div`
   :hover {
     cursor: pointer;
     opacity: 70%;
-    border: 1px solid #6e95ff;
+    border: 2px solid #6e95ff;
     background-color: #6e95ff;
   }
 
   :hover .img-area {
-    border: 1px solid #ffffff;
+    border: 2px solid #ffffff;
+    ::before {
+      background-image: url(${require("../../assets/icons/community/plus_reverse.png")});
+    }
   }
+
   :hover .text-area {
     color: white;
 
@@ -52,15 +51,21 @@ const BookSelectAreaContainer = styled.div`
   }
 
   .img-area {
-    border: 1px solid #6e95ff;
+    border: 2px solid #d5d5d5;
     border-radius: 4px;
     min-width: 70px;
     height: 86px;
     transition: all 0.3s;
 
-    .none {
+    ::before {
+      content: "";
+      transition: all 0.3s;
       margin: 28px auto;
-      width: 30px;
+      display: block;
+      width: 32px;
+      height: 32px;
+      background-size: cover;
+      background: url(${require("../../assets/icons/community/plus.png")});
     }
   }
 
