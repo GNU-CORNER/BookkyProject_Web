@@ -1,3 +1,5 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
@@ -10,6 +12,27 @@ const test = ["1", "2", "3", "3", "3"];
 const SearchResult = () => {
   const query = useLocation().state.query;
   const SideNavState = useSelector((state) => state.SideNavState);
+  const [books, setBooks] = useState([
+    {
+      BID: 0,
+      TITLE: "",
+      AUTHOR: "",
+      BOOK_INTRODUCTION: "",
+      PUBLISH_DATE: "",
+      RATING: "",
+      tagData: [{ tag: "", TID: 0 }],
+      thumbnailImage: "",
+    },
+  ]);
+  function getSearchResult() {
+    axios
+      .get("http://203.255.3.144:8002/v1/books/search", {
+        params: { keyword: query },
+      })
+      .then((res) => setBooks(res.data.result));
+  }
+
+  useEffect(getSearchResult, []);
 
   return (
     <SearchResultContainer width={SideNavState.width}>
@@ -23,8 +46,19 @@ const SearchResult = () => {
         </div>
         <hr />
         <hr />
-        {test.map((el) => {
-          return <SearchBookCard />;
+        {books.map((el) => {
+          return (
+            <SearchBookCard
+              BID={el.BID}
+              TITLE={el.TITLE}
+              AUTHOR={el.AUTHOR}
+              BOOK_INTRODUCTION={el.BOOK_INTRODUCTION}
+              PUBLISH_DATE={el.PUBLISH_DATE}
+              RATING={el.RATING}
+              tagData={el.tagData}
+              thumbnailImage={el.thumbnailImage}
+            />
+          );
         })}
       </Contents>
     </SearchResultContainer>

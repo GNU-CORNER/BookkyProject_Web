@@ -29,7 +29,7 @@ const TagDetail = () => {
       <MainHeader>
         <Title className="nodrag">
           <p>
-            <span># {tagName}</span> 관련 도서입니다
+            <span className="name"># {tagName}</span> 관련 도서입니다
           </p>
           <p className="sub">
             총 <span>{books.length}권</span>의 도서가 있네요 !
@@ -74,15 +74,15 @@ const Title = styled.div`
   color: #f5f5f5;
   font-size: 2em;
   color: white;
-  font-weight: 550;
   padding-left: 72px;
 
-  span {
+  .name {
     color: #ffd86d;
   }
   .sub {
-    font-size: 0.7em;
-    font-weight: 500;
+    margin-top: 5px;
+    color: #e9e9e9;
+    font-size: 0.65em;
   }
 `;
 

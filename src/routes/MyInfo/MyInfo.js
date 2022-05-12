@@ -19,23 +19,23 @@ function MyInfo() {
       <MainHeader>
         <Title className="nodrag">
           <p>
-            <span>{user.nickname}</span>
+            <span className="name">{user.nickname}</span>
             {user.accessToken ? " 님" : ""}의 정보입니다
           </p>
           <p className="sub">
-            - <span>{"4"}개</span>의 관심분야, <span>{"15"}권</span>의 관심도서,{" "}
-            <span>{"2"}개</span>의 게시글, <span>{"3"}개</span>의 리뷰가 있네요
-            !
+            총 <span>{"4"}개</span>의 관심분야 / <span>{"15"}권</span>의
+            관심도서 /<span> {"2"}개</span>의 게시글 / <span>{"3"}개</span>의
+            리뷰
           </p>
         </Title>
       </MainHeader>
       <ContentContainer>
         <div className="interestField">
-          <ContentsHeader title={user.nickname + "님의 관심분야에요"} />
+          <ContentsHeader title="관심 분야" />
           <InterestField />
         </div>
         <div className="myPost">
-          <ContentsHeader title={user.nickname + "님이 작성한 게시글이에요"} />
+          <ContentsHeader title="내가 작성한 게시글" />
           <div className="posts">
             {myposts.map((post) => (
               <PostCard
@@ -50,12 +50,12 @@ function MyInfo() {
           </div>
         </div>
         <div className="interestBooks">
-          <ContentsHeader title={user.nickname + "님의 관심도서에요"} />
+          <ContentsHeader title="관심 도서" />
           <InterestBooks />
         </div>
 
         <div className="myReview">
-          <ContentsHeader title={user.nickname + "님이 작성한 리뷰에요"} />
+          <ContentsHeader title="내가 작성한 리뷰" />
           gdgd
         </div>
       </ContentContainer>
@@ -111,16 +111,15 @@ const Title = styled.div`
   color: #f5f5f5;
   font-size: 2em;
   color: white;
-  font-weight: 550;
-  padding-left: 5vw;
+  padding-left: 72px;
 
-  span {
+  .name {
     color: #ffd86d;
   }
-
   .sub {
-    font-size: 0.7em;
-    font-weight: 500;
+    margin-top: 5px;
+    color: #e9e9e9;
+    font-size: 0.65em;
   }
 `;
 

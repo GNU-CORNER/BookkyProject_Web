@@ -21,26 +21,26 @@ function Community() {
       <ContentsContainer>
         <div className="hotBoard">
           <BoardTitle title="H🔥T게시판" kind="hot" />
-          {posts_hot.map((post) => (
-            <PostTitle title={post.title} key={post.id} />
+          {posts_hot.map((post, cnt) => (
+            <PostTitle title={post.title} key={cnt} />
           ))}
         </div>
         <div className="freeBoard">
           <BoardTitle title="자유게시판" kind="free" />
-          {posts_free.map((post) => (
-            <PostTitle title={post.title} key={post.id} />
+          {posts_free.map((post, cnt) => (
+            <PostTitle title={post.title} key={cnt} />
           ))}
         </div>
         <div className="qnaBoard">
           <BoardTitle title="Q&amp;A게시판" kind="qna" />
-          {posts_qna.map((post) => (
-            <PostTitle title={post.title} key={post.id} />
+          {posts_qna.map((post, cnt) => (
+            <PostTitle title={post.title} key={cnt} />
           ))}
         </div>
         <div className="tradeBoard">
           <BoardTitle title="중고장터" kind="trade" />
-          {posts_trade.map((post) => (
-            <PostTitle title={post.title} key={post.id} />
+          {posts_trade.map((post, cnt) => (
+            <PostTitle title={post.title} key={cnt} />
           ))}
         </div>
       </ContentsContainer>

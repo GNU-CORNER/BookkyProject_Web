@@ -2,34 +2,35 @@ import styled from "styled-components";
 import TagCard from "./TagCard";
 
 // 검색 결과 - 도서 카드
-const SearchBookCard = () => {
+const SearchBookCard = ({
+  BID,
+  TITLE,
+  AUTHOR,
+  thumbnailImage,
+  BOOK_INTRODUCTION,
+  PUBLISH_DATE,
+  RATING,
+  tagData,
+}) => {
   return (
     <>
       <SearchBookCardContainer>
-        <img
-          src={
-            "https://cdn.mhns.co.kr/news/photo/202109/512494_619892_2832.jpg"
-          }
-        />
+        <img src={thumbnailImage} />
         {/* 제목, 저자/출판사, 내용 */}
 
         <BookInfo>
-          <div className="title">Deep Learning</div>
-          <div className="sub">사이토 고키 / 길벗</div>
-          <div className="contents">
-            라이브러리나 프레임워크에 의존하지 않고고, 딥러닝의 핵심을
-            ‘밑바닥부터’ 직접 만들어보며 즐 라이브러리나 프레임워크에 의존하지
-            않고고, 딥러닝의 핵심을 ‘밑바닥부터’ 직접 만들어보며 즐 라이브러리나
-            라이브러리나 프레임워크에 의존하지 않고고, 딥러닝의 핵심을
-            ‘밑바닥부터’ 직접 만들어보며 즐기는...
+          <div className="title">{TITLE}</div>
+          <div className="sub">{AUTHOR} / 길벗</div>
+          <div className="content">
+            {BOOK_INTRODUCTION ? BOOK_INTRODUCTION : "정보가 없습니다."}
           </div>
         </BookInfo>
         {/* 별점, 관련태그 */}
+        <div className="starRating">★★★★☆ ({RATING})</div>
         <BookInfoSub>
-          <div>★★★★☆ (4.0)</div>
-          <TagCard tag="자바스크립트" />
-          <TagCard tag="리액트" />
-          <TagCard tag="자바스크립트" />
+          {tagData.map((el) => {
+            return <TagCard tag={el.tag} TID={el.TID} />;
+          })}
         </BookInfoSub>
       </SearchBookCardContainer>
       <hr />
@@ -38,13 +39,14 @@ const SearchBookCard = () => {
 };
 
 const SearchBookCardContainer = styled.div`
-  /* border: 1px solid red; */
+  padding: 15px 20px;
   display: flex;
+  position: relative;
 
   img {
     // 크기 : 책 전지 표준
-    width: 148px;
-    height: 210px;
+    width: 110px;
+    height: 150px;
   }
   .title {
     font-size: 1.3em;
@@ -54,21 +56,29 @@ const SearchBookCardContainer = styled.div`
     font-size: 0.9em;
     color: gray;
   }
-  .contents {
+  .content {
+    min-height: 80px;
+  }
+
+  .starRating {
+    border: 1px solid red;
+    width: 280px;
   }
 `;
 
 const BookInfo = styled.div`
-  padding: 30px 10px;
-  display: flex;
+  min-width: calc(100% - 280px);
+  width: calc(100% - 300px);
+  padding: 10px;
   flex-direction: column;
 `;
 
 const BookInfoSub = styled.div`
-  padding: 30px 10px;
-  width: 300px;
+  position: absolute;
+  left: 140px;
+  bottom: 15px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
 `;
 export default SearchBookCard;

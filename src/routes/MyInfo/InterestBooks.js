@@ -15,7 +15,7 @@ function Interests() {
       <MainHeader>
         <Title className="nodrag">
           <p>
-            <span>{user.nickname}</span>
+            <span className="name">{user.nickname}</span>
             {user.accessToken ? " 님" : ""}의 관심도서입니다
           </p>
           <p className="sub">
@@ -72,15 +72,15 @@ const Title = styled.div`
   color: #f5f5f5;
   font-size: 2em;
   color: white;
-  font-weight: 550;
   padding-left: 72px;
 
-  span {
+  .name {
     color: #ffd86d;
   }
   .sub {
-    font-size: 0.7em;
-    font-weight: 500;
+    margin-top: 5px;
+    color: #e9e9e9;
+    font-size: 0.65em;
   }
 `;
 

@@ -190,6 +190,7 @@ const StyledLink = styled(Link)`
 
   img {
     margin: 10px 20px 0 20px;
+    min-width: 120px;
     width: 120px;
   }
 `;
