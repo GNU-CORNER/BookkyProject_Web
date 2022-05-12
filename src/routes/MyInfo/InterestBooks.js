@@ -19,52 +19,38 @@ function Interests() {
             {user.accessToken ? " 님" : ""}의 관심도서입니다
           </p>
           <p className="sub">
-            - <span>{mybooks.length}권</span>의 관심도서가 있네요 !
+            총 <span>{mybooks.length}권</span>의 관심도서가 있네요 !
           </p>
         </Title>
       </MainHeader>
-      <ContentContainer>
+      <ContentArea>
         {mybooks.map((book) => {
           return (
-            <div className="border" key={book.BID}>
-              <BookCard
-                className="nodrag"
-                title={book.TITLE}
-                thumnail={book.thumbnailImage}
-                author={book.AUTHOR}
-                publisher={book.PUBLISHER}
-              />
-            </div>
+            <BookCard
+              key={book.BID}
+              className="nodrag"
+              title={book.TITLE}
+              thumnail={book.thumbnailImage}
+              author={book.AUTHOR}
+              publisher={book.PUBLISHER}
+            />
           );
         })}
-      </ContentContainer>
+      </ContentArea>
     </InterstsContainer>
   );
 }
 
 //////////////////////////////////////// Styled-Components
-const ContentContainer = styled.div`
+const ContentArea = styled.div`
   width: ${(props) => props.width};
-  margin-top: 3vh;
+  margin: 3vh 4vw;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 250px);
-  grid-template-rows: repeat(auto-fit, 300px);
+  grid-template-columns: repeat(auto-fit, 200px);
+  grid-template-rows: repeat(auto-fit, 250px);
   justify-content: center;
   column-gap: 1vw;
   row-gap: 3vh;
-
-  .border {
-    display: grid;
-    justify-content: center;
-    border: 2px solid #f1f1f1;
-    transition: all 0.3s;
-    border-radius: 4px;
-
-    :hover {
-      border: 2px solid #6e95ff;
-      cursor: pointer;
-    }
-  }
 `;
 
 const InterstsContainer = styled.div`
@@ -81,12 +67,13 @@ const MainHeader = styled.div`
   background-color: #6c95ff;
   margin: 5px 10px;
 `;
+
 const Title = styled.div`
   color: #f5f5f5;
   font-size: 2em;
   color: white;
   font-weight: 550;
-  padding-left: 5vw;
+  padding-left: 72px;
 
   span {
     color: #ffd86d;

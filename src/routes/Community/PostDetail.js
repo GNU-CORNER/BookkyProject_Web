@@ -169,7 +169,13 @@ const PostDetail = () => {
               <div className="btn modify" onClick={modifyPost}>
                 수정
               </div>
-              <div className="btn delete" onClick={deletePost}>
+              <div
+                className="btn delete"
+                onClick={() => {
+                  if (window.confirm("게시글을 삭제하시겠습니까?"))
+                    deletePost();
+                }}
+              >
                 삭제
               </div>
             </div>

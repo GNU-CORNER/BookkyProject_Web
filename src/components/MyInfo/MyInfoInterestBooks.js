@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import SmallBookCard from "../Cards/SmallBookCard";
+import BookCard from "../Cards/BookCard";
 
 //MyInfo - 내 관심도서 컴포넌트
 const InterestBooks = () => {
@@ -11,8 +12,9 @@ const InterestBooks = () => {
       {mybooks.map((book, cnt) => {
         if (cnt < 4)
           return (
-            <SmallBookCard
+            <BookCard
               key={book.BID}
+              bid={book.BID}
               className="nodrag"
               title={book.TITLE}
               thumnail={book.thumbnailImage}
@@ -30,7 +32,6 @@ const InterestFieldContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, 175px);
   overflow: hidden;
-  height: 245px;
   padding: 9px 0 12px 0;
 `;
 

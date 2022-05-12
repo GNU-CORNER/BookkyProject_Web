@@ -1,24 +1,112 @@
 import axios from "axios";
+import styled from "styled-components";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import BookCard from "../components/Cards/BookCard";
 
+// Home - Tag 더보기
 const TagDetail = () => {
   const location = useLocation();
-  const [books, setBooks] = useState({});
+  const [books, setBooks] = useState([{}]);
+  const [tagName, setTagName] = useState("");
   const tagNum = location.pathname.split("/")[2];
-
+  const user = useSelector((state) => state.userData);
+  const SideNavState = useSelector((state) => state.SideNavState);
   async function getBookData() {
     await axios
       .get("http://203.255.3.144:8002/v1/books/tag/" + tagNum)
       .then((res) => {
-        console.log(res.data.result.bookList.data);
+        setTagName(res.data.result.bookList.tag);
         setBooks(res.data.result.bookList.data);
+        console.log(res);
       });
   }
 
   useEffect(getBookData, []);
-
-  return <> </>;
+  return (
+    <TagDetailContainer width={SideNavState.width}>
+      <MainHeader>
+        <Title className="nodrag">
+          <p>
+            <span># {tagName}</span> 관련 도서입니다
+          </p>
+          <p className="sub">
+            총 <span>{books.length}권</span>의 도서가 있네요 !
+          </p>
+        </Title>
+      </MainHeader>
+      <ContentArea>
+        {books.map((el, cnt) => {
+          return (
+            <BookCard
+              className="nodrag"
+              key={cnt}
+              bid={el.BID}
+              title={el.TITLE}
+              thumnail={el.thumbnailImage}
+              author={el.AUTHOR}
+              publisher={el.PUBLISHER}
+            />
+          );
+        })}
+      </ContentArea>
+    </TagDetailContainer>
+  );
 };
 
+//////////////////////////////////////// Styled-Components
+const TagDetailContainer = styled.div`
+  width: ${(props) => props.width};
+`;
+
+const MainHeader = styled.div`
+  display: flex;
+  align-items: center;
+  position: relative;
+  border-radius: 15px;
+  max-height: 250px;
+  height: 180px;
+  background-color: #6c95ff;
+  margin: 5px 10px;
+`;
+const Title = styled.div`
+  color: #f5f5f5;
+  font-size: 2em;
+  color: white;
+  font-weight: 550;
+  padding-left: 72px;
+
+  span {
+    color: #ffd86d;
+  }
+  .sub {
+    font-size: 0.7em;
+    font-weight: 500;
+  }
+`;
+
+const ContentArea = styled.div`
+  width: ${(props) => props.width};
+  margin: 3vh 4vw;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 200px);
+  grid-template-rows: repeat(auto-fit, 250px);
+  justify-content: center;
+  column-gap: 1vw;
+  row-gap: 3vh;
+
+  .border {
+    display: grid;
+    justify-content: center;
+    border: 2px solid #f1f1f1;
+    transition: all 0.3s;
+    border-radius: 4px;
+
+    :hover {
+      border: 2px solid #6e95ff;
+      cursor: pointer;
+    }
+  }
+`;
 export default TagDetail;

@@ -27,7 +27,7 @@ function SideNav() {
               내 글 보기
             </StyledLink>
             <StyledLink to="/myinfo" className="MenuBtn">
-              내 후기 보기
+              내 리뷰 보기
             </StyledLink>
           </div>
           <BottomMenu />

@@ -87,13 +87,13 @@ function BookDetail() {
         <div className="BookIndex">
           <BookDetailHeader title="목차" />
           <div>
-            {book.BOOK_INDEX.split("^^").map((el, cnt = 0) => {
+            {book.BOOK_INDEX.split("^^").map((el, cnt) => {
               if (fold === false) {
                 return <div key={cnt}>{el}</div>;
               } else if (fold === true && cnt <= 20) {
                 return <div key={cnt}>{el}</div>;
               } else {
-                return <></>;
+                return <div key={cnt}></div>;
               }
             })}
             <div className="foldBtn" onClick={() => setFold(!fold)}>

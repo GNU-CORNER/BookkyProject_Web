@@ -55,7 +55,7 @@ function MyInfo() {
         </div>
 
         <div className="myReview">
-          <ContentsHeader title={user.nickname + "님이 작성한 후기에요"} />
+          <ContentsHeader title={user.nickname + "님이 작성한 리뷰에요"} />
           gdgd
         </div>
       </ContentContainer>
