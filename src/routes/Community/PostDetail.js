@@ -12,9 +12,9 @@ const PostDetail = () => {
   const SideNavState = useSelector((state) => state.SideNavState);
   const user = useSelector((state) => state.userData);
   const navigate = useNavigate();
-  const location = useLocation();
-  const postID = location.state.pid;
-  const boardNum = location.state.board;
+  const location = useLocation().pathname.split("/");
+  const postID = parseInt(location[3]);
+  const boardNum = parseInt(location[2]);
   const [commentCnt, setCommentCnt] = useState(0);
   const [commentArray, setCommentArray] = useState([
     {
@@ -214,14 +214,14 @@ const ContentArea = styled.div`
     right: 0;
 
     p {
-      margin-left: 10px;
+      margin: 0 10px;
       font-weight: bold;
       line-height: 32px;
     }
 
     img {
+      object-fit: cover;
       border-radius: 4px;
-      border: 1px solid red;
       width: 32px;
       height: 32px;
     }
