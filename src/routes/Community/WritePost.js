@@ -112,7 +112,7 @@ const WritePost = () => {
           onChange={(e) => setContents(e.target.value)}
         />
         <div className="submit" onClick={onSubmit}>
-          글작성
+          작성
         </div>
       </InputArea>
     </WritePostContainer>
@@ -125,19 +125,18 @@ const WritePostContainer = styled.div`
 `;
 
 const InputArea = styled.div`
-  margin: 2vh 250px;
+  margin: 2vh 12vw;
   position: relative;
 
   .createAt {
-    margin: 0 72px;
     color: #d5d5d5;
     line-height: 20px;
     margin-bottom: 10px;
   }
   .submit {
+    margin-top: 10px;
     display: flex;
     justify-self: flex-end;
-    margin-right: 72px;
     padding: 10px;
     border-radius: 4px;
     background-color: #6e95ff;
@@ -150,11 +149,10 @@ const InputArea = styled.div`
   }
 
   display: grid;
-  grid-template-rows: 45px 30px 100px 100px 50vh;
+  grid-template-rows: 45px 30px 100px 100px 45vh;
 
   textarea {
     border-radius: 4px;
-    margin: 0px 72px 5px 72px;
     resize: none;
     background-color: #f5f5f5;
     padding: 10px;
@@ -179,7 +177,7 @@ const InputArea = styled.div`
 `;
 
 const ImgSelectArea = styled.div`
-  margin: 10px 72px;
+  margin: 10px 0;
   display: flex;
 
   div {

@@ -20,7 +20,6 @@ const BookSelectArea = () => {
 
 const BookSelectAreaContainer = styled.div`
   width: fit-content;
-  margin: 0 72px;
   padding: 5px 15px;
   border: 2px solid #d5d5d5;
   border-radius: 4px;

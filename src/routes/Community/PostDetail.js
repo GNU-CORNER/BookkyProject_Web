@@ -15,6 +15,7 @@ const PostDetail = () => {
   const location = useLocation().pathname.split("/");
   const postID = parseInt(location[3]);
   const boardNum = parseInt(location[2]);
+  const [boardName, setBoardName] = useState("");
   const [commentCnt, setCommentCnt] = useState(0);
   const [commentArray, setCommentArray] = useState([
     {
@@ -39,6 +40,26 @@ const PostDetail = () => {
     views: 0,
   });
   const [userComment, setUserComment] = useState("");
+
+  // init() : 최초 로드 시
+  function init() {
+    switch (boardNum) {
+      case 0:
+        setBoardName("자유게시판");
+        break;
+      case 1:
+        setBoardName("중고장터");
+        break;
+
+      case 2:
+        setBoardName("Q&A게시판");
+        break;
+
+      default:
+        setBoardName("");
+        break;
+    }
+  }
 
   // getPostData() : 게시글 데이터 요청
   function getPostData() {
@@ -117,11 +138,11 @@ const PostDetail = () => {
   }
 
   useEffect(getPostData, [boardNum, postID]);
-
+  useEffect(init, []);
   // 게시글 상세보기 View
   return (
     <PostDetailContainer width={SideNavState.width}>
-      <PageHeader title="게시글 상세보기" subTitle=" " />
+      <PageHeader title="게시글 상세보기" subTitle={boardName} />
       <ContentArea>
         <div className="profile">
           <img src={post.thumbnail} alt="e" />
@@ -197,7 +218,7 @@ const PostDetailContainer = styled.div`
 const ContentArea = styled.div`
   position: relative;
   min-width: 700px;
-  margin: 4vh 250px 0 250px;
+  margin: 4vh 12vw 0 12vw;
 
   // 본문/댓글 구분선
   ::after {
@@ -338,10 +359,12 @@ const ContentArea = styled.div`
 `;
 
 const CommentArea = styled.div`
-  margin: 0 250px;
+  margin: 0 12vw;
 `;
 
 const WriteComment = styled.div`
+  min-width: 700px;
+
   .input-area {
     margin: 10px 15px;
     display: flex;

@@ -110,7 +110,7 @@ const TradeBoardContainer = styled.div`
   }
 `;
 const Posts = styled.div`
-  margin: 2vh 250px;
+  margin: 2vh 12vw;
   min-height: 70vh;
 `;
 
@@ -125,7 +125,7 @@ const Bottom = styled.div`
     border-radius: 4px;
     background-color: #6e95ff;
     position: absolute;
-    right: 250px;
+    right: 12vw;
     color: white;
     font-weight: bold;
 
