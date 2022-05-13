@@ -68,7 +68,12 @@ const PostDetail = () => {
         "http://203.255.3.144:8002/v1/community/postdetail/" +
           boardNum +
           "/" +
-          postID
+          postID,
+        {
+          headers: {
+            "access-token": user.accessToken,
+          },
+        }
       )
       .then((res) => {
         setPost(res.data.result.postdata);
@@ -137,7 +142,7 @@ const PostDetail = () => {
       });
   }
 
-  useEffect(getPostData, [boardNum, postID]);
+  useEffect(getPostData, [boardNum, postID, user]);
   useEffect(init, []);
   // 게시글 상세보기 View
   return (
@@ -164,7 +169,7 @@ const PostDetail = () => {
           </div>
 
           {/* 내가 작성한 게시글이면 게시글 관리 메뉴 출력 (수정 및 삭제) */}
-          {user.nickname === post.nickname ? (
+          {post.isAccessible ? (
             <div className="manage-post bottom">
               <div className="btn modify" onClick={modifyPost}>
                 수정
@@ -200,6 +205,7 @@ const PostDetail = () => {
             <Comment
               key={el.CID}
               CID={el.CID}
+              isAccessible={el.isAccessible}
               nickname={el.nickname}
               comment={el.comment}
               like={el.like}

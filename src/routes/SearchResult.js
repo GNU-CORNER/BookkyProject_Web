@@ -6,24 +6,12 @@ import styled from "styled-components";
 import SearchBookCard from "../components/Cards/SearchBookCard";
 import PageHeader from "../components/PageHeader";
 
-const test = ["1", "2", "3", "3", "3"];
-
 // 검색 결과 화면
 const SearchResult = () => {
   const query = useLocation().state.query;
   const SideNavState = useSelector((state) => state.SideNavState);
-  const [books, setBooks] = useState([
-    {
-      BID: 0,
-      TITLE: "",
-      AUTHOR: "",
-      BOOK_INTRODUCTION: "",
-      PUBLISH_DATE: "",
-      RATING: "",
-      tagData: [{ tag: "", TID: 0 }],
-      thumbnailImage: "",
-    },
-  ]);
+  const [books, setBooks] = useState([]);
+
   function getSearchResult() {
     axios
       .get("http://203.255.3.144:8002/v1/books/search", {
@@ -32,7 +20,7 @@ const SearchResult = () => {
       .then((res) => setBooks(res.data.result));
   }
 
-  useEffect(getSearchResult, []);
+  useEffect(getSearchResult, [query]);
 
   return (
     <SearchResultContainer width={SideNavState.width}>
@@ -42,24 +30,28 @@ const SearchResult = () => {
           {`"`}
           <span className="query">{query}</span>
           {`"`} (으)로 검색한 결과에요{" "}
-          <span className="cnt">( {test.length}건 )</span>
+          <span className="cnt">( {books.length}건 )</span>
         </div>
         <hr />
         <hr />
-        {books.map((el) => {
-          return (
-            <SearchBookCard
-              BID={el.BID}
-              TITLE={el.TITLE}
-              AUTHOR={el.AUTHOR}
-              BOOK_INTRODUCTION={el.BOOK_INTRODUCTION}
-              PUBLISH_DATE={el.PUBLISH_DATE}
-              RATING={el.RATING}
-              tagData={el.tagData}
-              thumbnailImage={el.thumbnailImage}
-            />
-          );
-        })}
+        {books.length === 0
+          ? "검색 결과가 없습니다."
+          : books.map((el, cnt) => {
+              return (
+                <SearchBookCard
+                  key={cnt}
+                  BID={el.BID}
+                  TITLE={el.TITLE}
+                  AUTHOR={el.AUTHOR}
+                  BOOK_INTRODUCTION={el.BOOK_INTRODUCTION}
+                  PUBLISH_DATE={el.PUBLISH_DATE}
+                  RATING={el.RATING}
+                  tagData={el.tagData}
+                  thumbnailImage={el.thumbnailImage}
+                  PUBLISHER={el.PUBLISHER}
+                />
+              );
+            })}
       </Contents>
     </SearchResultContainer>
   );

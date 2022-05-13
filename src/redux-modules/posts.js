@@ -19,22 +19,7 @@ const initialState = {
   free: [],
   qna: [],
   trade: [],
-  myposts: [
-    {
-      id: 7,
-      title: "안녕하세요~",
-      contents: "제목은 바로 죽을만큼 아파서 가수 엠씨몽",
-      likes: 5,
-      comments: 5,
-    },
-    {
-      id: 8,
-      title: "안녕하세요 진짜 ",
-      contents: "내일 공강이지만.. 게시판입니다. ,,,",
-      likes: 5,
-      comments: 5,
-    },
-  ],
+  myposts: [],
 };
 
 function posts(state = initialState, action) {

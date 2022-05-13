@@ -122,7 +122,7 @@ const BookDetailContainer = styled.div`
 `;
 
 const Summary = styled.div`
-  margin: 5vh 0;
+  margin: 2vh 0;
   display: grid;
   justify-content: center;
   grid-template-columns: minmax(250px, 18vw) minmax(250px, 39vw);

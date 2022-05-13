@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 // 추천받개 - 메뉴 한 개마다의 표현 단위
 function MenuCard({ title, explain, isnew, kind }) {
+  const navigate = useNavigate();
   // 신 메뉴 표시 (NEW 뱃지)
   function RenderNew() {
     if (isnew)
@@ -50,7 +52,10 @@ function MenuCard({ title, explain, isnew, kind }) {
   // MenuCard View
   return (
     <>
-      <MenuCardContainer className="nodrag">
+      <MenuCardContainer
+        className="nodrag"
+        onClick={() => navigate("/detective")}
+      >
         <RenderNew />
         <div className="contents">
           <div className="title">{title}</div>

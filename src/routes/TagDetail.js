@@ -90,10 +90,10 @@ const ContentArea = styled.div`
   width: ${(props) => props.width};
   margin: 3vh 4vw;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 200px);
+  grid-template-columns: repeat(auto-fit, 180px);
   grid-template-rows: repeat(auto-fit, 250px);
-  justify-content: center;
-  column-gap: 1vw;
+  justify-content: start;
+  column-gap: 2vw;
   row-gap: 3vh;
 
   .border {

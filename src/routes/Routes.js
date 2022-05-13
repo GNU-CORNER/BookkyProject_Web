@@ -15,7 +15,7 @@ import HotBoard from "./Community/HotBoard";
 import FreeBoard from "./Community/FreeBoard";
 import QnaBoard from "./Community/QnaBoard";
 import TradeBoard from "./Community/TradeBoard";
-import MyPost from "./MyInfo/MyPosts";
+import MyPost from "./Community/MyPosts";
 
 import Recommend from "./Recommend/Recommend";
 import Detective from "./Recommend/Detective";
@@ -54,9 +54,9 @@ function BookkyRoutes() {
         <Route path="/find" element={<FindPassWord />} />
 
         <Route path="/interests" element={<Interests />} />
-        <Route path="/myposts" element={<MyPost />} />
         <Route path="/myinfo" element={<MyInfo />} />
 
+        <Route path="/myposts/:page" element={<MyPost />} />
         <Route path="/free/:page" element={<FreeBoard />} />
         <Route path="/qna/:page" element={<QnaBoard />} />
         <Route path="/hot/:page" element={<HotBoard />} />

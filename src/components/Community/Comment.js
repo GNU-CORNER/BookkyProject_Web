@@ -15,6 +15,7 @@ const Comment = ({
   childComment,
   CID,
   getPostData,
+  isAccessible,
 }) => {
   const user = useSelector((state) => state.userData);
   const [replyForm, setReplyForm] = useState(false);
@@ -71,7 +72,7 @@ const Comment = ({
   return (
     <CommentContainer>
       <div className="manage-comment">
-        {user.nickname === nickname ? (
+        {isAccessible ? (
           <>
             <span
               onClick={() =>

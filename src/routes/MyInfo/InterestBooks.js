@@ -1,6 +1,9 @@
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import BookCard from "../../components/Cards/BookCard";
+import axios from "axios";
+import { updateInterests } from "../../redux-modules/books";
+import { useEffect } from "react";
 
 // SideBar - 내 관심도서
 function Interests() {
@@ -8,7 +11,26 @@ function Interests() {
   const user = useSelector((state) => state.userData);
   const mybooks = useSelector((state) => state.books.interests);
   const SideNavState = useSelector((state) => state.SideNavState);
+  const dispatch = useDispatch();
 
+  // getBooks() : 서버로부터 사용자의 관심도서를 받아 redux-store에 저장
+  function getBooks() {
+    if (user.accessToken) {
+      console.log("성공");
+      axios
+        .get("http://203.255.3.144:8002/v1/user/favoritebook/0", {
+          headers: {
+            "access-token": user.accessToken,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          dispatch(updateInterests(res.data.result.favoriteBookList));
+        });
+    }
+  }
+
+  useEffect(getBooks, [user]);
   // 관심도서 View
   return (
     <InterstsContainer width={SideNavState.width}>
@@ -48,7 +70,7 @@ const ContentArea = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, 200px);
   grid-template-rows: repeat(auto-fit, 250px);
-  justify-content: center;
+  justify-content: start;
   column-gap: 1vw;
   row-gap: 3vh;
 `;
