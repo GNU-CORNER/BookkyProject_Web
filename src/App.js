@@ -8,7 +8,8 @@ import { useCookies } from "react-cookie";
 import axios from "axios";
 import { updateUser } from "./redux-modules/userData";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import SideNavFoldBtn from "./components/Navigation/SideNavFoldBtn";
 
 // App() : 최상위 컴포넌트
 function App() {
@@ -18,6 +19,7 @@ function App() {
   const [email, setEmail] = useState(undefined);
   const [password, setPassword] = useState(undefined);
   const [loginMethod, setLoginMethod] = useState(undefined);
+  const SideNavState = useSelector((state) => state.SideNavState);
 
   // 최초 email, pwToken 설정
   const Init = () => {
@@ -34,6 +36,7 @@ function App() {
       setLoginMethod(cookies[0].loginMethod);
     }
   };
+
   // 자동로그인 통신
   const AutoLogin = () => {
     // email, pwToken이 undefined가 아닐 때만 통신 (불필요한 통신 방지)
@@ -85,7 +88,8 @@ function App() {
       <Router>
         <TopNav />
         <FlexDiv>
-          <SideNav />
+          <SideNavFoldBtn />
+          {SideNavState.isfold ? <></> : <SideNav />}
           <Routes />
         </FlexDiv>
       </Router>
@@ -96,17 +100,32 @@ function App() {
 //////////////////////////////////////// Styled-Components
 const FlexDiv = styled.div`
   display: flex;
+  position: relative;
 `;
 
 const GlobalStyle = createGlobalStyle`
+
+  :root {
+    --main-color : #6e95ff;
+    --sub-color : #FFA24D;
+    --bright-base-color : #ffffff;
+    --dark-base-color : #000000;
+    --none-folded-width : calc(100vw - 160px);
+    --folded-width : calc(100vw);
+    line-height: 1;
+
+  }
+  
+  ::-webkit-scrollbar {
+  display: none;
+}
+
 	body {
     margin : 0;
     padding : 0;
 
   /* 스크롤바 hidden */
-  ::-webkit-scrollbar {
-    display: none;
-  }
+
   .nodrag {
     /* 드래그 방지 CSS */
     -webkit-user-select: none;

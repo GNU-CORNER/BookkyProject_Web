@@ -1,14 +1,28 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 // TopNav - 검색창 View
 function SearchBar() {
+  const navigate = useNavigate();
+  const [input, setInput] = useState("");
+
   // 검색창 View
   return (
     <SearchBarContainer>
-      <TextField>
-        <input type="text" placeholder="제목 또는 태그로 도서 검색" />
+      <TextField
+        onKeyUp={() => {
+          if (window.event.keyCode == 13)
+            navigate("/search", { state: { query: input } });
+        }}
+      >
+        <input
+          type="text"
+          placeholder="제목 또는 태그로 도서 검색"
+          onChange={(e) => setInput(e.target.value)}
+        />
       </TextField>
-      <img src={require("../../assets/icon-magnify.png")} alt="" />
+      <img src={require("../../assets/icons/topNav/icon-magnify.png")} alt="" />
     </SearchBarContainer>
   );
 }

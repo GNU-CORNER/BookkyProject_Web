@@ -24,6 +24,7 @@ const SecondStep = ({ ToBefore }) => {
         "http://203.255.3.144/v1/user/tag",
         { tag: pickedTags },
         {
+          "Content-Type": "application/json",
           headers: {
             "access-token": user.accessToken,
           },

@@ -4,7 +4,7 @@ import PageHeader from "../../components/PageHeader";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../redux-modules/userData";
 
 // 회원가입
@@ -20,6 +20,7 @@ function SignUp() {
   const [isVerified, setVerified] = useState(false);
   const dispatch = useDispatch();
   const [, setCookie] = useCookies();
+  const SideNavState = useSelector((state) => state.SideNavState);
 
   // 회원가입 버튼 클릭 시
   function SendSignUp(nickName, email, password) {
@@ -57,10 +58,12 @@ function SignUp() {
             // Redux - 현재 유저 정보 업데이트
             dispatch(
               updateUser(
+                res.data.result.access_token,
+                res.data.result.userData.email,
+                res.data.result.userData.loginMethod,
+                res.data.result.userData.nickname,
                 password,
-                res.data.result.email,
-                res.data.result.loginMethod,
-                res.data.result.nickname
+                res.data.result.userData.tagArray
               )
             );
             navigate("/");
@@ -153,7 +156,7 @@ function SignUp() {
 
   // 회원가입 View
   return (
-    <SignUpContainer>
+    <SignUpContainer width={SideNavState.width}>
       <PageHeader title="회원가입" subTitle="지금 바로, 북키와 함께하세요 !" />
       <Frame>
         <InputArea>
@@ -211,7 +214,7 @@ function SignUp() {
           </form>
         </InputArea>
 
-        <img src={require("../../assets/Bookky/Bookky_SignUp.png")} alt="" />
+        <img src={require("../../assets/Bookky/북키_회원가입.png")} alt="" />
       </Frame>
     </SignUpContainer>
   );
@@ -220,7 +223,7 @@ function SignUp() {
 //////////////////////////////////////// Styled-Components
 const SignUpContainer = styled.div`
   position: relative;
-  width: calc(100vw - 160px);
+  width: ${(props) => props.width};
   display: flex;
   flex-direction: column;
 `;

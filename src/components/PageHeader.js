@@ -4,12 +4,10 @@ import styled from "styled-components";
 const PageHeader = ({ title, subTitle }) => {
   // PageHeader View
   return (
-    <>
-      <Header>
-        {title}
-        <Explain>{subTitle}</Explain>
-      </Header>
-    </>
+    <Header>
+      {title}
+      <Explain>{subTitle}</Explain>
+    </Header>
   );
 };
 
@@ -23,8 +21,9 @@ const Header = styled.div`
 
 const Explain = styled.div`
   width: 50vw;
+  line-height: 2em;
   margin: 0 5px;
-  font-size: 0.65em;
+  font-size: 0.7em;
   font-weight: initial;
   color: #c1c1c1;
 `;

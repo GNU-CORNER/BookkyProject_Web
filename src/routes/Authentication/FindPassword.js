@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import PageHeader from "../../components/PageHeader";
 
@@ -9,11 +10,12 @@ function FindPassWord() {
   const [verifiNumber, setVerifiNumber] = useState("");
   // const [password, setPassword] = useState(""); (임시 주석)
   // const [passwordConfirm, setPasswordConfirm] = useState(""); (임시 주석)
+  const SideNavState = useSelector((state) => state.SideNavState);
 
   // 비밀번호 찾기 View
   return (
     <>
-      <FindContainer>
+      <FindContainer width={SideNavState.width}>
         <PageHeader title="로그인에 문제가 있나요?" />
         <InputArea>
           <div className="Header">비밀번호 찾기</div>
@@ -50,7 +52,8 @@ function FindPassWord() {
 
 //////////////////////////////////////// Styled-Components
 const FindContainer = styled.div`
-  width: calc(100vw - 160px);
+  width: ${(props) => props.width};
+
   height: 85vh;
 `;
 
