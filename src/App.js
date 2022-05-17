@@ -108,12 +108,13 @@ const GlobalStyle = createGlobalStyle`
   :root {
     --main-color : #6e95ff;
     --sub-color : #FFA24D;
-    --bright-base-color : #ffffff;
-    --dark-base-color : #000000;
+    --bright-base-bg-color : #ffffff;
+    --dark-base-bg-color : #000000;
+    --bright-base-font-color : #000000;
+    --dark-base-font-color : #ffffff;
     --none-folded-width : calc(100vw - 160px);
     --folded-width : calc(100vw);
     line-height: 1;
-
   }
   
   ::-webkit-scrollbar {
@@ -123,6 +124,7 @@ const GlobalStyle = createGlobalStyle`
 	body {
     margin : 0;
     padding : 0;
+    background-color: var(--bright-base-bg-color);
 
   /* 스크롤바 hidden */
 

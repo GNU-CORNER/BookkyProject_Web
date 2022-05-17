@@ -63,26 +63,26 @@ const ContentsContainer = styled.div`
   row-gap: 3vw;
 
   .hotBoard {
-    border: 2px solid #6e95ff;
+    border: 2px solid var(--main-color);
     border-radius: 4px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     overflow: hidden;
   }
 
   .freeBoard {
-    border: 2px solid #6e95ff;
+    border: 2px solid var(--main-color);
     border-radius: 4px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     overflow: hidden;
   }
   .qnaBoard {
-    border: 2px solid #6e95ff;
+    border: 2px solid var(--main-color);
     border-radius: 4px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     overflow: hidden;
   }
   .tradeBoard {
-    border: 2px solid #6e95ff;
+    border: 2px solid var(--main-color);
     border-radius: 4px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     overflow: hidden;

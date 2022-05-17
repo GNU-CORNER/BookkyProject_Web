@@ -362,7 +362,7 @@ const ContentArea = styled.div`
 
     // modify(수정 버튼 속성) delete (삭제 버튼 속성)
     .modify {
-      background-color: #6e95ff;
+      background-color: var(--main-color);
     }
     .delete {
       background-color: #ff7a7a;
@@ -390,7 +390,7 @@ const WriteComment = styled.div`
       background-color: #f9f9f9;
 
       :focus {
-        outline-color: #6e95ff;
+        outline-color: var(--main-color);
       }
     }
 
@@ -401,7 +401,7 @@ const WriteComment = styled.div`
       color: white;
       font-weight: bold;
       font-size: 0.9em;
-      background-color: #6e95ff;
+      background-color: var(--main-color);
       border-radius: 20px;
       margin: 5px 0 5px 5px;
       width: 50px;

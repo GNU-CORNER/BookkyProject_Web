@@ -4,7 +4,9 @@ const TodayBookCard = () => {
   return (
     <TodayBookCardContainer>
       <div className="shelf" />
-      <img src={"http://203.255.3.144:8010/thumbnail/289275287.png"} />
+      <img
+        src={"http://203.255.3.144:8010/thumbnail/bookThumbnail/289275287.png"}
+      />
     </TodayBookCardContainer>
   );
 };

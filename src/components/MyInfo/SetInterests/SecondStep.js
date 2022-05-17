@@ -39,7 +39,9 @@ const SecondStep = ({ ToBefore }) => {
       return (
         <TagContainer
           key={tag.TID}
-          background={pickedTags.includes(tag.TID) ? "#6e95ff" : "#f1f1f1"}
+          background={
+            pickedTags.includes(tag.TID) ? "var(--main-color)" : "#f1f1f1"
+          }
           color={pickedTags.includes(tag.TID) ? "white" : "black"}
           onClick={() => {
             {
@@ -92,7 +94,7 @@ const PickArea = styled.div`
   min-width: 400px;
 
   .Header {
-    color: #6e95ff;
+    color: var(--main-color);
     font-size: 2em;
     font-weight: 700;
   }
@@ -100,7 +102,7 @@ const PickArea = styled.div`
   .sub {
     font-size: 1.2em;
     font-weight: bold;
-    color: #6e95ff;
+    color: var(--main-color);
   }
 `;
 
@@ -126,7 +128,7 @@ const SpreadTagsArea = styled.div`
   }
 
   .selected {
-    border: 2px solid #6e95ff;
+    border: 2px solid var(--main-color);
   }
 `;
 
@@ -148,7 +150,7 @@ const TagContainer = styled.div`
 
   :hover {
     cursor: pointer;
-    background-color: #6e95ff;
+    background-color: var(--main-color);
     opacity: 50%;
   }
 `;

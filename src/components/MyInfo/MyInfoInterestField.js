@@ -25,7 +25,7 @@ const InterestFieldContainer = styled.div`
     margin: 5px;
     padding: 5px 10px;
     border-radius: 4px;
-    background-color: #6e95ff;
+    background-color: var(--main-color);
     opacity: 75%;
     color: white;
     font-weight: bold;

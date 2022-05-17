@@ -62,7 +62,8 @@ const SideNavContainer = styled.div`
   width: 160px;
   height: calc(100vh - 64px);
   margin-top: 64px;
-  background-color: #ffffff;
+  background-color: var(--bright-base-bg-color);
+  color: var(--bright-base-font-color);
   transition: all 0.4s;
 
   .sidemenu-area {
@@ -97,7 +98,6 @@ const SideNavContainer = styled.div`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: black;
 `;
 
 export default SideNav;

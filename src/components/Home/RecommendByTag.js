@@ -70,7 +70,7 @@ const RecommendByTag = () => {
               <TagCard
                 color={nowSelect.tag === el.tag ? "#ffffff" : "#000000"}
                 backgroundColor={
-                  nowSelect.tag === el.tag ? "#6e95ff" : "#f1f1f1"
+                  nowSelect.tag === el.tag ? "var(--main-color)" : "#f1f1f1"
                 }
                 onClick={() => {
                   setNowSelect(el);

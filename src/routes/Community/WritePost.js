@@ -139,7 +139,7 @@ const InputArea = styled.div`
     justify-self: flex-end;
     padding: 10px;
     border-radius: 4px;
-    background-color: #6e95ff;
+    background-color: var(--main-color);
     color: white;
     font-weight: bold;
     width: fit-content;
@@ -158,7 +158,7 @@ const InputArea = styled.div`
     padding: 10px;
 
     :focus {
-      outline: 2px solid #6e95ff;
+      outline: 2px solid var(--main-color);
     }
   }
 

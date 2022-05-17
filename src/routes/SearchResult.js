@@ -66,7 +66,7 @@ const SearchResultContainer = styled.div`
 
     span.query {
       font-weight: bold;
-      color: #6e95ff;
+      color: var(--main-color);
     }
 
     span.cnt {

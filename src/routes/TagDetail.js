@@ -67,7 +67,7 @@ const MainHeader = styled.div`
   border-radius: 15px;
   max-height: 250px;
   height: 180px;
-  background-color: #6c95ff;
+  background-color: var(--main-color);
   margin: 5px 10px;
 `;
 const Title = styled.div`
@@ -104,7 +104,7 @@ const ContentArea = styled.div`
     border-radius: 4px;
 
     :hover {
-      border: 2px solid #6e95ff;
+      border: 2px solid var(--main-color);
       cursor: pointer;
     }
   }

@@ -75,11 +75,11 @@ const MenuCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border: 2px solid #6e95ff;
+  border: 2px solid var(--main-color);
   border-radius: 4px;
   width: 750px;
   height: 300px;
-  color: #6e95ff;
+  color: var(--main-color);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 

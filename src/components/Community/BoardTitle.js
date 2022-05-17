@@ -16,12 +16,12 @@ const BoardTitle = ({ title, kind }) => {
 //////////////////////////////////////// Styled-Components
 const Title = styled.div`
   position: relative;
-  background-color: #6e95ff;
+  background-color: var(--main-color);
   color: white;
   width: 100%;
   line-height: 50px;
   padding-left: 20px;
-  border-bottom: 2px solid #6e95ff;
+  border-bottom: 2px solid var(--main-color);
   font-size: 1.4em;
   font-weight: 500;
   display: flex;

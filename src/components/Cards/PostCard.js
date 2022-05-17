@@ -34,7 +34,7 @@ const PostCard = ({ pid, title, content, likes, comments, board }) => {
 //////////////////////////////////////// Styled-Components
 const PostCardContainer = styled.div`
   border: 1px solid #d5d5d5;
-  border-radius: 4px;
+  /* border-radius: 4px; */
   min-height: 90px;
   max-height: 90px;
   margin: -1px 0;
@@ -73,6 +73,9 @@ const PostCardContainer = styled.div`
   .content {
     color: #c9c9c9;
     font-size: 0.9em;
+    line-height: 1em;
+    height: 4em;
+    overflow: hidden;
   }
 `;
 

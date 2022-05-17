@@ -195,7 +195,7 @@ const CommentContainer = styled.div`
       background-color: #f9f9f9;
 
       :focus {
-        outline-color: #6e95ff;
+        outline-color: var(--main-color);
       }
     }
 
@@ -206,7 +206,7 @@ const CommentContainer = styled.div`
       color: white;
       font-weight: bold;
       font-size: 0.9em;
-      background-color: #6e95ff;
+      background-color: var(--main-color);
       border-radius: 20px;
       margin: 5px 0 5px 5px;
       width: 50px;

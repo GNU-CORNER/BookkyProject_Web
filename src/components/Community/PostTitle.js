@@ -32,7 +32,7 @@ const Contents = styled.div`
   transition: all 0.3s;
 
   :hover {
-    text-decoration: underline 2px solid #6e95ff;
+    text-decoration: underline 2px solid var(--main-color);
     text-underline-offset: 5px;
   }
 `;

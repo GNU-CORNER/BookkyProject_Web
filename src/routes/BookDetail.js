@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { useLocation } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
 import BookDetailHeader from "../components/BookDetail/BookDetailHeader";
@@ -11,21 +11,36 @@ import { useSelector } from "react-redux";
 // 도서 상세정보
 function BookDetail() {
   const location = useLocation();
-  const postNum = location.pathname.split("/")[2];
+  const BID = location.pathname.split("/")[2];
+  const user = useSelector((state) => state.userData);
   const [book, setBook] = useState({ BOOK_INDEX: "" });
+  const [reviews, setReviews] = useState();
   const [fold, setFold] = useState(true);
   const SideNavState = useSelector((state) => state.SideNavState);
 
+  // getBookData() : 서버로부터 BID 에 따른 도서데이터를 가져옴
   function getBookData() {
     axios
-      .get("http://203.255.3.144:8002/v1/books/detail/" + postNum)
+      .get("http://203.255.3.144:8002/v1/books/detail/" + BID)
       .then((res) => {
-        console.log(res.data.result.bookList);
+        // console.log(res.data.result.bookList);
         setBook(res.data.result.bookList);
       });
   }
 
-  useEffect(getBookData, [postNum]);
+  // getBookData() : 서버로부터 BID 에 따른 리뷰데이터를 가져옴
+  function getReviewData() {
+    axios
+      .get("http://203.255.3.144:8002/v1/books/reviews/" + BID, {
+        headers: { "access-token": user.accessToken },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setReviews(res.data);
+      });
+  }
+  useEffect(getBookData, [BID]);
+  useEffect(getReviewData, [BID]);
 
   // 도서 상세정보 View
   return (
@@ -104,11 +119,12 @@ function BookDetail() {
         <BookReview>
           <BookDetailHeader title="리뷰" />
           <Reviews>
-            <ReviewWriting />
-            <ReviewCard nickname="저니녁" date="2022-04-22" />
-            <ReviewCard nickname="저니녁1" date="2022-04-18" />
-            <ReviewCard nickname="저니녁2" date="2022-04-15" />
-            <ReviewCard nickname="저니녁3" date="2022-04-12" />
+            <ReviewWriting BID={BID} getBookData={getBookData} />
+            {reviews
+              ? reviews.map((el) => {
+                  <ReviewCard />;
+                })
+              : "등록된 리뷰가 없습니다"}
           </Reviews>
         </BookReview>
       </Contents>
@@ -200,7 +216,7 @@ const Contents = styled.div`
 
   .foldBtn {
     padding-left: 20vw;
-    color: #6e95ff;
+    color: var(--main-color);
     font-size: 0.9em;
   }
 `;

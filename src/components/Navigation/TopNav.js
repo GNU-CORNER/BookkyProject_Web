@@ -129,7 +129,8 @@ function TopNav() {
 //////////////////////////////////////// Styled-Components
 const TopNavContainer = styled.div`
   z-index: 99;
-  background-color: #ffffff;
+  background-color: var(--bright-base-bg-color);
+  color: var(--bright-base-font-color);
   position: fixed;
   display: flex;
   width: 100%;
@@ -148,14 +149,13 @@ const TopNavContainer = styled.div`
   }
 
   .dropdown a:hover {
-    color: #6e95ff;
+    color: var(--main-color);
     transition: all 200ms;
   }
 
   .dropbtn {
     height: 100%;
     text-align: center;
-    color: black;
     padding: 18px 16px;
     font-size: 16px;
   }
@@ -168,13 +168,13 @@ const TopNavContainer = styled.div`
     text-align: center;
     border-radius: 4px;
     border: 1px solid #6c95ff;
-    background-color: var(--bright-base-color);
+    background-color: var(--bright-base-bg-color);
     min-width: 130px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   }
 
   .dropdown-content a {
-    color: black;
+    color: var(--bright-base-font-color);
     display: block;
     padding: 12px 16px;
   }

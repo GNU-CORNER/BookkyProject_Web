@@ -30,8 +30,8 @@ const BookSelectAreaContainer = styled.div`
   :hover {
     cursor: pointer;
     opacity: 70%;
-    border: 2px solid #6e95ff;
-    background-color: #6e95ff;
+    border: 2px solid var(--main-color);
+    background-color: var(--main-color);
   }
 
   :hover .img-area {

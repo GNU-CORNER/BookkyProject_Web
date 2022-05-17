@@ -14,12 +14,12 @@ const TagCard = ({ tag, TID }) => {
 const TagCardContainer = styled.div`
   margin-right: 10px;
   background-color: #f9f9f9;
-  color: #6e95ff;
+  color: var(--main-color);
   border-radius: 4px;
   font-size: 0.9em;
   width: fit-content;
   padding: 3px 5px;
-  border: 1px solid #6e95ff;
+  border: 1px solid var(--main-color);
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;

@@ -124,7 +124,7 @@ const Bottom = styled.div`
   .write {
     padding: 10px;
     border-radius: 4px;
-    background-color: #6e95ff;
+    background-color: var(--main-color);
     position: absolute;
     right: 12vw;
     color: white;

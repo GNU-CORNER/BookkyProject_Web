@@ -1,9 +1,25 @@
+import axios from "axios";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import MiniProfile from "../miniProfile";
 
-const ReviewWriting = () => {
+const ReviewWriting = ({ BID, getBookData }) => {
   const user = useSelector((state) => state.userData);
+  const [contents, setContents] = useState("");
+
+  // writeReview() : 작성한 리뷰 서버로 전송
+  function submitReview() {
+    const params = JSON.stringify({
+      contents: contents,
+      BID: BID,
+    });
+    axios
+      .post("http://203.255.3.144:8002/v1/review/" + BID, params, {
+        headers: { "access-token": user.accessToken },
+      })
+      .then((res) => console.log(res));
+  }
 
   return (
     <ReviewWritingContainer>
@@ -12,8 +28,18 @@ const ReviewWriting = () => {
         date={Date.now()}
       />
       <InputArea>
-        <textarea placeholder="욕설 및 비속어는 자제해주세요" />
-        <div className="writing">
+        <textarea
+          placeholder="욕설 및 비속어는 자제해주세요"
+          value={contents}
+          onChange={(e) => setContents(e.target.value)}
+        />
+        <div
+          className="writing"
+          onClick={() => {
+            submitReview();
+            getBookData();
+          }}
+        >
           <img src={require("../../assets/icons/community/plus.png")} />작 성
         </div>
       </InputArea>
@@ -44,19 +70,19 @@ const InputArea = styled.div`
     transition: all 0.2s;
 
     :focus {
-      outline: 2px solid #6e95ff;
+      outline: 2px solid var(--main-color);
     }
   }
 
   .writing {
-    background-color: #6e95ff;
+    background-color: var(--main-color);
     margin: 8px 0;
     width: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 1px solid #6e95ff;
+    border: 1px solid var(--main-color);
     border-radius: 15px;
     font-size: 0.8em;
     font-weight: bold;

@@ -21,8 +21,8 @@ const MoreBtn = styled.div`
   font-weight: bold;
 
   :hover {
-    border: 1px solid #6e95ff;
-    background-color: #6e95ff;
+    border: 1px solid var(--main-color);
+    background-color: var(--main-color);
     color: white;
     cursor: pointer;
   }

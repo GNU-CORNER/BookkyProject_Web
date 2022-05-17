@@ -43,7 +43,7 @@ const BookCardContainer = styled.div`
 
   :hover {
     cursor: pointer;
-    border: 2px solid #6e95ff;
+    border: 2px solid var(--main-color);
   }
 
   :hover img {

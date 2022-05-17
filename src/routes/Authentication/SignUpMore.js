@@ -131,7 +131,7 @@ const InputArea = styled.div`
     font-weight: 700;
     text-align: center;
     margin: auto;
-    border-bottom: 3px solid #6c95ff;
+    border-bottom: 3px solid var(--main-color);
   }
 
   p {
@@ -140,7 +140,7 @@ const InputArea = styled.div`
     padding-left: 10px;
 
     span {
-      color: #6c95ff;
+      color: var(--main-color);
       font-size: 0.8em;
     }
   }
@@ -154,10 +154,10 @@ const InputArea = styled.div`
     background-color: #f3f3f3;
     border: 3px solid #f3f3f3;
     border-radius: 5px;
-    outline-color: #6c95ff;
+    outline-color: var(--main-color);
 
     :focus {
-      border: 3px solid #6c95ff;
+      border: 3px solid var(--main-color);
     }
   }
 `;
@@ -169,7 +169,7 @@ const SignUpBtn = styled.div`
   line-height: 55px;
   bottom: 30px;
   text-align: center;
-  background-color: #6c95ff;
+  background-color: var(--main-color);
   border-radius: 4px;
   color: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);

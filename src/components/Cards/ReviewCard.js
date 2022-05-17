@@ -84,7 +84,7 @@ const ReviewCardContainer = styled.div`
     }
 
     .edit {
-      background-color: #6e95ff;
+      background-color: var(--main-color);
     }
 
     .delete {
