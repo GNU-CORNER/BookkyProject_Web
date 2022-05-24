@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -143,7 +143,7 @@ const PostDetail = () => {
   }
 
   useEffect(getPostData, [boardNum, postID, user]);
-  useEffect(init, []);
+  useEffect(init, [boardNum]);
   // 게시글 상세보기 View
   return (
     <PostDetailContainer width={SideNavState.width}>
@@ -195,7 +195,14 @@ const PostDetail = () => {
             <input
               type="text"
               placeholder="댓글을 입력하세요"
+              value={userComment}
               onChange={(e) => setUserComment(e.target.value)}
+              onKeyUp={() => {
+                if (window.event.keyCode === 13) {
+                  submitComment();
+                  setUserComment("");
+                }
+              }}
             />
             <div onClick={submitComment}>작성</div>
           </div>

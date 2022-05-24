@@ -1,13 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { updateUserTagArray } from "../../../redux-modules/userData";
 
 const SecondStep = ({ ToBefore }) => {
   // 변수 선언
-  const [Tags, setTags] = useState([{ TID: "", nameTag: "" }]);
+  const [Tags, setTags] = useState([{ TMID: "", nameTag: "" }]);
   const [pickedTags, setPickedTags] = useState([]);
   const user = useSelector((state) => state.userData);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // getTags() : 서버 데이터 통신 함수 (태그 목록 불러오기)
   function getTags() {
@@ -21,16 +25,22 @@ const SecondStep = ({ ToBefore }) => {
     console.log(pickedTags);
     axios
       .put(
-        "http://203.255.3.144/v1/user/tag",
+        "http://203.255.3.144:8002/v1/user/tag",
         { tag: pickedTags },
         {
-          "Content-Type": "application/json",
           headers: {
+            "Content-Type": "application/json",
             "access-token": user.accessToken,
           },
         }
       )
-      .then((res) => console.log(res));
+      .then((res) => {
+        console.log(res);
+        if (res.data.success === true) {
+          dispatch(updateUserTagArray(res.data.result.tag));
+          navigate("/");
+        }
+      });
   }
 
   // 태그 세로 스크롤 뷰 출력
@@ -38,19 +48,17 @@ const SecondStep = ({ ToBefore }) => {
     return Tags.map((tag) => {
       return (
         <TagContainer
-          key={tag.TID}
+          key={tag.TMID}
           background={
-            pickedTags.includes(tag.TID) ? "var(--main-color)" : "#f1f1f1"
+            pickedTags.includes(tag.TMID) ? "var(--main-color)" : "#f1f1f1"
           }
-          color={pickedTags.includes(tag.TID) ? "white" : "black"}
+          color={pickedTags.includes(tag.TMID) ? "white" : "black"}
           onClick={() => {
-            {
-              if (pickedTags.includes(tag.TID) === false)
-                setPickedTags([...pickedTags, tag.TID]);
-              else {
-                pickedTags.splice(pickedTags.indexOf(tag.TID), 1);
-                setPickedTags([...pickedTags]);
-              }
+            if (pickedTags.includes(tag.TMID) === false)
+              setPickedTags([...pickedTags, tag.TMID]);
+            else {
+              pickedTags.splice(pickedTags.indexOf(tag.TMID), 1);
+              setPickedTags([...pickedTags]);
             }
           }}
         >

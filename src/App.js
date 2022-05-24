@@ -104,7 +104,6 @@ const FlexDiv = styled.div`
 `;
 
 const GlobalStyle = createGlobalStyle`
-
   :root {
     --main-color : #6e95ff;
     --sub-color : #FFA24D;

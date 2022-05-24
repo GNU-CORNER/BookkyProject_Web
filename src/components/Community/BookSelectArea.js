@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 
 const BookSelectArea = () => {
-  const [isSelected, setSelect] = useState(false);
+  const [isSelected] = useState(false);
 
   if (isSelected)
     return <BookSelectAreaContainer>트루</BookSelectAreaContainer>;

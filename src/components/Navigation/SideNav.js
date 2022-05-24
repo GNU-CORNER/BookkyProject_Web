@@ -3,10 +3,8 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Profile from "./Profile";
 import LoginModalContainer from "../../redux-containers/LoginModalContainer";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import BottomMenu from "./BottomMenu";
-import { setFold, setWidth } from "../../redux-modules/sideNav";
-import SideNavFoldBtn from "./SideNavFoldBtn";
 
 // 사이드 네비게이션 바
 function SideNav() {

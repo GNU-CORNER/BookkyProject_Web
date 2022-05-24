@@ -3,7 +3,11 @@ import styled from "styled-components";
 const MiniProfile = ({ nickname, date }) => {
   return (
     <MiniProfileContainer>
-      <img src={require("../assets/icons/sideNav/welcome.png")} width="35px" />
+      <img
+        src={require("../assets/icons/sideNav/welcome.png")}
+        width="35px"
+        alt="user Profile"
+      />
       <div>{nickname}</div>
       <div className="date">{date}</div>
     </MiniProfileContainer>

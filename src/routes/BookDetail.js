@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import axios from "axios";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
 import BookDetailHeader from "../components/BookDetail/BookDetailHeader";
@@ -14,10 +14,9 @@ function BookDetail() {
   const BID = location.pathname.split("/")[2];
   const user = useSelector((state) => state.userData);
   const [book, setBook] = useState({ BOOK_INDEX: "" });
-  const [reviews, setReviews] = useState();
+  const [reviews, setReviews] = useState([{ id: "" }]);
   const [fold, setFold] = useState(true);
   const SideNavState = useSelector((state) => state.SideNavState);
-
   // getBookData() : 서버로부터 BID 에 따른 도서데이터를 가져옴
   function getBookData() {
     axios
@@ -36,11 +35,11 @@ function BookDetail() {
       })
       .then((res) => {
         console.log(res.data);
-        setReviews(res.data);
+        setReviews(res.data.result.reviewList);
       });
   }
   useEffect(getBookData, [BID]);
-  useEffect(getReviewData, [BID]);
+  useEffect(getReviewData, [BID, user.accessToken]);
 
   // 도서 상세정보 View
   return (
@@ -122,7 +121,15 @@ function BookDetail() {
             <ReviewWriting BID={BID} getBookData={getBookData} />
             {reviews
               ? reviews.map((el) => {
-                  <ReviewCard />;
+                  return (
+                    <ReviewCard
+                      nickname={el.nickname}
+                      contents={el.contents}
+                      date={el.createAt}
+                      likeCnt={el.likeCnt}
+                      rating={el.rating}
+                    />
+                  );
                 })
               : "등록된 리뷰가 없습니다"}
           </Reviews>

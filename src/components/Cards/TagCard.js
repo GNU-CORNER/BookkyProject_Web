@@ -2,10 +2,10 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 // 태그를 표현하는 카드
-const TagCard = ({ tag, TID }) => {
+const TagCard = ({ tag, TMID }) => {
   const navigate = useNavigate();
   return (
-    <TagCardContainer onClick={() => navigate("/tag/" + TID)}>
+    <TagCardContainer onClick={() => navigate("/tag/" + TMID)}>
       <Tag># {tag}</Tag>
     </TagCardContainer>
   );

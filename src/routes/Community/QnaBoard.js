@@ -6,7 +6,7 @@ import styled from "styled-components";
 // 커뮤니티 - Q&A게시판
 function QnaBoard() {
   // 변수 정의
-  const posts = useSelector((state) => state.posts.qna);
+  // const posts = useSelector((state) => state.posts.qna);
   const navigate = useNavigate();
   const boardName = useLocation().pathname.split("/")[1];
   const SideNavState = useSelector((state) => state.SideNavState);

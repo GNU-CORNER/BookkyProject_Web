@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import MiniProfile from "../miniProfile";
 
 // BookDetail - ReviewCard
-const ReviewCard = ({ nickname, contents, date, recommend, starRating }) => {
+const ReviewCard = ({ nickname, contents, date, likeCnt, rating }) => {
   const user = useSelector((state) => state.userData);
 
   function ReviewManagement() {

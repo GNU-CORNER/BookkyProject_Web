@@ -41,6 +41,7 @@ const Reply = ({
       <img
         className="reply-icon"
         src={require("../../assets/icons/community/reply.png")}
+        alt="reply icon"
       />
       <div className="reply-contents">
         <div className="manage-comment">

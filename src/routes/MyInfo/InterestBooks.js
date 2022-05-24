@@ -30,7 +30,7 @@ function Interests() {
     }
   }
 
-  useEffect(getBooks, [user]);
+  useEffect(getBooks, [user, dispatch]);
   // 관심도서 View
   return (
     <InterstsContainer width={SideNavState.width}>
@@ -49,7 +49,7 @@ function Interests() {
         {mybooks.map((book) => {
           return (
             <BookCard
-              key={book.BID}
+              key={book.TBID}
               className="nodrag"
               title={book.TITLE}
               thumnail={book.thumbnailImage}

@@ -15,7 +15,6 @@ function MyPost() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation().pathname.split("/");
-  const boardName = location[1];
   const posts = useSelector((state) => state.posts.myposts);
   const SideNavState = useSelector((state) => state.SideNavState);
   const user = useSelector((state) => state.userData);
@@ -58,8 +57,8 @@ function MyPost() {
     return parseInt(count / 10) + remainder;
   }
 
-  useEffect(getPosts, [page]);
-  useEffect(() => navigate("/myposts/" + page), [page]);
+  useEffect(getPosts, [page, dispatch, user.accessToken]);
+  useEffect(() => navigate("/myposts/" + page), [page, navigate]);
 
   // 내 글 보기 View
   return (

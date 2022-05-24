@@ -24,7 +24,7 @@ const SearchBookCard = ({
           window.scrollTo(0, 0);
         }}
       >
-        <img src={thumbnailImage} />
+        <img src={thumbnailImage} alt="Book Thumbnail" />
         {/* 제목, 저자/출판사, 내용 */}
         <BookInfo>
           <div className="title">{TITLE}</div>

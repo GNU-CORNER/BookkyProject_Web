@@ -40,7 +40,11 @@ const ReviewWriting = ({ BID, getBookData }) => {
             getBookData();
           }}
         >
-          <img src={require("../../assets/icons/community/plus.png")} />작 성
+          <img
+            src={require("../../assets/icons/community/plus.png")}
+            alt="write"
+          />
+          작 성
         </div>
       </InputArea>
     </ReviewWritingContainer>

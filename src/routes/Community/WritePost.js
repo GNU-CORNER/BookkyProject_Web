@@ -1,8 +1,7 @@
-import { Token } from "@mui/icons-material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import BookSelectArea from "../../components/Community/BookSelectArea";
 import PageHeader from "../../components/PageHeader";
@@ -19,8 +18,8 @@ const WritePost = () => {
   const [slug, setSlug] = useState(0);
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
-  const [BID, setBID] = useState(0);
-  const [picture, setPicture] = useState("");
+  const [BID] = useState(0);
+  // const [picture, setPicture] = useState("");
 
   // 최초 렌더링 시 초기화
   function init() {

@@ -5,12 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import BookCard from "../Cards/BookCard";
 import Loading from "../Loading";
 import { updateHomeBooks } from "../../redux-modules/books";
-import { useNavigate } from "react-router-dom";
 
 const RecommendByTag = () => {
   // 변수 선언
-  const navigate = useNavigate();
-  const todayBooks = useSelector((state) => state.books.homeBooks)[0];
   const dataSet = useSelector((state) => state.books.homeBooks).filter(
     (element, index) => index > 0
   );
@@ -18,7 +15,7 @@ const RecommendByTag = () => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const [nowSelect, setNowSelect] = useState({ data: "" });
-  const [nowTID, setNowTID] = useState(0);
+  const [nowTMID, setNowTMID] = useState(0);
 
   // getData() : 서버 데이터 통신 함수 (책 목록 불러오기)
   function getData() {
@@ -31,7 +28,7 @@ const RecommendByTag = () => {
       .then((res) => {
         dispatch(updateHomeBooks(res.data.result.bookList));
         setNowSelect(res.data.result.bookList[1]);
-        setNowTID(res.data.result.bookList[1].TID);
+        setNowTMID(res.data.result.bookList[1].TMID);
         setLoading(false);
       });
   }
@@ -43,8 +40,8 @@ const RecommendByTag = () => {
         return (
           <BookCard
             className="nodrag"
-            key={el.BID}
-            bid={el.BID}
+            key={el.TBID}
+            bid={el.TBID}
             title={el.TITLE}
             thumnail={el.thumbnailImage}
             author={el.AUTHOR}
@@ -52,7 +49,7 @@ const RecommendByTag = () => {
           />
         );
       } else {
-        return <div key={el.BID}></div>;
+        return <div key={el.TBID}></div>;
       }
     });
 
@@ -74,7 +71,7 @@ const RecommendByTag = () => {
                 }
                 onClick={() => {
                   setNowSelect(el);
-                  setNowTID(el.TID);
+                  setNowTMID(el.TMID);
                 }}
                 key={el.tag}
               >
@@ -90,7 +87,7 @@ const RecommendByTag = () => {
             title={"#" + nowSelect.tag}
             thumnail={require("../../assets/icons/home/more.png")}
             more={true}
-            nowTID={nowTID}
+            nowTMID={nowTMID}
           />
         </Books>
       </RecommendByTagContainer>

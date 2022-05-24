@@ -3,7 +3,10 @@ import styled from "styled-components";
 const Notice = ({ notice }) => {
   return (
     <NoticeContainer>
-      <img src={require("../../assets/icons/community/notice.png")} />
+      <img
+        src={require("../../assets/icons/community/notice.png")}
+        alt="notice"
+      />
       {notice}
     </NoticeContainer>
   );

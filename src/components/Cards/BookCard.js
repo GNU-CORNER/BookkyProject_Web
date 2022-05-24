@@ -4,12 +4,13 @@ import styled from "styled-components";
 // Home - SpreadBooks - 책 한 권마다의 표현 단위
 const BookCard = (book) => {
   const navigate = useNavigate();
+
   return (
     <BookCardContainer
       width={"170px"}
       onClick={
         book.more
-          ? () => navigate("/tag/" + book.nowTID)
+          ? () => navigate("/tag/" + book.nowTMID)
           : () => navigate("/books/" + book.bid)
       }
     >

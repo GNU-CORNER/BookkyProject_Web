@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import PageHeader from "../../components/PageHeader";
+import Typing from "../../components/Recommend/Typing";
 
 // 추천받개 - 명탐정 북키
 function Detective() {
@@ -14,8 +15,7 @@ function Detective() {
         subTitle="당신이 원하는 책, 제가 찾아드리죠 !"
       />
       <ContentsArea>
-        <div>안녕 나는 북키야</div>
-        <div>답변창영역</div>
+        <div className="type">{/* <Typing /> */}</div>
       </ContentsArea>
     </DetectiveContainer>
   );

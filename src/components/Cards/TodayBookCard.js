@@ -6,6 +6,7 @@ const TodayBookCard = () => {
       <div className="shelf" />
       <img
         src={"http://203.255.3.144:8010/thumbnail/bookThumbnail/289275287.png"}
+        alt="Book Thumbnail"
       />
     </TodayBookCardContainer>
   );

@@ -12,7 +12,7 @@ function SearchBar() {
     <SearchBarContainer>
       <TextField
         onKeyUp={() => {
-          if (window.event.keyCode == 13)
+          if (window.event.keyCode === 13)
             navigate("/search", { state: { query: input } });
         }}
       >

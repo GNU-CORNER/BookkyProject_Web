@@ -58,8 +58,8 @@ function TradeBoard() {
     return parseInt(count / 10) + remainder;
   }
 
-  useEffect(getPosts, [page]);
-  useEffect(() => navigate("/trade/" + page), [page]);
+  useEffect(getPosts, [page, dispatch, user.accessToken]);
+  useEffect(() => navigate("/trade/" + page), [page, navigate]);
 
   // 중고장터 View
   return (

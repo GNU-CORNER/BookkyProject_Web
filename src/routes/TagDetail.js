@@ -11,10 +11,11 @@ const TagDetail = () => {
   const [books, setBooks] = useState([{}]);
   const [tagName, setTagName] = useState("");
   const tagNum = location.pathname.split("/")[2];
-  const user = useSelector((state) => state.userData);
+  // const user = useSelector((state) => state.userData);
   const SideNavState = useSelector((state) => state.SideNavState);
-  async function getBookData() {
-    await axios
+
+  function getBookData() {
+    axios
       .get("http://203.255.3.144:8002/v1/books/tag/" + tagNum)
       .then((res) => {
         setTagName(res.data.result.bookList.tag);
@@ -23,7 +24,7 @@ const TagDetail = () => {
       });
   }
 
-  useEffect(getBookData, []);
+  useEffect(getBookData, [tagNum]);
   return (
     <TagDetailContainer width={SideNavState.width}>
       <MainHeader>
@@ -42,7 +43,7 @@ const TagDetail = () => {
             <BookCard
               className="nodrag"
               key={cnt}
-              bid={el.BID}
+              bid={el.TBID}
               title={el.TITLE}
               thumnail={el.thumbnailImage}
               author={el.AUTHOR}

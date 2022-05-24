@@ -117,6 +117,12 @@ const Comment = ({
             placeholder="대댓글을 입력하세요"
             value={userComment}
             onChange={(e) => setUserComment(e.target.value)}
+            onKeyUp={() => {
+              if (window.event.keyCode === 13) {
+                submitComment();
+                setUserComment("");
+              }
+            }}
           />
           <div onClick={submitComment}>작성</div>
         </div>

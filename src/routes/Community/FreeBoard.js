@@ -59,8 +59,8 @@ function FreeBoard() {
     return parseInt(count / 10) + remainder;
   }
 
-  useEffect(getPosts, [page]);
-  useEffect(() => navigate("/free/" + page), [page]);
+  useEffect(getPosts, [page, dispatch, user.accessToken]);
+  useEffect(() => navigate("/free/" + page), [page, navigate]);
 
   // 자유게시판 View
   return (

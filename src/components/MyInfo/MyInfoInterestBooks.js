@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import SmallBookCard from "../Cards/SmallBookCard";
 import BookCard from "../Cards/BookCard";
 
 //MyInfo - 내 관심도서 컴포넌트
@@ -22,6 +21,7 @@ const InterestBooks = () => {
               publisher={book.PUBLISHER}
             />
           );
+        else return <></>;
       })}
     </InterestFieldContainer>
   );
