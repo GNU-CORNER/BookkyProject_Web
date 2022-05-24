@@ -3,6 +3,8 @@ import styled from "styled-components";
 import PageHeader from "../../components/PageHeader";
 import Typing from "../../components/Recommend/Typing";
 
+const array = [["자바스크립트 관련 도서인가요?"], ["파이썬 관련 도서 인가요?"]];
+
 // 추천받개 - 명탐정 북키
 function Detective() {
   const SideNavState = useSelector((state) => state.SideNavState);
@@ -15,7 +17,9 @@ function Detective() {
         subTitle="당신이 원하는 책, 제가 찾아드리죠 !"
       />
       <ContentsArea>
-        <div className="type">{/* <Typing /> */}</div>
+        {array.map((el) => {
+          return <Typing message={el} />;
+        })}
       </ContentsArea>
     </DetectiveContainer>
   );
@@ -43,28 +47,9 @@ const DetectiveContainer = styled.div`
 `;
 
 const ContentsArea = styled.div`
-  @keyframes typing {
-    from {
-      width: 0;
-    }
-  }
-
-  @keyframes blink {
-    50% {
-      border-color: transparent;
-    }
-  }
-
   border: 1px solid red;
   margin: 2vh 20vw;
   display: grid;
   grid-template-columns: 50fr 50fr;
-  div {
-    width: 20ch;
-    white-space: nowrap;
-    overflow: hidden;
-    border-right: 3px solid;
-    animation: typing 2s steps(30), blink 0.5s step-end infinite alternate;
-  }
 `;
 export default Detective;

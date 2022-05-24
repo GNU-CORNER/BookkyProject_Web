@@ -42,6 +42,7 @@ function BookkyRoutes() {
   }
 
   useEffect(isNullInterestField, [navigate, user.tagArray]);
+
   return (
     <RoutesContainer>
       <Routes>

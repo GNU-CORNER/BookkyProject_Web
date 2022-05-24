@@ -1,7 +1,11 @@
-import TypeIt from "typeit-react";
+import ReactTypingEffect from "react-typing-effect";
 
-const Typing = () => {
-  return <TypeIt>This will be typed in a `span` element!</TypeIt>;
+const Typing = ({ message }) => {
+  return (
+    <p>
+      <ReactTypingEffect text={message} />
+    </p>
+  );
 };
 
 export default Typing;
