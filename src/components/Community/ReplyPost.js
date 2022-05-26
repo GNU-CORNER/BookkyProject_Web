@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -156,7 +155,7 @@ const ContentArea = styled.div`
     margin-top: 3vh;
 
     .main-text {
-      height: 30vh;
+      height: 20vh;
     }
 
     .bottom {

@@ -1,10 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 // 커뮤니티 홈 - 게시글 제목
-const PostTitle = ({ title, kind }) => {
+const PostTitle = ({ title, PID, kind }) => {
+  //변수 선언
+  const navigate = useNavigate();
   return (
-    // onClick 추후 URL 이동으로 수정할 것. (3/30)
-    <PostTitleContainer onClick={() => console.log(title, "클릭")}>
+    <PostTitleContainer
+      onClick={() => navigate("/postdetail/" + kind + "/" + PID)}
+    >
       <Contents>
         <img src={require("../../assets/icons/community/post.png")} alt="" />
         <Title>{title}</Title>

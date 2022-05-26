@@ -3,17 +3,35 @@ import BoardTitle from "../../components/Community/BoardTitle";
 import PostTitle from "../../components/Community/PostTitle";
 import PageHeader from "../../components/PageHeader";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 // 커뮤니티 홈
 function Community() {
   // 변수 선언
-
-  const posts_hot = useSelector((state) => state.posts.hot);
-  const posts_free = useSelector((state) => state.posts.free);
-  const posts_qna = useSelector((state) => state.posts.qna);
-  const posts_trade = useSelector((state) => state.posts.trade);
+  const [posts, setPosts] = useState({
+    AnyList: [{ title: "", PID: 0 }],
+    HotList: [{ title: "", PID: 0, communityType: 0 }],
+    MarketList: [{ title: "", PID: 0 }],
+    QnAList: [{ title: "", PID: 0 }],
+  });
   const SideNavState = useSelector((state) => state.SideNavState);
 
+  //getPosts() : 서버로부터 게시글 목록을 불러옴
+  const getPosts = () => {
+    axios
+      .get("http://203.255.3.144:8002/v1/community/home", {
+        params: {
+          count: 6,
+        },
+      })
+      .then((res) => {
+        setPosts(res.data.result);
+        console.log(res);
+      });
+  };
+
+  useEffect(getPosts, []);
   // 커뮤니티 홈 View
   return (
     <CommunityContainer width={SideNavState.width}>
@@ -21,26 +39,46 @@ function Community() {
       <ContentsContainer>
         <div className="hotBoard">
           <BoardTitle title="H🔥T게시판" kind="hot" />
-          {posts_hot.map((post, cnt) => (
-            <PostTitle title={post.title} key={cnt} />
+          {posts.HotList.map((post) => (
+            <PostTitle
+              key={post.PID}
+              title={post.title}
+              PID={post.PID}
+              kind={post.communityType}
+            />
           ))}
         </div>
         <div className="freeBoard">
           <BoardTitle title="자유게시판" kind="free" />
-          {posts_free.map((post, cnt) => (
-            <PostTitle title={post.title} key={cnt} />
+          {posts.AnyList.map((post, cnt) => (
+            <PostTitle
+              key={post.PID}
+              title={post.title}
+              PID={post.PID}
+              kind={0}
+            />
           ))}
         </div>
         <div className="qnaBoard">
           <BoardTitle title="Q&amp;A게시판" kind="qna" />
-          {posts_qna.map((post, cnt) => (
-            <PostTitle title={post.title} key={cnt} />
+          {posts.QnAList.map((post, cnt) => (
+            <PostTitle
+              key={post.PID}
+              title={post.title}
+              PID={post.PID}
+              kind={2}
+            />
           ))}
         </div>
         <div className="tradeBoard">
           <BoardTitle title="중고장터" kind="trade" />
-          {posts_trade.map((post, cnt) => (
-            <PostTitle title={post.title} key={cnt} />
+          {posts.MarketList.map((post, cnt) => (
+            <PostTitle
+              key={post.PID}
+              title={post.title}
+              PID={post.PID}
+              kind={1}
+            />
           ))}
         </div>
       </ContentsContainer>

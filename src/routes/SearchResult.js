@@ -40,7 +40,7 @@ const SearchResult = () => {
               return (
                 <SearchBookCard
                   key={cnt}
-                  BID={el.BID}
+                  BID={el.TBID}
                   TITLE={el.TITLE}
                   AUTHOR={el.AUTHOR}
                   BOOK_INTRODUCTION={el.BOOK_INTRODUCTION}

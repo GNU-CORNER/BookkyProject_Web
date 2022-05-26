@@ -5,13 +5,42 @@ import InterestField from "../../components/MyInfo/MyInfoInterestField";
 import PostCard from "../../components/Cards/PostCard";
 import ContentsHeader from "../../components/MyInfo/ContentsHeader";
 import More from "../../components/MyInfo/More";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 // SideBar - 내 정보
 function MyInfo() {
   // 변수 정의
   const user = useSelector((state) => state.userData);
-  const myposts = useSelector((state) => state.posts.myposts);
   const SideNavState = useSelector((state) => state.SideNavState);
+  const [myPosts, setMyPosts] = useState([
+    { PID: 0, commentCnt: 0, contents: "", likeCnt: 0, title: "" },
+  ]);
+  const [myPostCnt, setMyPostCnt] = useState(0);
+  // getPosts() : 서버로부터 내 도서를 가져옴
+  function getPosts() {
+    axios
+      .get(
+        "http://203.255.3.144:8002/v1/community/postlist/0",
+        {
+          params: {
+            quantity: 2,
+            page: 1,
+          },
+        },
+        {
+          headers: {
+            "access-token": user.accessToken,
+          },
+        }
+      )
+      .then((res) => {
+        setMyPosts(res.data.result.postList);
+        setMyPostCnt(res.data.result.total_size);
+      });
+  }
+
+  useEffect(getPosts, [user.accessToken]);
 
   // 내 정보 View
   return (
@@ -24,8 +53,8 @@ function MyInfo() {
           </p>
           <p className="sub">
             총 <span>{"4"}개</span>의 관심분야 / <span>{"15"}권</span>의
-            관심도서 /<span> {"2"}개</span>의 게시글 / <span>{"3"}개</span>의
-            리뷰
+            관심도서 /<span> {myPostCnt}개</span>의 게시글 /{" "}
+            <span>{"3"}개</span>의 리뷰
           </p>
         </Title>
       </MainHeader>
@@ -37,7 +66,7 @@ function MyInfo() {
         <div className="myPost">
           <ContentsHeader title="내가 작성한 게시글" />
           <div className="posts">
-            {myposts.map((post) => (
+            {myPosts.map((post) => (
               <PostCard
                 key={post.id}
                 title={post.title}
