@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import Reply from "./Reply";
+import Reply from "./ReplyComment";
 import axios from "axios";
 
 // 커뮤니티 - 댓글
