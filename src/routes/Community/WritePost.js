@@ -18,7 +18,10 @@ const WritePost = () => {
   const [slug, setSlug] = useState(0);
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
-  const [BID] = useState(0);
+  const [TBID, setTBID] = useState(0);
+  const [parentQPID, setQPID] = useState(0);
+  const [postImage, setPostImg] = useState(0);
+
   // const [picture, setPicture] = useState("");
 
   // 최초 렌더링 시 초기화
@@ -47,6 +50,7 @@ const WritePost = () => {
 
   // onSubmit() : 글쓰기 버튼 클릭 시, 서버와 통신하여 게시글 작성
   function onSubmit() {
+    console.log(TBID);
     function setPathName() {
       switch (slug) {
         case 0:
@@ -64,7 +68,9 @@ const WritePost = () => {
     const params = JSON.stringify({
       title: title,
       contents: contents,
-      BID: BID,
+      TBID: TBID,
+      parentQPID: parentQPID,
+      postImage: postImage,
     });
 
     axios
@@ -100,7 +106,7 @@ const WritePost = () => {
           Created at{" "}
           {`${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`}
         </p>
-        <BookSelectArea />
+        <BookSelectArea setTBID={setTBID} />
         <ImgSelectArea>
           <div>x</div>
           <div>x</div>
@@ -133,6 +139,7 @@ const InputArea = styled.div`
     line-height: 20px;
     margin-bottom: 10px;
   }
+
   .submit {
     margin-top: 10px;
     display: flex;

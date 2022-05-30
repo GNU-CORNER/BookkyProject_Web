@@ -75,7 +75,7 @@ function TradeBoard() {
             content={post.contents}
             likes={post.likeCnt}
             comments={post.commentCnt}
-            board={1}
+            communityType={1}
           />
         ))}
       </Posts>

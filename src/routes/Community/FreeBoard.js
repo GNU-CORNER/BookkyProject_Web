@@ -76,7 +76,7 @@ function FreeBoard() {
             content={post.contents}
             likes={post.likeCnt}
             comments={post.commentCnt}
-            board={0}
+            communityType={0}
           />
         ))}
       </Posts>

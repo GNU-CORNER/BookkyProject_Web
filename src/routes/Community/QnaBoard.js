@@ -77,7 +77,7 @@ function QnaBoard() {
             content={post.contents}
             likes={post.likeCnt}
             comments={post.commentCnt}
-            board={2}
+            communityType={2}
           />
         ))}
       </Posts>

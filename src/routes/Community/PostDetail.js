@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Comment from "../../components/Community/Comment";
 import CommentModalContainer from "../../components/Community/CommentModal/CommentModalContainer";
+import ReplyModalContainer from "../../components/Community/ReplyModal/ReplyModalContainer";
 import ReplyPost from "../../components/Community/ReplyPost";
 import PageHeader from "../../components/PageHeader";
 
@@ -21,6 +22,7 @@ const PostDetail = () => {
   const [commentCnt, setCommentCnt] = useState(0);
   const [replyCnt, setReplyCnt] = useState(0);
   const [commentModal, setCommentModal] = useState(false);
+  const [replyWriteModal, setReplyWriteModal] = useState(false);
   const [userComment, setUserComment] = useState("");
 
   // 게시글 틀
@@ -52,7 +54,7 @@ const PostDetail = () => {
   // 답글 틀
   const [replyPost, setReplyPost] = useState([
     {
-      BID: 0,
+      PID: 0,
       contents: "",
       createAt: "",
       isAccessible: false,
@@ -66,7 +68,7 @@ const PostDetail = () => {
     },
   ]);
 
-  // init() : 최초 로드 시
+  // init() : 최초 로드 시 - 게시판 이름 설정
   function init() {
     switch (boardNum) {
       case 0:
@@ -106,7 +108,6 @@ const PostDetail = () => {
         setCommentArray(res.data.result.commentdata);
         setReplyPost(res.data.result.replydata);
         setReplyCnt(res.data.result.replyCnt);
-        console.log(res);
       });
   }
 
@@ -196,8 +197,11 @@ const PostDetail = () => {
             <CommentModalContainer
               commentModal={commentModal}
               setCommentModal={setCommentModal}
+              setCommentCnt={setCommentCnt}
+              getPostData={getPostData}
               PID={postID}
             />
+            {/* Q&A 게시판일 때, 댓글 모달 창 */}
             {boardNum === 2 ? (
               <div
                 className="comments"
@@ -233,66 +237,84 @@ const PostDetail = () => {
           )}
         </div>
       </ContentArea>
-      {boardNum === 2 ? (
-        <ReplyArea>
-          <p className="reply-header">{replyCnt}개의 답글</p>
-          {replyPost.map((el, cnt) => {
-            return (
-              <ReplyPost
-                key={el.PID}
-                PID={el.PID}
-                title={el.title}
-                contents={el.contents}
-                createAt={el.createAt}
-                updateAt={el.updateAt}
-                like={el.like}
-                views={el.views}
-                nickname={el.nickname}
-                thumbnail={el.thumbnail}
-                commentCnt={el.commentCnt}
+
+      {
+        // Q&A 게시판일 경우
+        boardNum === 2 ? (
+          <ReplyArea>
+            <ReplyHeader>
+              <ReplyModalContainer
+                replyWriteModal={replyWriteModal}
+                setReplyWriteModal={setReplyWriteModal}
+                PID={postID}
               />
-            );
-          })}
-        </ReplyArea>
-      ) : (
-        <CommentArea>
-          <WriteComment>
-            <p className="reply-header">{commentCnt}개의 댓글</p>
-            <div className="input-area">
-              <input
-                type="text"
-                placeholder="댓글을 입력하세요"
-                value={userComment}
-                onChange={(e) => setUserComment(e.target.value)}
-                onKeyUp={() => {
-                  if (window.event.keyCode === 13) {
-                    submitComment();
-                    setUserComment("");
-                  }
-                }}
-              />
-              <div onClick={submitComment}>작성</div>
-            </div>
-          </WriteComment>
-          {commentArray.map((el) => {
-            return (
-              <Comment
-                key={el.CID}
-                CID={el.CID}
-                isAccessible={el.isAccessible}
-                nickname={el.nickname}
-                comment={el.comment}
-                like={el.like}
-                updateAt={el.updateAt}
-                childComment={el.childComment}
-                boardNum={boardNum}
-                postID={postID}
-                getPostData={getPostData}
-              />
-            );
-          })}
-        </CommentArea>
-      )}
+              <div className="reply-cnt">{replyCnt}개의 답글</div>
+              <div
+                className="reply-write-btn reply-cnt"
+                onClick={() => setReplyWriteModal(true)}
+              >
+                답글 쓰기
+              </div>
+            </ReplyHeader>
+            {replyPost.map((el, cnt) => {
+              return (
+                <ReplyPost
+                  key={el.PID}
+                  PID={el.PID}
+                  title={el.title}
+                  contents={el.contents}
+                  createAt={el.createAt}
+                  updateAt={el.updateAt}
+                  like={el.like}
+                  views={el.views}
+                  nickname={el.nickname}
+                  thumbnail={el.thumbnail}
+                  commentCnt={el.commentCnt}
+                />
+              );
+            })}
+          </ReplyArea>
+        ) : (
+          // 그 외 게시판일 경우
+          <CommentArea>
+            <WriteComment>
+              <p className="reply-cnt">{commentCnt}개의 댓글</p>
+              <div className="input-area">
+                <input
+                  type="text"
+                  placeholder="댓글을 입력하세요"
+                  value={userComment}
+                  onChange={(e) => setUserComment(e.target.value)}
+                  onKeyUp={() => {
+                    if (window.event.keyCode === 13) {
+                      submitComment();
+                      setUserComment("");
+                    }
+                  }}
+                />
+                <div onClick={submitComment}>작성</div>
+              </div>
+            </WriteComment>
+            {commentArray.map((el) => {
+              return (
+                <Comment
+                  key={el.CID}
+                  CID={el.CID}
+                  isAccessible={el.isAccessible}
+                  nickname={el.nickname}
+                  comment={el.comment}
+                  like={el.like}
+                  updateAt={el.updateAt}
+                  childComment={el.childComment}
+                  boardNum={boardNum}
+                  postID={postID}
+                  getPostData={getPostData}
+                />
+              );
+            })}
+          </CommentArea>
+        )
+      }
     </PostDetailContainer>
   );
 };
@@ -452,21 +474,26 @@ const ContentArea = styled.div`
 const CommentArea = styled.div`
   margin: 0 12vw;
 `;
-
+const ReplyHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 const ReplyArea = styled.div`
   margin: 0 12vw;
+  position: relative;
 
-  .reply-header {
+  .reply-cnt {
     padding: 10px 0;
     font-weight: bold;
     font-size: 0.9em;
     margin: 10px 15px;
+    width: fit-content;
   }
 `;
 const WriteComment = styled.div`
   min-width: 700px;
 
-  .reply-header {
+  .reply-cnt {
     padding: 10px 0;
     font-weight: bold;
     font-size: 0.9em;

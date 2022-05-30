@@ -10,6 +10,7 @@ const Reply = ({
   nickname,
   boardNum,
   getPostData,
+  getCommentData,
 }) => {
   const user = useSelector((state) => state.userData);
 
@@ -30,6 +31,7 @@ const Reply = ({
       .then((res) => {
         console.log(res);
         getPostData();
+        getCommentData();
       })
       .catch((error) => {
         alert(error.response.data.errorMessage);

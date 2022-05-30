@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 // 추천받개 - 메뉴 한 개마다의 표현 단위
-function MenuCard({ title, explain, isnew, kind }) {
+function MenuCard({ title, explain, isnew, kind, course }) {
   const navigate = useNavigate();
   // 신 메뉴 표시 (NEW 뱃지)
   function RenderNew() {
@@ -17,6 +17,18 @@ function MenuCard({ title, explain, isnew, kind }) {
     else return <></>;
   }
 
+  function move() {
+    switch (kind) {
+      case "명탐정 북키":
+        navigate("/detective");
+        break;
+      case "안내견 북키":
+        navigate("/roadmap/" + course);
+        break;
+      default:
+        break;
+    }
+  }
   // 메뉴 종류에 따른 배경 그림 지정
   function RenderImg() {
     switch (kind) {
@@ -39,7 +51,7 @@ function MenuCard({ title, explain, isnew, kind }) {
       case "새로운 아이디어":
         return (
           <img
-            className="BackGroundImg"
+            className="BackGroundImg newIdea"
             src={require("../../assets/Bookky/북키_추천받개_생각.png")}
             alt=""
           />
@@ -53,8 +65,8 @@ function MenuCard({ title, explain, isnew, kind }) {
   return (
     <>
       <MenuCardContainer
-        className="nodrag"
-        onClick={() => navigate("/detective")}
+        className={kind === "새로운아이디어" ? "nodrag" : "hover-shadow nodrag"}
+        onClick={move}
       >
         <RenderNew />
         <div className="contents">

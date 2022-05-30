@@ -21,6 +21,7 @@ function Recommend() {
           <MenuCard
             key={menu.title}
             kind={menu.kind}
+            course={menu.course}
             title={menu.title}
             explain={menu.explain}
             thumnail={menu.thumnail}

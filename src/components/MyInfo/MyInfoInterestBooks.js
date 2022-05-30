@@ -8,21 +8,23 @@ const InterestBooks = () => {
 
   return (
     <InterestFieldContainer>
-      {mybooks.map((book, cnt) => {
-        if (cnt < 4)
-          return (
-            <BookCard
-              key={book.BID}
-              bid={book.BID}
-              className="nodrag"
-              title={book.TITLE}
-              thumnail={book.thumbnailImage}
-              author={book.AUTHOR}
-              publisher={book.PUBLISHER}
-            />
-          );
-        else return <></>;
-      })}
+      {mybooks.length <= 0
+        ? "관심도서가 없습니다."
+        : mybooks.map((book, cnt) => {
+            if (cnt < 4)
+              return (
+                <BookCard
+                  key={book.BID}
+                  bid={book.BID}
+                  className="nodrag"
+                  title={book.TITLE}
+                  thumnail={book.thumbnailImage}
+                  author={book.AUTHOR}
+                  publisher={book.PUBLISHER}
+                />
+              );
+            else return <></>;
+          })}
     </InterestFieldContainer>
   );
 };

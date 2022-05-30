@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import PageHeader from "../../components/PageHeader";
 import axios from "axios";
@@ -21,6 +21,8 @@ function SignUp() {
   const dispatch = useDispatch();
   const [, setCookie] = useCookies();
   const SideNavState = useSelector((state) => state.SideNavState);
+  const [nicknameMessage, setNicknameMessage] =
+    useState("사용할 수 있는 닉네임입니다.");
 
   // 회원가입 버튼 클릭 시
   function SendSignUp(nickName, email, password) {
@@ -72,6 +74,27 @@ function SignUp() {
     } else {
       alert("이메일이 인증되지 않았습니다");
     }
+  }
+
+  // 닉네임 검사
+  function checkNickname() {
+    axios
+      .get("http://203.255.3.144:8002/v1/user/nickname", {
+        params: {
+          nickname: nickName,
+        },
+      })
+      .then((res) => {
+        console.log(res.data.success);
+        if (res.data.success === true) {
+          setNicknameMessage("사용할 수 있는 닉네임입니다.");
+        }
+        console.log("실패 !");
+      })
+      .catch((error) => {
+        if (error.response.data.success === false)
+          setNicknameMessage("이미 사용 중인 닉네임입니다.");
+      });
   }
 
   // 인증번호 받기 버튼 클릭 시
@@ -154,6 +177,7 @@ function SignUp() {
     }
   };
 
+  useEffect(checkNickname, [nickName]);
   // 회원가입 View
   return (
     <SignUpContainer width={SideNavState.width}>
@@ -163,7 +187,12 @@ function SignUp() {
           <form>
             <div className="Header">환영합니다 !</div>
             <p>
-              닉네임 <span>(10자 이내)</span>
+              닉네임 (10자 이내)
+              {nickName.length > 0 ? (
+                <span onChange={checkNickname}>{nicknameMessage}</span>
+              ) : (
+                <></>
+              )}
             </p>
             <input
               type="text"
@@ -248,11 +277,14 @@ const InputArea = styled.div`
 
   p {
     font-size: 0.9em;
+    line-height: 1em;
     font-weight: bold;
-    padding-left: 10px;
+    padding: 0 0 5px 10px;
 
     span {
-      color: var(--main-color);
+      position: absolute;
+      margin-left: 5px;
+      color: #03c75a;
       font-size: 0.8em;
     }
   }

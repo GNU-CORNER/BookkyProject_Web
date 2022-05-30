@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import PageHeader from "../../components/PageHeader";
 import ChatFromBookky from "../../components/Recommend/Detective/ChatFromBookky";
 import ChatFromUser from "../../components/Recommend/Detective/ChatFromUser";
 import SelectionBox from "../../components/Recommend/Detective/SelectionBox";
-import Typing from "../../components/Recommend/Typing";
 
 // 추천받개 - 명탐정 북키
 function Detective() {
