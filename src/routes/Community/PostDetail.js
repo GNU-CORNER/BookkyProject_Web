@@ -378,7 +378,7 @@ const ContentArea = styled.div`
     margin-top: 3vh;
 
     .main-text {
-      height: 30vh;
+      min-height: 30vh;
     }
 
     .bottom {

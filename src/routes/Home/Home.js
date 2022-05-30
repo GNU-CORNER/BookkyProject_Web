@@ -3,6 +3,7 @@ import styled from "styled-components";
 import TodayBooks from "../../components/Home/TodayBooks";
 import Title from "../../components/Home/Title";
 import RecommendByTag from "../../components/Home/RecommendByTag";
+import HomeCommunity from "../../components/Home/HomeCommunity";
 
 // Home new ver.
 function Home() {
@@ -23,6 +24,7 @@ function Home() {
         <div className="lowerArea">
           <div>
             <div className="title">커뮤니티</div>
+            <HomeCommunity />
           </div>
           <div>
             <div className="title">Banner</div>

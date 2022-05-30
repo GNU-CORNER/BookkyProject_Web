@@ -79,6 +79,7 @@ const WritePost = () => {
         }
       )
       .then((res) => {
+        console.log("리스폰스", res);
         navigate(`/${setPathName()}/1`);
       });
   }

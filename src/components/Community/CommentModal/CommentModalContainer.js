@@ -5,7 +5,6 @@ import Fade from "@mui/material/Fade";
 import CommentModal from "./CommentModal";
 
 const CommentModalContainer = ({ commentModal, setCommentModal }) => {
-  console.log(commentModal);
   return (
     <>
       <Modal
