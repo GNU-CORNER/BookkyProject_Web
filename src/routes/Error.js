@@ -3,7 +3,8 @@ function Error() {
   // Error View
   return (
     <>
-      <div>Hello Error</div>
+      {/* <img src={require("../assets/Bookky/")}/> */}
+      <div>오류일거야</div>
     </>
   );
 }

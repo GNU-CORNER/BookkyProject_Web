@@ -21,6 +21,7 @@
     "redux": "4.1.2",
     "redux-devtools-extension": "2.13.9",
     "styled-components": "5.3.3",
+    "typewriter-effect": "2.18.2",
     "web-vitals": "2.1.4"
   },
   "scripts": {

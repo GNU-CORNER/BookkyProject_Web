@@ -7,7 +7,7 @@ import SearchBar from "./SearchBar";
 function TopNav() {
   // 변수 선언
   const [homeActive, setHomeActive] = useState("");
-  const [comunnityActive, setComunnityActive] = useState("");
+  const [CommunityActive, setCommunityActive] = useState("");
   const [recommendActive, setRecommendActive] = useState("");
   const location = useLocation();
 
@@ -19,55 +19,55 @@ function TopNav() {
     switch (location.pathname) {
       case "/": {
         setHomeActive("3px solid #6c95ff");
-        setComunnityActive("");
+        setCommunityActive("");
         setRecommendActive("");
         break;
       }
-      case "/comunnity": {
-        setComunnityActive("3px solid #6c95ff");
+      case "/community": {
+        setCommunityActive("3px solid #6c95ff");
         setHomeActive("");
         setRecommendActive("");
         break;
       }
       case "/free": {
-        setComunnityActive("3px solid #6c95ff");
+        setCommunityActive("3px solid #6c95ff");
         setHomeActive("");
         setRecommendActive("");
         break;
       }
       case "/qna": {
-        setComunnityActive("3px solid #6c95ff");
+        setCommunityActive("3px solid #6c95ff");
         setHomeActive("");
         setRecommendActive("");
         break;
       }
       case "/trade": {
-        setComunnityActive("3px solid #6c95ff");
+        setCommunityActive("3px solid #6c95ff");
         setHomeActive("");
         setRecommendActive("");
         break;
       }
       case "/recommend": {
         setRecommendActive("3px solid #6c95ff");
-        setComunnityActive("");
+        setCommunityActive("");
         setHomeActive("");
         break;
       }
       case "/detective": {
         setRecommendActive("3px solid #6c95ff");
-        setComunnityActive("");
+        setCommunityActive("");
         setHomeActive("");
         break;
       }
       case "/guide": {
         setRecommendActive("3px solid #6c95ff");
-        setComunnityActive("");
+        setCommunityActive("");
         setHomeActive("");
         break;
       }
       default: {
         setRecommendActive("");
-        setComunnityActive("");
+        setCommunityActive("");
         setHomeActive("");
         break;
       }
@@ -81,7 +81,7 @@ function TopNav() {
   return (
     <TopNavContainer>
       <StyledLink to="/">
-        <img src={require("../../assets/Group_379.png")} alt="" />
+        <img src={require("../../assets/Bookky/북키_메인로고.png")} alt="" />
       </StyledLink>
 
       <div className="dropdown">
@@ -93,17 +93,17 @@ function TopNav() {
       <div className="dropdown">
         <StyledLink
           className="dropbtn"
-          to="/comunnity"
-          borderbottom={comunnityActive}
+          to="/community"
+          borderbottom={CommunityActive}
         >
           커뮤니티
         </StyledLink>
-        <div className="dropdown-content">
-          <StyledLink to="/comunnity">커뮤니티 홈</StyledLink>
-          <StyledLink to="/hot">H🔥T게시판</StyledLink>
-          <StyledLink to="/free">자유게시판</StyledLink>
-          <StyledLink to="/qna">Q{"&"}A게시판</StyledLink>
-          <StyledLink to="/trade">중고장터</StyledLink>
+        <div className="dropdown-content a">
+          <StyledLink to="/community">커뮤니티 홈</StyledLink>
+          <StyledLink to="/hot/1">H🔥T게시판</StyledLink>
+          <StyledLink to="/free/1">자유게시판</StyledLink>
+          <StyledLink to="/qna/1">Q{"&"}A게시판</StyledLink>
+          <StyledLink to="/trade/1">중고장터</StyledLink>
         </div>
       </div>
 
@@ -129,12 +129,12 @@ function TopNav() {
 //////////////////////////////////////// Styled-Components
 const TopNavContainer = styled.div`
   z-index: 99;
-  background-color: #ffffff;
+  background-color: var(--bright-base-bg-color);
+  color: var(--bright-base-font-color);
   position: fixed;
   display: flex;
   width: 100%;
   height: 64px;
-  border-bottom: 1px solid #e5e5e5;
   font-weight: bold;
 
   .dropdown {
@@ -149,14 +149,13 @@ const TopNavContainer = styled.div`
   }
 
   .dropdown a:hover {
-    color: #6c95ff;
+    color: var(--main-color);
     transition: all 200ms;
   }
 
   .dropbtn {
     height: 100%;
     text-align: center;
-    color: black;
     padding: 18px 16px;
     font-size: 16px;
   }
@@ -169,13 +168,13 @@ const TopNavContainer = styled.div`
     text-align: center;
     border-radius: 4px;
     border: 1px solid #6c95ff;
-    background-color: #f5f5f5;
+    background-color: var(--bright-base-bg-color);
     min-width: 130px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   }
 
   .dropdown-content a {
-    color: black;
+    color: var(--bright-base-font-color);
     display: block;
     padding: 12px 16px;
   }
@@ -190,7 +189,9 @@ const StyledLink = styled(Link)`
   border-bottom: ${(props) => props.borderbottom};
 
   img {
-    width: 170px;
+    margin: 10px 20px 0 20px;
+    min-width: 120px;
+    width: 120px;
   }
 `;
 

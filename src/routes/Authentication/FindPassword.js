@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import PageHeader from "../../components/PageHeader";
 
@@ -9,11 +10,12 @@ function FindPassWord() {
   const [verifiNumber, setVerifiNumber] = useState("");
   // const [password, setPassword] = useState(""); (임시 주석)
   // const [passwordConfirm, setPasswordConfirm] = useState(""); (임시 주석)
+  const SideNavState = useSelector((state) => state.SideNavState);
 
   // 비밀번호 찾기 View
   return (
     <>
-      <FindContainer>
+      <FindContainer width={SideNavState.width}>
         <PageHeader title="로그인에 문제가 있나요?" />
         <InputArea>
           <div className="Header">비밀번호 찾기</div>
@@ -50,7 +52,8 @@ function FindPassWord() {
 
 //////////////////////////////////////// Styled-Components
 const FindContainer = styled.div`
-  width: calc(100vw - 160px);
+  width: ${(props) => props.width};
+
   height: 85vh;
 `;
 
@@ -66,7 +69,7 @@ const InputArea = styled.div`
     font-weight: 700;
     text-align: center;
     margin: auto;
-    border-bottom: 3px solid #6c95ff;
+    border-bottom: 3px solid var(--main-color);
     margin-bottom: 5vh;
   }
 
@@ -76,7 +79,7 @@ const InputArea = styled.div`
     padding-left: 10px;
 
     span {
-      color: #6c95ff;
+      color: var(--main-color);
       font-size: 0.8em;
     }
   }
@@ -88,10 +91,10 @@ const InputArea = styled.div`
     background-color: #f3f3f3;
     border: 3px solid #f3f3f3;
     border-radius: 5px;
-    outline-color: #6c95ff;
+    outline-color: var(--main-color);
 
     :focus {
-      border: 3px solid #6c95ff;
+      border: 3px solid var(--main-color);
     }
   }
 `;
@@ -101,7 +104,7 @@ const SignUpBtn = styled.div`
   line-height: 55px;
   text-align: center;
   margin-top: 45px;
-  background-color: #6c95ff;
+  background-color: var(--main-color);
   border-radius: 5px;
   color: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
@@ -123,8 +126,8 @@ const EmailVerifiArea = styled.div`
     top: 6.5px;
     right: 9px;
     color: white;
-    background-color: #6c95ff;
-    border: 1px solid #6c95ff;
+    background-color: var(--main-color);
+    border: 1px solid var(--main-color);
     border-radius: 5px;
   }
 `;

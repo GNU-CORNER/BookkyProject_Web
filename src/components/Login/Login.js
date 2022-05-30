@@ -43,7 +43,9 @@ function Login({ modalOpen, updateUser }) {
     // 통신 - 로그인 데이터 전송
     axios
       .post("http://203.255.3.144:8002/v1/user/signin", params, {
-        "Content-Type": "application/json",
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
       .then((res) => {
         // 로그인 통신 성공 시
@@ -92,7 +94,7 @@ function Login({ modalOpen, updateUser }) {
   return (
     <LoginContainer className="nodrag">
       <div className="LogoArea">
-        <img src={require("../../assets/Bookky/Bookky_Login.png")} alt="" />
+        <img src={require("../../assets/Bookky/북키_로그인.png")} alt="" />
       </div>
       <div className="LoginArea">
         <div className="Header">로그인</div>
@@ -136,12 +138,12 @@ function Login({ modalOpen, updateUser }) {
         </LoginOption>
         <div className="SocialLogin-title">SNS 간편로그인</div>
         <SocialLogin>
-          <div onClick={() => alert("네이버 로그인")}>
+          {/* <div onClick={() => alert("네이버 로그인")}>
             <img src={require("../../assets/Social_Naver.png")} alt="" />
           </div>
           <div onClick={() => alert("카카오 로그인")}>
             <img src={require("../../assets/Social_Kakao.png")} alt="" />
-          </div>
+          </div> */}
 
           <SocialGoogle />
         </SocialLogin>

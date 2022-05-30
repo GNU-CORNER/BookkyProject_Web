@@ -1,16 +1,28 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 // 커뮤니티 - 게시글 한 개마다의 표현 단위
-const PostCard = ({ title, content, likes, comments }) => {
+const PostCard = ({ pid, title, content, likes, comments, board }) => {
+  const navigate = useNavigate();
+
   // PostCard View
   return (
-    <PostCardContainer>
+    <PostCardContainer
+      onClick={() =>
+        navigate("/postdetail/" + board + "/" + pid, {
+          state: { pid: pid, board: board },
+        })
+      }
+    >
       <div className="flex-area">
         <div className="title">{title}</div>
         <div className="counts">
-          <img src={require("../../assets/like.png")} alt="" />
+          <img src={require("../../assets/icons/community/like.png")} alt="" />
           <p>{likes}</p>
-          <img src={require("../../assets/comment.png")} alt="" />
+          <img
+            src={require("../../assets/icons/community/comment.png")}
+            alt=""
+          />
           <p>{comments}</p>
         </div>
       </div>
@@ -22,7 +34,7 @@ const PostCard = ({ title, content, likes, comments }) => {
 //////////////////////////////////////// Styled-Components
 const PostCardContainer = styled.div`
   border: 1px solid #d5d5d5;
-  border-radius: 4px;
+  /* border-radius: 4px; */
   min-height: 90px;
   max-height: 90px;
   margin: -1px 0;
@@ -61,6 +73,9 @@ const PostCardContainer = styled.div`
   .content {
     color: #c9c9c9;
     font-size: 0.9em;
+    line-height: 1em;
+    height: 4em;
+    overflow: hidden;
   }
 `;
 

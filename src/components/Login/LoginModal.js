@@ -53,6 +53,7 @@ const ModalContainer = styled.div`
   margin: 0 auto;
 
   .LoginBtn {
+    display: block;
     margin: 15px auto 15px auto;
     width: 145px;
     line-height: 25px;

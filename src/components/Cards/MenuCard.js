@@ -1,12 +1,18 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 // 추천받개 - 메뉴 한 개마다의 표현 단위
 function MenuCard({ title, explain, isnew, kind }) {
+  const navigate = useNavigate();
   // 신 메뉴 표시 (NEW 뱃지)
   function RenderNew() {
     if (isnew)
       return (
-        <img className="img" src={require("../../assets/new.png")} alt="" />
+        <img
+          className="img"
+          src={require("../../assets/icons/recommend/new.png")}
+          alt=""
+        />
       );
     else return <></>;
   }
@@ -18,7 +24,7 @@ function MenuCard({ title, explain, isnew, kind }) {
         return (
           <img
             className="BackGroundImg detective"
-            src={require("../../assets/Bookky/Bookky_Detective.png")}
+            src={require("../../assets/Bookky/북키_추천받개_명탐정북키.png")}
             alt=""
           />
         );
@@ -26,7 +32,7 @@ function MenuCard({ title, explain, isnew, kind }) {
         return (
           <img
             className="BackGroundImg"
-            src={require("../../assets/Bookky/Bookky_Guide.png")}
+            src={require("../../assets/Bookky/북키_추천받개_안내견북키.png")}
             alt=""
           />
         );
@@ -34,7 +40,7 @@ function MenuCard({ title, explain, isnew, kind }) {
         return (
           <img
             className="BackGroundImg"
-            src={require("../../assets/Bookky/Bookky_Thinking.png")}
+            src={require("../../assets/Bookky/북키_추천받개_생각.png")}
             alt=""
           />
         );
@@ -46,7 +52,10 @@ function MenuCard({ title, explain, isnew, kind }) {
   // MenuCard View
   return (
     <>
-      <MenuCardContainer className="nodrag">
+      <MenuCardContainer
+        className="nodrag"
+        onClick={() => navigate("/detective")}
+      >
         <RenderNew />
         <div className="contents">
           <div className="title">{title}</div>
@@ -66,11 +75,11 @@ const MenuCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border: 2px solid #6e95ff;
+  border: 2px solid var(--main-color);
   border-radius: 4px;
   width: 750px;
   height: 300px;
-  color: #6e95ff;
+  color: var(--main-color);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 
@@ -83,6 +92,12 @@ const MenuCardContainer = styled.div`
 
   :hover {
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    cursor: pointer;
+  }
+
+  :hover .BackGroundImg {
+    overflow: hidden;
+    transform: scale(1.1);
   }
 
   .contents {
@@ -104,13 +119,14 @@ const MenuCardContainer = styled.div`
   .BackGroundImg {
     position: absolute;
     opacity: 0.5;
-    right: 2vw;
-    top: 10px;
-    height: 280px;
+    right: 3vw;
+    top: 20px;
+    height: 250px;
+    transition: all 0.3s;
   }
 
   .detective {
-    right: 4vw;
+    right: 5vw;
   }
 `;
 

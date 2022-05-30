@@ -48,7 +48,7 @@ const QuestionArea = styled.div`
 
   .Header {
     text-align: center;
-    color: #6e95ff;
+    color: var(--main-color);
     font-size: 2em;
     font-weight: 700;
   }
@@ -56,7 +56,7 @@ const QuestionArea = styled.div`
   .sub {
     font-size: 1.2em;
     font-weight: bold;
-    color: #6e95ff;
+    color: var(--main-color);
   }
 `;
 
@@ -72,7 +72,7 @@ const Selection = styled.div`
     padding-left: 10px;
   }
   .selected {
-    border: 2px solid #6e95ff;
+    border: 2px solid var(--main-color);
   }
 `;
 

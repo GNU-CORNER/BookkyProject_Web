@@ -10,6 +10,7 @@ import { useCookies } from "react-cookie";
 const SignUpMore = () => {
   // 변수 선언
   const user = useSelector((state) => state.userData);
+  const SideNavState = useSelector((state) => state.SideNavState);
   const dispatch = useDispatch();
   const [nickName, setNickName] = useState("");
   const [, setCookie] = useCookies();
@@ -66,7 +67,7 @@ const SignUpMore = () => {
   }
 
   return (
-    <SignUpContainer>
+    <SignUpContainer width={SideNavState.width}>
       <PageHeader title="회원가입" subTitle="지금 바로, 북키와 함께하세요 !" />
       <Frame>
         <InputArea>
@@ -91,7 +92,7 @@ const SignUpMore = () => {
           </form>
         </InputArea>
 
-        <img src={require("../../assets/Bookky/Bookky_SignUp.png")} alt="" />
+        <img src={require("../../assets/Bookky/북키_회원가입.png")} alt="" />
       </Frame>
     </SignUpContainer>
   );
@@ -99,8 +100,8 @@ const SignUpMore = () => {
 
 //////////////////////////////////////// Styled-Components
 const SignUpContainer = styled.div`
+  width: ${(props) => props.width};
   position: relative;
-  width: calc(100vw - 160px);
   display: flex;
   flex-direction: column;
 `;
@@ -130,7 +131,7 @@ const InputArea = styled.div`
     font-weight: 700;
     text-align: center;
     margin: auto;
-    border-bottom: 3px solid #6c95ff;
+    border-bottom: 3px solid var(--main-color);
   }
 
   p {
@@ -139,7 +140,7 @@ const InputArea = styled.div`
     padding-left: 10px;
 
     span {
-      color: #6c95ff;
+      color: var(--main-color);
       font-size: 0.8em;
     }
   }
@@ -153,10 +154,10 @@ const InputArea = styled.div`
     background-color: #f3f3f3;
     border: 3px solid #f3f3f3;
     border-radius: 5px;
-    outline-color: #6c95ff;
+    outline-color: var(--main-color);
 
     :focus {
-      border: 3px solid #6c95ff;
+      border: 3px solid var(--main-color);
     }
   }
 `;
@@ -168,7 +169,7 @@ const SignUpBtn = styled.div`
   line-height: 55px;
   bottom: 30px;
   text-align: center;
-  background-color: #6c95ff;
+  background-color: var(--main-color);
   border-radius: 4px;
   color: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);

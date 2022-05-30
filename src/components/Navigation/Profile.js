@@ -1,12 +1,45 @@
 import styled from "styled-components";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { updateUser } from "../../redux-modules/userData";
+import axios from "axios";
 
 // SideBar - 내 프로필
 function Profile() {
   // 변수 선언
   const user = useSelector((state) => state.userData);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const [cookie, , removeCookie] = useCookies();
+
+  // 로그아웃 버튼 클릭 시
+  const logout = () => {
+    axios
+      .post("http://203.255.3.144:8002/v1/user/signout", "", {
+        headers: {
+          "access-token": user.accessToken,
+          "refresh-token": cookie.refresh_token,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data.success === true) {
+          console.log("로그아웃 완료");
+          removeCookie("autologin");
+          removeCookie("refresh_token");
+          removeCookie("email");
+          removeCookie("password");
+          removeCookie("loginMethod");
+          dispatch(updateUser("", "", ""));
+          localStorage.removeItem("email");
+          localStorage.removeItem("password");
+          localStorage.removeItem("loginMethod");
+          location.pathname = "/";
+        }
+      });
+  };
 
   // 회원일 때 (userData에 유저 nickname이 있을 때)
   if (user.nickname) {
@@ -14,7 +47,7 @@ function Profile() {
       <ProfileContainer>
         <StyledImg
           onClick={() => navigate("/myinfo")}
-          src={require("../../assets/welcome.png")}
+          src={require("../../assets/icons/sideNav/welcome.png")}
           alt=""
         />
         <h3>
@@ -22,6 +55,9 @@ function Profile() {
           <br />
           반가워요 !
         </h3>
+        <div className="LogoutBtn" onClick={logout}>
+          로그아웃
+        </div>
       </ProfileContainer>
     );
   }
@@ -32,7 +68,7 @@ function Profile() {
       <ProfileContainer>
         <StyledImg
           className="non-member"
-          src={require("../../assets/welcome.png")}
+          src={require("../../assets/icons/sideNav/welcome.png")}
         />
         <h3>
           <span className="non-member">처음 오셨군요</span>
@@ -45,10 +81,13 @@ function Profile() {
 
 //////////////////////////////////////// Styled-Components
 const ProfileContainer = styled.div`
-  margin-top: 3vh;
-  border-bottom: 1px solid #e5e7eb;
+  height: 190px;
   text-align: center;
   font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   .non-member {
     text-decoration: none;
@@ -62,27 +101,34 @@ const ProfileContainer = styled.div`
 
   span,
   img {
-    color: #6c95ff;
+    margin: 5px;
+    line-height: 1.3em;
+    color: var(--main-color);
     transition: all 0.3s;
     text-decoration: underline 1px solid #ffffff;
 
     :hover {
-      text-decoration: underline 1px solid #6c95ff;
+      text-decoration: underline 1px solid var(--main-color);
       cursor: pointer;
     }
   }
 
-  h3 {
-    margin: 8px;
+  .LogoutBtn {
+    margin-top: 10px;
+    font-size: 0.8em;
+    color: #ff6d94;
+    text-decoration: underline 1px solid #ff6d94;
+
+    :hover {
+      cursor: pointer;
+    }
   }
 `;
 
 const StyledImg = styled.img`
-  margin: auto;
   border-radius: 100%;
   width: 80px;
   height: 80px;
-  object-fit: cover;
 `;
 
 export default Profile;
