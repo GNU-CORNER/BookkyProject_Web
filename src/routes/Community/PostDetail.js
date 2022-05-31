@@ -34,6 +34,7 @@ const PostDetail = () => {
     nickname: "",
     title: "",
     updateAt: "",
+    postImage: ",",
     views: 0,
   });
 
@@ -166,7 +167,6 @@ const PostDetail = () => {
         }
       )
       .then((res) => {
-        // console.log(res);
         getPostData();
       });
   }
@@ -191,6 +191,7 @@ const PostDetail = () => {
           <p className="views">{post.views} views</p>
         </div>
         <div className="body">
+          <img src={post.postImage} />
           <div className="main-text">{post.contents}</div>
           <div className="reactions bottom">
             <div className="likes">좋아요({post.like.length})</div>

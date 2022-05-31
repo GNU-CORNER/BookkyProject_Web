@@ -19,25 +19,27 @@ function MyInfo() {
   const [myPostCnt, setMyPostCnt] = useState(0);
   // getPosts() : 서버로부터 내 도서를 가져옴
   function getPosts() {
-    axios
-      .get(
-        "http://203.255.3.144:8002/v1/community/postlist/0",
-        {
-          params: {
-            quantity: 2,
-            page: 1,
+    if (user.accessToken.length > 0)
+      axios
+        .get(
+          "http://203.255.3.144:8002/v1/community/postlist/3",
+          {
+            params: {
+              quantity: 2,
+              page: 1,
+            },
           },
-        },
-        {
-          headers: {
-            "access-token": user.accessToken,
-          },
-        }
-      )
-      .then((res) => {
-        setMyPosts(res.data.result.postList);
-        setMyPostCnt(res.data.result.total_size);
-      });
+          {
+            headers: {
+              "access-token": user.accessToken,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          setMyPosts(res.data.result.postList);
+          setMyPostCnt(res.data.result.total_size);
+        });
   }
 
   useEffect(getPosts, [user.accessToken]);
@@ -68,7 +70,8 @@ function MyInfo() {
           <div className="posts">
             {myPosts.map((post) => (
               <PostCard
-                key={post.id}
+                key={post.PID}
+                pid={post.PID}
                 title={post.title}
                 content={post.contents}
                 likes={post.likes}
@@ -100,16 +103,28 @@ const ContentContainer = styled.div`
   grid-template-columns: repeat(auto-fit, 750px);
   grid-template-rows: repeat(auto-fit, 280px);
   justify-content: center;
-  column-gap: 3vw;
+  column-gap: 1vw;
   row-gap: 3vh;
 
   //나중에 반응형 수정할 때, grid rows, grid row 수정할 것(03/30)
   .interestField {
+    min-height: 280px;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
   }
 
   .interestBooks {
+    min-height: 280px;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
   }
   .myPost {
+    min-height: 280px;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
     .posts {
       margin: 0 5px;
       display: flex;
@@ -119,6 +134,10 @@ const ContentContainer = styled.div`
     }
   }
   .myReview {
+    min-height: 280px;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
   }
 `;
 

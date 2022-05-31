@@ -6,28 +6,31 @@ const TagCard = ({ tag, TMID }) => {
   const navigate = useNavigate();
   return (
     <TagCardContainer onClick={() => navigate("/tag/" + TMID)}>
-      <Tag># {tag}</Tag>
+      <div># {tag}</div>
     </TagCardContainer>
   );
 };
 
 const TagCardContainer = styled.div`
   margin-right: 10px;
-  background-color: #f9f9f9;
-  color: var(--main-color);
+  background-color: #f1f1f1;
+  color: var(--bright-base-font-color);
   border-radius: 4px;
   font-size: 0.9em;
   width: fit-content;
   padding: 3px 5px;
-  border: 1px solid var(--main-color);
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  transition: all 0.3s;
 
   :hover {
     cursor: pointer;
+    background-color: var(--main-color);
+  }
+  :hover div {
+    color: white;
   }
 `;
 
-const Tag = styled.div``;
 export default TagCard;

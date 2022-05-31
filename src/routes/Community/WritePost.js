@@ -47,6 +47,7 @@ const WritePost = () => {
   // onSubmit() : 글쓰기 버튼 클릭 시, 서버와 통신하여 게시글 작성
   function onSubmit() {
     console.log("Images 형태 검사 (base64)", images);
+    console.log("도서 TBID 검사", TBID);
 
     // setPathName() : 전송 완료 후 이동할 경로 설정
     function setPathName() {
@@ -159,7 +160,12 @@ const WritePost = () => {
         />
 
         {/* 작성 버튼 (submit) */}
-        <div className="submit" onClick={onSubmit}>
+        <div
+          className="submit"
+          onClick={() =>
+            window.confirm("게시글을 작성하시겠습니까?") ? onSubmit() : ""
+          }
+        >
           작성
         </div>
       </InputArea>

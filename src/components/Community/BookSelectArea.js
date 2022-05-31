@@ -42,7 +42,10 @@ const BookSelectArea = ({ setTBID }) => {
           setThumbnail={setThumbnail}
           setTBID={setTBID}
         />
-        <div className="text-area" onClick={() => setAddBooksModal(true)}>
+        <div
+          className="text-area noSelect"
+          onClick={() => setAddBooksModal(true)}
+        >
           <div className="book-title">{bookTitle}</div>
           <div className="book-author">{bookAuthor}</div>
         </div>
@@ -64,6 +67,10 @@ const BookSelectAreaContainer = styled.div`
     opacity: 70%;
     border: 2px solid var(--main-color);
     background-color: var(--main-color);
+
+    :hover .book-author {
+      color: #f1f1f1;
+    }
   }
 
   :hover .img-area {
@@ -121,6 +128,10 @@ const BookSelectAreaContainer = styled.div`
       color: gray;
       line-height: 25px;
     }
+  }
+
+  .noSelect {
+    align-items: center;
   }
 `;
 export default BookSelectArea;

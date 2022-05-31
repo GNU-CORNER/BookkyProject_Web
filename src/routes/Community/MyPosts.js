@@ -25,7 +25,7 @@ function MyPost() {
   function getPosts() {
     axios
       .get(
-        "http://203.255.3.144:8002/v1/community/postlist/0",
+        "http://203.255.3.144:8002/v1/community/postlist/3",
         {
           params: {
             quantity: 10,

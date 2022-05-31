@@ -5,7 +5,9 @@ import styled from "styled-components";
 const More = () => {
   // 변수 선언
   const navigate = useNavigate();
-  return <MoreBtn onClick={() => navigate("/myposts")}>더 보기 {">"} </MoreBtn>;
+  return (
+    <MoreBtn onClick={() => navigate("/myposts/1")}>더 보기 {">"} </MoreBtn>
+  );
 };
 
 //////////////////////////////////////// Styled-Components
