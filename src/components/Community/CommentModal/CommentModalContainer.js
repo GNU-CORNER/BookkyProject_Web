@@ -31,6 +31,7 @@ const CommentModalContainer = ({
             <CommentModal
               PID={PID}
               setPostCommentCnt={setCommentCnt}
+              setCommentModal={setCommentModal}
               getPostData={getPostData}
             />
           </StyledBox>

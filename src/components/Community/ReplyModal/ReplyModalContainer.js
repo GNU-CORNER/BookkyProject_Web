@@ -25,7 +25,7 @@ const ReplyModalContainer = ({ replyWriteModal, setReplyWriteModal }) => {
         {/* 모달 뒤, 흐려지는 배경 */}
         <Fade in={replyWriteModal}>
           <Box sx={style}>
-            <ReplyModal />
+            <ReplyModal setReplyWriteModal={setReplyWriteModal} />
           </Box>
         </Fade>
       </Modal>

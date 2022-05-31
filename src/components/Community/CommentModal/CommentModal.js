@@ -5,7 +5,12 @@ import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Comment from "../Comment";
 
-const CommentModal = ({ PID, setPostCommentCnt, getPostData }) => {
+const CommentModal = ({
+  PID,
+  setPostCommentCnt,
+  getPostData,
+  setCommentModal,
+}) => {
   const user = useSelector((state) => state.userData);
   const location = useLocation().pathname.split("/");
   const postID = parseInt(location[3]);
@@ -46,13 +51,14 @@ const CommentModal = ({ PID, setPostCommentCnt, getPostData }) => {
 
   // submitComment() : 댓글 작성
   function submitComment() {
+    console.log(commentArray);
     axios
       .post(
         "http://203.255.3.144:8002/v1/community/writecomment/2",
         {
           comment: userComment,
           parentID: 0,
-          PID: postID,
+          PID: PID,
         },
         {
           headers: {
@@ -72,6 +78,11 @@ const CommentModal = ({ PID, setPostCommentCnt, getPostData }) => {
     <div>
       <WriteComment>
         <p className="reply-cnt">{commentCnt}개의 댓글</p>
+        <img
+          className="close-btn"
+          src={require("../../../assets/icons/community/close.png")}
+          onClick={() => setCommentModal(false)}
+        />
         <div className="input-area">
           <input
             type="text"
@@ -112,6 +123,17 @@ const CommentModal = ({ PID, setPostCommentCnt, getPostData }) => {
 
 const WriteComment = styled.div`
   min-width: 700px;
+
+  .close-btn {
+    position: absolute;
+    width: 30px;
+    right: 40px;
+    top: 30px;
+
+    :hover {
+      cursor: pointer;
+    }
+  }
 
   .reply-cnt {
     padding: 10px 0;

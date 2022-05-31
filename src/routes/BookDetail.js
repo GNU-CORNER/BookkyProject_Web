@@ -213,6 +213,7 @@ const Contents = styled.div`
   .BookIndex {
     font-size: 1.1em;
     margin: 40px 0 20px 0;
+
     span {
       font-weight: bold;
     }

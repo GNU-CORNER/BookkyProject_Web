@@ -16,7 +16,7 @@ const PostDetail = () => {
   const user = useSelector((state) => state.userData);
   const navigate = useNavigate();
   const location = useLocation().pathname.split("/");
-  const postID = parseInt(location[3]);
+  const PID = parseInt(location[3]);
   const boardNum = parseInt(location[2]);
   const [boardName, setBoardName] = useState("");
   const [commentCnt, setCommentCnt] = useState(0);
@@ -95,7 +95,7 @@ const PostDetail = () => {
         "http://203.255.3.144:8002/v1/community/postdetail/" +
           boardNum +
           "/" +
-          postID,
+          PID,
         {
           headers: {
             "access-token": user.accessToken,
@@ -103,6 +103,7 @@ const PostDetail = () => {
         }
       )
       .then((res) => {
+        console.log(res);
         setPost(res.data.result.postdata);
         setCommentCnt(res.data.result.commentCnt);
         setCommentArray(res.data.result.commentdata);
@@ -128,7 +129,7 @@ const PostDetail = () => {
     axios
       .delete("http://203.255.3.144:8002/v1/community/deletepost/" + boardNum, {
         data: {
-          PID: postID,
+          PID: PID,
         },
         headers: {
           "access-token": user.accessToken,
@@ -155,7 +156,7 @@ const PostDetail = () => {
         {
           comment: userComment,
           parentID: 0,
-          PID: postID,
+          PID: PID,
         },
         {
           headers: {
@@ -165,14 +166,13 @@ const PostDetail = () => {
         }
       )
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         getPostData();
       });
   }
 
-  useEffect(getPostData, [boardNum, postID, user]);
+  useEffect(getPostData, [boardNum, PID, user]);
   useEffect(init, [boardNum]);
-
   // 게시글 상세보기 View
   return (
     <PostDetailContainer width={SideNavState.width}>
@@ -199,7 +199,7 @@ const PostDetail = () => {
               setCommentModal={setCommentModal}
               setCommentCnt={setCommentCnt}
               getPostData={getPostData}
-              PID={postID}
+              PID={PID}
             />
             {/* Q&A 게시판일 때, 댓글 모달 창 */}
             {boardNum === 2 ? (
@@ -246,7 +246,7 @@ const PostDetail = () => {
               <ReplyModalContainer
                 replyWriteModal={replyWriteModal}
                 setReplyWriteModal={setReplyWriteModal}
-                PID={postID}
+                PID={PID}
               />
               <div className="reply-cnt">{replyCnt}개의 답글</div>
               <div
@@ -307,7 +307,7 @@ const PostDetail = () => {
                   updateAt={el.updateAt}
                   childComment={el.childComment}
                   boardNum={boardNum}
-                  postID={postID}
+                  PID={PID}
                   getPostData={getPostData}
                 />
               );
@@ -401,6 +401,8 @@ const ContentArea = styled.div`
 
     .main-text {
       min-height: 30vh;
+      line-height: 1.5em;
+      margin-bottom: 30px;
     }
 
     .bottom {
@@ -488,6 +490,12 @@ const ReplyArea = styled.div`
     font-size: 0.9em;
     margin: 10px 15px;
     width: fit-content;
+  }
+
+  .reply-write-btn {
+    :hover {
+      cursor: pointer;
+    }
   }
 `;
 const WriteComment = styled.div`

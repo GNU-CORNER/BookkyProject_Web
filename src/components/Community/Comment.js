@@ -40,11 +40,10 @@ const Comment = ({
         }
       )
       .then((res) => {
-        console.log(res);
+        getCommentData();
         getPostData();
         setUserComment("");
         setReplyForm(false);
-        getCommentData();
       });
   }
 

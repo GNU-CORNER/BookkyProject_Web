@@ -61,6 +61,6 @@ const style = {
 };
 
 const StyledBox = styled(Box)`
-  padding: 50px !important;
+  padding: 30px 50px !important;
 `;
 export default AddBooksModalContainer;

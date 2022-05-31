@@ -60,8 +60,10 @@ const AddBooksCardContainer = styled.div`
     padding-left: 15px;
     .title {
       font-size: 1.2em;
+      font-weight: bold;
     }
     .sub {
+      line-height: 1.6em;
       width: 80%;
       font-size: 0.9em;
     }
@@ -74,6 +76,12 @@ const AddBooksCardContainer = styled.div`
     right: 25px;
     position: absolute;
     color: var(--dark-base-font-color);
+    transition: all 0.2s;
+
+    :hover {
+      cursor: pointer;
+      opacity: 70%;
+    }
   }
 `;
 export default AddBooksCard;

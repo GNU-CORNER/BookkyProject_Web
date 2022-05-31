@@ -68,7 +68,7 @@ const Reply = ({
         <p className="comment">{comment}</p>
         <p className="subData">
           {updateAt}
-          <span>공감({like})</span>
+          <span onClick={() => console.log(CID)}>공감({like})</span>
         </p>
       </div>
     </ReplyContainer>
