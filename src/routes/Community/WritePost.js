@@ -44,21 +44,9 @@ const WritePost = () => {
     }
   }
 
-  // encode() : 서버로 이미지 전송 시 base64 변환
-  function encode(fileArr) {
-    let newArr = [];
-    fileArr.map((el) => {
-      const reader = new FileReader(); // FileReader 객체 생성
-      reader.readAsDataURL(el);
-      reader.onloadend = () => newArr.push(reader.result);
-    });
-
-    return newArr;
-  }
-
   // onSubmit() : 글쓰기 버튼 클릭 시, 서버와 통신하여 게시글 작성
   function onSubmit() {
-    console.log("Images 형태 검사 (base64)", encode(images));
+    console.log("Images 형태 검사 (base64)", images);
 
     // setPathName() : 전송 완료 후 이동할 경로 설정
     function setPathName() {
@@ -79,7 +67,7 @@ const WritePost = () => {
       title: title,
       contents: contents,
       TBID: TBID,
-      Images: encode(images),
+      Images: images,
       parentQPID: parentQPID,
     });
 
@@ -134,7 +122,7 @@ const WritePost = () => {
           {images.map((el, cnt) => {
             return (
               <div className="upload uploaded-img" key={cnt}>
-                <img src={URL.createObjectURL(el)} alt="error" />
+                <img src={el} alt="error" />
               </div>
             );
           })}
@@ -151,11 +139,12 @@ const WritePost = () => {
           </label>
           <input
             type="file"
-            multiple
             id="input-img"
             accept="image/*"
             onChange={(e) => {
-              setImages([...images, ...e.target.files]);
+              const reader = new FileReader(); // FileReader 객체 생성
+              reader.readAsDataURL(e.target.files[0]);
+              reader.onloadend = () => setImages([...images, reader.result]);
             }}
             style={{ display: "none" }}
           />
@@ -188,6 +177,8 @@ const InputArea = styled.div`
   position: relative;
   display: grid;
   grid-template-rows: 45px 30px 100px 120px 40vh;
+  padding: 15px;
+  box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
 
   .createAt {
     color: #d5d5d5;
