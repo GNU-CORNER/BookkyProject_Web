@@ -10,6 +10,7 @@ const Reply = ({
   nickname,
   boardNum,
   getPostData,
+  getCommentData,
 }) => {
   const user = useSelector((state) => state.userData);
 
@@ -30,6 +31,7 @@ const Reply = ({
       .then((res) => {
         console.log(res);
         getPostData();
+        getCommentData();
       })
       .catch((error) => {
         alert(error.response.data.errorMessage);
@@ -66,7 +68,7 @@ const Reply = ({
         <p className="comment">{comment}</p>
         <p className="subData">
           {updateAt}
-          <span>공감({like})</span>
+          <span onClick={() => console.log(CID)}>공감({like})</span>
         </p>
       </div>
     </ReplyContainer>

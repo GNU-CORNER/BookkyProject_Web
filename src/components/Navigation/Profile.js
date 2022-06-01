@@ -47,7 +47,11 @@ function Profile() {
       <ProfileContainer>
         <StyledImg
           onClick={() => navigate("/myinfo")}
-          src={require("../../assets/icons/sideNav/welcome.png")}
+          src={
+            user.thumbnail !== null
+              ? user.thumbnail
+              : require("../../assets/icons/sideNav/welcome.png")
+          }
           alt=""
         />
         <h3>

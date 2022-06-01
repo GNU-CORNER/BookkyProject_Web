@@ -2,42 +2,52 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import InterestBooks from "../../components/MyInfo/MyInfoInterestBooks";
 import InterestField from "../../components/MyInfo/MyInfoInterestField";
-import PostCard from "../../components/Cards/PostCard";
 import ContentsHeader from "../../components/MyInfo/ContentsHeader";
-import More from "../../components/MyInfo/More";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import MyReviews from "../../components/MyInfo/MyReviews";
+import MyPosts from "../../components/MyInfo/MyPosts";
+import EditUserModalContainer from "../../components/MyInfo/EditUser/EditUserModalContainer";
 
 // SideBar - 내 정보
 function MyInfo() {
   // 변수 정의
   const user = useSelector((state) => state.userData);
   const SideNavState = useSelector((state) => state.SideNavState);
-  const [myPosts, setMyPosts] = useState([
-    { PID: 0, commentCnt: 0, contents: "", likeCnt: 0, title: "" },
-  ]);
   const [myPostCnt, setMyPostCnt] = useState(0);
+  const [editUserModal, setEditUserModal] = useState(false);
+  const [userData, setUserData] = useState({ nickname: "", userThumbnail: "" });
+
+  // 내 게시글 형태 정의
+  const [myPosts, setMyPosts] = useState([
+    {
+      PID: 0,
+      commentCnt: 0,
+      communityType: 0,
+      contents: "",
+      likeCnt: 0,
+      title: "",
+    },
+  ]);
+
+  const [userTags, setUserTags] = useState([{ tag: "", TMID: 0 }]);
+
   // getPosts() : 서버로부터 내 도서를 가져옴
   function getPosts() {
-    axios
-      .get(
-        "http://203.255.3.144:8002/v1/community/postlist/0",
-        {
-          params: {
-            quantity: 2,
-            page: 1,
-          },
-        },
-        {
+    if (user.accessToken.length > 0)
+      axios
+        .get("http://203.255.3.144:8002/v1/myprofile", {
           headers: {
             "access-token": user.accessToken,
           },
-        }
-      )
-      .then((res) => {
-        setMyPosts(res.data.result.postList);
-        setMyPostCnt(res.data.result.total_size);
-      });
+        })
+        .then((res) => {
+          console.log("MyInfo test", res);
+          setMyPosts(res.data.result.userPostList);
+          // setMyPostCnt(res.data.result.total_size);
+          setUserTags(res.data.result.userData.userTagList);
+          setUserData(res.data.result.userData);
+        });
   }
 
   useEffect(getPosts, [user.accessToken]);
@@ -46,36 +56,38 @@ function MyInfo() {
   return (
     <MyInfoContainer width={SideNavState.width}>
       <MainHeader>
+        <EditUserModalContainer
+          editUserModal={editUserModal}
+          setEditUserModal={setEditUserModal}
+          userData={userData}
+        />
         <Title className="nodrag">
-          <p>
+          <div>
             <span className="name">{user.nickname}</span>
             {user.accessToken ? " 님" : ""}의 정보입니다
-          </p>
+            <img
+              className="setting-icon"
+              src={require("../../assets/icons/myinfo/setting.png")}
+              onClick={() => {
+                setEditUserModal(true);
+              }}
+            />
+          </div>
           <p className="sub">
-            총 <span>{"4"}개</span>의 관심분야 / <span>{"15"}권</span>의
-            관심도서 /<span> {myPostCnt}개</span>의 게시글 /{" "}
-            <span>{"3"}개</span>의 리뷰
+            <span>{"4"}개</span>의 관심분야 / <span>{"15"}권</span>의 관심도서 /
+            <span> {myPostCnt}개</span>의 게시글 / <span>{"3"}개</span>의 리뷰
           </p>
         </Title>
       </MainHeader>
       <ContentContainer>
         <div className="interestField">
           <ContentsHeader title="관심 분야" />
-          <InterestField />
+          <InterestField userTags={userTags} />
         </div>
         <div className="myPost">
           <ContentsHeader title="내가 작성한 게시글" />
           <div className="posts">
-            {myPosts.map((post) => (
-              <PostCard
-                key={post.id}
-                title={post.title}
-                content={post.contents}
-                likes={post.likes}
-                comments={post.comments}
-              />
-            ))}
-            <More />
+            <MyPosts myPosts={myPosts} />
           </div>
         </div>
         <div className="interestBooks">
@@ -85,7 +97,7 @@ function MyInfo() {
 
         <div className="myReview">
           <ContentsHeader title="내가 작성한 리뷰" />
-          gdgd
+          <MyReviews />
         </div>
       </ContentContainer>
     </MyInfoContainer>
@@ -100,25 +112,40 @@ const ContentContainer = styled.div`
   grid-template-columns: repeat(auto-fit, 750px);
   grid-template-rows: repeat(auto-fit, 280px);
   justify-content: center;
-  column-gap: 3vw;
+  column-gap: 1vw;
   row-gap: 3vh;
 
   //나중에 반응형 수정할 때, grid rows, grid row 수정할 것(03/30)
   .interestField {
+    min-height: 280px;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
   }
 
   .interestBooks {
+    min-height: 280px;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
   }
   .myPost {
+    min-height: 280px;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
     .posts {
       margin: 0 5px;
       display: flex;
       flex-direction: column;
       height: 245px;
-      justify-content: center;
     }
   }
   .myReview {
+    min-height: 280px;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
   }
 `;
 
@@ -141,6 +168,20 @@ const Title = styled.div`
   font-size: 2em;
   color: white;
   padding-left: 72px;
+
+  .setting-icon {
+    display: inline-block;
+    vertical-align: -5px;
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+    transition: all 0.3s;
+
+    :hover {
+      cursor: pointer;
+      opacity: 60%;
+    }
+  }
 
   .name {
     color: #ffd86d;

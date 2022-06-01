@@ -2,15 +2,23 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 // 커뮤니티 - 게시글 한 개마다의 표현 단위
-const PostCard = ({ pid, title, content, likes, comments, board }) => {
+const PostCard = ({
+  pid,
+  title,
+  content,
+  likes,
+  comments,
+  board,
+  communityType,
+}) => {
   const navigate = useNavigate();
 
   // PostCard View
   return (
     <PostCardContainer
       onClick={() =>
-        navigate("/postdetail/" + board + "/" + pid, {
-          state: { pid: pid, board: board },
+        navigate("/postdetail/" + communityType + "/" + pid, {
+          state: { pid: pid, communityType: communityType },
         })
       }
     >

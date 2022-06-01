@@ -2,23 +2,25 @@ import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import CommentModal from "./CommentModal";
+import EditUserModal from "./EditUserModal";
 import styled from "styled-components";
 
-const CommentModalContainer = ({
-  commentModal,
-  setCommentModal,
-  PID,
-  setCommentCnt,
-  getPostData,
+const EditUserModalContainer = ({
+  editUserModal,
+  setEditUserModal,
+  userData,
 }) => {
   return (
     <>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
-        open={commentModal}
-        onClose={() => setCommentModal(false)}
+        open={editUserModal}
+        onClose={() =>
+          window.confirm("회원 정보 변경을 취소하시겠습니까?")
+            ? setEditUserModal(false)
+            : ""
+        }
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
@@ -26,13 +28,11 @@ const CommentModalContainer = ({
         }}
       >
         {/* 모달 뒤, 흐려지는 배경 */}
-        <Fade in={commentModal}>
+        <Fade in={editUserModal}>
           <StyledBox sx={style}>
-            <CommentModal
-              PID={PID}
-              setPostCommentCnt={setCommentCnt}
-              setCommentModal={setCommentModal}
-              getPostData={getPostData}
+            <EditUserModal
+              setEditUserModal={setEditUserModal}
+              userData={userData}
             />
           </StyledBox>
         </Fade>
@@ -47,17 +47,16 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 1300,
-  height: 800,
-  overflow: "scroll",
+  width: 600,
+  height: 700,
   bgcolor: "background.paper",
   borderRadius: 2,
+  overflow: "scroll",
   boxShadow: 24,
   p: 40,
 };
 
 const StyledBox = styled(Box)`
-  padding: 50px !important;
+  padding: 0 !important;
 `;
-
-export default CommentModalContainer;
+export default EditUserModalContainer;

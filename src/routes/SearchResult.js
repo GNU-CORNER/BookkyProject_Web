@@ -17,7 +17,10 @@ const SearchResult = () => {
       .get("http://203.255.3.144:8002/v1/books/search", {
         params: { keyword: query },
       })
-      .then((res) => setBooks(res.data.result));
+      .then((res) => {
+        console.log(res);
+        setBooks(res.data.result.searchData);
+      });
   }
 
   useEffect(getSearchResult, [query]);

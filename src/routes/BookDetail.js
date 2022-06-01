@@ -14,7 +14,7 @@ function BookDetail() {
   const BID = location.pathname.split("/")[2];
   const user = useSelector((state) => state.userData);
   const [book, setBook] = useState({ BOOK_INDEX: "" });
-  const [reviews, setReviews] = useState([{ id: "" }]);
+  const [reviews, setReviews] = useState([{ id: 0 }]);
   const [fold, setFold] = useState(true);
   const SideNavState = useSelector((state) => state.SideNavState);
   // getBookData() : 서버로부터 BID 에 따른 도서데이터를 가져옴
@@ -29,14 +29,15 @@ function BookDetail() {
 
   // getBookData() : 서버로부터 BID 에 따른 리뷰데이터를 가져옴
   function getReviewData() {
-    axios
-      .get("http://203.255.3.144:8002/v1/books/reviews/" + BID, {
-        headers: { "access-token": user.accessToken },
-      })
-      .then((res) => {
-        console.log(res.data);
-        setReviews(res.data.result.reviewList);
-      });
+    if (user.accessToken.length > 0)
+      axios
+        .get("http://203.255.3.144:8002/v1/books/reviews/" + BID, {
+          headers: { "access-token": user.accessToken },
+        })
+        .then((res) => {
+          console.log(res.data);
+          setReviews(res.data.result.reviewList);
+        });
   }
   useEffect(getBookData, [BID]);
   useEffect(getReviewData, [BID, user.accessToken]);
@@ -123,6 +124,7 @@ function BookDetail() {
               ? reviews.map((el) => {
                   return (
                     <ReviewCard
+                      key={el.id}
                       nickname={el.nickname}
                       contents={el.contents}
                       date={el.createAt}
@@ -213,6 +215,7 @@ const Contents = styled.div`
   .BookIndex {
     font-size: 1.1em;
     margin: 40px 0 20px 0;
+
     span {
       font-weight: bold;
     }

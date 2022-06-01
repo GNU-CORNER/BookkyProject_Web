@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Comment from "../../components/Community/Comment";
 import CommentModalContainer from "../../components/Community/CommentModal/CommentModalContainer";
+import ReplyModalContainer from "../../components/Community/ReplyModal/ReplyModalContainer";
 import ReplyPost from "../../components/Community/ReplyPost";
 import PageHeader from "../../components/PageHeader";
 
@@ -15,12 +16,13 @@ const PostDetail = () => {
   const user = useSelector((state) => state.userData);
   const navigate = useNavigate();
   const location = useLocation().pathname.split("/");
-  const postID = parseInt(location[3]);
+  const PID = parseInt(location[3]);
   const boardNum = parseInt(location[2]);
   const [boardName, setBoardName] = useState("");
   const [commentCnt, setCommentCnt] = useState(0);
   const [replyCnt, setReplyCnt] = useState(0);
   const [commentModal, setCommentModal] = useState(false);
+  const [replyWriteModal, setReplyWriteModal] = useState(false);
   const [userComment, setUserComment] = useState("");
 
   // 게시글 틀
@@ -32,6 +34,7 @@ const PostDetail = () => {
     nickname: "",
     title: "",
     updateAt: "",
+    postImage: [],
     views: 0,
   });
 
@@ -52,7 +55,7 @@ const PostDetail = () => {
   // 답글 틀
   const [replyPost, setReplyPost] = useState([
     {
-      BID: 0,
+      PID: 0,
       contents: "",
       createAt: "",
       isAccessible: false,
@@ -66,7 +69,7 @@ const PostDetail = () => {
     },
   ]);
 
-  // init() : 최초 로드 시
+  // init() : 최초 로드 시 - 게시판 이름 설정
   function init() {
     switch (boardNum) {
       case 0:
@@ -88,26 +91,27 @@ const PostDetail = () => {
 
   // getPostData() : 게시글 데이터 요청
   function getPostData() {
-    axios
-      .get(
-        "http://203.255.3.144:8002/v1/community/postdetail/" +
-          boardNum +
-          "/" +
-          postID,
-        {
-          headers: {
-            "access-token": user.accessToken,
-          },
-        }
-      )
-      .then((res) => {
-        setPost(res.data.result.postdata);
-        setCommentCnt(res.data.result.commentCnt);
-        setCommentArray(res.data.result.commentdata);
-        setReplyPost(res.data.result.replydata);
-        setReplyCnt(res.data.result.replyCnt);
-        console.log(res);
-      });
+    if (user.accessToken.length > 0)
+      axios
+        .get(
+          "http://203.255.3.144:8002/v1/community/postdetail/" +
+            boardNum +
+            "/" +
+            PID,
+          {
+            headers: {
+              "access-token": user.accessToken,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          setPost(res.data.result.postdata);
+          setCommentCnt(res.data.result.commentCnt);
+          setCommentArray(res.data.result.commentdata);
+          setReplyPost(res.data.result.replydata);
+          setReplyCnt(res.data.result.replyCnt);
+        });
   }
 
   // deletePost() : 게시글 삭제 요청
@@ -127,7 +131,7 @@ const PostDetail = () => {
     axios
       .delete("http://203.255.3.144:8002/v1/community/deletepost/" + boardNum, {
         data: {
-          PID: postID,
+          PID: PID,
         },
         headers: {
           "access-token": user.accessToken,
@@ -139,6 +143,21 @@ const PostDetail = () => {
       .catch((error) => {
         alert(error.response.data.errorMessage);
       });
+  }
+
+  function likePost() {
+    if (user.accessToken.length > 0)
+      axios
+        .post(
+          "http://203.255.3.144:8002/v1/community/like/" + boardNum + "/" + PID,
+          {},
+          {
+            headers: {
+              "access-token": user.accessToken,
+            },
+          }
+        )
+        .then((res) => console.log(res));
   }
 
   // modifyPost() : 게시글 수정
@@ -154,7 +173,7 @@ const PostDetail = () => {
         {
           comment: userComment,
           parentID: 0,
-          PID: postID,
+          PID: PID,
         },
         {
           headers: {
@@ -164,14 +183,12 @@ const PostDetail = () => {
         }
       )
       .then((res) => {
-        console.log(res);
         getPostData();
       });
   }
 
-  useEffect(getPostData, [boardNum, postID, user]);
+  useEffect(getPostData, [boardNum, PID, user]);
   useEffect(init, [boardNum]);
-
   // 게시글 상세보기 View
   return (
     <PostDetailContainer width={SideNavState.width}>
@@ -190,14 +207,21 @@ const PostDetail = () => {
           <p className="views">{post.views} views</p>
         </div>
         <div className="body">
+          {post.postImage !== undefined
+            ? post.postImage.map((el, cnt) => <img key={cnt} src={el} />)
+            : ""}
+
           <div className="main-text">{post.contents}</div>
           <div className="reactions bottom">
             <div className="likes">좋아요({post.like.length})</div>
             <CommentModalContainer
               commentModal={commentModal}
               setCommentModal={setCommentModal}
-              PID={postID}
+              setCommentCnt={setCommentCnt}
+              getPostData={getPostData}
+              PID={PID}
             />
+            {/* Q&A 게시판일 때, 댓글 모달 창 */}
             {boardNum === 2 ? (
               <div
                 className="comments"
@@ -233,66 +257,84 @@ const PostDetail = () => {
           )}
         </div>
       </ContentArea>
-      {boardNum === 2 ? (
-        <ReplyArea>
-          <p className="reply-header">{replyCnt}개의 답글</p>
-          {replyPost.map((el, cnt) => {
-            return (
-              <ReplyPost
-                key={el.PID}
-                PID={el.PID}
-                title={el.title}
-                contents={el.contents}
-                createAt={el.createAt}
-                updateAt={el.updateAt}
-                like={el.like}
-                views={el.views}
-                nickname={el.nickname}
-                thumbnail={el.thumbnail}
-                commentCnt={el.commentCnt}
+
+      {
+        // Q&A 게시판일 경우
+        boardNum === 2 ? (
+          <ReplyArea>
+            <ReplyHeader>
+              <ReplyModalContainer
+                replyWriteModal={replyWriteModal}
+                setReplyWriteModal={setReplyWriteModal}
+                PID={PID}
               />
-            );
-          })}
-        </ReplyArea>
-      ) : (
-        <CommentArea>
-          <WriteComment>
-            <p className="reply-header">{commentCnt}개의 댓글</p>
-            <div className="input-area">
-              <input
-                type="text"
-                placeholder="댓글을 입력하세요"
-                value={userComment}
-                onChange={(e) => setUserComment(e.target.value)}
-                onKeyUp={() => {
-                  if (window.event.keyCode === 13) {
-                    submitComment();
-                    setUserComment("");
-                  }
-                }}
-              />
-              <div onClick={submitComment}>작성</div>
-            </div>
-          </WriteComment>
-          {commentArray.map((el) => {
-            return (
-              <Comment
-                key={el.CID}
-                CID={el.CID}
-                isAccessible={el.isAccessible}
-                nickname={el.nickname}
-                comment={el.comment}
-                like={el.like}
-                updateAt={el.updateAt}
-                childComment={el.childComment}
-                boardNum={boardNum}
-                postID={postID}
-                getPostData={getPostData}
-              />
-            );
-          })}
-        </CommentArea>
-      )}
+              <div className="reply-cnt">{replyCnt}개의 답글</div>
+              <div
+                className="reply-write-btn reply-cnt"
+                onClick={() => setReplyWriteModal(true)}
+              >
+                답글 쓰기
+              </div>
+            </ReplyHeader>
+            {replyPost.map((el, cnt) => {
+              return (
+                <ReplyPost
+                  key={el.PID}
+                  PID={el.PID}
+                  title={el.title}
+                  contents={el.contents}
+                  createAt={el.createAt}
+                  updateAt={el.updateAt}
+                  like={el.like}
+                  views={el.views}
+                  nickname={el.nickname}
+                  thumbnail={el.thumbnail}
+                  commentCnt={el.commentCnt}
+                />
+              );
+            })}
+          </ReplyArea>
+        ) : (
+          // 그 외 게시판일 경우
+          <CommentArea>
+            <WriteComment>
+              <p className="reply-cnt">{commentCnt}개의 댓글</p>
+              <div className="input-area">
+                <input
+                  type="text"
+                  placeholder="댓글을 입력하세요"
+                  value={userComment}
+                  onChange={(e) => setUserComment(e.target.value)}
+                  onKeyUp={() => {
+                    if (window.event.keyCode === 13) {
+                      submitComment();
+                      setUserComment("");
+                    }
+                  }}
+                />
+                <div onClick={submitComment}>작성</div>
+              </div>
+            </WriteComment>
+            {commentArray.map((el) => {
+              return (
+                <Comment
+                  key={el.CID}
+                  CID={el.CID}
+                  isAccessible={el.isAccessible}
+                  nickname={el.nickname}
+                  comment={el.comment}
+                  like={el.like}
+                  updateAt={el.updateAt}
+                  childComment={el.childComment}
+                  boardNum={boardNum}
+                  PID={PID}
+                  getPostData={getPostData}
+                />
+              );
+            })}
+          </CommentArea>
+        )
+      }
     </PostDetailContainer>
   );
 };
@@ -310,15 +352,6 @@ const ContentArea = styled.div`
   border-radius: 4px;
   padding: 15px;
   box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
-
-  // 본문/댓글 구분선
-  /* ::after {
-    content: "";
-    width: 100%;
-    display: inline-block;
-    height: 1px;
-    background-color: #d5d5d5;
-  } */
 
   .profile {
     display: flex;
@@ -379,6 +412,8 @@ const ContentArea = styled.div`
 
     .main-text {
       min-height: 30vh;
+      line-height: 1.5em;
+      margin-bottom: 30px;
     }
 
     .bottom {
@@ -452,21 +487,32 @@ const ContentArea = styled.div`
 const CommentArea = styled.div`
   margin: 0 12vw;
 `;
-
+const ReplyHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 const ReplyArea = styled.div`
   margin: 0 12vw;
+  position: relative;
 
-  .reply-header {
+  .reply-cnt {
     padding: 10px 0;
     font-weight: bold;
     font-size: 0.9em;
     margin: 10px 15px;
+    width: fit-content;
+  }
+
+  .reply-write-btn {
+    :hover {
+      cursor: pointer;
+    }
   }
 `;
 const WriteComment = styled.div`
   min-width: 700px;
 
-  .reply-header {
+  .reply-cnt {
     padding: 10px 0;
     font-weight: bold;
     font-size: 0.9em;

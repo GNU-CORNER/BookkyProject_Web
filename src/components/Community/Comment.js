@@ -16,6 +16,7 @@ const Comment = ({
   CID,
   getPostData,
   isAccessible,
+  getCommentData,
 }) => {
   const user = useSelector((state) => state.userData);
   const [replyForm, setReplyForm] = useState(false);
@@ -39,7 +40,7 @@ const Comment = ({
         }
       )
       .then((res) => {
-        console.log(res);
+        getCommentData();
         getPostData();
         setUserComment("");
         setReplyForm(false);
@@ -48,6 +49,7 @@ const Comment = ({
 
   // deleteComment() : 댓글 삭제
   function deleteComment() {
+    console.log(CID);
     axios
       .delete(
         "http://203.255.3.144:8002/v1/community/deletecomment/" + boardNum,
@@ -61,11 +63,9 @@ const Comment = ({
         }
       )
       .then((res) => {
-        console.log(res);
+        console.log("삭제 완", res);
         getPostData();
-      })
-      .catch((error) => {
-        alert(error.response.data.errorMessage);
+        getCommentData();
       });
   }
 
@@ -141,6 +141,7 @@ const Comment = ({
             boardNum={boardNum}
             postID={postID}
             getPostData={getPostData}
+            getCommentData={getCommentData}
           />
         );
       })}

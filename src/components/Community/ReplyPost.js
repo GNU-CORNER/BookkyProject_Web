@@ -17,6 +17,7 @@ const ReplyPost = ({
   commentCnt,
 }) => {
   const [commentModal, setCommentModal] = useState(false);
+
   const navigate = useNavigate();
   // deletePost() : 게시글 삭제 요청
   function deletePost() {
@@ -46,6 +47,7 @@ const ReplyPost = ({
           <div className="main-text">{contents}</div>
           <div className="reactions bottom">
             <div className="likes">좋아요({like.length})</div>
+
             <CommentModalContainer
               commentModal={commentModal}
               setCommentModal={setCommentModal}

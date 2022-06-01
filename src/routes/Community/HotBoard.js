@@ -18,13 +18,14 @@ function HotBoard() {
   const location = useLocation().pathname.split("/");
   const user = useSelector((state) => state.userData);
   const [page, setPage] = useState(parseInt(location[2]));
+  const [count, setCount] = useState(1);
   const dispatch = useDispatch();
 
   // getPosts() : 서버로부터 page에 따른 데이터를 가져와 redux store에 저장.
   function getPosts() {
     axios
       .get(
-        "http://203.255.3.144:8002/v1/community/postlist/0", //추후 0대신 핫게 숫자로 변경(05/27)
+        "http://203.255.3.144:8002/v1/community/hotcommunity", //추후 0대신 핫게 숫자로 변경(05/27)
         {
           params: {
             quantity: 10,
@@ -38,8 +39,23 @@ function HotBoard() {
         }
       )
       .then((res) => {
+        console.log(res);
+        setCount(res.data.result.total_size);
         dispatch(updateHot(res.data.result.postList));
       });
+  }
+
+  // 페이지네이션 - 현재 페이지 지정 함수
+  function handleChange(event, value) {
+    setPage(value);
+  }
+
+  // 페이지네이션 - 전체 페이지 개수 설정 함수
+  function countPage(count) {
+    let remainder;
+    if (count % 10 > 0) remainder = 1;
+    else remainder = 0;
+    return parseInt(count / 10) + remainder;
   }
 
   useEffect(getPosts, [page, dispatch, user.accessToken]);
@@ -52,16 +68,23 @@ function HotBoard() {
         <Notice notice="상대방을 비방하는 글은 자제해주세요" />
         {posts.map((post) => (
           <PostCard
-            key={post.id}
+            key={post.PID}
+            pid={post.PID}
             title={post.title}
             content={post.contents}
             likes={post.likes}
             comments={post.comments}
+            communityType={post.communityType}
           />
         ))}
       </Posts>
       <Stack className="pagination" spacing={2}>
-        <Pagination count={10} color="primary" />
+        <Pagination
+          count={countPage(count)}
+          page={page}
+          color="primary"
+          onChange={handleChange}
+        />
       </Stack>
     </HotBoardContainer>
   );
@@ -77,7 +100,7 @@ const HotBoardContainer = styled.div`
   }
 `;
 const Posts = styled.div`
-  margin: 2vh 72px;
+  margin: 2vh 12vw;
   min-height: 70vh;
 `;
 

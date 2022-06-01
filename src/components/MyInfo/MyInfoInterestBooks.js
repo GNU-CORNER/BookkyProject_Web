@@ -8,21 +8,25 @@ const InterestBooks = () => {
 
   return (
     <InterestFieldContainer>
-      {mybooks.map((book, cnt) => {
-        if (cnt < 4)
-          return (
-            <BookCard
-              key={book.BID}
-              bid={book.BID}
-              className="nodrag"
-              title={book.TITLE}
-              thumnail={book.thumbnailImage}
-              author={book.AUTHOR}
-              publisher={book.PUBLISHER}
-            />
-          );
-        else return <></>;
-      })}
+      {mybooks.length <= 0 ? (
+        <div className="no-Books">관심도서가 없습니다</div>
+      ) : (
+        mybooks.map((book, cnt) => {
+          if (cnt < 4)
+            return (
+              <BookCard
+                key={book.BID}
+                bid={book.BID}
+                className="nodrag"
+                title={book.TITLE}
+                thumnail={book.thumbnailImage}
+                author={book.AUTHOR}
+                publisher={book.PUBLISHER}
+              />
+            );
+          else return <></>;
+        })
+      )}
     </InterestFieldContainer>
   );
 };
@@ -33,6 +37,12 @@ const InterestFieldContainer = styled.div`
   grid-template-columns: repeat(auto-fit, 175px);
   overflow: hidden;
   padding: 9px 0 12px 0;
+
+  .no-Books {
+    color: var(--main-color);
+    font-weight: bold;
+    margin: 10px;
+  }
 `;
 
 export default InterestBooks;

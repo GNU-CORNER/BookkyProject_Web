@@ -42,11 +42,7 @@ function Login({ modalOpen, updateUser }) {
 
     // 통신 - 로그인 데이터 전송
     axios
-      .post("http://203.255.3.144:8002/v1/user/signin", params, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      .post("http://203.255.3.144:8002/v1/user/signin", params, {})
       .then((res) => {
         // 로그인 통신 성공 시
         if (res.data.success === true) {
@@ -78,7 +74,8 @@ function Login({ modalOpen, updateUser }) {
               res.data.result.userData.loginMethod,
               res.data.result.userData.nickname,
               password,
-              res.data.result.userData.tag_array
+              res.data.result.userData.tag_array,
+              res.data.result.userData.thumbnail
             )
           );
           modalOpen(false);

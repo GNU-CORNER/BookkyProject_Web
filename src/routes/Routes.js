@@ -29,6 +29,7 @@ import SearchResult from "./SearchResult";
 import TagDetail from "./TagDetail";
 import WritePost from "./Community/WritePost";
 import PostDetail from "./Community/PostDetail";
+import RoadMap from "../components/Recommend/Guide/RoadMap";
 
 // 전체 URL 경로에 대한 명세
 function BookkyRoutes() {
@@ -67,6 +68,7 @@ function BookkyRoutes() {
 
         <Route path="/detective" element={<Detective />} />
         <Route path="/guide" element={<Guide />} />
+        <Route path="/roadmap/:course" element={<RoadMap />} />
 
         <Route path="/setinterests" element={<SetInterests />} />
         <Route path="/books/:BID" element={<BookDetail />} />
