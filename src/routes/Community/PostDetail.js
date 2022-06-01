@@ -34,7 +34,7 @@ const PostDetail = () => {
     nickname: "",
     title: "",
     updateAt: "",
-    postImage: ",",
+    postImage: [],
     views: 0,
   });
 
@@ -91,26 +91,27 @@ const PostDetail = () => {
 
   // getPostData() : 게시글 데이터 요청
   function getPostData() {
-    axios
-      .get(
-        "http://203.255.3.144:8002/v1/community/postdetail/" +
-          boardNum +
-          "/" +
-          PID,
-        {
-          headers: {
-            "access-token": user.accessToken,
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res);
-        setPost(res.data.result.postdata);
-        setCommentCnt(res.data.result.commentCnt);
-        setCommentArray(res.data.result.commentdata);
-        setReplyPost(res.data.result.replydata);
-        setReplyCnt(res.data.result.replyCnt);
-      });
+    if (user.accessToken.length > 0)
+      axios
+        .get(
+          "http://203.255.3.144:8002/v1/community/postdetail/" +
+            boardNum +
+            "/" +
+            PID,
+          {
+            headers: {
+              "access-token": user.accessToken,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          setPost(res.data.result.postdata);
+          setCommentCnt(res.data.result.commentCnt);
+          setCommentArray(res.data.result.commentdata);
+          setReplyPost(res.data.result.replydata);
+          setReplyCnt(res.data.result.replyCnt);
+        });
   }
 
   // deletePost() : 게시글 삭제 요청
@@ -142,6 +143,21 @@ const PostDetail = () => {
       .catch((error) => {
         alert(error.response.data.errorMessage);
       });
+  }
+
+  function likePost() {
+    if (user.accessToken.length > 0)
+      axios
+        .post(
+          "http://203.255.3.144:8002/v1/community/like/" + boardNum + "/" + PID,
+          {},
+          {
+            headers: {
+              "access-token": user.accessToken,
+            },
+          }
+        )
+        .then((res) => console.log(res));
   }
 
   // modifyPost() : 게시글 수정
@@ -191,7 +207,10 @@ const PostDetail = () => {
           <p className="views">{post.views} views</p>
         </div>
         <div className="body">
-          <img src={post.postImage} />
+          {post.postImage !== undefined
+            ? post.postImage.map((el, cnt) => <img key={cnt} src={el} />)
+            : ""}
+
           <div className="main-text">{post.contents}</div>
           <div className="reactions bottom">
             <div className="likes">좋아요({post.like.length})</div>
@@ -333,15 +352,6 @@ const ContentArea = styled.div`
   border-radius: 4px;
   padding: 15px;
   box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
-
-  // 본문/댓글 구분선
-  /* ::after {
-    content: "";
-    width: 100%;
-    display: inline-block;
-    height: 1px;
-    background-color: #d5d5d5;
-  } */
 
   .profile {
     display: flex;

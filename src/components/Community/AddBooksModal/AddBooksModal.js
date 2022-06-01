@@ -27,7 +27,7 @@ const AddBooksModal = ({
       })
       .then((res) => {
         console.log(res);
-        setBookList(res.data.result);
+        setBookList(res.data.result.searchData);
       });
   }
   return (
@@ -41,6 +41,7 @@ const AddBooksModal = ({
         src={require("../../../assets/icons/community/close.png")}
         onClick={() => setAddBooksModal(false)}
       />
+
       <input
         type="text"
         placeholder="제목 또는 태그로 도서 검색"

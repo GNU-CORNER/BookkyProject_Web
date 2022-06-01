@@ -39,8 +39,12 @@ function App() {
 
   // 자동로그인 통신
   const AutoLogin = () => {
-    // email, pwToken이 undefined가 아닐 때만 통신 (불필요한 통신 방지)
-    if ((email !== undefined) | (password !== undefined)) {
+    // email, pwToken, loginMethod !== undefined 일때만 통신 (불필요한 통신 방지)
+    if (
+      email !== undefined &&
+      password !== undefined &&
+      loginMethod !== undefined
+    ) {
       // 통신 - 로그인 시도 (이메일, 비밀번호)
       axios
         .post(
@@ -49,15 +53,12 @@ function App() {
             email: email,
             pwToken: password,
             loginMethod: loginMethod,
-          }),
-          {
-            "Content-Type": "application/json",
-          }
+          })
         )
         .then((res) => {
           // 로그인 통신 성공 시
           if (res.data.success === true) {
-            console.log("자동로그인 성공");
+            console.log("자동로그인 성공", res);
             dispatch(
               updateUser(
                 res.data.result.access_token,
@@ -65,7 +66,8 @@ function App() {
                 res.data.result.userData.loginMethod,
                 res.data.result.userData.nickname,
                 password,
-                res.data.result.userData.tag_array
+                res.data.result.userData.tag_array,
+                res.data.result.userData.thumbnail
               )
             );
           }

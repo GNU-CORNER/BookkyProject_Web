@@ -195,7 +195,7 @@ const InputArea = styled.div`
   .input {
     border-radius: 4px;
     resize: none;
-    background-color: #f5f5f5;
+    background-color: #f9f9f9;
     padding: 10px;
 
     :focus {

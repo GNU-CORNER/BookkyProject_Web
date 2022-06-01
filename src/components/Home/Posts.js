@@ -6,7 +6,7 @@ const Posts = ({ posts, slug }) => {
   return (
     <PostsContainer>
       {posts.map((el, cnt) => {
-        if (cnt < 4)
+        if (cnt < 3)
           return (
             <h4
               key={el.PID}
@@ -22,6 +22,7 @@ const Posts = ({ posts, slug }) => {
 
 const PostsContainer = styled.div`
   min-width: 100%;
+  margin: auto;
   margin-left: 10px;
 
   h4 {

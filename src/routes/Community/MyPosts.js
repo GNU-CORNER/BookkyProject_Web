@@ -24,21 +24,17 @@ function MyPost() {
   // getPosts() : 서버로부터 page에 따른 데이터를 가져와 redux store에 저장.
   function getPosts() {
     axios
-      .get(
-        "http://203.255.3.144:8002/v1/community/postlist/3",
-        {
-          params: {
-            quantity: 10,
-            page: page,
-          },
+      .get("http://203.255.3.144:8002/v1/community/postlist/3", {
+        headers: {
+          "access-token": user.accessToken,
         },
-        {
-          headers: {
-            "access-token": user.accessToken,
-          },
-        }
-      )
+        params: {
+          quantity: 10,
+          page: page,
+        },
+      })
       .then((res) => {
+        console.log(res);
         setCount(res.data.result.total_size);
         dispatch(updateMyPosts(res.data.result.postList));
       });

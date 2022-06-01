@@ -66,9 +66,13 @@ const HomeCommunityContainer = styled.div`
 
   .board {
     position: relative;
-    height: 130px;
+    height: 120px;
     display: flex;
     flex-direction: column;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
   }
 `;
 export default HomeCommunity;
