@@ -5,6 +5,7 @@ import Fade from "@mui/material/Fade";
 import CommentModal from "./CommentModal";
 import styled from "styled-components";
 
+// Q&A 게시글 상세보기 - 댓글 보기 모달 창
 const CommentModalContainer = ({
   commentModal,
   setCommentModal,
@@ -12,32 +13,31 @@ const CommentModalContainer = ({
   setCommentCnt,
   getPostData,
 }) => {
+  // 댓글보기 모달 창 View
   return (
-    <>
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={commentModal}
-        onClose={() => setCommentModal(false)}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        {/* 모달 뒤, 흐려지는 배경 */}
-        <Fade in={commentModal}>
-          <StyledBox sx={style}>
-            <CommentModal
-              PID={PID}
-              setPostCommentCnt={setCommentCnt}
-              setCommentModal={setCommentModal}
-              getPostData={getPostData}
-            />
-          </StyledBox>
-        </Fade>
-      </Modal>
-    </>
+    <Modal
+      aria-labelledby="transition-modal-title"
+      aria-describedby="transition-modal-description"
+      open={commentModal}
+      onClose={() => setCommentModal(false)}
+      closeAfterTransition
+      BackdropComponent={Backdrop}
+      BackdropProps={{
+        timeout: 500,
+      }}
+    >
+      {/* 모달 뒤, 흐려지는 배경 */}
+      <Fade in={commentModal}>
+        <StyledBox sx={style}>
+          <CommentModal
+            PID={PID}
+            setPostCommentCnt={setCommentCnt}
+            setCommentModal={setCommentModal}
+            getPostData={getPostData}
+          />
+        </StyledBox>
+      </Fade>
+    </Modal>
   );
 };
 

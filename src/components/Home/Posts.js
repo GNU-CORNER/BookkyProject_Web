@@ -15,6 +15,7 @@ const Posts = ({ posts, slug }) => {
               - {el.title}
             </h4>
           );
+        else return "";
       })}
     </PostsContainer>
   );

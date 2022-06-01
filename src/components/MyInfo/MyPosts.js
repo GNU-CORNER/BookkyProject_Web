@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import PostCard from "../Cards/PostCard";
-import More from "./More";
 
 const MyPosts = ({ myPosts }) => {
   return (
@@ -23,6 +22,7 @@ const MyPosts = ({ myPosts }) => {
                 comments={el.comments}
               />
             );
+          else return "";
         })
       )}
     </MyPostsContainer>

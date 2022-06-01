@@ -44,7 +44,7 @@ function MyInfo() {
         .then((res) => {
           console.log("MyInfo test", res);
           setMyPosts(res.data.result.userPostList);
-          // setMyPostCnt(res.data.result.total_size);
+          setMyPostCnt(res.data.result.total_size); // 리스폰스에 없어서 추후 수정해야함 (06/02)
           setUserTags(res.data.result.userData.userTagList);
           setUserData(res.data.result.userData);
         });
@@ -71,6 +71,7 @@ function MyInfo() {
               onClick={() => {
                 setEditUserModal(true);
               }}
+              alt="setting menu"
             />
           </div>
           <p className="sub">

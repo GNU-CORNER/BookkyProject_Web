@@ -52,7 +52,12 @@ const SelectionBox = ({
     }
   };
 
-  useEffect(createBookkyQuestion, [answered]);
+  useEffect(createBookkyQuestion, [
+    answered,
+    ChatArray,
+    setAnswerd,
+    setChatArray,
+  ]);
 
   return (
     <SelectionBoxContainer>

@@ -11,6 +11,7 @@ const ReplyModal = ({ setReplyWriteModal }) => {
             ? setReplyWriteModal(false)
             : {}
         }
+        alt="close-btn"
       />
       <div>답글 작성</div>
     </ReplyModalContainer>

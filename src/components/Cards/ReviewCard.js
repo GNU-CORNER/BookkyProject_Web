@@ -1,11 +1,12 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import MiniProfile from "../miniProfile";
+import MiniProfile from "../BookDetail/miniProfile";
 
 // BookDetail - ReviewCard
 const ReviewCard = ({ nickname, contents, date, likeCnt, rating }) => {
   const user = useSelector((state) => state.userData);
 
+  // ReviewManagement() : 리뷰 관리 (수정, 삭제)
   function ReviewManagement() {
     if (user.nickname === nickname) {
       console.log(user);
@@ -30,6 +31,7 @@ const ReviewCard = ({ nickname, contents, date, likeCnt, rating }) => {
     }
   }
 
+  // 리뷰 View
   return (
     <ReviewCardContainer>
       <div className="rating">
@@ -48,6 +50,7 @@ const ReviewCard = ({ nickname, contents, date, likeCnt, rating }) => {
   );
 };
 
+//////////////////////////////////////// Styled-Components
 const ReviewCardContainer = styled.div`
   margin: 15px;
   padding: 15px;

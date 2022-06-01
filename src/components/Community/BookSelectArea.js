@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import AddBooksModalContainer from "./AddBooksModal/AddBooksModalContainer";
 
@@ -23,7 +23,7 @@ const BookSelectArea = ({ setTBID }) => {
           setThumbnail={setThumbnail}
           setTBID={setTBID}
         />
-        <img className="img-area" src={thumbnail} />
+        <img className="img-area" src={thumbnail} alt="book thumbnail" />
         <div className="text-area" onClick={() => setAddBooksModal(true)}>
           <div className="book-title">{bookTitle}</div>
           <div className="book-author">{bookAuthor}</div>

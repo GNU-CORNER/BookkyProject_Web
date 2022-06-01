@@ -179,7 +179,6 @@ const PostDetail = () => {
           headers: {
             "access-token": user.accessToken,
           },
-          "Content-Type": "application/json",
         }
       )
       .then((res) => {
@@ -208,12 +207,16 @@ const PostDetail = () => {
         </div>
         <div className="body">
           {post.postImage !== undefined
-            ? post.postImage.map((el, cnt) => <img key={cnt} src={el} />)
+            ? post.postImage.map((el, cnt) => (
+                <img key={cnt} src={el} alt="post-img" />
+              ))
             : ""}
 
           <div className="main-text">{post.contents}</div>
           <div className="reactions bottom">
-            <div className="likes">좋아요({post.like.length})</div>
+            <div className="likes" onClick={() => likePost()}>
+              좋아요({post.like.length})
+            </div>
             <CommentModalContainer
               commentModal={commentModal}
               setCommentModal={setCommentModal}

@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-// 태그를 표현하는 카드
+// SearchResult, MyTags, 태그를 표현하는 카드
 const TagCard = ({ tag, TMID }) => {
+  // 변수 선언
   const navigate = useNavigate();
   return (
     <TagCardContainer onClick={() => navigate("/tag/" + TMID)}>
@@ -11,6 +12,7 @@ const TagCard = ({ tag, TMID }) => {
   );
 };
 
+//////////////////////////////////////// Styled-Components
 const TagCardContainer = styled.div`
   margin-right: 10px;
   background-color: #f1f1f1;

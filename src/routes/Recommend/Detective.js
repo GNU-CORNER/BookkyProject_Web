@@ -55,7 +55,8 @@ function Detective() {
               } else if (el.who === "user") {
                 return <ChatFromUser key={el.mid} message={el.message} />;
               } else if (el.who === "submit") {
-              }
+                return "";
+              } else return "";
             })}
           </div>
         </ChatArea>

@@ -1,23 +1,22 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Comment from "../Comment";
 
+// Q&A 게시글 상세보기 - 댓글 보기 모달 창 Inner
 const CommentModal = ({
   PID,
   setPostCommentCnt,
   getPostData,
   setCommentModal,
 }) => {
+  // 변수 선언
   const user = useSelector((state) => state.userData);
-  const location = useLocation().pathname.split("/");
-  const postID = parseInt(location[3]);
   const [commentCnt, setCommentCnt] = useState(0);
   const [userComment, setUserComment] = useState("");
 
-  // 댓글 틀
+  // 댓글 형태
   const [commentArray, setCommentArray] = useState([
     {
       CID: 0,
@@ -31,6 +30,7 @@ const CommentModal = ({
     },
   ]);
 
+  // getCommentData() : 게시글(PID)에 해당하는 댓글 목록 불러오기
   function getCommentData() {
     axios
       .post(
@@ -73,16 +73,24 @@ const CommentModal = ({
       });
   }
 
-  useEffect(getCommentData, []);
+  useEffect(getCommentData, [PID, setPostCommentCnt, user.accessToken]);
+
+  // 댓글 보기 모달 창 View
   return (
     <div>
       <WriteComment>
+        {/* 댓글 개수 표기 */}
         <p className="reply-cnt">{commentCnt}개의 댓글</p>
+
+        {/* 모달 닫기 버튼 */}
         <img
           className="close-btn"
           src={require("../../../assets/icons/community/close.png")}
           onClick={() => setCommentModal(false)}
+          alt="close-btn"
         />
+
+        {/* 댓글 입력 부분 */}
         <div className="input-area">
           <input
             type="text"
@@ -99,6 +107,8 @@ const CommentModal = ({
           <div onClick={submitComment}>작성</div>
         </div>
       </WriteComment>
+
+      {/* 게시글 댓글 목록 출력*/}
       {commentArray.map((el) => {
         return (
           <Comment
@@ -121,6 +131,7 @@ const CommentModal = ({
   );
 };
 
+//////////////////////////////////////// Styled-Components
 const WriteComment = styled.div`
   min-width: 700px;
 

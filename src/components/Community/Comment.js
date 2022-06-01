@@ -7,7 +7,7 @@ import axios from "axios";
 // 커뮤니티 - 댓글
 const Comment = ({
   boardNum,
-  postID,
+  PID,
   comment,
   nickname,
   updateAt,
@@ -24,26 +24,31 @@ const Comment = ({
 
   // submitComment() : 댓글 작성
   function submitComment() {
+    console.log("postID", PID);
     axios
       .post(
         "http://203.255.3.144:8002/v1/community/writecomment/" + boardNum,
         {
           comment: userComment,
           parentID: CID,
-          PID: postID,
+          PID: PID,
         },
         {
           headers: {
             "access-token": user.accessToken,
           },
-          "Content-Type": "application/json",
         }
       )
       .then((res) => {
-        getCommentData();
-        getPostData();
-        setUserComment("");
-        setReplyForm(false);
+        console.log("작성", res);
+        try {
+          getPostData();
+          getCommentData();
+          setUserComment("");
+          setReplyForm(false);
+        } catch (error) {
+          console.log(error);
+        }
       });
   }
 
@@ -139,7 +144,7 @@ const Comment = ({
             like={el.like}
             comment={el.comment}
             boardNum={boardNum}
-            postID={postID}
+            PID={PID}
             getPostData={getPostData}
             getCommentData={getCommentData}
           />

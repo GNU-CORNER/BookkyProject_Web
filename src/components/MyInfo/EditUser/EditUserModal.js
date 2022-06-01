@@ -51,6 +51,9 @@ const EditUserModal = ({ setEditUserModal, userData }) => {
           case false:
             setMessage("이미 사용중인 닉네임입니다.");
             break;
+          default:
+            setMessage("닉네임을 입력하세요.");
+            break;
         }
       })
       .catch((error) => {
@@ -60,6 +63,9 @@ const EditUserModal = ({ setEditUserModal, userData }) => {
             break;
           case false:
             setMessage("이미 사용중인 닉네임입니다.");
+            break;
+          default:
+            setMessage("닉네임을 입력하세요.");
             break;
         }
       });
@@ -83,7 +89,11 @@ const EditUserModal = ({ setEditUserModal, userData }) => {
           />
           {image.length > 0 ? (
             <label htmlFor="image-input">
-              <img className="thumbnail-img" src={image} />
+              <img
+                className="thumbnail-img"
+                src={image}
+                alt="user-thumbnail-img"
+              />
             </label>
           ) : userData.userThumbnail === null ||
             userData.userThumbnail === undefined ? (
@@ -91,11 +101,16 @@ const EditUserModal = ({ setEditUserModal, userData }) => {
               <img
                 className="thumbnail-img"
                 src={require("../../../assets/icons/sideNav/welcome.png")}
+                alt="default-thumbnail-img"
               />
             </label>
           ) : (
             <label htmlFor="image-input">
-              <img className="thumbnail-img" src={userData.userThumbnail} />
+              <img
+                className="thumbnail-img"
+                src={userData.userThumbnail}
+                alt="user-thumbnail-img"
+              />
             </label>
           )}
           <NicknameArea>

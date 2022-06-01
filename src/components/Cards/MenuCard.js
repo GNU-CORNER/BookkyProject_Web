@@ -3,7 +3,9 @@ import styled from "styled-components";
 
 // 추천받개 - 메뉴 한 개마다의 표현 단위
 function MenuCard({ title, explain, isnew, kind, course }) {
+  // 변수 선언
   const navigate = useNavigate();
+
   // 신 메뉴 표시 (NEW 뱃지)
   function RenderNew() {
     if (isnew)
@@ -17,6 +19,7 @@ function MenuCard({ title, explain, isnew, kind, course }) {
     else return <></>;
   }
 
+  // move() : 메뉴 종류에 따른 경로 지정, 이동
   function move() {
     switch (kind) {
       case "명탐정 북키":

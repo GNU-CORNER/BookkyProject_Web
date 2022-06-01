@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
+// Home - 오늘의 추천도서 도서 카드
 const TodayBookCard = () => {
+  // 도서카드 View
   return (
     <TodayBookCardContainer>
       <div className="shelf" />
@@ -12,6 +14,7 @@ const TodayBookCard = () => {
   );
 };
 
+//////////////////////////////////////// Styled-Components
 const TodayBookCardContainer = styled.div`
   position: relative;
   perspective: 400px;
