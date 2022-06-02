@@ -6,7 +6,7 @@ import RecommendByTag from "../../components/Home/RecommendByTag";
 import HomeCommunity from "../../components/Home/HomeCommunity";
 import Banner from "../../components/Home/Banner";
 
-// Home new ver.
+// Home
 function Home() {
   const SideNavState = useSelector((state) => state.SideNavState);
 

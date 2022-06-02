@@ -7,7 +7,7 @@ import { useCookies } from "react-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../redux-modules/userData";
 
-// 회원가입
+// 회원가입 (일반 회원가입 시)
 function SignUp() {
   // 변수 선언
   const [nickName, setNickName] = useState("");
@@ -177,7 +177,9 @@ function SignUp() {
     }
   };
 
+  // 닉네임 입력 값 변화에 따른 중복 검사 호출
   useEffect(checkNickname, [nickName]);
+
   // 회원가입 View
   return (
     <SignUpContainer width={SideNavState.width}>

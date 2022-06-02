@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import AddBooksModalContainer from "./AddBooksModal/AddBooksModalContainer";
 
+// 게시글 작성 - 도서 선택 영역
 const BookSelectArea = ({ setTBID }) => {
+  // 변수 선언
   const [isSelected, setSelect] = useState(false);
   const [addBooksModal, setAddBooksModal] = useState(false);
   const [thumbnail, setThumbnail] = useState("");
@@ -11,48 +13,37 @@ const BookSelectArea = ({ setTBID }) => {
     "여기를 눌러서 추가할 도서를 검색하세요"
   );
 
-  if (isSelected)
-    return (
-      <BookSelectAreaContainer>
-        <AddBooksModalContainer
-          addBooksModal={addBooksModal}
-          setAddBooksModal={setAddBooksModal}
-          setBookTitle={setBookTitle}
-          setBookAuthor={setBookAuthor}
-          setSelect={setSelect}
-          setThumbnail={setThumbnail}
-          setTBID={setTBID}
-        />
-        <img className="img-area" src={thumbnail} />
-        <div className="text-area" onClick={() => setAddBooksModal(true)}>
-          <div className="book-title">{bookTitle}</div>
-          <div className="book-author">{bookAuthor}</div>
-        </div>
-      </BookSelectAreaContainer>
-    );
-  else
-    return (
-      <BookSelectAreaContainer>
-        <AddBooksModalContainer
-          addBooksModal={addBooksModal}
-          setAddBooksModal={setAddBooksModal}
-          setBookTitle={setBookTitle}
-          setBookAuthor={setBookAuthor}
-          setSelect={setSelect}
-          setThumbnail={setThumbnail}
-          setTBID={setTBID}
-        />
-        <div
-          className="text-area noSelect"
-          onClick={() => setAddBooksModal(true)}
-        >
-          <div className="book-title">{bookTitle}</div>
-          <div className="book-author">{bookAuthor}</div>
-        </div>
-      </BookSelectAreaContainer>
-    );
+  // View
+  return (
+    <BookSelectAreaContainer>
+      <AddBooksModalContainer
+        addBooksModal={addBooksModal}
+        setAddBooksModal={setAddBooksModal}
+        setBookTitle={setBookTitle}
+        setBookAuthor={setBookAuthor}
+        setSelect={setSelect}
+        setThumbnail={setThumbnail}
+        setTBID={setTBID}
+      />
+      {/* 도서 선택 여부에 따른 도서 썸네일 출력 */}
+      {isSelected ? (
+        <img className="img-area" src={thumbnail} alt="book thumbnail" />
+      ) : (
+        <></>
+      )}
+      <div
+        // 도서 선택 여부에 따른 스타일 적용
+        className={isSelected ? "text-area" : "text-area noSelect"}
+        onClick={() => setAddBooksModal(true)}
+      >
+        <div className="book-title">{bookTitle}</div>
+        <div className="book-author">{bookAuthor}</div>
+      </div>
+    </BookSelectAreaContainer>
+  );
 };
 
+//////////////////////////////////////// Styled-Components
 const BookSelectAreaContainer = styled.div`
   width: 40%;
   padding: 5px 20px;

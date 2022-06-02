@@ -4,12 +4,16 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Posts from "./Posts";
 
+// 홈 - 홈 커뮤니티 요약 영역
 const HomeCommunity = () => {
+  // 변수 선언
   const navigate = useNavigate();
   const [freePosts, setFreePosts] = useState([{ title: "", PID: 0 }]);
   const [QnaPosts, setQnaPosts] = useState([{ title: "", PID: 0 }]);
   const [HotPosts, sethotPosts] = useState([{ title: "", PID: 0 }]);
   const [TradePosts, setTradePosts] = useState([{ title: "", PID: 0 }]);
+
+  // getPosts() : 게시글 정보를 불러와 변수에 저장
   function getPosts() {
     axios.get("http://203.255.3.144:8002/v1/community/home").then((res) => {
       setFreePosts(res.data.result.AnyList);
@@ -19,7 +23,10 @@ const HomeCommunity = () => {
     });
   }
 
+  // 최초 로드시, getPosts 호출
   useEffect(getPosts, []);
+
+  // View
   return (
     <HomeCommunityContainer>
       <div className="board">
@@ -44,6 +51,7 @@ const HomeCommunity = () => {
   );
 };
 
+//////////////////////////////////////// Styled-Components
 const HomeCommunityContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, 430px);
@@ -75,4 +83,5 @@ const HomeCommunityContainer = styled.div`
     box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
   }
 `;
+
 export default HomeCommunity;

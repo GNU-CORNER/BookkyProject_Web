@@ -145,6 +145,7 @@ const PostDetail = () => {
       });
   }
 
+  // likePost() : 게시글의 좋아요 버튼 클릭 시 서버와 통신
   function likePost() {
     if (user.accessToken.length > 0)
       axios
@@ -179,7 +180,6 @@ const PostDetail = () => {
           headers: {
             "access-token": user.accessToken,
           },
-          "Content-Type": "application/json",
         }
       )
       .then((res) => {
@@ -187,8 +187,12 @@ const PostDetail = () => {
       });
   }
 
+  // 게시글 업데이트
   useEffect(getPostData, [boardNum, PID, user]);
+
+  // 최초 로드시, 게시판 정보 초기화 (게시판 번호, 게시판 이름)
   useEffect(init, [boardNum]);
+
   // 게시글 상세보기 View
   return (
     <PostDetailContainer width={SideNavState.width}>
@@ -208,12 +212,16 @@ const PostDetail = () => {
         </div>
         <div className="body">
           {post.postImage !== undefined
-            ? post.postImage.map((el, cnt) => <img key={cnt} src={el} />)
+            ? post.postImage.map((el, cnt) => (
+                <img key={cnt} src={el} alt="post-img" />
+              ))
             : ""}
 
           <div className="main-text">{post.contents}</div>
           <div className="reactions bottom">
-            <div className="likes">좋아요({post.like.length})</div>
+            <div className="likes" onClick={() => likePost()}>
+              좋아요({post.like.length})
+            </div>
             <CommentModalContainer
               commentModal={commentModal}
               setCommentModal={setCommentModal}

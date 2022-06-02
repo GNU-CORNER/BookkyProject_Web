@@ -2,8 +2,7 @@ import styled from "styled-components";
 
 // SideBar - 하단 메뉴 (내 정보, 다크모드, 로그아웃)
 function BottomMenu() {
-  // 변수 선언
-
+  // View
   return (
     <BottomMenuContainer>
       <button className="btn" onClick={() => console.log("다크모드")}>

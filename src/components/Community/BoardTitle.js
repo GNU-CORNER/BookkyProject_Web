@@ -3,7 +3,10 @@ import styled from "styled-components";
 
 // 커뮤니티 홈 - 게시판 바로가기 제목
 const BoardTitle = ({ title, kind }) => {
+  // 변수 선언
   const navigate = useNavigate();
+
+  // View
   return (
     <Title>
       <div className="title" onClick={() => navigate(`../${kind}/1`)}>

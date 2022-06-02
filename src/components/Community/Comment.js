@@ -7,7 +7,7 @@ import axios from "axios";
 // 커뮤니티 - 댓글
 const Comment = ({
   boardNum,
-  postID,
+  PID,
   comment,
   nickname,
   updateAt,
@@ -18,32 +18,38 @@ const Comment = ({
   isAccessible,
   getCommentData,
 }) => {
+  // 변수 선언
   const user = useSelector((state) => state.userData);
   const [replyForm, setReplyForm] = useState(false);
   const [userComment, setUserComment] = useState("");
 
-  // submitComment() : 댓글 작성
+  // submitComment() : 댓글 작성 통신
   function submitComment() {
+    console.log("postID", PID);
     axios
       .post(
         "http://203.255.3.144:8002/v1/community/writecomment/" + boardNum,
         {
           comment: userComment,
           parentID: CID,
-          PID: postID,
+          PID: PID,
         },
         {
           headers: {
             "access-token": user.accessToken,
           },
-          "Content-Type": "application/json",
         }
       )
       .then((res) => {
-        getCommentData();
-        getPostData();
-        setUserComment("");
-        setReplyForm(false);
+        console.log("댓글 작성", res);
+        try {
+          getPostData();
+          getCommentData();
+          setUserComment("");
+          setReplyForm(false);
+        } catch (error) {
+          console.log(error);
+        }
       });
   }
 
@@ -69,10 +75,14 @@ const Comment = ({
       });
   }
 
+  // View
   return (
     <CommentContainer>
+      {/* 댓글 관리 메뉴 영역 */}
       <div className="manage-comment">
+        {/* 내가 작성한 댓글인지 판단 */}
         {isAccessible ? (
+          // 내가 작성했다면 관리 메뉴 출력 (삭제)
           <>
             <span
               onClick={() =>
@@ -91,6 +101,7 @@ const Comment = ({
             </span>
           </>
         ) : (
+          // 내 댓글이 아니라면, 일반 메뉴 출력 (공감하기, 신고)
           <>
             <span>공감하기</span>
             <span
@@ -104,12 +115,16 @@ const Comment = ({
           </>
         )}
       </div>
+
+      {/* 댓글 컨텐츠 영역 (닉네임, 댓글 내용, 공감수 등) */}
       <p className="nickname"> {nickname}</p>
       <p className="comment">{comment}</p>
       <p className="subData">
         {updateAt}
         <span>공감({like})</span>
       </p>
+
+      {/* 대댓글 버튼 클릭시 작성 메뉴 Open/Close*/}
       {replyForm ? (
         <div className="input-area">
           <input
@@ -118,6 +133,7 @@ const Comment = ({
             value={userComment}
             onChange={(e) => setUserComment(e.target.value)}
             onKeyUp={() => {
+              // Enter 키 - 댓글 작성 이벤트
               if (window.event.keyCode === 13) {
                 submitComment();
                 setUserComment("");
@@ -129,6 +145,8 @@ const Comment = ({
       ) : (
         <></>
       )}
+
+      {/* 대댓글 출력 */}
       {childComment.map((el) => {
         return (
           <Reply
@@ -139,7 +157,7 @@ const Comment = ({
             like={el.like}
             comment={el.comment}
             boardNum={boardNum}
-            postID={postID}
+            PID={PID}
             getPostData={getPostData}
             getCommentData={getCommentData}
           />
@@ -149,6 +167,7 @@ const Comment = ({
   );
 };
 
+//////////////////////////////////////// Styled-Components
 const CommentContainer = styled.div`
   position: relative;
   padding: 15px;

@@ -5,6 +5,7 @@ import Fade from "@mui/material/Fade";
 import AddBooksModal from "./AddBooksModal";
 import styled from "styled-components";
 
+// 게시글 작성 - 도서 첨부 시의 모달 창
 const AddBooksModalContainer = ({
   addBooksModal,
   setAddBooksModal,
@@ -14,34 +15,33 @@ const AddBooksModalContainer = ({
   setThumbnail,
   setTBID,
 }) => {
+  // 모달 창 View
   return (
-    <>
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={addBooksModal}
-        onClose={() => setAddBooksModal(false)}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        {/* 모달 뒤, 흐려지는 배경 */}
-        <Fade in={addBooksModal}>
-          <StyledBox sx={style}>
-            <AddBooksModal
-              setAddBooksModal={setAddBooksModal}
-              setBookTitle={setBookTitle}
-              setBookAuthor={setBookAuthor}
-              setSelect={setSelect}
-              setThumbnail={setThumbnail}
-              setTBID={setTBID}
-            />
-          </StyledBox>
-        </Fade>
-      </Modal>
-    </>
+    <Modal
+      aria-labelledby="transition-modal-title"
+      aria-describedby="transition-modal-description"
+      open={addBooksModal}
+      onClose={() => setAddBooksModal(false)}
+      closeAfterTransition
+      BackdropComponent={Backdrop}
+      BackdropProps={{
+        timeout: 500,
+      }}
+    >
+      {/* 모달 뒤, 흐려지는 배경 */}
+      <Fade in={addBooksModal}>
+        <StyledBox sx={style}>
+          <AddBooksModal
+            setAddBooksModal={setAddBooksModal}
+            setBookTitle={setBookTitle}
+            setBookAuthor={setBookAuthor}
+            setSelect={setSelect}
+            setThumbnail={setThumbnail}
+            setTBID={setTBID}
+          />
+        </StyledBox>
+      </Fade>
+    </Modal>
   );
 };
 

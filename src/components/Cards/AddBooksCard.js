@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+// 게시글 작성 - 도서 첨부 시 도서 목록 카드
 const AddBooksCard = ({
   TITLE,
   AUTHOR,
@@ -13,7 +14,7 @@ const AddBooksCard = ({
   setThumbnail,
   setTBID,
 }) => {
-  // 도서 추가하기 버튼 이벤트
+  // addBook() : 도서 추가하기 버튼 이벤트
   function addBook() {
     setTBID(TBID);
     setBookTitle(TITLE);
@@ -25,9 +26,10 @@ const AddBooksCard = ({
     }
   }
 
+  // 도서 카드 View
   return (
     <AddBooksCardContainer>
-      <img src={thumbnailImage} />
+      <img src={thumbnailImage} alt="user Thumbnail" />
       <div className="book-info">
         <div className="title">{TITLE}</div>
         <div className="sub">
@@ -41,6 +43,7 @@ const AddBooksCard = ({
   );
 };
 
+//////////////////////////////////////// Styled-Components
 const AddBooksCardContainer = styled.div`
   position: relative;
   padding: 10px;

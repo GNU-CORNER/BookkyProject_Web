@@ -123,7 +123,7 @@ const WritePost = () => {
           {images.map((el, cnt) => {
             return (
               <div className="upload uploaded-img" key={cnt}>
-                <img src={el} alt="error" />
+                <img src={el} alt="uploaded-img preview" />
               </div>
             );
           })}
@@ -134,6 +134,7 @@ const WritePost = () => {
               <img
                 className="upload-btn"
                 src={require("../../assets/icons/community/upload.png")}
+                alt="upload-Btn-img"
               />
               <div>이미지 업로드</div>
             </div>

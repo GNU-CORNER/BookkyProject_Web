@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
+// Q&A 게시글 - 답글 작성 모달 창 Inner
 const ReplyModal = ({ setReplyWriteModal }) => {
   return (
+    // 답글 작성 모달 창 View
     <ReplyModalContainer>
       <img
         className="close-btn"
@@ -11,12 +13,14 @@ const ReplyModal = ({ setReplyWriteModal }) => {
             ? setReplyWriteModal(false)
             : {}
         }
+        alt="close-btn"
       />
       <div>답글 작성</div>
     </ReplyModalContainer>
   );
 };
 
+//////////////////////////////////////// Styled-Components
 const ReplyModalContainer = styled.div`
   border: 1px solid red;
   width: 100%;

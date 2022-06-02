@@ -1,13 +1,15 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-// 관심분야 설정
+// 관심분야 설정 - 1단계
 const FirstStep = ({ ToNext }) => {
+  // 변수 선언
   const [selected_option_1, setOption1] = useState(false);
   const [selected_option_2, setOption2] = useState(false);
   const Selected = "option selected";
   const NotSelected = "option";
 
+  // View
   return (
     <QuestionArea>
       <div className="Header">개발 경험이 있습니까?</div>

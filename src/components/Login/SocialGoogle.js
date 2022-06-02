@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { modalOpen } from "../../redux-modules/loginModal";
 import { updateUser } from "../../redux-modules/userData";
 
+// 소셜로그인 - 구글
 const SocialGoogle = () => {
   // 변수 선언
   const dispatch = useDispatch();
@@ -74,6 +75,7 @@ const SocialGoogle = () => {
       });
   };
 
+  // View
   return (
     <GoogleLogin
       clientId="89666983957-jbbsucr16fc11g0fdpgkvmehj12n3b8v.apps.googleusercontent.com"

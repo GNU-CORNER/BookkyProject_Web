@@ -15,6 +15,7 @@ const SearchBookCard = ({
   tagData,
   PUBLISHER,
 }) => {
+  // 변수 선언
   const navigate = useNavigate();
   return (
     <>
@@ -50,11 +51,13 @@ const SearchBookCard = ({
           })}
         </BookInfoSub>
       </SearchBookCardContainer>
+      {/* 검색결과 도서 간 구분선 */}
       <hr />
     </>
   );
 };
 
+//////////////////////////////////////// Styled-Components
 const SearchBookCardContainer = styled.div`
   height: 180px;
   padding: 15px 20px;

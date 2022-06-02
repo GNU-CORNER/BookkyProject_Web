@@ -4,10 +4,11 @@ import { setFold } from "../../redux-modules/sideNav";
 
 // Sidebar 접기 버튼 >> <<
 const SideNavFoldBtn = () => {
+  // 변수 선언
   const SideNavState = useSelector((state) => state.SideNavState);
   const dispatch = useDispatch();
 
-  // 임시로 div로 만들어 놓은거 styled-components 화 하기
+  // 사이드바 비활성화 시 (접기)
   if (SideNavState.isfold === false) {
     return (
       <SideNavFoldBtnContainer
@@ -21,7 +22,9 @@ const SideNavFoldBtn = () => {
         />
       </SideNavFoldBtnContainer>
     );
-  } else {
+  }
+  // 사이드바 활성화 시 (펼치기)
+  else {
     return (
       <SideNavFoldBtnContainer
         left="10px"
@@ -37,6 +40,7 @@ const SideNavFoldBtn = () => {
   }
 };
 
+//////////////////////////////////////// Styled-Components
 const SideNavFoldBtnContainer = styled.div`
   position: fixed;
   left: ${(props) => props.left};

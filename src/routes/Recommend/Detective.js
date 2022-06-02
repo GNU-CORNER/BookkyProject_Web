@@ -55,22 +55,26 @@ function Detective() {
               } else if (el.who === "user") {
                 return <ChatFromUser key={el.mid} message={el.message} />;
               } else if (el.who === "submit") {
-              }
+                return "";
+              } else return "";
             })}
           </div>
         </ChatArea>
         <SelectArea>
-          {onSubmit ? (
-            <></>
-          ) : (
-            <SelectionBox
-              ChatArray={ChatArray}
-              setAnswerd={setAnswerd}
-              setChatArray={setChatArray}
-              answered={answered}
-              setSubmit={setSubmit}
-            />
-          )}
+          {
+            // 결과를 보여줘 ! 클릭 여부에 따른 출력
+            onSubmit ? (
+              <></>
+            ) : (
+              <SelectionBox
+                ChatArray={ChatArray}
+                setAnswerd={setAnswerd}
+                setChatArray={setChatArray}
+                answered={answered}
+                setSubmit={setSubmit}
+              />
+            )
+          }
         </SelectArea>
       </ContentsArea>
     </DetectiveContainer>

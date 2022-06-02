@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
+// 커뮤니티 게시판 - 공지 사항 출력 (게시판 최상단)
 const Notice = ({ notice }) => {
+  // View
   return (
     <NoticeContainer>
       <img

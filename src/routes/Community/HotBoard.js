@@ -7,12 +7,13 @@ import Notice from "../../components/Community/Notice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { updateHot } from "../../redux-modules/posts";
 
 // 커뮤니티 - HOT 게시판
 function HotBoard() {
   // 변수 선언
+  const navigate = useNavigate();
   const posts = useSelector((state) => state.posts.hot);
   const SideNavState = useSelector((state) => state.SideNavState);
   const location = useLocation().pathname.split("/");
@@ -58,7 +59,11 @@ function HotBoard() {
     return parseInt(count / 10) + remainder;
   }
 
+  // 최초 로드시 게시글 정보 업데이트
   useEffect(getPosts, [page, dispatch, user.accessToken]);
+
+  // 페이지 이동 시, 해당 페이지로 url 변경
+  useEffect(() => navigate("/hot/" + page), [page, navigate]);
 
   // HOT 게시판 View
   return (

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../redux-modules/userData";
 import { useCookies } from "react-cookie";
 
+// 회원가입 (소셜 회원일 때, 닉네임만 추가 등록)
 const SignUpMore = () => {
   // 변수 선언
   const user = useSelector((state) => state.userData);
