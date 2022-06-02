@@ -3,6 +3,7 @@ import TagCard from "../Cards/TagCard";
 
 //MyInfo - 내 관심분야 컴포넌트
 const InterestField = ({ userTags }) => {
+  // View
   return (
     <InterestFieldContainer>
       {userTags.map((el) => (

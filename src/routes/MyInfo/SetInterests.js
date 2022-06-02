@@ -10,6 +10,7 @@ const Setinterests = () => {
   const [step, setStep] = useState(1);
   const SideNavState = useSelector((state) => state.SideNavState);
 
+  // "다음" 버튼
   function NextStep() {
     if (step === 1) {
       return <FirstStep ToNext={() => setStep(2)} />;
@@ -17,6 +18,8 @@ const Setinterests = () => {
       return <SecondStep ToBefore={() => setStep(1)} />;
     }
   }
+
+  // View
   return (
     <SetInterestsContainer width={SideNavState.width}>
       <PageHeader

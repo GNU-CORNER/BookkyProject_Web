@@ -3,8 +3,10 @@ import styled from "styled-components";
 
 // Home - 추천영역 TITLE
 const Title = () => {
+  // 변수 선언
   const user = useSelector((state) => state.userData);
 
+  // View
   return (
     <TitleContainer className="nodrag">
       <p className="subTitle">Today's Books</p>
@@ -18,6 +20,7 @@ const Title = () => {
   );
 };
 
+//////////////////////////////////////// Styled-Components
 const TitleContainer = styled.div`
   color: #f5f5f5;
   font-size: 1.9em;

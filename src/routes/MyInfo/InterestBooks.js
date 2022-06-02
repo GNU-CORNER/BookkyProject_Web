@@ -30,7 +30,9 @@ function Interests() {
     }
   }
 
+  // 최초 로드시, 도서 정보 업데이트
   useEffect(getBooks, [user, dispatch]);
+
   // 관심도서 View
   return (
     <InterstsContainer width={SideNavState.width}>

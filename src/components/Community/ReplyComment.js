@@ -2,6 +2,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
+// 게시글 상세보기 - 대댓글
 const Reply = ({
   CID,
   comment,
@@ -12,6 +13,7 @@ const Reply = ({
   getPostData,
   getCommentData,
 }) => {
+  // 변수 선언
   const user = useSelector((state) => state.userData);
 
   // deleteComment() : 댓글 삭제
@@ -38,6 +40,7 @@ const Reply = ({
       });
   }
 
+  // View
   return (
     <ReplyContainer>
       <img
@@ -75,6 +78,7 @@ const Reply = ({
   );
 };
 
+//////////////////////////////////////// Styled-Components
 const ReplyContainer = styled.div`
   display: flex;
   margin: 10px 0;

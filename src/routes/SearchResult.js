@@ -8,10 +8,12 @@ import PageHeader from "../components/PageHeader";
 
 // 검색 결과 화면
 const SearchResult = () => {
+  // 변수 선언
   const query = useLocation().state.query;
   const SideNavState = useSelector((state) => state.SideNavState);
   const [books, setBooks] = useState([]);
 
+  // getSearchResult() : 검색을 위한 서버와의 통신
   function getSearchResult() {
     axios
       .get("http://203.255.3.144:8002/v1/books/search", {
@@ -23,8 +25,10 @@ const SearchResult = () => {
       });
   }
 
+  // 검색 키워드 입력값 변화 시 마다 - 검색 함수 호출
   useEffect(getSearchResult, [query]);
 
+  // 검색결과 View
   return (
     <SearchResultContainer width={SideNavState.width}>
       <PageHeader title="검색 결과" />
@@ -60,6 +64,7 @@ const SearchResult = () => {
   );
 };
 
+//////////////////////////////////////// Styled-Components
 const SearchResultContainer = styled.div`
   width: ${(props) => props.width};
 

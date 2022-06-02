@@ -33,9 +33,9 @@ const CommentModal = ({
   // getCommentData() : 게시글(PID)에 해당하는 댓글 목록 불러오기
   function getCommentData() {
     axios
-      .post(
+      .get(
         "http://203.255.3.144:8002/v1/community/comment/2/" + PID,
-        {},
+
         {
           headers: {
             "access-token": user.accessToken,
@@ -64,11 +64,10 @@ const CommentModal = ({
           headers: {
             "access-token": user.accessToken,
           },
-          "Content-Type": "application/json",
         }
       )
       .then((res) => {
-        console.log(res);
+        console.log("댓글작성 리스폰스", res);
         getCommentData();
       });
   }

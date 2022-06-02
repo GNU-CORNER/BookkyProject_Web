@@ -3,8 +3,10 @@ import styled from "styled-components";
 
 // 커뮤니티 홈 - 게시글 제목
 const PostTitle = ({ title, PID, kind }) => {
-  //변수 선언
+  // 변수 선언
   const navigate = useNavigate();
+
+  // View
   return (
     <PostTitleContainer
       onClick={() => navigate("/postdetail/" + kind + "/" + PID)}

@@ -81,6 +81,8 @@ function App() {
 
   // 최초 렌더링 시, Init() AutoLogin()
   useEffect(Init, [cookies]);
+
+  // 자동 로그인
   useEffect(AutoLogin, [email, password, loginMethod, dispatch]);
 
   // App View

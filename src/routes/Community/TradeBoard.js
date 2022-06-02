@@ -58,7 +58,10 @@ function TradeBoard() {
     return parseInt(count / 10) + remainder;
   }
 
+  // 최초 로드시 게시글 정보 업데이트
   useEffect(getPosts, [page, dispatch, user.accessToken]);
+
+  // 페이지 이동 시, 해당 페이지로 url 변경
   useEffect(() => navigate("/trade/" + page), [page, navigate]);
 
   // 중고장터 View

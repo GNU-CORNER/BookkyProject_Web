@@ -17,7 +17,7 @@ function Community() {
   });
   const SideNavState = useSelector((state) => state.SideNavState);
 
-  //getPosts() : 서버로부터 게시글 목록을 불러옴
+  //getPosts() : 서버로부터 게시글 목록 업데이트
   const getPosts = () => {
     axios
       .get("http://203.255.3.144:8002/v1/community/home", {
@@ -31,7 +31,9 @@ function Community() {
       });
   };
 
+  // 최초 로드 시, 게시글 데이터 받아옴
   useEffect(getPosts, []);
+
   // 커뮤니티 홈 View
   return (
     <CommunityContainer width={SideNavState.width}>

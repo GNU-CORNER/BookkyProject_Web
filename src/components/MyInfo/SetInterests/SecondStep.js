@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { updateUserTagArray } from "../../../redux-modules/userData";
 
+// 관심분야 설정 - 2단계
 const SecondStep = ({ ToBefore }) => {
   // 변수 선언
   const [Tags, setTags] = useState([{ TMID: "", nameTag: "" }]);
@@ -20,7 +21,7 @@ const SecondStep = ({ ToBefore }) => {
       .then((res) => setTags(res.data.result.tag));
   }
 
-  //
+  // Submit() : 선택한 태그 서버로 전송
   function Submit() {
     console.log(pickedTags);
     axios
@@ -68,8 +69,10 @@ const SecondStep = ({ ToBefore }) => {
     });
   }
 
-  useEffect(() => getTags(), []);
+  // 최초 로드 시 모든 태그 불러오기
+  useEffect(getTags, []);
 
+  // View
   return (
     <PickArea>
       <div className="Header">
@@ -90,7 +93,7 @@ const SecondStep = ({ ToBefore }) => {
   );
 };
 
-//////////////////////////////////////// Styled-Components
+////////////////////////////////ㄴ//////// Styled-Components
 const PickArea = styled.div`
   display: flex;
   flex-direction: column;

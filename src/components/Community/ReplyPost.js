@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CommentModalContainer from "./CommentModal/CommentModalContainer";
 
+// Q&A 게시판 - 게시글 상세보기 답글
 const ReplyPost = ({
   contents,
   createAt,
@@ -16,9 +17,10 @@ const ReplyPost = ({
   isAccessible,
   commentCnt,
 }) => {
+  // 변수 선언
   const [commentModal, setCommentModal] = useState(false);
-
   const navigate = useNavigate();
+
   // deletePost() : 게시글 삭제 요청
   function deletePost() {
     console.log("답글 삭제");
@@ -29,68 +31,73 @@ const ReplyPost = ({
     navigate("/");
   }
 
+  // View
   return (
     <ReplyPostContainer>
-      <ContentArea>
-        <div className="profile">
-          <img src={thumbnail} alt="e" />
-          <p>{nickname}</p>
-        </div>
-        <div className="title">Re : {title}</div>
-        <div className="subData">
-          <p className="createAt">
-            {createAt === updateAt ? "Created at " : "Modified at "}
-            {createAt === updateAt ? createAt : updateAt}
-          </p>
-        </div>
-        <div className="body">
-          <div className="main-text">{contents}</div>
-          <div className="reactions bottom">
-            <div className="likes">좋아요({like.length})</div>
+      {/* 작성자 프로필 */}
+      <div className="profile">
+        <img src={thumbnail} alt="e" />
+        <p>{nickname}</p>
+      </div>
 
-            <CommentModalContainer
-              commentModal={commentModal}
-              setCommentModal={setCommentModal}
-              PID={PID}
-            />
+      {/* 답글 컨텐츠 영역 상단(제목, 작성일) */}
+      <div className="title">Re : {title}</div>
+      <div className="subData">
+        <p className="createAt">
+          {createAt === updateAt ? "Created at " : "Modified at "}
+          {createAt === updateAt ? createAt : updateAt}
+        </p>
+      </div>
+
+      {/* 답글 컨텐츠 영역 하단(내용, 좋아요) */}
+      <div className="body">
+        <div className="main-text">{contents}</div>
+        <div className="reactions bottom">
+          <div className="likes">좋아요({like.length})</div>
+
+          {/* Q&A 게시판 - 댓글 모달 */}
+          <CommentModalContainer
+            commentModal={commentModal}
+            setCommentModal={setCommentModal}
+            PID={PID}
+          />
+
+          {/* 댓글 버튼 클릭 시, 댓글 모달 Open */}
+          <div
+            className="comments"
+            onClick={() => {
+              setCommentModal(true);
+            }}
+          >
+            댓글({commentCnt})
+          </div>
+        </div>
+
+        {/* 내가 작성한 게시글이면 게시글 관리 메뉴 출력 (수정 및 삭제) */}
+        {isAccessible ? (
+          <div className="manage-post bottom">
+            <div className="btn modify" onClick={modifyPost}>
+              수정
+            </div>
             <div
-              className="comments"
+              className="btn delete"
               onClick={() => {
-                setCommentModal(true);
+                if (window.confirm("게시글을 삭제하시겠습니까?")) deletePost();
               }}
             >
-              댓글({commentCnt})
+              삭제
             </div>
           </div>
-
-          {/* 내가 작성한 게시글이면 게시글 관리 메뉴 출력 (수정 및 삭제) */}
-          {isAccessible ? (
-            <div className="manage-post bottom">
-              <div className="btn modify" onClick={modifyPost}>
-                수정
-              </div>
-              <div
-                className="btn delete"
-                onClick={() => {
-                  if (window.confirm("게시글을 삭제하시겠습니까?"))
-                    deletePost();
-                }}
-              >
-                삭제
-              </div>
-            </div>
-          ) : (
-            <></>
-          )}
-        </div>
-      </ContentArea>
+        ) : (
+          <></>
+        )}
+      </div>
     </ReplyPostContainer>
   );
 };
 
-const ReplyPostContainer = styled.div``;
-
-const ContentArea = styled.div`
+//////////////////////////////////////// Styled-Components
+const ReplyPostContainer = styled.div`
   position: relative;
   min-width: 700px;
   margin: 0 0 2vh 0;
@@ -227,4 +234,5 @@ const ContentArea = styled.div`
     }
   }
 `;
+
 export default ReplyPost;

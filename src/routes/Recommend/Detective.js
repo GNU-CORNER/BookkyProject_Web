@@ -61,17 +61,20 @@ function Detective() {
           </div>
         </ChatArea>
         <SelectArea>
-          {onSubmit ? (
-            <></>
-          ) : (
-            <SelectionBox
-              ChatArray={ChatArray}
-              setAnswerd={setAnswerd}
-              setChatArray={setChatArray}
-              answered={answered}
-              setSubmit={setSubmit}
-            />
-          )}
+          {
+            // 결과를 보여줘 ! 클릭 여부에 따른 출력
+            onSubmit ? (
+              <></>
+            ) : (
+              <SelectionBox
+                ChatArray={ChatArray}
+                setAnswerd={setAnswerd}
+                setChatArray={setChatArray}
+                answered={answered}
+                setSubmit={setSubmit}
+              />
+            )
+          }
         </SelectArea>
       </ContentsArea>
     </DetectiveContainer>

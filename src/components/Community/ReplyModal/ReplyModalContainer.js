@@ -4,32 +4,32 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import ReplyModal from "./ReplyModal";
 
+// Q&A 게시글 상세보기 - 댓글 보기 모달 창
 const ReplyModalContainer = ({ replyWriteModal, setReplyWriteModal }) => {
+  // 댓글보기 모달 창 View
   return (
-    <>
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={replyWriteModal}
-        onClose={() =>
-          window.confirm("답글 작성을 취소하시겠습니까?")
-            ? setReplyWriteModal(false)
-            : {}
-        }
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        {/* 모달 뒤, 흐려지는 배경 */}
-        <Fade in={replyWriteModal}>
-          <Box sx={style}>
-            <ReplyModal setReplyWriteModal={setReplyWriteModal} />
-          </Box>
-        </Fade>
-      </Modal>
-    </>
+    <Modal
+      aria-labelledby="transition-modal-title"
+      aria-describedby="transition-modal-description"
+      open={replyWriteModal}
+      onClose={() =>
+        window.confirm("답글 작성을 취소하시겠습니까?")
+          ? setReplyWriteModal(false)
+          : {}
+      }
+      closeAfterTransition
+      BackdropComponent={Backdrop}
+      BackdropProps={{
+        timeout: 500,
+      }}
+    >
+      {/* 모달 뒤, 흐려지는 배경 */}
+      <Fade in={replyWriteModal}>
+        <Box sx={style}>
+          <ReplyModal setReplyWriteModal={setReplyWriteModal} />
+        </Box>
+      </Fade>
+    </Modal>
   );
 };
 

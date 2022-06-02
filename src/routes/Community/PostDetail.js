@@ -145,6 +145,7 @@ const PostDetail = () => {
       });
   }
 
+  // likePost() : 게시글의 좋아요 버튼 클릭 시 서버와 통신
   function likePost() {
     if (user.accessToken.length > 0)
       axios
@@ -186,8 +187,12 @@ const PostDetail = () => {
       });
   }
 
+  // 게시글 업데이트
   useEffect(getPostData, [boardNum, PID, user]);
+
+  // 최초 로드시, 게시판 정보 초기화 (게시판 번호, 게시판 이름)
   useEffect(init, [boardNum]);
+
   // 게시글 상세보기 View
   return (
     <PostDetailContainer width={SideNavState.width}>

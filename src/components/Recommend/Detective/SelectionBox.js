@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import styled from "styled-components";
 
+// 추천받개 명탐정 북키 - 답변 선택 영역
 const SelectionBox = ({
   ChatArray,
   setAnswerd,
@@ -52,6 +53,7 @@ const SelectionBox = ({
     }
   };
 
+  // 각 변수 변화에 따른, 북키의 질문 생성
   useEffect(createBookkyQuestion, [
     answered,
     ChatArray,
@@ -59,6 +61,7 @@ const SelectionBox = ({
     setChatArray,
   ]);
 
+  // View
   return (
     <SelectionBoxContainer>
       <h1 className="select-header">답변을 선택하세요</h1>
@@ -97,8 +100,8 @@ const SelectionBox = ({
     </SelectionBoxContainer>
   );
 };
-export default SelectionBox;
 
+//////////////////////////////////////// Styled-Components
 const SelectionBoxContainer = styled.div`
   position: relative;
   display: grid;
@@ -143,3 +146,5 @@ const SelectionBoxContainer = styled.div`
     color: #6e95ff;
   }
 `;
+
+export default SelectionBox;

@@ -10,6 +10,7 @@ const Loading = () => {
   );
 };
 
+//////////////////////////////////////// Styled-Components
 const LoadingContainer = styled.div`
   width: 100%;
 

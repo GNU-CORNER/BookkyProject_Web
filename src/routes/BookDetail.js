@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 
 // 도서 상세정보
 function BookDetail() {
+  // 변수 선언
   const location = useLocation();
   const BID = location.pathname.split("/")[2];
   const user = useSelector((state) => state.userData);
@@ -17,6 +18,7 @@ function BookDetail() {
   const [reviews, setReviews] = useState([{ id: 0 }]);
   const [fold, setFold] = useState(true);
   const SideNavState = useSelector((state) => state.SideNavState);
+
   // getBookData() : 서버로부터 BID 에 따른 도서데이터를 가져옴
   function getBookData() {
     axios
@@ -39,7 +41,11 @@ function BookDetail() {
           setReviews(res.data.result.reviewList);
         });
   }
+
+  // 도서 정보 업데이트
   useEffect(getBookData, [BID]);
+
+  // 리뷰 정보 업데이트
   useEffect(getReviewData, [BID, user.accessToken]);
 
   // 도서 상세정보 View

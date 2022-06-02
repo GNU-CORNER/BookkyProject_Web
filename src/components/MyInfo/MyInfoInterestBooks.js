@@ -6,27 +6,32 @@ import BookCard from "../Cards/BookCard";
 const InterestBooks = () => {
   const mybooks = useSelector((state) => state.books.interests);
 
+  // View
   return (
     <InterestFieldContainer>
-      {mybooks.length <= 0 ? (
-        <div className="no-Books">관심도서가 없습니다</div>
-      ) : (
-        mybooks.map((book, cnt) => {
-          if (cnt < 4)
-            return (
-              <BookCard
-                key={book.BID}
-                bid={book.BID}
-                className="nodrag"
-                title={book.TITLE}
-                thumnail={book.thumbnailImage}
-                author={book.AUTHOR}
-                publisher={book.PUBLISHER}
-              />
-            );
-          else return <></>;
-        })
-      )}
+      {
+        // 관심도서가 없을 때
+        mybooks.length <= 0 ? (
+          <div className="no-Books">관심도서가 없습니다</div>
+        ) : (
+          // 관심도서가 있을 때, 4개까지 출력
+          mybooks.map((book, cnt) => {
+            if (cnt < 4)
+              return (
+                <BookCard
+                  key={book.BID}
+                  bid={book.BID}
+                  className="nodrag"
+                  title={book.TITLE}
+                  thumnail={book.thumbnailImage}
+                  author={book.AUTHOR}
+                  publisher={book.PUBLISHER}
+                />
+              );
+            else return <></>;
+          })
+        )
+      }
     </InterestFieldContainer>
   );
 };

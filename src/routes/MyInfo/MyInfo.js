@@ -30,6 +30,7 @@ function MyInfo() {
     },
   ]);
 
+  // 사용자 태그 형태 정의
   const [userTags, setUserTags] = useState([{ tag: "", TMID: 0 }]);
 
   // getPosts() : 서버로부터 내 도서를 가져옴
@@ -50,21 +51,26 @@ function MyInfo() {
         });
   }
 
+  // 내 게시글 정보 업데이트
   useEffect(getPosts, [user.accessToken]);
 
   // 내 정보 View
   return (
     <MyInfoContainer width={SideNavState.width}>
       <MainHeader>
+        {/* 사용자 정보 수정 모달 */}
         <EditUserModalContainer
           editUserModal={editUserModal}
           setEditUserModal={setEditUserModal}
           userData={userData}
         />
+
+        {/* 내 정보 타이틀 (파란색 영역) */}
         <Title className="nodrag">
           <div>
             <span className="name">{user.nickname}</span>
             {user.accessToken ? " 님" : ""}의 정보입니다
+            {/* 사용자 정보 수정 버튼 */}
             <img
               className="setting-icon"
               src={require("../../assets/icons/myinfo/setting.png")}
@@ -74,28 +80,37 @@ function MyInfo() {
               alt="setting menu"
             />
           </div>
+          {/*  서브 데이터 (각 항목 별 개수) */}
           <p className="sub">
             <span>{"4"}개</span>의 관심분야 / <span>{"15"}권</span>의 관심도서 /
             <span> {myPostCnt}개</span>의 게시글 / <span>{"3"}개</span>의 리뷰
           </p>
         </Title>
       </MainHeader>
+
+      {/* 내 정보 컨텐츠 영역 */}
       <ContentContainer>
+        {/* 관심 분야 */}
         <div className="interestField">
           <ContentsHeader title="관심 분야" />
           <InterestField userTags={userTags} />
         </div>
+
+        {/* 내 게시글 */}
         <div className="myPost">
           <ContentsHeader title="내가 작성한 게시글" />
           <div className="posts">
             <MyPosts myPosts={myPosts} />
           </div>
         </div>
+
+        {/* 내 관심 도서 */}
         <div className="interestBooks">
           <ContentsHeader title="관심 도서" />
           <InterestBooks />
         </div>
 
+        {/* 내 리뷰 */}
         <div className="myReview">
           <ContentsHeader title="내가 작성한 리뷰" />
           <MyReviews />
@@ -105,7 +120,7 @@ function MyInfo() {
   );
 }
 
-//////////////////////////////////////// Styled-Components
+/////////////////////////////////// ///// Styled-Components
 const ContentContainer = styled.div`
   width: ${(props) => props.width};
   margin-top: 3vh;

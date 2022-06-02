@@ -7,6 +7,7 @@ import BookCard from "../components/Cards/BookCard";
 
 // Home - Tag 더보기
 const TagDetail = () => {
+  // 변수 선언
   const location = useLocation();
   const [books, setBooks] = useState([{}]);
   const [tagName, setTagName] = useState("");
@@ -14,6 +15,7 @@ const TagDetail = () => {
   // const user = useSelector((state) => state.userData);
   const SideNavState = useSelector((state) => state.SideNavState);
 
+  // getBookData() : 태그에 따른 도서 데이터 불러오기 통신
   function getBookData() {
     axios
       .get("http://203.255.3.144:8002/v1/books/tag/" + tagNum)
@@ -24,7 +26,10 @@ const TagDetail = () => {
       });
   }
 
+  // 태그 변화에 따른 도서 데이터 업데이트
   useEffect(getBookData, [tagNum]);
+
+  // View
   return (
     <TagDetailContainer width={SideNavState.width}>
       <MainHeader>

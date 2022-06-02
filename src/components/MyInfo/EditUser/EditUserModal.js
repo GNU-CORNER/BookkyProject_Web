@@ -7,14 +7,18 @@ import {
   updateUserThumbnail,
 } from "../../../redux-modules/userData";
 
+// 내 정보 - 사용자 정보 수정
 const EditUserModal = ({ setEditUserModal, userData }) => {
+  // 변수 선언
   const [nickname, setNickname] = useState(userData.nickname);
   const [message, setMessage] = useState("닉네임을 입력하세요");
   const [image, setImage] = useState("");
   const user = useSelector((state) => state.userData);
   const dispatch = useDispatch();
 
+  // submit() : 수정하기 버튼 클릭 시
   function submit() {
+    // 전송 데이터(닉네임, 프로필사진(base64))
     const params = JSON.stringify({
       nickname: nickname,
       images: image,
@@ -36,6 +40,7 @@ const EditUserModal = ({ setEditUserModal, userData }) => {
       });
   }
 
+  // checkNickname(nickname) : 닉네임 중복검사
   function checkNickname(nickname) {
     axios
       .get("http://203.255.3.144:8002/v1/user/nickname", {
@@ -71,10 +76,13 @@ const EditUserModal = ({ setEditUserModal, userData }) => {
       });
   }
 
+  // View
   return (
     <EditUserModalContainer>
       <div className="inner">
         <h2 className="header">프로필 수정</h2>
+
+        {/* 프로필 사진 변경 영역 */}
         <div className="edit-thumbnail">
           <input
             id="image-input"
@@ -87,32 +95,40 @@ const EditUserModal = ({ setEditUserModal, userData }) => {
               reader.onloadend = () => setImage(reader.result);
             }}
           />
-          {image.length > 0 ? (
-            <label htmlFor="image-input">
-              <img
-                className="thumbnail-img"
-                src={image}
-                alt="user-thumbnail-img"
-              />
-            </label>
-          ) : userData.userThumbnail === null ||
-            userData.userThumbnail === undefined ? (
-            <label htmlFor="image-input">
-              <img
-                className="thumbnail-img"
-                src={require("../../../assets/icons/sideNav/welcome.png")}
-                alt="default-thumbnail-img"
-              />
-            </label>
-          ) : (
-            <label htmlFor="image-input">
-              <img
-                className="thumbnail-img"
-                src={userData.userThumbnail}
-                alt="user-thumbnail-img"
-              />
-            </label>
-          )}
+
+          {
+            // 새로운 프로필 사진을 선택했을 때
+            image.length > 0 ? (
+              <label htmlFor="image-input">
+                <img
+                  className="thumbnail-img"
+                  src={image}
+                  alt="user-thumbnail-img"
+                />
+              </label>
+            ) : // 프로필 사진이 없을 때
+            userData.userThumbnail === null ||
+              userData.userThumbnail === undefined ? (
+              <label htmlFor="image-input">
+                <img
+                  className="thumbnail-img"
+                  src={require("../../../assets/icons/sideNav/welcome.png")}
+                  alt="default-thumbnail-img"
+                />
+              </label>
+            ) : (
+              // 프로필 사진은 있지만, 새로운 사진 선택을 안했을 때
+              <label htmlFor="image-input">
+                <img
+                  className="thumbnail-img"
+                  src={userData.userThumbnail}
+                  alt="user-thumbnail-img"
+                />
+              </label>
+            )
+          }
+
+          {/* 닉네임 변경 영역 */}
           <NicknameArea>
             <input
               className="nickname"
@@ -123,11 +139,13 @@ const EditUserModal = ({ setEditUserModal, userData }) => {
                 setNickname(e.target.value);
               }}
             />
+            {/* 닉네임 상태에 따른 메시지 출력 */}
             <div className="input-notice">{message}</div>
           </NicknameArea>
         </div>
       </div>
 
+      {/* 수정하기 버튼 */}
       <div
         className="submit"
         onClick={() =>
@@ -140,6 +158,7 @@ const EditUserModal = ({ setEditUserModal, userData }) => {
   );
 };
 
+//////////////////////////////////////// Styled-Components
 const EditUserModalContainer = styled.div`
   position: relative;
   height: 100%;
