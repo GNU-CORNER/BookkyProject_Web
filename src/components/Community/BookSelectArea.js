@@ -4,7 +4,6 @@ import AddBooksModalContainer from "./AddBooksModal/AddBooksModalContainer";
 
 // 게시글 작성 - 도서 선택 영역
 const BookSelectArea = ({ setTBID, book }) => {
-  console.log(book);
   // 변수 선언
   const [isSelected, setSelect] = useState(book ? true : false);
   const [addBooksModal, setAddBooksModal] = useState(false);

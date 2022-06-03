@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import PostDetailBookCard from "../Cards/PostDetailBookCard";
 import CommentModalContainer from "./CommentModal/CommentModalContainer";
 
 // Q&A 게시판 - 게시글 상세보기 답글
@@ -16,6 +17,10 @@ const ReplyPost = ({
   PID,
   isAccessible,
   commentCnt,
+  postImage,
+  TBID,
+  book,
+  parentQPID,
 }) => {
   // 변수 선언
   const [commentModal, setCommentModal] = useState(false);
@@ -48,9 +53,15 @@ const ReplyPost = ({
           {createAt === updateAt ? createAt : updateAt}
         </p>
       </div>
-
       {/* 답글 컨텐츠 영역 하단(내용, 좋아요) */}
       <div className="body">
+        <PostDetailBookCard book={book} />
+        {/* 이미지 */}
+        {postImage !== undefined
+          ? postImage.map((el, cnt) => (
+              <img key={cnt} src={el} alt="post-img" />
+            ))
+          : ""}
         <div className="main-text">{contents}</div>
         <div className="reactions bottom">
           <div className="likes">좋아요({like.length})</div>
@@ -72,7 +83,6 @@ const ReplyPost = ({
             댓글({commentCnt})
           </div>
         </div>
-
         {/* 내가 작성한 게시글이면 게시글 관리 메뉴 출력 (수정 및 삭제) */}
         {isAccessible ? (
           <div className="manage-post bottom">
@@ -161,7 +171,8 @@ const ReplyPostContainer = styled.div`
 
   .body {
     position: relative;
-    margin-top: 3vh;
+    margin-top: 2vh;
+    padding: 10px;
 
     .main-text {
       height: 20vh;

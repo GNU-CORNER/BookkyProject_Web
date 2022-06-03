@@ -3,9 +3,16 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import ReplyModal from "./ReplyModal";
+import styled from "styled-components";
 
 // Q&A 게시글 상세보기 - 댓글 보기 모달 창
-const ReplyModalContainer = ({ replyWriteModal, setReplyWriteModal }) => {
+const ReplyModalContainer = ({
+  replyWriteModal,
+  setReplyWriteModal,
+  parentQPID,
+  parentTitle,
+  getPostData,
+}) => {
   // 댓글보기 모달 창 View
   return (
     <Modal
@@ -25,9 +32,14 @@ const ReplyModalContainer = ({ replyWriteModal, setReplyWriteModal }) => {
     >
       {/* 모달 뒤, 흐려지는 배경 */}
       <Fade in={replyWriteModal}>
-        <Box sx={style}>
-          <ReplyModal setReplyWriteModal={setReplyWriteModal} />
-        </Box>
+        <StyledBox sx={style}>
+          <ReplyModal
+            setReplyWriteModal={setReplyWriteModal}
+            parentQPID={parentQPID}
+            parentTitle={parentTitle}
+            getPostData={getPostData}
+          />
+        </StyledBox>
       </Fade>
     </Modal>
   );
@@ -39,11 +51,16 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 1300,
+  width: 1500,
+  height: 900,
   bgcolor: "background.paper",
   borderRadius: 2,
   boxShadow: 24,
   p: 40,
 };
+
+const StyledBox = styled(Box)`
+  padding: 50px !important;
+`;
 
 export default ReplyModalContainer;

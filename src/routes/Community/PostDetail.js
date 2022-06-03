@@ -77,6 +77,7 @@ const PostDetail = () => {
       title: "",
       updateAt: "",
       views: 0,
+      Book: {},
     },
   ]);
 
@@ -116,7 +117,7 @@ const PostDetail = () => {
           }
         )
         .then((res) => {
-          console.log(res);
+          console.log("이거다아", res);
           setPost(res.data.result.postdata);
           setCommentCnt(res.data.result.commentCnt);
           setCommentArray(res.data.result.commentdata);
@@ -307,7 +308,9 @@ const PostDetail = () => {
               <ReplyModalContainer
                 replyWriteModal={replyWriteModal}
                 setReplyWriteModal={setReplyWriteModal}
-                PID={PID}
+                parentQPID={PID}
+                parentTitle={post.title}
+                getPostData={getPostData}
               />
               <div className="reply-cnt">{replyCnt}개의 답글</div>
               <div
@@ -322,15 +325,19 @@ const PostDetail = () => {
                 <ReplyPost
                   key={el.PID}
                   PID={el.PID}
-                  title={el.title}
-                  contents={el.contents}
+                  TBID={el.TBID}
+                  commentCnt={el.commentCnt}
                   createAt={el.createAt}
                   updateAt={el.updateAt}
+                  contents={el.contents}
+                  title={el.title}
                   like={el.like}
+                  postImage={el.postImage}
                   views={el.views}
                   nickname={el.nickname}
+                  parentQPID={el.parentQPID}
                   thumbnail={el.thumbnail}
-                  commentCnt={el.commentCnt}
+                  book={el.Book}
                 />
               );
             })}
