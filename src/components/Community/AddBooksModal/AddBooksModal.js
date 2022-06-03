@@ -21,13 +21,15 @@ const AddBooksModal = ({
     { TBID: 0, TITLE: "", AUTHOR: "", PUBLISHER: "" },
   ]);
 
-  // getBooks() : 서버로부터 검색 결과 받아오기
+  // getBooks() : 서버로부터 검색 결과 받아오기   무한스크롤 또는 페이지네이션 추가해야 함.
   function getBooks() {
     console.log(input);
     axios
-      .get("http://203.255.3.144:8002/v1/books/search", {
+      .get("http://203.255.3.144:8002/v1/community/post/book", {
         params: {
           keyword: input,
+          quantity: 10,
+          page: 1,
         },
       })
       .then((res) => {

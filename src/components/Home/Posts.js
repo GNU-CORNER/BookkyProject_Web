@@ -29,10 +29,10 @@ const Posts = ({ posts, slug }) => {
 //////////////////////////////////////// Styled-Components
 const PostsContainer = styled.div`
   min-width: 100%;
-  margin: auto;
-  margin-left: 10px;
+  margin: 0 auto auto 10px;
 
   h4 {
+    font-size: 0.9em;
     width: fit-content;
     color: gray;
     line-height: 1.5em;
@@ -43,9 +43,9 @@ const PostsContainer = styled.div`
       content: "";
       display: inline-block;
       background: url(${require("../../assets/icons/community/post.png")});
-      background-size: 1.3em;
-      width: 1.3em;
-      height: 1.3em;
+      background-size: 1.2em;
+      width: 1.2em;
+      height: 1.2em;
       vertical-align: -4px;
     }
     :hover {

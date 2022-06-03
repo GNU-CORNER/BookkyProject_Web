@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import PostDetailBookCard from "../../components/Cards/PostDetailBookCard";
 import Comment from "../../components/Community/Comment";
 import CommentModalContainer from "../../components/Community/CommentModal/CommentModalContainer";
 import ReplyModalContainer from "../../components/Community/ReplyModal/ReplyModalContainer";
@@ -25,7 +26,17 @@ const PostDetail = () => {
   const [replyWriteModal, setReplyWriteModal] = useState(false);
   const [userComment, setUserComment] = useState("");
 
-  // 게시글 틀
+  // 첨부 도서 형태
+  const [book, setBook] = useState({
+    AUTHOR: "",
+    PUBLISHER: "위키북스",
+    RATING: 2.5,
+    TBID: 0,
+    TITLE: "",
+    thumbnailImage: "",
+  });
+
+  // 게시글 형태
   const [post, setPost] = useState({
     UID: 0,
     contents: "",
@@ -111,6 +122,7 @@ const PostDetail = () => {
           setCommentArray(res.data.result.commentdata);
           setReplyPost(res.data.result.replydata);
           setReplyCnt(res.data.result.replyCnt);
+          setBook(res.data.result.Book);
         });
   }
 
@@ -163,7 +175,15 @@ const PostDetail = () => {
 
   // modifyPost() : 게시글 수정
   function modifyPost() {
-    navigate("/");
+    navigate("/modifypost", {
+      state: {
+        post: post,
+        book: book,
+        PID: PID,
+        boardName: boardName,
+        boardNum: boardNum,
+      },
+    });
   }
 
   // submitComment() : 댓글 작성
@@ -196,12 +216,16 @@ const PostDetail = () => {
   // 게시글 상세보기 View
   return (
     <PostDetailContainer width={SideNavState.width}>
+      {/* 헤더*/}
       <PageHeader title="게시글 상세보기" subTitle={boardName} />
       <ContentArea>
+        {/* 작성자 프로필 */}
         <div className="profile">
           <img src={post.thumbnail} alt="e" />
           <p>{post.nickname}</p>
         </div>
+
+        {/* 게시글 컨텐츠 영역 상단 (제목, 작성일, 조회수)*/}
         <div className="title">{post.title}</div>
         <div className="subData">
           <p className="createAt">
@@ -210,18 +234,27 @@ const PostDetail = () => {
           </p>
           <p className="views">{post.views} views</p>
         </div>
+
+        {/* 게시글 컨텐츠 영역 하단 (내용, 이미지, 첨부 도서, 좋아요, 댓글, 답글)*/}
         <div className="body">
+          <PostDetailBookCard book={book} />
+          {/* 이미지 */}
           {post.postImage !== undefined
             ? post.postImage.map((el, cnt) => (
                 <img key={cnt} src={el} alt="post-img" />
               ))
             : ""}
 
+          {/* 내용 */}
           <div className="main-text">{post.contents}</div>
+
+          {/* 좋아요 */}
           <div className="reactions bottom">
             <div className="likes" onClick={() => likePost()}>
               좋아요({post.like.length})
             </div>
+
+            {/* Q&A 게시판일 때, 댓글 모달 창 */}
             <CommentModalContainer
               commentModal={commentModal}
               setCommentModal={setCommentModal}
@@ -229,7 +262,6 @@ const PostDetail = () => {
               getPostData={getPostData}
               PID={PID}
             />
-            {/* Q&A 게시판일 때, 댓글 모달 창 */}
             {boardNum === 2 ? (
               <div
                 className="comments"
@@ -266,8 +298,9 @@ const PostDetail = () => {
         </div>
       </ContentArea>
 
+      {/* 댓글과 답글 출력 */}
       {
-        // Q&A 게시판일 경우
+        // Case 1 : Q&A 게시판일 경우
         boardNum === 2 ? (
           <ReplyArea>
             <ReplyHeader>
@@ -303,7 +336,7 @@ const PostDetail = () => {
             })}
           </ReplyArea>
         ) : (
-          // 그 외 게시판일 경우
+          // Case 2 : Q&A 게시판이 아닌 경우 (자유, 중고장터, Hot)
           <CommentArea>
             <WriteComment>
               <p className="reply-cnt">{commentCnt}개의 댓글</p>
@@ -323,6 +356,8 @@ const PostDetail = () => {
                 <div onClick={submitComment}>작성</div>
               </div>
             </WriteComment>
+
+            {/* 댓글 리스트 출력 */}
             {commentArray.map((el) => {
               return (
                 <Comment
@@ -355,7 +390,7 @@ const PostDetailContainer = styled.div`
 const ContentArea = styled.div`
   position: relative;
   min-width: 700px;
-  margin: 4vh 12vw 0 12vw;
+  margin: 0 12vw 0 12vw;
   border: 1px solid #f1f1f1;
   border-radius: 4px;
   padding: 15px;
@@ -416,7 +451,8 @@ const ContentArea = styled.div`
 
   .body {
     position: relative;
-    margin-top: 3vh;
+    padding: 10px;
+    margin-top: 1vh;
 
     .main-text {
       min-height: 30vh;

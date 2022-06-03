@@ -3,14 +3,19 @@ import styled from "styled-components";
 import AddBooksModalContainer from "./AddBooksModal/AddBooksModalContainer";
 
 // 게시글 작성 - 도서 선택 영역
-const BookSelectArea = ({ setTBID }) => {
+const BookSelectArea = ({ setTBID, book }) => {
+  console.log(book);
   // 변수 선언
-  const [isSelected, setSelect] = useState(false);
+  const [isSelected, setSelect] = useState(book ? true : false);
   const [addBooksModal, setAddBooksModal] = useState(false);
-  const [thumbnail, setThumbnail] = useState("");
-  const [bookTitle, setBookTitle] = useState("원하는 도서를 추가해보세요");
+  const [thumbnail, setThumbnail] = useState(book ? book.thumbnailImage : "");
+  const [bookTitle, setBookTitle] = useState(
+    book ? book.TITLE : "원하는 도서를 추가해보세요"
+  );
   const [bookAuthor, setBookAuthor] = useState(
-    "여기를 눌러서 추가할 도서를 검색하세요"
+    book
+      ? book.AUTHOR + " / " + book.PUBLISHER
+      : "여기를 눌러서 추가할 도서를 검색하세요"
   );
 
   // View
@@ -125,4 +130,5 @@ const BookSelectAreaContainer = styled.div`
     align-items: center;
   }
 `;
+
 export default BookSelectArea;
