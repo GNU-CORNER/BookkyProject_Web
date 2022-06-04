@@ -11,22 +11,44 @@ import { useSelector } from "react-redux";
 // 도서 상세정보
 function BookDetail() {
   // 변수 선언
+  const [fold, setFold] = useState(true);
+  const SideNavState = useSelector((state) => state.SideNavState);
   const location = useLocation();
   const BID = location.pathname.split("/")[2];
   const user = useSelector((state) => state.userData);
   const [book, setBook] = useState({ BOOK_INDEX: "" });
-  const [reviews, setReviews] = useState([{ id: 0 }]);
-  const [fold, setFold] = useState(true);
-  const SideNavState = useSelector((state) => state.SideNavState);
+
+  // 리뷰 형태
+  const [reviews, setReviews] = useState([
+    {
+      AUTHOR: "",
+      RID: 0,
+      TBID: 0,
+      UID: 0,
+      bookTitle: "",
+      contents: "",
+      createAt: "",
+      isAccessible: false,
+      isLiked: false,
+      likeCnt: 0,
+      nickname: "",
+      rating: 0,
+      thumbnail: "",
+      views: 0,
+    },
+  ]);
 
   // getBookData() : 서버로부터 BID 에 따른 도서데이터를 가져옴
   function getBookData() {
-    axios
-      .get("http://203.255.3.144:8002/v1/books/detail/" + BID)
-      .then((res) => {
-        // console.log(res.data.result.bookList);
-        setBook(res.data.result.bookList);
-      });
+    if (user.accessToken.length > 0)
+      axios
+        .get("http://203.255.3.144:8002/v1/books/detail/" + BID, {
+          headers: { "access-token": user.accessToken },
+        })
+        .then((res) => {
+          console.log(res);
+          setBook(res.data.result.bookList);
+        });
   }
 
   // getBookData() : 서버로부터 BID 에 따른 리뷰데이터를 가져옴
@@ -37,13 +59,12 @@ function BookDetail() {
           headers: { "access-token": user.accessToken },
         })
         .then((res) => {
-          console.log(res.data);
           setReviews(res.data.result.reviewList);
         });
   }
 
   // 도서 정보 업데이트
-  useEffect(getBookData, [BID]);
+  useEffect(getBookData, [BID, user.accessToken]);
 
   // 리뷰 정보 업데이트
   useEffect(getReviewData, [BID, user.accessToken]);
@@ -130,12 +151,22 @@ function BookDetail() {
               ? reviews.map((el) => {
                   return (
                     <ReviewCard
-                      key={el.id}
-                      nickname={el.nickname}
+                      key={el.RID}
+                      AUTHOR={el.AUTHOR}
+                      RID={el.RID}
+                      TBID={el.TBID}
+                      UID={el.UID}
+                      bookTitle={el.bookTitle}
                       contents={el.contents}
-                      date={el.createAt}
-                      likeCnt={el.likeCnt}
+                      createAt={el.createAt}
+                      isAccessible={el.isAccessible}
+                      isLiked={el.isLiked}
+                      likeCnt={el.RlikeCntID}
+                      nickname={el.nickname}
                       rating={el.rating}
+                      thumbnail={el.thumbnail}
+                      views={el.views}
+                      userThumbnail={el.userThumbnail}
                     />
                   );
                 })

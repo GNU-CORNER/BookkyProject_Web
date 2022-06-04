@@ -338,6 +338,9 @@ const PostDetail = () => {
                   parentQPID={el.parentQPID}
                   thumbnail={el.thumbnail}
                   book={el.Book}
+                  isAccessible={el.isAccessible}
+                  setReplyWriteModal={setReplyWriteModal}
+                  replyWriteModal={replyWriteModal}
                 />
               );
             })}

@@ -26,7 +26,9 @@ function MenuCard({ title, explain, isnew, kind, course }) {
         navigate("/detective");
         break;
       case "안내견 북키":
-        navigate("/roadmap/" + course);
+        navigate("/error/" + course);
+
+        // navigate("/roadmap/" + course);
         break;
       default:
         break;

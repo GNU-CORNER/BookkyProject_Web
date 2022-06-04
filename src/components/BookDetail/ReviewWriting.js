@@ -9,6 +9,7 @@ const ReviewWriting = ({ BID, getBookData }) => {
   // 변수 선언
   const user = useSelector((state) => state.userData);
   const [contents, setContents] = useState("");
+  const today = new Date();
 
   // writeReview() : 작성한 리뷰 서버로 전송
   function submitReview() {
@@ -29,8 +30,11 @@ const ReviewWriting = ({ BID, getBookData }) => {
     <ReviewWritingContainer>
       {/* 작성자(사용자) 표기 */}
       <MiniProfile
+        userThumbnail={user.thumbnail}
         nickname={user.nickname ? user.nickname : "로그인 후 이용하세요"}
-        date={Date.now()}
+        date={`${today.getFullYear()}-${
+          today.getMonth() + 1
+        }-${today.getDate()}`}
       />
 
       {/* 입력 영역 */}
@@ -47,11 +51,7 @@ const ReviewWriting = ({ BID, getBookData }) => {
             getBookData();
           }}
         >
-          <img
-            src={require("../../assets/icons/community/plus.png")}
-            alt="write"
-          />
-          작성
+          작 성
         </div>
       </InputArea>
     </ReviewWritingContainer>

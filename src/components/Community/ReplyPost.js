@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PostDetailBookCard from "../Cards/PostDetailBookCard";
 import CommentModalContainer from "./CommentModal/CommentModalContainer";
+import ReplyModalContainer from "./ReplyModal/ReplyModalContainer";
 
 // Q&A 게시판 - 게시글 상세보기 답글
 const ReplyPost = ({
@@ -21,6 +22,8 @@ const ReplyPost = ({
   TBID,
   book,
   parentQPID,
+  setReplyWriteModal,
+  replyWriteModal,
 }) => {
   // 변수 선언
   const [commentModal, setCommentModal] = useState(false);
@@ -33,7 +36,7 @@ const ReplyPost = ({
 
   // modifyPost() : 게시글 수정
   function modifyPost() {
-    navigate("/");
+    setReplyWriteModal(true);
   }
 
   // View
@@ -83,6 +86,19 @@ const ReplyPost = ({
             댓글({commentCnt})
           </div>
         </div>
+        <ReplyModalContainer
+          post={{
+            title: title,
+            book: book,
+
+            contents: contents,
+            PID: PID,
+          }}
+          title={title}
+          postImage={postImage}
+          setReplyWriteModal={setReplyWriteModal}
+          replyWriteModal={replyWriteModal}
+        />
         {/* 내가 작성한 게시글이면 게시글 관리 메뉴 출력 (수정 및 삭제) */}
         {isAccessible ? (
           <div className="manage-post bottom">

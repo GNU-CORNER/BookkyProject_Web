@@ -12,6 +12,9 @@ const ReplyModalContainer = ({
   parentQPID,
   parentTitle,
   getPostData,
+  post,
+  title,
+  postImage,
 }) => {
   // 댓글보기 모달 창 View
   return (
@@ -38,6 +41,9 @@ const ReplyModalContainer = ({
             parentQPID={parentQPID}
             parentTitle={parentTitle}
             getPostData={getPostData}
+            post={post}
+            replytitle={title}
+            postImage={postImage}
           />
         </StyledBox>
       </Fade>
