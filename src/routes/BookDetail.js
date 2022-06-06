@@ -94,7 +94,7 @@ function BookDetail() {
           />
           <div className="tagData">
             {book.tagData.map((el) => (
-              <TagCard key={el.length} tag={el.tag} TID={el.TID} />
+              <TagCard key={el.length} tag={el.tag} TMID={el.TMID} />
             ))}
           </div>
           <div className="naver_banner">
