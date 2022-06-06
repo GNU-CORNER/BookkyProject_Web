@@ -31,7 +31,7 @@ const WritePost = () => {
         break;
       case "trade":
         setSlug(1);
-        setBoardname("중고장터");
+        setBoardname("책 장터");
         break;
       case "qna":
         setSlug(2);

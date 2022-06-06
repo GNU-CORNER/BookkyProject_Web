@@ -7,6 +7,8 @@ import BookDetailHeader from "../components/BookDetail/BookDetailHeader";
 import ReviewCard from "../components/Cards/ReviewCard";
 import ReviewWriting from "../components/BookDetail/ReviewWriting";
 import { useSelector } from "react-redux";
+import Rating from "@mui/material/Rating";
+import TagCard from "../components/Cards/TagCard";
 
 // 도서 상세정보
 function BookDetail() {
@@ -16,7 +18,7 @@ function BookDetail() {
   const location = useLocation();
   const BID = location.pathname.split("/")[2];
   const user = useSelector((state) => state.userData);
-  const [book, setBook] = useState({ BOOK_INDEX: "" });
+  const [book, setBook] = useState({ BOOK_INDEX: "", tagData: [""] });
 
   // 리뷰 형태
   const [reviews, setReviews] = useState([
@@ -81,8 +83,20 @@ function BookDetail() {
             {book.AUTHOR} / {book.PUBLISHER}
           </p>
           <hr />
-          <p>★★★★☆</p>
-          <p>#리액트 #C++ #C언어 #자바스크립트</p>
+          {/* 별점, 관련태그 */}
+          <Rating
+            className="starRating"
+            name="half-rating"
+            value={parseFloat(book.RATING)}
+            defaultValue={0}
+            precision={0.5}
+            readOnly
+          />
+          <div className="tagData">
+            {book.tagData.map((el) => (
+              <TagCard key={el.length} tag={el.tag} TID={el.TID} />
+            ))}
+          </div>
           <div className="naver_banner">
             <img
               src={require("../assets/icons/login/naver_banner.png")}
@@ -188,6 +202,12 @@ const Summary = styled.div`
   display: grid;
   justify-content: center;
   grid-template-columns: minmax(250px, 18vw) minmax(250px, 39vw);
+
+  .tagData {
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+  }
 
   img {
     justify-self: center;

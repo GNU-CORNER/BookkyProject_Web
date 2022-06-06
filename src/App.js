@@ -108,6 +108,7 @@ const FlexDiv = styled.div`
 `;
 
 const GlobalStyle = createGlobalStyle`
+
   :root {
     --main-color : #6e95ff;
     --sub-color : #FFA24D;
@@ -118,6 +119,9 @@ const GlobalStyle = createGlobalStyle`
     --none-folded-width : calc(100vw - 160px);
     --folded-width : calc(100vw);
     line-height: 1;
+    font-family: "KoddiUD";
+
+    
   }
   
   ::-webkit-scrollbar {
@@ -128,6 +132,7 @@ const GlobalStyle = createGlobalStyle`
     margin : 0;
     padding : 0;
     background-color: var(--bright-base-bg-color);
+    
 
   /* 스크롤바 hidden */
 
