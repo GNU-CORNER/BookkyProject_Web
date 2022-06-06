@@ -1,15 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 // Home - 오늘의 추천도서 도서 카드
-const TodayBookCard = () => {
+const TodayBookCard = ({ TBID, thumbnailImage }) => {
+  const navigate = useNavigate();
   // 도서카드 View
   return (
-    <TodayBookCardContainer>
+    <TodayBookCardContainer onClick={() => navigate("/books/" + TBID)}>
       <div className="shelf" />
-      <img
-        src={"http://203.255.3.144:8010/thumbnail/bookThumbnail/289275287.png"}
-        alt="Book Thumbnail"
-      />
+      <img src={thumbnailImage} alt="Book Thumbnail" />
     </TodayBookCardContainer>
   );
 };
@@ -36,6 +35,7 @@ const TodayBookCardContainer = styled.div`
   }
 
   img {
+    height: 130px;
     transform: rotateY(-30deg);
     transition: all 0.4s;
     border-radius: 2px;

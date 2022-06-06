@@ -18,7 +18,10 @@ function BookDetail() {
   const location = useLocation();
   const BID = location.pathname.split("/")[2];
   const user = useSelector((state) => state.userData);
-  const [book, setBook] = useState({ BOOK_INDEX: "", tagData: [""] });
+  const [book, setBook] = useState({
+    BOOK_INDEX: "",
+    tagData: [{ tag: "", TMID: 0 }],
+  });
 
   // 리뷰 형태
   const [reviews, setReviews] = useState([
@@ -93,8 +96,9 @@ function BookDetail() {
             readOnly
           />
           <div className="tagData">
-            {book.tagData.map((el) => (
-              <TagCard key={el.length} tag={el.tag} TMID={el.TMID} />
+            {console.log("ㅋㅋ", book)}
+            {book.tagData.map((el, cnt) => (
+              <TagCard key={cnt} tag={el.tag} TMID={el.TMID} />
             ))}
           </div>
           <div className="naver_banner">
@@ -204,9 +208,11 @@ const Summary = styled.div`
   grid-template-columns: minmax(250px, 18vw) minmax(250px, 39vw);
 
   .tagData {
+    float: left;
     height: fit-content;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
   }
 
   img {

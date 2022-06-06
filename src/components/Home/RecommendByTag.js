@@ -29,6 +29,7 @@ const RecommendByTag = () => {
         },
       })
       .then((res) => {
+        console.log(res);
         dispatch(updateHomeBooks(res.data.result.bookList));
         setNowSelect(res.data.result.bookList[1]);
         setNowTMID(res.data.result.bookList[1].TMID);
