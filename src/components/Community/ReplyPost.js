@@ -220,7 +220,6 @@ const ReplyPostContainer = styled.div`
         height: 20px;
         vertical-align: -4px;
         background-size: cover;
-        background-image: url(${require("../../assets/icons/community/heart.png")});
       }
     }
 

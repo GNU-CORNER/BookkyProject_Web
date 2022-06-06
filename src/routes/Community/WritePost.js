@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import BookSelectArea from "../../components/Community/BookSelectArea";
 import PageHeader from "../../components/PageHeader";
+import { ReactComponent as Upload } from "../../assets/icons/community/upload.svg"; // 모달 닫기 버튼
 
 // 커뮤니티 - 글쓰기
 const WritePost = () => {
@@ -131,11 +132,8 @@ const WritePost = () => {
           {/* 이미지 업로드 */}
           <label htmlFor="input-img">
             <div className="upload upload-btn">
-              <img
-                className="upload-btn"
-                src={require("../../assets/icons/community/upload.png")}
-                alt="upload-Btn-img"
-              />
+              <Upload className="upload-btn" />
+
               <div>이미지 업로드</div>
             </div>
           </label>
@@ -244,7 +242,7 @@ const ImgSelectArea = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 2px solid var(--main-color);
+    border: 2px solid gray;
     border-radius: 4px;
     width: 100px;
     height: 100px;
@@ -256,9 +254,22 @@ const ImgSelectArea = styled.div`
       margin: 5px 0 0 0;
     }
 
-    img {
+    svg {
+      transition: all 0.3s;
+      fill: gray;
       width: 40px;
       height: 40px;
+    }
+
+    :hover {
+      color: var(--main-color);
+      border: 2px solid var(--main-color);
+      cursor: pointer;
+    }
+
+    :hover svg {
+      border: none;
+      fill: #6e95ff;
     }
   }
 

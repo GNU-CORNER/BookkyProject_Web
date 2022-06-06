@@ -9,6 +9,8 @@ import CommentModalContainer from "../../components/Community/CommentModal/Comme
 import ReplyModalContainer from "../../components/Community/ReplyModal/ReplyModalContainer";
 import ReplyPost from "../../components/Community/ReplyPost";
 import PageHeader from "../../components/PageHeader";
+import { ReactComponent as UnLike } from "../../assets/icons/community/heart.svg"; // 모달 닫기 버튼
+import { ReactComponent as Like } from "../../assets/icons/community/heart-fill.svg"; // 모달 닫기 버튼
 
 // 커뮤니티 - 게시글 상세보기
 const PostDetail = () => {
@@ -78,6 +80,7 @@ const PostDetail = () => {
       updateAt: "",
       views: 0,
       Book: {},
+      isLiked: false,
     },
   ]);
 
@@ -171,7 +174,9 @@ const PostDetail = () => {
             },
           }
         )
-        .then((res) => console.log(res));
+        .then((res) => {
+          if (res.data.success === true) getPostData();
+        });
   }
 
   // modifyPost() : 게시글 수정
@@ -252,6 +257,7 @@ const PostDetail = () => {
           {/* 좋아요 */}
           <div className="reactions bottom">
             <div className="likes" onClick={() => likePost()}>
+              {post.isLiked ? <Like fill="rgb(255,122,122)" /> : <UnLike />}
               좋아요({post.like.length})
             </div>
 
@@ -484,20 +490,16 @@ const ContentArea = styled.div`
 
     .likes {
       margin-right: 15px;
+      display: flex;
+      align-items: center;
 
+      svg {
+        width: 18px;
+        height: 18px;
+        margin-right: 5px;
+      }
       :hover {
         cursor: pointer;
-      }
-
-      ::before {
-        display: inline-block;
-        content: "";
-        margin-right: 3px;
-        width: 20px;
-        height: 20px;
-        vertical-align: -4px;
-        background-size: cover;
-        background-image: url(${require("../../assets/icons/community/heart.png")});
       }
     }
 

@@ -6,6 +6,7 @@ import {
   updateUserNickname,
   updateUserThumbnail,
 } from "../../../redux-modules/userData";
+import { ReactComponent as Close } from "../../../assets/icons/community/cross.svg"; // 모달 닫기 버튼
 
 // 내 정보 - 사용자 정보 수정
 const EditUserModal = ({ setEditUserModal, userData }) => {
@@ -79,6 +80,15 @@ const EditUserModal = ({ setEditUserModal, userData }) => {
   // View
   return (
     <EditUserModalContainer>
+      {/* 모달 닫기 버튼 */}
+      <Close
+        className="close-btn"
+        onClick={() =>
+          window.confirm("회원 정보 변경을 취소하시겠습니까?")
+            ? setEditUserModal(false)
+            : ""
+        }
+      />
       <div className="inner">
         <h2 className="header">프로필 수정</h2>
 
@@ -162,6 +172,18 @@ const EditUserModal = ({ setEditUserModal, userData }) => {
 const EditUserModalContainer = styled.div`
   position: relative;
   height: 100%;
+
+  .close-btn {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 20px;
+    top: 2vh;
+
+    :hover {
+      cursor: pointer;
+    }
+  }
 
   .inner {
     padding: 30px;
