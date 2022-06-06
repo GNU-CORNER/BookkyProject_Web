@@ -34,8 +34,8 @@ const EditUserModal = ({ setEditUserModal, userData }) => {
         console.log("정보 변경 완료", res);
         if (res.status === 200) {
           setEditUserModal(false);
-          dispatch(updateUserThumbnail(res.data.route));
-          dispatch(updateUserNickname(res.data.nickname));
+          dispatch(updateUserThumbnail(res.data.result.route));
+          dispatch(updateUserNickname(res.data.result.nickname));
         }
       });
   }

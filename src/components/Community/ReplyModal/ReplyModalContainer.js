@@ -15,10 +15,11 @@ const ReplyModalContainer = ({
   post,
   title,
   postImage,
+  replyCnt,
 }) => {
   // 댓글보기 모달 창 View
   return (
-    <Modal
+    <StyledModal
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
       open={replyWriteModal}
@@ -47,11 +48,16 @@ const ReplyModalContainer = ({
           />
         </StyledBox>
       </Fade>
-    </Modal>
+    </StyledModal>
   );
 };
 
 //////////////////////////////////////// Styled-Components, Fade style 정의
+const StyledModal = styled(Modal)`
+  .css-sox5kk-MuiBackdrop-root {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+  }
+`;
 const style = {
   position: "absolute",
   top: "50%",

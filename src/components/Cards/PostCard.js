@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { ReactComponent as Like } from "../../assets/icons/community/heart-fill.svg"; // 좋아요 아이콘
+import { ReactComponent as Comment } from "../../assets/icons/community/comment.svg"; // 좋아요 아이콘
 
 // 커뮤니티 - 게시글 한 개마다의 표현 단위
 const PostCard = ({
@@ -25,12 +27,9 @@ const PostCard = ({
       <div className="flex-area">
         <div className="title">{title}</div>
         <div className="counts">
-          <img src={require("../../assets/icons/community/like.png")} alt="" />
+          <Like width="20px" height="20px" fill="rgb(255,122,122)" alt="" />
           <p>{likes}</p>
-          <img
-            src={require("../../assets/icons/community/comment.png")}
-            alt=""
-          />
+          <Comment width="20px" height="20px" fill="#6e95ff" alt="" />
           <p>{comments}</p>
         </div>
       </div>
@@ -68,14 +67,13 @@ const PostCardContainer = styled.div`
   .counts {
     display: flex;
 
-    img {
-      width: 18px;
-      height: 18px;
-      margin: auto 8px;
+    svg {
+      margin-left: 3px;
     }
-
     p {
+      margin: auto 5px;
       font-size: 0.9em;
+      font-weight: bold;
     }
   }
   .content {

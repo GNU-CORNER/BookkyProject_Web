@@ -3,6 +3,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import AddBooksCard from "../../Cards/AddBooksCard";
 import PageHeader from "../../PageHeader";
+import { ReactComponent as Close } from "../../../assets/icons/community/cross.svg"; // 모달 닫기 버튼
 
 // 게시글 작성 - 도서 첨부 시의 모달 창 Inner
 const AddBooksModal = ({
@@ -48,12 +49,7 @@ const AddBooksModal = ({
       />
 
       {/* 모달 닫기 버튼 */}
-      <img
-        className="close-btn"
-        src={require("../../../assets/icons/community/close.png")}
-        onClick={() => setAddBooksModal(false)}
-        alt="close-btn"
-      />
+      <Close className="close-btn" onClick={() => setAddBooksModal(false)} />
 
       {/* 검색바 - input */}
       <input
@@ -105,6 +101,7 @@ const AddBooksModalContainer = styled.div`
   .close-btn {
     position: absolute;
     width: 30px;
+    height: 30px;
     right: 0;
     top: 2vh;
 

@@ -58,7 +58,7 @@ const RecommendByTag = () => {
     });
   }
   // 최초 렌더링 시, getData()
-  useEffect(getData, [user.accessToken, dispatch]);
+  useEffect(getData, [user.accessToken]);
 
   // 로딩 버튼 출력
   if (loading === true) {

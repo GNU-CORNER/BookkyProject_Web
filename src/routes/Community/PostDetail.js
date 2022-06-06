@@ -311,6 +311,7 @@ const PostDetail = () => {
                 parentQPID={PID}
                 parentTitle={post.title}
                 getPostData={getPostData}
+                replyCnt={replyCnt}
               />
               <div className="reply-cnt">{replyCnt}개의 답글</div>
               <div

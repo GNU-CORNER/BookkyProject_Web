@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Comment from "../Comment";
+import { ReactComponent as Close } from "../../../assets/icons/community/cross.svg"; // 모달 닫기 버튼
 
 // Q&A 게시글 상세보기 - 댓글 보기 모달 창 Inner
 const CommentModal = ({
@@ -82,12 +83,7 @@ const CommentModal = ({
         <p className="reply-cnt">{commentCnt}개의 댓글</p>
 
         {/* 모달 닫기 버튼 */}
-        <img
-          className="close-btn"
-          src={require("../../../assets/icons/community/close.png")}
-          onClick={() => setCommentModal(false)}
-          alt="close-btn"
-        />
+        <Close className="close-btn" onClick={() => setCommentModal(false)} />
 
         {/* 댓글 입력 부분 */}
         <div className="input-area">
@@ -137,6 +133,7 @@ const WriteComment = styled.div`
   .close-btn {
     position: absolute;
     width: 30px;
+    height: 30px;
     right: 40px;
     top: 30px;
 

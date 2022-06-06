@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PageHeader from "../../PageHeader";
 import BookSelectArea from "../BookSelectArea";
+import { ReactComponent as Close } from "../../../assets/icons/community/cross.svg"; // 모달 닫기 버튼
 
 // Q&A 게시글 - 답글 작성 모달 창 Inner
 const ReplyModal = ({
@@ -23,7 +24,6 @@ const ReplyModal = ({
   const [TBID, setTBID] = useState(0);
   const [images, setImages] = useState([]);
 
-  console.log("이거", parentQPID);
   function onSubmit() {
     console.log("부모 게시글 검사 QPID", parentQPID);
     console.log("Images 형태 검사 (base64)", images);
@@ -73,16 +73,15 @@ const ReplyModal = ({
   return (
     // 답글 작성 모달 창 View
     <ReplyModalContainer>
-      <img
+      <Close
         className="close-btn"
-        src={require("../../../assets/icons/community/close.png")}
         onClick={() =>
           window.confirm("답글 작성을 취소하시겠습니까?")
             ? setReplyWriteModal(false)
             : {}
         }
-        alt="close-btn"
       />
+
       {/* 헤더 */}
       <PageHeader title="답글 작성" subTitle={"대상 글 : " + parentTitle} />
 
@@ -169,6 +168,7 @@ const ReplyModalContainer = styled.div`
   .close-btn {
     position: absolute;
     width: 30px;
+    height: 30px;
     right: 40px;
     top: 30px;
 
@@ -227,6 +227,7 @@ const InputArea = styled.div`
     color: white;
     font-weight: bold;
     width: fit-content;
+
     :hover {
       cursor: pointer;
     }
