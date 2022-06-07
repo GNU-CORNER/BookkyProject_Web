@@ -37,7 +37,7 @@ const ModifyPost = () => {
           contents: contents,
           TBID: TBID,
           PID: postData.PID,
-          images: images,
+          Images: images,
           parentQPID: parentQPID,
         },
         {
@@ -47,6 +47,7 @@ const ModifyPost = () => {
         }
       )
       .then((res) => {
+        console.log(res);
         if (res.data.success === true)
           navigate("/postdetail/" + postData.boardNum + "/" + postData.PID);
       });

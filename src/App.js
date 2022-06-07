@@ -75,7 +75,8 @@ function App() {
           else {
             console.log("로그인 실패");
           }
-        });
+        })
+        .catch((error) => console.log(error));
     }
   };
 

@@ -142,6 +142,7 @@ const WritePost = () => {
             id="input-img"
             accept="image/*"
             onChange={(e) => {
+              console.log(e.target.files[0]);
               const reader = new FileReader(); // FileReader 객체 생성
               reader.readAsDataURL(e.target.files[0]);
               reader.onloadend = () => setImages([...images, reader.result]);

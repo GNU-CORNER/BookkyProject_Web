@@ -23,7 +23,7 @@ const Comment = ({
   const [replyForm, setReplyForm] = useState(false);
   const [userComment, setUserComment] = useState("");
 
-  // submitComment() : 댓글 작성 통신
+  // submitComment() : 대댓글 작성 통신
   function submitComment() {
     console.log("postID", PID);
     axios
@@ -31,7 +31,7 @@ const Comment = ({
         "http://203.255.3.144:8002/v1/community/writecomment/" + boardNum,
         {
           comment: userComment,
-          parentID: CID,
+          parentID: CID, // CID(대댓글의 경우) or 0(댓글작성의 경우)
           PID: PID,
         },
         {

@@ -120,7 +120,7 @@ const PostDetail = () => {
           }
         )
         .then((res) => {
-          console.log("이거다아", res);
+          console.log("게시글 데이터 요청", res);
           setPost(res.data.result.postdata);
           setCommentCnt(res.data.result.commentCnt);
           setCommentArray(res.data.result.commentdata);
@@ -181,6 +181,7 @@ const PostDetail = () => {
 
   // modifyPost() : 게시글 수정
   function modifyPost() {
+    console.log(post.postImage);
     navigate("/modifypost", {
       state: {
         post: post,

@@ -53,7 +53,6 @@ function SideNav() {
 
 //////////////////////////////////////// Styled-Components
 const SideNavContainer = styled.div`
-  //사이드바 접으면 여기 바꿔야아함 (display:flex)
   display: block;
   flex-direction: column;
   position: fixed;

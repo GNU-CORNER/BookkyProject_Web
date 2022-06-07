@@ -14,7 +14,7 @@ const Posts = ({ posts, slug }) => {
       {posts.map((el, cnt) => {
         if (cnt < 3)
           return (
-            <div className="post">
+            <div key={cnt} className="post">
               <Post width="18px" height="18px" />
               <h4
                 key={el.PID}
