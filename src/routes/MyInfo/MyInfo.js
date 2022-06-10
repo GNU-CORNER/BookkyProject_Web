@@ -8,6 +8,8 @@ import axios from "axios";
 import MyReviews from "../../components/MyInfo/MyReviews";
 import MyPosts from "../../components/MyInfo/MyPosts";
 import EditUserModalContainer from "../../components/MyInfo/EditUser/EditUserModalContainer";
+import { ReactComponent as Settings } from "../../assets/icons/vector/settings.svg"; // Setting 아이콘
+import { useNavigate } from "react-router-dom";
 
 // SideBar - 내 정보
 function MyInfo() {
@@ -17,7 +19,7 @@ function MyInfo() {
   const [myPostCnt, setMyPostCnt] = useState(0);
   const [editUserModal, setEditUserModal] = useState(false);
   const [userData, setUserData] = useState({ nickname: "", userThumbnail: "" });
-
+  const navigate = useNavigate();
   // 내 게시글 형태 정의
   const [myPosts, setMyPosts] = useState([
     {
@@ -71,13 +73,12 @@ function MyInfo() {
             <span className="name">{user.nickname}</span>
             {user.accessToken ? " 님" : ""}의 정보입니다
             {/* 사용자 정보 수정 버튼 */}
-            <img
+            <Settings
               className="setting-icon"
-              src={require("../../assets/icons/myinfo/setting.png")}
               onClick={() => {
                 setEditUserModal(true);
               }}
-              alt="setting menu"
+              fill="black"
             />
           </div>
           {/*  서브 데이터 (각 항목 별 개수) */}
@@ -98,7 +99,12 @@ function MyInfo() {
 
         {/* 내 게시글 */}
         <div className="myPost">
-          <ContentsHeader title="내가 작성한 게시글" />
+          <div
+            className="myPost-onclick"
+            onClick={() => navigate("/myposts/1")}
+          >
+            <ContentsHeader title="내가 작성한 게시글 >" />
+          </div>
           <div className="posts">
             <MyPosts myPosts={myPosts} />
           </div>
@@ -150,11 +156,18 @@ const ContentContainer = styled.div`
     border-radius: 5px;
     padding: 15px;
     box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
+
+    .myPost-onclick {
+      width: fit-content;
+      cursor: pointer;
+    }
+
     .posts {
       margin: 0 5px;
       display: flex;
       flex-direction: column;
-      height: 245px;
+      height: 210px;
+      justify-content: center;
     }
   }
   .myReview {
@@ -187,7 +200,7 @@ const Title = styled.div`
 
   .setting-icon {
     display: inline-block;
-    vertical-align: -5px;
+    vertical-align: -1px;
     width: 20px;
     height: 20px;
     margin-left: 5px;

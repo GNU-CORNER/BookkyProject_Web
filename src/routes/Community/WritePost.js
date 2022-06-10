@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import BookSelectArea from "../../components/Community/BookSelectArea";
 import PageHeader from "../../components/PageHeader";
+import { ReactComponent as Upload } from "../../assets/icons/community/upload.svg"; // 모달 닫기 버튼
 
 // 커뮤니티 - 글쓰기
 const WritePost = () => {
@@ -31,7 +32,7 @@ const WritePost = () => {
         break;
       case "trade":
         setSlug(1);
-        setBoardname("중고장터");
+        setBoardname("책 장터");
         break;
       case "qna":
         setSlug(2);
@@ -115,7 +116,7 @@ const WritePost = () => {
           {`${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`}
         </p>
 
-        {/* 도서 선택 모달 */}
+        {/* 도서 선택 영역 */}
         <BookSelectArea setTBID={setTBID} />
 
         {/* 업로드 된 이미지 Preview */}
@@ -131,11 +132,8 @@ const WritePost = () => {
           {/* 이미지 업로드 */}
           <label htmlFor="input-img">
             <div className="upload upload-btn">
-              <img
-                className="upload-btn"
-                src={require("../../assets/icons/community/upload.png")}
-                alt="upload-Btn-img"
-              />
+              <Upload className="upload-btn" />
+
               <div>이미지 업로드</div>
             </div>
           </label>
@@ -144,6 +142,7 @@ const WritePost = () => {
             id="input-img"
             accept="image/*"
             onChange={(e) => {
+              console.log(e.target.files[0]);
               const reader = new FileReader(); // FileReader 객체 생성
               reader.readAsDataURL(e.target.files[0]);
               reader.onloadend = () => setImages([...images, reader.result]);
@@ -244,7 +243,7 @@ const ImgSelectArea = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 2px solid var(--main-color);
+    border: 2px solid gray;
     border-radius: 4px;
     width: 100px;
     height: 100px;
@@ -256,9 +255,22 @@ const ImgSelectArea = styled.div`
       margin: 5px 0 0 0;
     }
 
-    img {
+    svg {
+      transition: all 0.3s;
+      fill: gray;
       width: 40px;
       height: 40px;
+    }
+
+    :hover {
+      color: var(--main-color);
+      border: 2px solid var(--main-color);
+      cursor: pointer;
+    }
+
+    :hover svg {
+      border: none;
+      fill: #6e95ff;
     }
   }
 

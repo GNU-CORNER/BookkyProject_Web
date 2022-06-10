@@ -26,7 +26,7 @@ function HotBoard() {
   function getPosts() {
     axios
       .get(
-        "http://203.255.3.144:8002/v1/community/hotcommunity", //추후 0대신 핫게 숫자로 변경(05/27)
+        "http://203.255.3.144:8002/v1/community/hotcommunity",
         {
           params: {
             quantity: 10,

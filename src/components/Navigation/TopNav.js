@@ -103,7 +103,7 @@ function TopNav() {
           <StyledLink to="/hot/1">H🔥T게시판</StyledLink>
           <StyledLink to="/free/1">자유게시판</StyledLink>
           <StyledLink to="/qna/1">Q{"&"}A게시판</StyledLink>
-          <StyledLink to="/trade/1">중고장터</StyledLink>
+          <StyledLink to="/trade/1">책 장터</StyledLink>
         </div>
       </div>
 

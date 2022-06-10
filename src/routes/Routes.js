@@ -30,6 +30,7 @@ import TagDetail from "./TagDetail";
 import WritePost from "./Community/WritePost";
 import PostDetail from "./Community/PostDetail";
 import RoadMap from "../components/Recommend/Guide/RoadMap";
+import ModifyPost from "./Community/ModifyPost";
 
 // 전체 URL 경로에 대한 명세
 function BookkyRoutes() {
@@ -69,6 +70,7 @@ function BookkyRoutes() {
         <Route path="/trade/:page" element={<TradeBoard />} />
         <Route path="/postdetail/:board/:pid" element={<PostDetail />} />
         <Route path="/writepost" element={<WritePost />} />
+        <Route path="/modifypost" element={<ModifyPost />} />
 
         <Route path="/detective" element={<Detective />} />
         <Route path="/guide" element={<Guide />} />

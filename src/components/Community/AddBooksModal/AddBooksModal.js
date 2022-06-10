@@ -3,6 +3,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import AddBooksCard from "../../Cards/AddBooksCard";
 import PageHeader from "../../PageHeader";
+import { ReactComponent as Close } from "../../../assets/icons/community/cross.svg"; // 모달 닫기 버튼
 
 // 게시글 작성 - 도서 첨부 시의 모달 창 Inner
 const AddBooksModal = ({
@@ -21,13 +22,15 @@ const AddBooksModal = ({
     { TBID: 0, TITLE: "", AUTHOR: "", PUBLISHER: "" },
   ]);
 
-  // getBooks() : 서버로부터 검색 결과 받아오기
+  // getBooks() : 서버로부터 검색 결과 받아오기   무한스크롤 또는 페이지네이션 추가해야 함.
   function getBooks() {
     console.log(input);
     axios
-      .get("http://203.255.3.144:8002/v1/books/search", {
+      .get("http://203.255.3.144:8002/v1/community/post/book", {
         params: {
           keyword: input,
+          quantity: 10,
+          page: 1,
         },
       })
       .then((res) => {
@@ -46,12 +49,7 @@ const AddBooksModal = ({
       />
 
       {/* 모달 닫기 버튼 */}
-      <img
-        className="close-btn"
-        src={require("../../../assets/icons/community/close.png")}
-        onClick={() => setAddBooksModal(false)}
-        alt="close-btn"
-      />
+      <Close className="close-btn" onClick={() => setAddBooksModal(false)} />
 
       {/* 검색바 - input */}
       <input
@@ -103,6 +101,7 @@ const AddBooksModalContainer = styled.div`
   .close-btn {
     position: absolute;
     width: 30px;
+    height: 30px;
     right: 0;
     top: 2vh;
 

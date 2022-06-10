@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { ReactComponent as Post } from "../../assets/icons/community/document.svg"; // 모달 닫기 버튼
 
 // 커뮤니티 홈 - 게시글 제목
 const PostTitle = ({ title, PID, kind }) => {
@@ -12,7 +13,7 @@ const PostTitle = ({ title, PID, kind }) => {
       onClick={() => navigate("/postdetail/" + kind + "/" + PID)}
     >
       <Contents>
-        <img src={require("../../assets/icons/community/post.png")} alt="" />
+        <Post />
         <Title>{title}</Title>
       </Contents>
     </PostTitleContainer>
@@ -25,8 +26,9 @@ const PostTitleContainer = styled.div`
   line-height: 40px;
   font-size: 0.8em;
 
-  img {
-    width: 20px;
+  svg {
+    width: 24px;
+    height: 24px;
   }
 `;
 

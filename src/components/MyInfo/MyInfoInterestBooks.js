@@ -1,10 +1,33 @@
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 import BookCard from "../Cards/BookCard";
+import { useEffect } from "react";
+import { updateInterests } from "../../redux-modules/books";
 
 //MyInfo - 내 관심도서 컴포넌트
 const InterestBooks = () => {
+  const user = useSelector((state) => state.userData);
   const mybooks = useSelector((state) => state.books.interests);
+  const dispatch = useDispatch();
+
+  // getBooks() : 서버로부터 사용자의 관심도서를 받아 redux-store에 저장
+  function getBooks() {
+    if (user.accessToken) {
+      console.log("성공");
+      axios
+        .get("http://203.255.3.144:8002/v1/user/favoritebook/0", {
+          headers: {
+            "access-token": user.accessToken,
+          },
+        })
+        .then((res) => {
+          dispatch(updateInterests(res.data.result.favoriteBookList));
+        });
+    }
+  }
+
+  useEffect(getBooks, [user, dispatch]);
 
   // View
   return (
@@ -19,8 +42,8 @@ const InterestBooks = () => {
             if (cnt < 4)
               return (
                 <BookCard
-                  key={book.BID}
-                  bid={book.BID}
+                  key={cnt}
+                  bid={book.TBID}
                   className="nodrag"
                   title={book.TITLE}
                   thumnail={book.thumbnailImage}

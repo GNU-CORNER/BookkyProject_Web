@@ -72,7 +72,7 @@ function SignUp() {
           }
         });
     } else {
-      alert("이메일이 인증되지 않았습니다");
+      alert("회원가입에 실패했습니다.");
     }
   }
 

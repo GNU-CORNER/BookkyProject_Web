@@ -60,7 +60,7 @@ const HomeCommunityContainer = styled.div`
   h3 {
     margin-bottom: 5px;
     width: 120px;
-    font-size: 1.05em;
+    font-size: 1em;
     font-weight: bold;
     margin-left: 0;
     transition: all 0.3s;
@@ -77,8 +77,8 @@ const HomeCommunityContainer = styled.div`
     height: 120px;
     display: flex;
     flex-direction: column;
-    padding: 10px;
-    margin: 5px;
+    padding: 15px;
+    margin: 0 5px 5px 5px;
     border-radius: 5px;
     box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
   }

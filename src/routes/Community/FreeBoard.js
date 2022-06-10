@@ -27,7 +27,7 @@ function FreeBoard() {
   function getPosts() {
     axios
       .get(
-        "http://203.255.3.144:8002/v1/community/postlist/0",
+        "http://203.255.3.144:8002/v1/community/postlist/0", // postlist/0 or postlist/1 or postlist/2 or postlist/3 or /hotcommunity
         {
           params: {
             quantity: 10,
@@ -42,7 +42,7 @@ function FreeBoard() {
       )
       .then((res) => {
         setCount(res.data.result.total_size);
-        dispatch(updateFree(res.data.result.postList));
+        dispatch(updateFree(res.data.result.postList)); // updateFree or updateHot or updateMyPosts or updateQnA or updateTrade
       });
   }
 

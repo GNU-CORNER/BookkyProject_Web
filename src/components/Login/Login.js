@@ -44,6 +44,7 @@ function Login({ modalOpen, updateUser }) {
     axios
       .post("http://203.255.3.144:8002/v1/user/signin", params, {})
       .then((res) => {
+        console.log(res);
         // 로그인 통신 성공 시
         if (res.data.success === true) {
           // 통신에 성공했을 때, 쿠키의 만료시간 생성 (만료시간 == 1시간)

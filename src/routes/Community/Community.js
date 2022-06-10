@@ -73,7 +73,7 @@ function Community() {
           ))}
         </div>
         <div className="tradeBoard">
-          <BoardTitle title="중고장터" kind="trade" />
+          <BoardTitle title="책 장터" kind="trade" />
           {posts.MarketList.map((post, cnt) => (
             <PostTitle
               key={post.PID}

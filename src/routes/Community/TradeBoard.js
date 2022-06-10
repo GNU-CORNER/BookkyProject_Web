@@ -10,7 +10,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { updateTrade } from "../../redux-modules/posts";
 
-// 커뮤니티 - 중고장터
+// 커뮤니티 - 책 장터
 function TradeBoard() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -64,10 +64,10 @@ function TradeBoard() {
   // 페이지 이동 시, 해당 페이지로 url 변경
   useEffect(() => navigate("/trade/" + page), [page, navigate]);
 
-  // 중고장터 View
+  // 책 장터 View
   return (
     <TradeBoardContainer width={SideNavState.width}>
-      <PageHeader title="중고장터" subTitle="읽지 않는 책을 사고 파세요" />
+      <PageHeader title="책 장터" subTitle="읽지 않는 책을 사고 파세요" />
       <Posts>
         <Notice notice="상대방을 비방하는 글은 자제해주세요" />
         {posts.map((post) => (

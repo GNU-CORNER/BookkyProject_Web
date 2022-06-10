@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { ReactComponent as ReplyCommentIcon } from "../../assets/icons/community/reply-all.svg"; // 모달 닫기 버튼
 
 // 게시글 상세보기 - 대댓글
 const Reply = ({
@@ -43,11 +44,7 @@ const Reply = ({
   // View
   return (
     <ReplyContainer>
-      <img
-        className="reply-icon"
-        src={require("../../assets/icons/community/reply.png")}
-        alt="reply icon"
-      />
+      <ReplyCommentIcon className="reply-icon" fill="#6e95ff" />
       <div className="reply-contents">
         <div className="manage-comment">
           {user.nickname === nickname ? (
@@ -83,15 +80,19 @@ const ReplyContainer = styled.div`
   display: flex;
   margin: 10px 0;
 
+  svg {
+  }
   .reply-icon {
     margin: auto 20px;
     width: 30px;
     height: 30px;
+    transform: rotateY(180deg);
+    transform: rotateZ(180deg);
   }
 
   .reply-contents {
     width: 100%;
-    padding: 15px;
+    padding-top: 15px;
     border-radius: 5px;
     background-color: #f9f9f9;
   }

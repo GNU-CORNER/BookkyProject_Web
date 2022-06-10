@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { setFold } from "../../redux-modules/sideNav";
+import { ReactComponent as ToRight } from "../../assets/icons/sideNav/alt-from-left.svg";
+import { ReactComponent as ToLeft } from "../../assets/icons/sideNav/alt-from-right.svg";
 
 // Sidebar 접기 버튼 >> <<
 const SideNavFoldBtn = () => {
@@ -15,11 +17,7 @@ const SideNavFoldBtn = () => {
         left="120px"
         onClick={() => dispatch(setFold(true, "100vw"))}
       >
-        <img
-          className="left"
-          src={require("../../assets/icons/sideNav/to-left-arrow.png")}
-          alt="Sidenav-fold-btn left"
-        />
+        <ToLeft className="left" />
       </SideNavFoldBtnContainer>
     );
   }
@@ -30,11 +28,7 @@ const SideNavFoldBtn = () => {
         left="10px"
         onClick={() => dispatch(setFold(false, "calc(100vw - 160px)"))}
       >
-        <img
-          className="right"
-          src={require("../../assets/icons/sideNav/to-right-arrow.png")}
-          alt="Sidenav-fold-btn Right"
-        />
+        <ToRight className="right" />
       </SideNavFoldBtnContainer>
     );
   }
@@ -44,10 +38,13 @@ const SideNavFoldBtn = () => {
 const SideNavFoldBtnContainer = styled.div`
   position: fixed;
   left: ${(props) => props.left};
-  bottom: 20px;
+  bottom: 15px;
   z-index: 99;
 
-  img {
+  svg {
+    fill: #6e95ff;
+    width: 30px;
+    height: 30px;
     transition: all 0.4s;
   }
   :hover {
