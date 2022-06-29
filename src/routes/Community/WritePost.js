@@ -12,8 +12,10 @@ const WritePost = () => {
   // 변수 선언
   const today = new Date();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.userData);
-  const SideNavState = useSelector((state) => state.SideNavState);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
+  const SideNavState = state.SideNavState;
   const location = useLocation().state;
   const [boardName, setBoardname] = useState("");
   const [slug, setSlug] = useState(0);
@@ -75,16 +77,12 @@ const WritePost = () => {
 
     // post 통신 : 게시글 작성
     axios
-      .post(
-        "http://203.255.3.144:8002/v1/community/writepost/" + slug,
-        params,
-        {
-          headers: {
-            "access-token": user.accessToken,
-          },
-          "Content-Type": "application/json",
-        }
-      )
+      .post(baseURL + "community/writepost/" + slug, params, {
+        headers: {
+          "access-token": user.accessToken,
+        },
+        "Content-Type": "application/json",
+      })
       .then((res) => {
         console.log("게시글 작성 response", res);
         if (res.data.success === true) navigate(`/${setPathName()}/1`);

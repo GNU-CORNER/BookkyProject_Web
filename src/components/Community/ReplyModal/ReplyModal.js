@@ -17,7 +17,9 @@ const ReplyModal = ({
   // 변수 선언
   const today = new Date();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.userData);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
   const [slug, setSlug] = useState(0);
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
@@ -54,7 +56,7 @@ const ReplyModal = ({
 
     // post 통신 : 게시글 작성
     axios
-      .post("http://203.255.3.144:8002/v1/community/writepost/2", params, {
+      .post(baseURL + "community/writepost/2", params, {
         headers: {
           "access-token": user.accessToken,
         },

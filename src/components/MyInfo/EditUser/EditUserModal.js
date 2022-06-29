@@ -14,7 +14,9 @@ const EditUserModal = ({ setEditUserModal, userData }) => {
   const [nickname, setNickname] = useState(userData.nickname);
   const [message, setMessage] = useState("닉네임을 입력하세요");
   const [image, setImage] = useState("");
-  const user = useSelector((state) => state.userData);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
   const dispatch = useDispatch();
 
   // submit() : 수정하기 버튼 클릭 시
@@ -26,7 +28,7 @@ const EditUserModal = ({ setEditUserModal, userData }) => {
     });
 
     axios
-      .put("http://203.255.3.144:8002/v1/user/myprofile", params, {
+      .put(baseURL + "user/myprofile", params, {
         headers: {
           "access-token": user.accessToken,
         },
@@ -44,7 +46,7 @@ const EditUserModal = ({ setEditUserModal, userData }) => {
   // checkNickname(nickname) : 닉네임 중복검사
   function checkNickname(nickname) {
     axios
-      .get("http://203.255.3.144:8002/v1/user/nickname", {
+      .get(baseURL + "user/nickname", {
         params: {
           nickname: nickname,
         },

@@ -15,12 +15,14 @@ function Community() {
     MarketList: [{ title: "", PID: 0 }],
     QnAList: [{ title: "", PID: 0 }],
   });
-  const SideNavState = useSelector((state) => state.SideNavState);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const SideNavState = state.SideNavState;
 
   //getPosts() : 서버로부터 게시글 목록 업데이트
   const getPosts = () => {
     axios
-      .get("http://203.255.3.144:8002/v1/community/home", {
+      .get(baseURL + "community/home", {
         params: {
           count: 6,
         },

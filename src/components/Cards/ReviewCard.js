@@ -23,13 +23,15 @@ const ReviewCard = ({
   views,
   userThumbnail,
 }) => {
-  const user = useSelector((state) => state.userData);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
   const [like, setLike] = useState(isLiked !== undefined ? isLiked : false);
 
   function likeReview() {
     axios
       .put(
-        "http://203.255.3.144:8002/v1/review/like/" + RID,
+        baseURL + "review/like/" + RID,
         {},
         {
           headers: {

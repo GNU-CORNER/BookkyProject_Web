@@ -15,8 +15,10 @@ import { ReactComponent as Like } from "../../assets/icons/community/heart-fill.
 // 커뮤니티 - 게시글 상세보기
 const PostDetail = () => {
   //변수 선언
-  const SideNavState = useSelector((state) => state.SideNavState);
-  const user = useSelector((state) => state.userData);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
+  const SideNavState = state.SideNavState;
   const navigate = useNavigate();
   const location = useLocation().pathname.split("/");
   const PID = parseInt(location[3]);
@@ -108,17 +110,11 @@ const PostDetail = () => {
   function getPostData() {
     if (user.accessToken.length > 0)
       axios
-        .get(
-          "http://203.255.3.144:8002/v1/community/postdetail/" +
-            boardNum +
-            "/" +
-            PID,
-          {
-            headers: {
-              "access-token": user.accessToken,
-            },
-          }
-        )
+        .get(baseURL + "community/postdetail/" + boardNum + "/" + PID, {
+          headers: {
+            "access-token": user.accessToken,
+          },
+        })
         .then((res) => {
           console.log("게시글 데이터 요청", res);
           setPost(res.data.result.postdata);
@@ -145,7 +141,7 @@ const PostDetail = () => {
       }
     }
     axios
-      .delete("http://203.255.3.144:8002/v1/community/deletepost/" + boardNum, {
+      .delete(baseURL + "community/deletepost/" + boardNum, {
         data: {
           PID: PID,
         },
@@ -166,7 +162,7 @@ const PostDetail = () => {
     if (user.accessToken.length > 0)
       axios
         .post(
-          "http://203.255.3.144:8002/v1/community/like/" + boardNum + "/" + PID,
+          baseURL + "community/like/" + boardNum + "/" + PID,
           {},
           {
             headers: {
@@ -197,7 +193,7 @@ const PostDetail = () => {
   function submitComment() {
     axios
       .post(
-        "http://203.255.3.144:8002/v1/community/writecomment/" + boardNum,
+        baseURL + "community/writecomment/" + boardNum,
         {
           comment: userComment,
           parentID: 0,

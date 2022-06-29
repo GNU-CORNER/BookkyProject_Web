@@ -8,7 +8,9 @@ import axios from "axios";
 // SideBar - 내 프로필
 function Profile() {
   // 변수 선언
-  const user = useSelector((state) => state.userData);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
@@ -17,7 +19,7 @@ function Profile() {
   // 로그아웃 버튼 클릭 시
   const logout = () => {
     axios
-      .post("http://203.255.3.144:8002/v1/user/signout", "", {
+      .post(baseURL + "user/signout", "", {
         headers: {
           "access-token": user.accessToken,
           "refresh-token": cookie.refresh_token,

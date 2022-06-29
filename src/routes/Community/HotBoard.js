@@ -14,10 +14,12 @@ import { updateHot } from "../../redux-modules/posts";
 function HotBoard() {
   // 변수 선언
   const navigate = useNavigate();
-  const posts = useSelector((state) => state.posts.hot);
-  const SideNavState = useSelector((state) => state.SideNavState);
   const location = useLocation().pathname.split("/");
-  const user = useSelector((state) => state.userData);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
+  const posts = state.posts.hot;
+  const SideNavState = state.SideNavState;
   const [page, setPage] = useState(parseInt(location[2]));
   const [count, setCount] = useState(1);
   const dispatch = useDispatch();
@@ -26,7 +28,7 @@ function HotBoard() {
   function getPosts() {
     axios
       .get(
-        "http://203.255.3.144:8002/v1/community/hotcommunity",
+        baseURL + "community/hotcommunity",
         {
           params: {
             quantity: 10,

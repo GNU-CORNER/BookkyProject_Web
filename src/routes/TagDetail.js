@@ -12,18 +12,18 @@ const TagDetail = () => {
   const [books, setBooks] = useState([{}]);
   const [tagName, setTagName] = useState("");
   const tagNum = location.pathname.split("/")[2];
-  // const user = useSelector((state) => state.userData);
-  const SideNavState = useSelector((state) => state.SideNavState);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
+  const SideNavState = state.SideNavState;
 
   // getBookData() : 태그에 따른 도서 데이터 불러오기 통신
   function getBookData() {
-    axios
-      .get("http://203.255.3.144:8002/v1/books/tag/" + tagNum)
-      .then((res) => {
-        setTagName(res.data.result.bookList.tag);
-        setBooks(res.data.result.bookList.data);
-        console.log(res);
-      });
+    axios.get(baseURL + "books/tag/" + tagNum).then((res) => {
+      setTagName(res.data.result.bookList.tag);
+      setBooks(res.data.result.bookList.data);
+      console.log(res);
+    });
   }
 
   // 태그 변화에 따른 도서 데이터 업데이트

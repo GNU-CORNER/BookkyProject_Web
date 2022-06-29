@@ -4,6 +4,7 @@ import styled from "styled-components";
 import AddBooksCard from "../../Cards/AddBooksCard";
 import PageHeader from "../../PageHeader";
 import { ReactComponent as Close } from "../../../assets/icons/community/cross.svg"; // 모달 닫기 버튼
+import { useSelector } from "react-redux";
 
 // 게시글 작성 - 도서 첨부 시의 모달 창 Inner
 const AddBooksModal = ({
@@ -16,6 +17,8 @@ const AddBooksModal = ({
 }) => {
   // 변수 선언
   const [input, setInput] = useState("");
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
 
   // 검색 결과 도서[] 배열 형태
   const [bookList, setBookList] = useState([
@@ -26,7 +29,7 @@ const AddBooksModal = ({
   function getBooks() {
     console.log(input);
     axios
-      .get("http://203.255.3.144:8002/v1/community/post/book", {
+      .get(baseURL + "community/post/book", {
         params: {
           keyword: input,
           quantity: 10,

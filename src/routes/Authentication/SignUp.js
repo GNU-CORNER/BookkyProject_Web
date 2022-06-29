@@ -20,7 +20,9 @@ function SignUp() {
   const [isVerified, setVerified] = useState(false);
   const dispatch = useDispatch();
   const [, setCookie] = useCookies();
-  const SideNavState = useSelector((state) => state.SideNavState);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const SideNavState = state.SideNavState;
   const [nicknameMessage, setNicknameMessage] =
     useState("사용할 수 있는 닉네임입니다.");
 
@@ -37,7 +39,7 @@ function SignUp() {
 
       // 통신 - 회원가입 데이터 전송
       axios
-        .post("http://203.255.3.144:8002/v1/user/signup", params, {
+        .post(baseURL + "v1/user/signup", params, {
           "Content-Type": "application/json",
         })
         .then((res) => {
@@ -79,7 +81,7 @@ function SignUp() {
   // 닉네임 검사
   function checkNickname() {
     axios
-      .get("http://203.255.3.144:8002/v1/user/nickname", {
+      .get(baseURL + "v1/user/nickname", {
         params: {
           nickname: nickName,
         },
@@ -107,7 +109,7 @@ function SignUp() {
 
     // 통신 - 인증 이메일 전송 요청 (이메일)
     axios
-      .get("http://203.255.3.144:8002/v1/user/email", params)
+      .get(baseURL + "v1/user/email", params)
       .then((res) => {
         if (res.data.success === true) {
           alert("인증번호가 전송되었습니다");
@@ -128,7 +130,7 @@ function SignUp() {
 
     // 통신 - 인증정보 전송 (이메일, 입력된 인증번호)
     axios
-      .post("http://203.255.3.144:8002/v1/user/check", params, {
+      .post(baseURL + "v1/user/check", params, {
         "Content-Type": "application/json",
       })
       .then((res) => {

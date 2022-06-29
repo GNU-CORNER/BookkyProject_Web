@@ -13,7 +13,9 @@ const CommentModal = ({
   setCommentModal,
 }) => {
   // 변수 선언
-  const user = useSelector((state) => state.userData);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
   const [commentCnt, setCommentCnt] = useState(0);
   const [userComment, setUserComment] = useState("");
 
@@ -35,7 +37,7 @@ const CommentModal = ({
   function getCommentData() {
     axios
       .get(
-        "http://203.255.3.144:8002/v1/community/comment/2/" + PID,
+        baseURL + "community/comment/2/" + PID,
 
         {
           headers: {
@@ -55,7 +57,7 @@ const CommentModal = ({
     console.log(commentArray);
     axios
       .post(
-        "http://203.255.3.144:8002/v1/community/writecomment/2",
+        baseURL + "community/writecomment/2",
         {
           comment: userComment,
           parentID: 0,
