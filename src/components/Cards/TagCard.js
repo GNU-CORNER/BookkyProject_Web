@@ -1,33 +1,38 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-// 태그를 표현하는 카드
-const TagCard = ({ tag, TID }) => {
+// SearchResult, MyTags, 태그를 표현하는 카드
+const TagCard = ({ tag, TMID }) => {
+  // 변수 선언
   const navigate = useNavigate();
   return (
-    <TagCardContainer onClick={() => navigate("/tag/" + TID)}>
-      <Tag># {tag}</Tag>
+    <TagCardContainer onClick={() => navigate("/tag/" + TMID)}>
+      <div># {tag}</div>
     </TagCardContainer>
   );
 };
 
+//////////////////////////////////////// Styled-Components
 const TagCardContainer = styled.div`
   margin-right: 10px;
-  background-color: #f9f9f9;
-  color: #6e95ff;
+  background-color: #f1f1f1;
+  color: var(--bright-base-font-color);
   border-radius: 4px;
   font-size: 0.9em;
   width: fit-content;
   padding: 3px 5px;
-  border: 1px solid #6e95ff;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  transition: all 0.3s;
 
   :hover {
     cursor: pointer;
+    background-color: var(--main-color);
+  }
+  :hover div {
+    color: white;
   }
 `;
 
-const Tag = styled.div``;
 export default TagCard;

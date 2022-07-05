@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { ReactComponent as Search } from "../../assets/icons/sideNav/search.svg";
 
 // TopNav - 검색창 View
 function SearchBar() {
@@ -12,7 +13,7 @@ function SearchBar() {
     <SearchBarContainer>
       <TextField
         onKeyUp={() => {
-          if (window.event.keyCode == 13)
+          if (window.event.keyCode === 13)
             navigate("/search", { state: { query: input } });
         }}
       >
@@ -22,7 +23,7 @@ function SearchBar() {
           onChange={(e) => setInput(e.target.value)}
         />
       </TextField>
-      <img src={require("../../assets/icons/topNav/icon-magnify.png")} alt="" />
+      <Search />
     </SearchBarContainer>
   );
 }
@@ -33,11 +34,19 @@ const SearchBarContainer = styled.div`
   line-height: 35px;
   margin: auto 100px auto auto;
 
-  img {
+  svg {
     position: absolute;
     top: 11px;
-    right: 8px;
+    right: 15px;
     width: 18px;
+    height: 18px;
+    transition: all 0.4s;
+    fill: gray;
+
+    :hover {
+      cursor: pointer;
+      fill: #6e95ff;
+    }
   }
 `;
 

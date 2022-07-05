@@ -1,22 +1,59 @@
 import axios from "axios";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import PostDetailBookCard from "../../components/Cards/PostDetailBookCard";
 import Comment from "../../components/Community/Comment";
+import CommentModalContainer from "../../components/Community/CommentModal/CommentModalContainer";
+import ReplyModalContainer from "../../components/Community/ReplyModal/ReplyModalContainer";
+import ReplyPost from "../../components/Community/ReplyPost";
 import PageHeader from "../../components/PageHeader";
+import { ReactComponent as UnLike } from "../../assets/icons/community/heart.svg"; // 모달 닫기 버튼
+import { ReactComponent as Like } from "../../assets/icons/community/heart-fill.svg"; // 모달 닫기 버튼
 
 // 커뮤니티 - 게시글 상세보기
 const PostDetail = () => {
   //변수 선언
-  const SideNavState = useSelector((state) => state.SideNavState);
-  const user = useSelector((state) => state.userData);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
+  const SideNavState = state.SideNavState;
   const navigate = useNavigate();
   const location = useLocation().pathname.split("/");
-  const postID = parseInt(location[3]);
+  const PID = parseInt(location[3]);
   const boardNum = parseInt(location[2]);
   const [boardName, setBoardName] = useState("");
   const [commentCnt, setCommentCnt] = useState(0);
+  const [replyCnt, setReplyCnt] = useState(0);
+  const [commentModal, setCommentModal] = useState(false);
+  const [replyWriteModal, setReplyWriteModal] = useState(false);
+  const [userComment, setUserComment] = useState("");
+
+  // 첨부 도서 형태
+  const [book, setBook] = useState({
+    AUTHOR: "",
+    PUBLISHER: "위키북스",
+    RATING: 2.5,
+    TBID: 0,
+    TITLE: "",
+    thumbnailImage: "",
+  });
+
+  // 게시글 형태
+  const [post, setPost] = useState({
+    UID: 0,
+    contents: "",
+    createAt: "",
+    like: [],
+    nickname: "",
+    title: "",
+    updateAt: "",
+    postImage: [],
+    views: 0,
+  });
+
+  // 댓글 틀
   const [commentArray, setCommentArray] = useState([
     {
       CID: 0,
@@ -29,19 +66,27 @@ const PostDetail = () => {
       ],
     },
   ]);
-  const [post, setPost] = useState({
-    UID: 0,
-    contents: "",
-    createAt: "",
-    like: [],
-    nickname: "",
-    title: "",
-    updateAt: "",
-    views: 0,
-  });
-  const [userComment, setUserComment] = useState("");
 
-  // init() : 최초 로드 시
+  // 답글 틀
+  const [replyPost, setReplyPost] = useState([
+    {
+      PID: 0,
+      contents: "",
+      createAt: "",
+      isAccessible: false,
+      like: [],
+      nickname: "",
+      parentQPID: 0,
+      thumbnail: null,
+      title: "",
+      updateAt: "",
+      views: 0,
+      Book: {},
+      isLiked: false,
+    },
+  ]);
+
+  // init() : 최초 로드 시 - 게시판 이름 설정
   function init() {
     switch (boardNum) {
       case 0:
@@ -63,24 +108,22 @@ const PostDetail = () => {
 
   // getPostData() : 게시글 데이터 요청
   function getPostData() {
-    axios
-      .get(
-        "http://203.255.3.144:8002/v1/community/postdetail/" +
-          boardNum +
-          "/" +
-          postID,
-        {
+    if (user.accessToken.length > 0)
+      axios
+        .get(baseURL + "community/postdetail/" + boardNum + "/" + PID, {
           headers: {
             "access-token": user.accessToken,
           },
-        }
-      )
-      .then((res) => {
-        setPost(res.data.result.postdata);
-        setCommentCnt(res.data.result.commentCnt);
-        setCommentArray(res.data.result.commentdata);
-        console.log(res);
-      });
+        })
+        .then((res) => {
+          console.log("게시글 데이터 요청", res);
+          setPost(res.data.result.postdata);
+          setCommentCnt(res.data.result.commentCnt);
+          setCommentArray(res.data.result.commentdata);
+          setReplyPost(res.data.result.replydata);
+          setReplyCnt(res.data.result.replyCnt);
+          setBook(res.data.result.Book);
+        });
   }
 
   // deletePost() : 게시글 삭제 요청
@@ -98,9 +141,9 @@ const PostDetail = () => {
       }
     }
     axios
-      .delete("http://203.255.3.144:8002/v1/community/deletepost/" + boardNum, {
+      .delete(baseURL + "community/deletepost/" + boardNum, {
         data: {
-          PID: postID,
+          PID: PID,
         },
         headers: {
           "access-token": user.accessToken,
@@ -114,45 +157,78 @@ const PostDetail = () => {
       });
   }
 
+  // likePost() : 게시글의 좋아요 버튼 클릭 시 서버와 통신
+  function likePost() {
+    if (user.accessToken.length > 0)
+      axios
+        .post(
+          baseURL + "community/like/" + boardNum + "/" + PID,
+          {},
+          {
+            headers: {
+              "access-token": user.accessToken,
+            },
+          }
+        )
+        .then((res) => {
+          if (res.data.success === true) getPostData();
+        });
+  }
+
   // modifyPost() : 게시글 수정
   function modifyPost() {
-    navigate("/");
+    console.log(post.postImage);
+    navigate("/modifypost", {
+      state: {
+        post: post,
+        book: book,
+        PID: PID,
+        boardName: boardName,
+        boardNum: boardNum,
+      },
+    });
   }
 
   // submitComment() : 댓글 작성
   function submitComment() {
     axios
       .post(
-        "http://203.255.3.144:8002/v1/community/writecomment/" + boardNum,
+        baseURL + "community/writecomment/" + boardNum,
         {
           comment: userComment,
           parentID: 0,
-          PID: postID,
+          PID: PID,
         },
         {
           headers: {
             "access-token": user.accessToken,
           },
-          "Content-Type": "application/json",
         }
       )
       .then((res) => {
-        console.log(res);
         getPostData();
       });
   }
 
-  useEffect(getPostData, [boardNum, postID, user]);
-  useEffect(init, []);
+  // 게시글 업데이트
+  useEffect(getPostData, [boardNum, PID, user]);
+
+  // 최초 로드시, 게시판 정보 초기화 (게시판 번호, 게시판 이름)
+  useEffect(init, [boardNum]);
+
   // 게시글 상세보기 View
   return (
     <PostDetailContainer width={SideNavState.width}>
+      {/* 헤더*/}
       <PageHeader title="게시글 상세보기" subTitle={boardName} />
       <ContentArea>
+        {/* 작성자 프로필 */}
         <div className="profile">
           <img src={post.thumbnail} alt="e" />
           <p>{post.nickname}</p>
         </div>
+
+        {/* 게시글 컨텐츠 영역 상단 (제목, 작성일, 조회수)*/}
         <div className="title">{post.title}</div>
         <div className="subData">
           <p className="createAt">
@@ -161,11 +237,47 @@ const PostDetail = () => {
           </p>
           <p className="views">{post.views} views</p>
         </div>
+
+        {/* 게시글 컨텐츠 영역 하단 (내용, 이미지, 첨부 도서, 좋아요, 댓글, 답글)*/}
         <div className="body">
+          <PostDetailBookCard book={book} />
+          {/* 이미지 */}
+          {post.postImage !== undefined
+            ? post.postImage.map((el, cnt) => (
+                <img key={cnt} src={el} alt="post-img" />
+              ))
+            : ""}
+
+          {/* 내용 */}
           <div className="main-text">{post.contents}</div>
+
+          {/* 좋아요 */}
           <div className="reactions bottom">
-            <div className="likes">좋아요({post.like.length})</div>
-            <div className="comments">댓글({commentCnt})</div>
+            <div className="likes" onClick={() => likePost()}>
+              {post.isLiked ? <Like fill="rgb(255,122,122)" /> : <UnLike />}
+              좋아요({post.like.length})
+            </div>
+
+            {/* Q&A 게시판일 때, 댓글 모달 창 */}
+            <CommentModalContainer
+              commentModal={commentModal}
+              setCommentModal={setCommentModal}
+              setCommentCnt={setCommentCnt}
+              getPostData={getPostData}
+              PID={PID}
+            />
+            {boardNum === 2 ? (
+              <div
+                className="comments"
+                onClick={() => {
+                  setCommentModal(true);
+                }}
+              >
+                댓글({commentCnt})
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
 
           {/* 내가 작성한 게시글이면 게시글 관리 메뉴 출력 (수정 및 삭제) */}
@@ -189,35 +301,97 @@ const PostDetail = () => {
           )}
         </div>
       </ContentArea>
-      <CommentArea>
-        <WriteComment>
-          <div className="input-area">
-            <input
-              type="text"
-              placeholder="댓글을 입력하세요"
-              onChange={(e) => setUserComment(e.target.value)}
-            />
-            <div onClick={submitComment}>작성</div>
-          </div>
-        </WriteComment>
-        {commentArray.map((el) => {
-          return (
-            <Comment
-              key={el.CID}
-              CID={el.CID}
-              isAccessible={el.isAccessible}
-              nickname={el.nickname}
-              comment={el.comment}
-              like={el.like}
-              updateAt={el.updateAt}
-              childComment={el.childComment}
-              boardNum={boardNum}
-              postID={postID}
-              getPostData={getPostData}
-            />
-          );
-        })}
-      </CommentArea>
+
+      {/* 댓글과 답글 출력 */}
+      {
+        // Case 1 : Q&A 게시판일 경우
+        boardNum === 2 ? (
+          <ReplyArea>
+            <ReplyHeader>
+              <ReplyModalContainer
+                replyWriteModal={replyWriteModal}
+                setReplyWriteModal={setReplyWriteModal}
+                parentQPID={PID}
+                parentTitle={post.title}
+                getPostData={getPostData}
+                replyCnt={replyCnt}
+              />
+              <div className="reply-cnt">{replyCnt}개의 답글</div>
+              <div
+                className="reply-write-btn reply-cnt"
+                onClick={() => setReplyWriteModal(true)}
+              >
+                답글 쓰기
+              </div>
+            </ReplyHeader>
+            {replyPost.map((el, cnt) => {
+              return (
+                <ReplyPost
+                  key={el.PID}
+                  PID={el.PID}
+                  TBID={el.TBID}
+                  commentCnt={el.commentCnt}
+                  createAt={el.createAt}
+                  updateAt={el.updateAt}
+                  contents={el.contents}
+                  title={el.title}
+                  like={el.like}
+                  postImage={el.postImage}
+                  views={el.views}
+                  nickname={el.nickname}
+                  parentQPID={el.parentQPID}
+                  thumbnail={el.thumbnail}
+                  book={el.Book}
+                  isAccessible={el.isAccessible}
+                  setReplyWriteModal={setReplyWriteModal}
+                  replyWriteModal={replyWriteModal}
+                />
+              );
+            })}
+          </ReplyArea>
+        ) : (
+          // Case 2 : Q&A 게시판이 아닌 경우 (자유, 중고장터, Hot)
+          <CommentArea>
+            <WriteComment>
+              <p className="reply-cnt">{commentCnt}개의 댓글</p>
+              <div className="input-area">
+                <input
+                  type="text"
+                  placeholder="댓글을 입력하세요"
+                  value={userComment}
+                  onChange={(e) => setUserComment(e.target.value)}
+                  onKeyUp={() => {
+                    if (window.event.keyCode === 13) {
+                      submitComment();
+                      setUserComment("");
+                    }
+                  }}
+                />
+                <div onClick={submitComment}>작성</div>
+              </div>
+            </WriteComment>
+
+            {/* 댓글 리스트 출력 */}
+            {commentArray.map((el) => {
+              return (
+                <Comment
+                  key={el.CID}
+                  CID={el.CID}
+                  isAccessible={el.isAccessible}
+                  nickname={el.nickname}
+                  comment={el.comment}
+                  like={el.like}
+                  updateAt={el.updateAt}
+                  childComment={el.childComment}
+                  boardNum={boardNum}
+                  PID={PID}
+                  getPostData={getPostData}
+                />
+              );
+            })}
+          </CommentArea>
+        )
+      }
     </PostDetailContainer>
   );
 };
@@ -230,16 +404,11 @@ const PostDetailContainer = styled.div`
 const ContentArea = styled.div`
   position: relative;
   min-width: 700px;
-  margin: 4vh 12vw 0 12vw;
-
-  // 본문/댓글 구분선
-  ::after {
-    content: "";
-    width: 100%;
-    display: inline-block;
-    height: 1px;
-    background-color: #d5d5d5;
-  }
+  margin: 0 12vw 0 12vw;
+  border: 1px solid #f1f1f1;
+  border-radius: 4px;
+  padding: 15px;
+  box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
 
   .profile {
     display: flex;
@@ -296,10 +465,13 @@ const ContentArea = styled.div`
 
   .body {
     position: relative;
-    margin-top: 3vh;
+    padding: 10px;
+    margin-top: 1vh;
 
     .main-text {
-      height: 30vh;
+      min-height: 30vh;
+      line-height: 1.5em;
+      margin-bottom: 30px;
     }
 
     .bottom {
@@ -315,20 +487,16 @@ const ContentArea = styled.div`
 
     .likes {
       margin-right: 15px;
+      display: flex;
+      align-items: center;
 
+      svg {
+        width: 18px;
+        height: 18px;
+        margin-right: 5px;
+      }
       :hover {
         cursor: pointer;
-      }
-
-      ::before {
-        display: inline-block;
-        content: "";
-        margin-right: 3px;
-        width: 20px;
-        height: 20px;
-        vertical-align: -4px;
-        background-size: cover;
-        background-image: url(${require("../../assets/icons/community/heart.png")});
       }
     }
 
@@ -362,7 +530,7 @@ const ContentArea = styled.div`
 
     // modify(수정 버튼 속성) delete (삭제 버튼 속성)
     .modify {
-      background-color: #6e95ff;
+      background-color: var(--main-color);
     }
     .delete {
       background-color: #ff7a7a;
@@ -373,9 +541,37 @@ const ContentArea = styled.div`
 const CommentArea = styled.div`
   margin: 0 12vw;
 `;
+const ReplyHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+const ReplyArea = styled.div`
+  margin: 0 12vw;
+  position: relative;
 
+  .reply-cnt {
+    padding: 10px 0;
+    font-weight: bold;
+    font-size: 0.9em;
+    margin: 10px 15px;
+    width: fit-content;
+  }
+
+  .reply-write-btn {
+    :hover {
+      cursor: pointer;
+    }
+  }
+`;
 const WriteComment = styled.div`
   min-width: 700px;
+
+  .reply-cnt {
+    padding: 10px 0;
+    font-weight: bold;
+    font-size: 0.9em;
+    margin: 10px 15px;
+  }
 
   .input-area {
     margin: 10px 15px;
@@ -390,7 +586,7 @@ const WriteComment = styled.div`
       background-color: #f9f9f9;
 
       :focus {
-        outline-color: #6e95ff;
+        outline-color: var(--main-color);
       }
     }
 
@@ -401,7 +597,7 @@ const WriteComment = styled.div`
       color: white;
       font-weight: bold;
       font-size: 0.9em;
-      background-color: #6e95ff;
+      background-color: var(--main-color);
       border-radius: 20px;
       margin: 5px 0 5px 5px;
       width: 50px;

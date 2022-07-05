@@ -1,36 +1,47 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { updateUserTagArray } from "../../../redux-modules/userData";
 
+// 관심분야 설정 - 2단계
 const SecondStep = ({ ToBefore }) => {
   // 변수 선언
-  const [Tags, setTags] = useState([{ TID: "", nameTag: "" }]);
+  const [Tags, setTags] = useState([{ TMID: "", nameTag: "" }]);
   const [pickedTags, setPickedTags] = useState([]);
-  const user = useSelector((state) => state.userData);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // getTags() : 서버 데이터 통신 함수 (태그 목록 불러오기)
   function getTags() {
-    axios
-      .get("http://203.255.3.144:8002/v1/tags")
-      .then((res) => setTags(res.data.result.tag));
+    axios.get(baseURL + "tags").then((res) => setTags(res.data.result.tag));
   }
 
-  //
+  // Submit() : 선택한 태그 서버로 전송
   function Submit() {
     console.log(pickedTags);
     axios
       .put(
-        "http://203.255.3.144/v1/user/tag",
+        baseURL + "user/tag",
         { tag: pickedTags },
         {
-          "Content-Type": "application/json",
           headers: {
+            "Content-Type": "application/json",
             "access-token": user.accessToken,
           },
         }
       )
-      .then((res) => console.log(res));
+      .then((res) => {
+        console.log(res);
+        if (res.data.success === true) {
+          dispatch(updateUserTagArray(res.data.result.tag));
+          navigate("/");
+        }
+      });
   }
 
   // 태그 세로 스크롤 뷰 출력
@@ -38,17 +49,17 @@ const SecondStep = ({ ToBefore }) => {
     return Tags.map((tag) => {
       return (
         <TagContainer
-          key={tag.TID}
-          background={pickedTags.includes(tag.TID) ? "#6e95ff" : "#f1f1f1"}
-          color={pickedTags.includes(tag.TID) ? "white" : "black"}
+          key={tag.TMID}
+          background={
+            pickedTags.includes(tag.TMID) ? "var(--main-color)" : "#f1f1f1"
+          }
+          color={pickedTags.includes(tag.TMID) ? "white" : "black"}
           onClick={() => {
-            {
-              if (pickedTags.includes(tag.TID) === false)
-                setPickedTags([...pickedTags, tag.TID]);
-              else {
-                pickedTags.splice(pickedTags.indexOf(tag.TID), 1);
-                setPickedTags([...pickedTags]);
-              }
+            if (pickedTags.includes(tag.TMID) === false)
+              setPickedTags([...pickedTags, tag.TMID]);
+            else {
+              pickedTags.splice(pickedTags.indexOf(tag.TMID), 1);
+              setPickedTags([...pickedTags]);
             }
           }}
         >
@@ -58,8 +69,10 @@ const SecondStep = ({ ToBefore }) => {
     });
   }
 
-  useEffect(() => getTags(), []);
+  // 최초 로드 시 모든 태그 불러오기
+  useEffect(getTags, []);
 
+  // View
   return (
     <PickArea>
       <div className="Header">
@@ -80,7 +93,7 @@ const SecondStep = ({ ToBefore }) => {
   );
 };
 
-//////////////////////////////////////// Styled-Components
+////////////////////////////////ㄴ//////// Styled-Components
 const PickArea = styled.div`
   display: flex;
   flex-direction: column;
@@ -92,7 +105,7 @@ const PickArea = styled.div`
   min-width: 400px;
 
   .Header {
-    color: #6e95ff;
+    color: var(--main-color);
     font-size: 2em;
     font-weight: 700;
   }
@@ -100,7 +113,7 @@ const PickArea = styled.div`
   .sub {
     font-size: 1.2em;
     font-weight: bold;
-    color: #6e95ff;
+    color: var(--main-color);
   }
 `;
 
@@ -126,7 +139,7 @@ const SpreadTagsArea = styled.div`
   }
 
   .selected {
-    border: 2px solid #6e95ff;
+    border: 2px solid var(--main-color);
   }
 `;
 
@@ -148,7 +161,7 @@ const TagContainer = styled.div`
 
   :hover {
     cursor: pointer;
-    background-color: #6e95ff;
+    background-color: var(--main-color);
     opacity: 50%;
   }
 `;

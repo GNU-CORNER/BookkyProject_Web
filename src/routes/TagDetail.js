@@ -7,23 +7,29 @@ import BookCard from "../components/Cards/BookCard";
 
 // Home - Tag 더보기
 const TagDetail = () => {
+  // 변수 선언
   const location = useLocation();
   const [books, setBooks] = useState([{}]);
   const [tagName, setTagName] = useState("");
   const tagNum = location.pathname.split("/")[2];
-  const user = useSelector((state) => state.userData);
-  const SideNavState = useSelector((state) => state.SideNavState);
-  async function getBookData() {
-    await axios
-      .get("http://203.255.3.144:8002/v1/books/tag/" + tagNum)
-      .then((res) => {
-        setTagName(res.data.result.bookList.tag);
-        setBooks(res.data.result.bookList.data);
-        console.log(res);
-      });
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
+  const SideNavState = state.SideNavState;
+
+  // getBookData() : 태그에 따른 도서 데이터 불러오기 통신
+  function getBookData() {
+    axios.get(baseURL + "books/tag/" + tagNum).then((res) => {
+      setTagName(res.data.result.bookList.tag);
+      setBooks(res.data.result.bookList.data);
+      console.log(res);
+    });
   }
 
-  useEffect(getBookData, []);
+  // 태그 변화에 따른 도서 데이터 업데이트
+  useEffect(getBookData, [tagNum]);
+
+  // View
   return (
     <TagDetailContainer width={SideNavState.width}>
       <MainHeader>
@@ -42,7 +48,7 @@ const TagDetail = () => {
             <BookCard
               className="nodrag"
               key={cnt}
-              bid={el.BID}
+              bid={el.TBID}
               title={el.TITLE}
               thumnail={el.thumbnailImage}
               author={el.AUTHOR}
@@ -67,7 +73,7 @@ const MainHeader = styled.div`
   border-radius: 15px;
   max-height: 250px;
   height: 180px;
-  background-color: #6c95ff;
+  background-color: var(--main-color);
   margin: 5px 10px;
 `;
 const Title = styled.div`
@@ -104,7 +110,7 @@ const ContentArea = styled.div`
     border-radius: 4px;
 
     :hover {
-      border: 2px solid #6e95ff;
+      border: 2px solid var(--main-color);
       cursor: pointer;
     }
   }

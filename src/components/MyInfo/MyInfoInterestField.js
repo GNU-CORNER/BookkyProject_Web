@@ -1,15 +1,14 @@
-import { useSelector } from "react-redux";
 import styled from "styled-components";
+import TagCard from "../Cards/TagCard";
 
 //MyInfo - 내 관심분야 컴포넌트
-const InterestField = () => {
-  const user = useSelector((state) => state.userData);
-  console.log(user);
+const InterestField = ({ userTags }) => {
+  // View
   return (
     <InterestFieldContainer>
-      {user.tagArray.map((el) => {
-        return <span key={el}>#{el}</span>;
-      })}
+      {userTags.map((el) => (
+        <TagCard key={el.TMID} TMID={el.TMID} tag={el.tag} />
+      ))}
     </InterestFieldContainer>
   );
 };
@@ -19,17 +18,12 @@ const InterestFieldContainer = styled.div`
   height: 245px;
   padding: 12px 0;
 
-  span {
+  div {
     display: block;
     float: left;
     margin: 5px;
-    padding: 5px 10px;
     border-radius: 4px;
-    background-color: #6e95ff;
-    opacity: 75%;
-    color: white;
     font-weight: bold;
-    font-size: 1.4em;
   }
 `;
 

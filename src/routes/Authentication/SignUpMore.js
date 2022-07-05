@@ -7,10 +7,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../redux-modules/userData";
 import { useCookies } from "react-cookie";
 
+// 회원가입 (소셜 회원일 때, 닉네임만 추가 등록)
 const SignUpMore = () => {
   // 변수 선언
-  const user = useSelector((state) => state.userData);
-  const SideNavState = useSelector((state) => state.SideNavState);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
+  const SideNavState = state.SideNavState;
   const dispatch = useDispatch();
   const [nickName, setNickName] = useState("");
   const [, setCookie] = useCookies();
@@ -28,7 +31,7 @@ const SignUpMore = () => {
 
     // 통신 - 회원가입 데이터 전송
     axios
-      .post("http://203.255.3.144:8002/v1/user/signup", params, {
+      .post(baseURL + "user/signup", params, {
         "Content-Type": "application/json",
       })
       .then((res) => {
@@ -131,7 +134,7 @@ const InputArea = styled.div`
     font-weight: 700;
     text-align: center;
     margin: auto;
-    border-bottom: 3px solid #6c95ff;
+    border-bottom: 3px solid var(--main-color);
   }
 
   p {
@@ -140,7 +143,7 @@ const InputArea = styled.div`
     padding-left: 10px;
 
     span {
-      color: #6c95ff;
+      color: var(--main-color);
       font-size: 0.8em;
     }
   }
@@ -154,10 +157,10 @@ const InputArea = styled.div`
     background-color: #f3f3f3;
     border: 3px solid #f3f3f3;
     border-radius: 5px;
-    outline-color: #6c95ff;
+    outline-color: var(--main-color);
 
     :focus {
-      border: 3px solid #6c95ff;
+      border: 3px solid var(--main-color);
     }
   }
 `;
@@ -169,7 +172,7 @@ const SignUpBtn = styled.div`
   line-height: 55px;
   bottom: 30px;
   text-align: center;
-  background-color: #6c95ff;
+  background-color: var(--main-color);
   border-radius: 4px;
   color: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);

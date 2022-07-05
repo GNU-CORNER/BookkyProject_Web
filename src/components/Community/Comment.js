@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import Reply from "./Reply";
+import Reply from "./ReplyComment";
 import axios from "axios";
 
 // 커뮤니티 - 댓글
 const Comment = ({
   boardNum,
-  postID,
+  PID,
   comment,
   nickname,
   updateAt,
@@ -16,63 +16,72 @@ const Comment = ({
   CID,
   getPostData,
   isAccessible,
+  getCommentData,
 }) => {
-  const user = useSelector((state) => state.userData);
+  // 변수 선언
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
   const [replyForm, setReplyForm] = useState(false);
   const [userComment, setUserComment] = useState("");
 
-  // submitComment() : 댓글 작성
+  // submitComment() : 대댓글 작성 통신
   function submitComment() {
+    console.log("postID", PID);
     axios
       .post(
-        "http://203.255.3.144:8002/v1/community/writecomment/" + boardNum,
+        baseURL + "community/writecomment/" + boardNum,
         {
           comment: userComment,
-          parentID: CID,
-          PID: postID,
+          parentID: CID, // CID(대댓글의 경우) or 0(댓글작성의 경우)
+          PID: PID,
         },
         {
           headers: {
             "access-token": user.accessToken,
           },
-          "Content-Type": "application/json",
         }
       )
       .then((res) => {
-        console.log(res);
-        getPostData();
-        setUserComment("");
-        setReplyForm(false);
+        console.log("댓글 작성", res);
+        try {
+          getPostData();
+          getCommentData();
+          setUserComment("");
+          setReplyForm(false);
+        } catch (error) {
+          console.log(error);
+        }
       });
   }
 
   // deleteComment() : 댓글 삭제
   function deleteComment() {
+    console.log(CID);
     axios
-      .delete(
-        "http://203.255.3.144:8002/v1/community/deletecomment/" + boardNum,
-        {
-          data: {
-            CID: CID,
-          },
-          headers: {
-            "access-token": user.accessToken,
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res);
-        getPostData();
+      .delete(baseURL + "community/deletecomment/" + boardNum, {
+        data: {
+          CID: CID,
+        },
+        headers: {
+          "access-token": user.accessToken,
+        },
       })
-      .catch((error) => {
-        alert(error.response.data.errorMessage);
+      .then((res) => {
+        console.log("삭제 완", res);
+        getPostData();
+        getCommentData();
       });
   }
 
+  // View
   return (
     <CommentContainer>
+      {/* 댓글 관리 메뉴 영역 */}
       <div className="manage-comment">
+        {/* 내가 작성한 댓글인지 판단 */}
         {isAccessible ? (
+          // 내가 작성했다면 관리 메뉴 출력 (삭제)
           <>
             <span
               onClick={() =>
@@ -91,6 +100,7 @@ const Comment = ({
             </span>
           </>
         ) : (
+          // 내 댓글이 아니라면, 일반 메뉴 출력 (공감하기, 신고)
           <>
             <span>공감하기</span>
             <span
@@ -104,12 +114,16 @@ const Comment = ({
           </>
         )}
       </div>
+
+      {/* 댓글 컨텐츠 영역 (닉네임, 댓글 내용, 공감수 등) */}
       <p className="nickname"> {nickname}</p>
       <p className="comment">{comment}</p>
       <p className="subData">
         {updateAt}
         <span>공감({like})</span>
       </p>
+
+      {/* 대댓글 버튼 클릭시 작성 메뉴 Open/Close*/}
       {replyForm ? (
         <div className="input-area">
           <input
@@ -117,12 +131,21 @@ const Comment = ({
             placeholder="대댓글을 입력하세요"
             value={userComment}
             onChange={(e) => setUserComment(e.target.value)}
+            onKeyUp={() => {
+              // Enter 키 - 댓글 작성 이벤트
+              if (window.event.keyCode === 13) {
+                submitComment();
+                setUserComment("");
+              }
+            }}
           />
           <div onClick={submitComment}>작성</div>
         </div>
       ) : (
         <></>
       )}
+
+      {/* 대댓글 출력 */}
       {childComment.map((el) => {
         return (
           <Reply
@@ -133,8 +156,9 @@ const Comment = ({
             like={el.like}
             comment={el.comment}
             boardNum={boardNum}
-            postID={postID}
+            PID={PID}
             getPostData={getPostData}
+            getCommentData={getCommentData}
           />
         );
       })}
@@ -142,6 +166,7 @@ const Comment = ({
   );
 };
 
+//////////////////////////////////////// Styled-Components
 const CommentContainer = styled.div`
   position: relative;
   padding: 15px;
@@ -195,7 +220,7 @@ const CommentContainer = styled.div`
       background-color: #f9f9f9;
 
       :focus {
-        outline-color: #6e95ff;
+        outline-color: var(--main-color);
       }
     }
 
@@ -206,7 +231,7 @@ const CommentContainer = styled.div`
       color: white;
       font-weight: bold;
       font-size: 0.9em;
-      background-color: #6e95ff;
+      background-color: var(--main-color);
       border-radius: 20px;
       margin: 5px 0 5px 5px;
       width: 50px;

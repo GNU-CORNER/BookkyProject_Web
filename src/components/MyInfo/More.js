@@ -5,7 +5,9 @@ import styled from "styled-components";
 const More = () => {
   // 변수 선언
   const navigate = useNavigate();
-  return <MoreBtn onClick={() => navigate("/myposts")}>더 보기 {">"} </MoreBtn>;
+  return (
+    <MoreBtn onClick={() => navigate("/myposts/1")}>더 보기 {">"} </MoreBtn>
+  );
 };
 
 //////////////////////////////////////// Styled-Components
@@ -21,8 +23,8 @@ const MoreBtn = styled.div`
   font-weight: bold;
 
   :hover {
-    border: 1px solid #6e95ff;
-    background-color: #6e95ff;
+    border: 1px solid var(--main-color);
+    background-color: var(--main-color);
     color: white;
     cursor: pointer;
   }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import PageHeader from "../../components/PageHeader";
 import axios from "axios";
@@ -7,7 +7,7 @@ import { useCookies } from "react-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../redux-modules/userData";
 
-// 회원가입
+// 회원가입 (일반 회원가입 시)
 function SignUp() {
   // 변수 선언
   const [nickName, setNickName] = useState("");
@@ -20,7 +20,11 @@ function SignUp() {
   const [isVerified, setVerified] = useState(false);
   const dispatch = useDispatch();
   const [, setCookie] = useCookies();
-  const SideNavState = useSelector((state) => state.SideNavState);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const SideNavState = state.SideNavState;
+  const [nicknameMessage, setNicknameMessage] =
+    useState("사용할 수 있는 닉네임입니다.");
 
   // 회원가입 버튼 클릭 시
   function SendSignUp(nickName, email, password) {
@@ -35,7 +39,7 @@ function SignUp() {
 
       // 통신 - 회원가입 데이터 전송
       axios
-        .post("http://203.255.3.144:8002/v1/user/signup", params, {
+        .post(baseURL + "v1/user/signup", params, {
           "Content-Type": "application/json",
         })
         .then((res) => {
@@ -70,8 +74,29 @@ function SignUp() {
           }
         });
     } else {
-      alert("이메일이 인증되지 않았습니다");
+      alert("회원가입에 실패했습니다.");
     }
+  }
+
+  // 닉네임 검사
+  function checkNickname() {
+    axios
+      .get(baseURL + "v1/user/nickname", {
+        params: {
+          nickname: nickName,
+        },
+      })
+      .then((res) => {
+        console.log(res.data.success);
+        if (res.data.success === true) {
+          setNicknameMessage("사용할 수 있는 닉네임입니다.");
+        }
+        console.log("실패 !");
+      })
+      .catch((error) => {
+        if (error.response.data.success === false)
+          setNicknameMessage("이미 사용 중인 닉네임입니다.");
+      });
   }
 
   // 인증번호 받기 버튼 클릭 시
@@ -84,7 +109,7 @@ function SignUp() {
 
     // 통신 - 인증 이메일 전송 요청 (이메일)
     axios
-      .get("http://203.255.3.144:8002/v1/user/email", params)
+      .get(baseURL + "v1/user/email", params)
       .then((res) => {
         if (res.data.success === true) {
           alert("인증번호가 전송되었습니다");
@@ -105,7 +130,7 @@ function SignUp() {
 
     // 통신 - 인증정보 전송 (이메일, 입력된 인증번호)
     axios
-      .post("http://203.255.3.144:8002/v1/user/check", params, {
+      .post(baseURL + "v1/user/check", params, {
         "Content-Type": "application/json",
       })
       .then((res) => {
@@ -154,6 +179,9 @@ function SignUp() {
     }
   };
 
+  // 닉네임 입력 값 변화에 따른 중복 검사 호출
+  useEffect(checkNickname, [nickName]);
+
   // 회원가입 View
   return (
     <SignUpContainer width={SideNavState.width}>
@@ -163,7 +191,12 @@ function SignUp() {
           <form>
             <div className="Header">환영합니다 !</div>
             <p>
-              닉네임 <span>(10자 이내)</span>
+              닉네임 (10자 이내)
+              {nickName.length > 0 ? (
+                <span onChange={checkNickname}>{nicknameMessage}</span>
+              ) : (
+                <></>
+              )}
             </p>
             <input
               type="text"
@@ -242,17 +275,20 @@ const InputArea = styled.div`
     font-weight: 700;
     text-align: center;
     margin: auto;
-    border-bottom: 3px solid #6c95ff;
+    border-bottom: 3px solid var(--main-color);
     margin-bottom: 6vh;
   }
 
   p {
     font-size: 0.9em;
+    line-height: 1em;
     font-weight: bold;
-    padding-left: 10px;
+    padding: 0 0 5px 10px;
 
     span {
-      color: #6c95ff;
+      position: absolute;
+      margin-left: 5px;
+      color: #03c75a;
       font-size: 0.8em;
     }
   }
@@ -266,10 +302,10 @@ const InputArea = styled.div`
     background-color: #f3f3f3;
     border: 3px solid #f3f3f3;
     border-radius: 5px;
-    outline-color: #6c95ff;
+    outline-color: var(--main-color);
 
     :focus {
-      border: 3px solid #6c95ff;
+      border: 3px solid var(--main-color);
     }
   }
 `;
@@ -281,7 +317,7 @@ const SignUpBtn = styled.div`
   line-height: 55px;
   bottom: 30px;
   text-align: center;
-  background-color: #6c95ff;
+  background-color: var(--main-color);
   border-radius: 4px;
   color: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
@@ -304,8 +340,8 @@ const EmailVerifiArea = styled.div`
     top: 10%;
     right: 2%;
     color: white;
-    background-color: #6c95ff;
-    border: 1px solid #6c95ff;
+    background-color: var(--main-color);
+    border: 1px solid var(--main-color);
     border-radius: 5px;
   }
 `;
@@ -321,8 +357,8 @@ const VerifiNumberArea = styled.div`
     top: 32.5%;
     right: 9px;
     color: white;
-    background-color: #6c95ff;
-    border: 1px solid #6c95ff;
+    background-color: var(--main-color);
+    border: 1px solid var(--main-color);
     border-radius: 5px;
   }
 `;

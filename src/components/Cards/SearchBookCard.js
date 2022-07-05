@@ -15,6 +15,7 @@ const SearchBookCard = ({
   tagData,
   PUBLISHER,
 }) => {
+  // 변수 선언
   const navigate = useNavigate();
   return (
     <>
@@ -24,7 +25,7 @@ const SearchBookCard = ({
           window.scrollTo(0, 0);
         }}
       >
-        <img src={thumbnailImage} />
+        <img src={thumbnailImage} alt="Book Thumbnail" />
         {/* 제목, 저자/출판사, 내용 */}
         <BookInfo>
           <div className="title">{TITLE}</div>
@@ -50,11 +51,13 @@ const SearchBookCard = ({
           })}
         </BookInfoSub>
       </SearchBookCardContainer>
+      {/* 검색결과 도서 간 구분선 */}
       <hr />
     </>
   );
 };
 
+//////////////////////////////////////// Styled-Components
 const SearchBookCardContainer = styled.div`
   height: 180px;
   padding: 15px 20px;

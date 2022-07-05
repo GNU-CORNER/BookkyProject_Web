@@ -1,15 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-// Home - SpreadBooks - 책 한 권마다의 표현 단위
+// 홈 - 책 한 권마다의 표현 단위
 const BookCard = (book) => {
+  // 변수 선언
   const navigate = useNavigate();
+
+  // 홈 도서 카드 View
   return (
     <BookCardContainer
       width={"170px"}
+      // 경우에 따른 경로이동 = 일반 도서의 경우 / 태그 더 보기일 경우
       onClick={
         book.more
-          ? () => navigate("/tag/" + book.nowTID)
+          ? () => navigate("/tag/" + book.nowTMID)
           : () => navigate("/books/" + book.bid)
       }
     >
@@ -43,7 +47,7 @@ const BookCardContainer = styled.div`
 
   :hover {
     cursor: pointer;
-    border: 2px solid #6e95ff;
+    border: 2px solid var(--main-color);
   }
 
   :hover img {

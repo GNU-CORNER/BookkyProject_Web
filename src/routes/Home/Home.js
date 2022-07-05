@@ -3,8 +3,10 @@ import styled from "styled-components";
 import TodayBooks from "../../components/Home/TodayBooks";
 import Title from "../../components/Home/Title";
 import RecommendByTag from "../../components/Home/RecommendByTag";
+import HomeCommunity from "../../components/Home/HomeCommunity";
+import Banner from "../../components/Home/Banner";
 
-// Home new ver.
+// Home
 function Home() {
   const SideNavState = useSelector((state) => state.SideNavState);
 
@@ -23,9 +25,11 @@ function Home() {
         <div className="lowerArea">
           <div>
             <div className="title">커뮤니티</div>
+            <HomeCommunity />
           </div>
           <div>
             <div className="title">Banner</div>
+            <Banner />
             <img
               src={require("../../assets/icons/home/testBanner.png")}
               alt=""
@@ -40,6 +44,7 @@ function Home() {
 //////////////////////////////////////// Styled-Components
 const HomeContainer = styled.div`
   width: ${(props) => props.width};
+  color: var(--bright-base-font-color);
 `;
 
 const MainHeader = styled.div`
@@ -48,7 +53,7 @@ const MainHeader = styled.div`
   position: relative;
   border-radius: 15px;
   height: 180px;
-  background-color: #6c95ff;
+  background-color: var(--main-color);
   margin: 5px 10px;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 `;
@@ -70,7 +75,8 @@ const BooksContainer = styled.div`
       width: 5px;
       margin-right: 8px;
       height: 1.2em;
-      background-color: #6e95ff;
+      background-color: var(--main-color);
+      box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
     }
   }
 

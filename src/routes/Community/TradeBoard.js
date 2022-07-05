@@ -10,15 +10,17 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { updateTrade } from "../../redux-modules/posts";
 
-// 커뮤니티 - 중고장터
+// 커뮤니티 - 책 장터
 function TradeBoard() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation().pathname.split("/");
   const boardName = location[1];
-  const posts = useSelector((state) => state.posts.trade);
-  const user = useSelector((state) => state.userData);
-  const SideNavState = useSelector((state) => state.SideNavState);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
+  const posts = state.posts.trade;
+  const SideNavState = state.SideNavState;
   const [page, setPage] = useState(parseInt(location[2]));
   const [count, setCount] = useState(1);
 
@@ -26,7 +28,7 @@ function TradeBoard() {
   function getPosts() {
     axios
       .get(
-        "http://203.255.3.144:8002/v1/community/postlist/1",
+        baseURL + "community/postlist/1",
         {
           params: {
             quantity: 10,
@@ -58,13 +60,16 @@ function TradeBoard() {
     return parseInt(count / 10) + remainder;
   }
 
-  useEffect(getPosts, [page]);
-  useEffect(() => navigate("/trade/" + page), [page]);
+  // 최초 로드시 게시글 정보 업데이트
+  useEffect(getPosts, [page, dispatch, user.accessToken]);
 
-  // 중고장터 View
+  // 페이지 이동 시, 해당 페이지로 url 변경
+  useEffect(() => navigate("/trade/" + page), [page, navigate]);
+
+  // 책 장터 View
   return (
     <TradeBoardContainer width={SideNavState.width}>
-      <PageHeader title="중고장터" subTitle="읽지 않는 책을 사고 파세요" />
+      <PageHeader title="책 장터" subTitle="읽지 않는 책을 사고 파세요" />
       <Posts>
         <Notice notice="상대방을 비방하는 글은 자제해주세요" />
         {posts.map((post) => (
@@ -75,7 +80,7 @@ function TradeBoard() {
             content={post.contents}
             likes={post.likeCnt}
             comments={post.commentCnt}
-            board={1}
+            communityType={1}
           />
         ))}
       </Posts>
@@ -123,7 +128,7 @@ const Bottom = styled.div`
   .write {
     padding: 10px;
     border-radius: 4px;
-    background-color: #6e95ff;
+    background-color: var(--main-color);
     position: absolute;
     right: 12vw;
     color: white;

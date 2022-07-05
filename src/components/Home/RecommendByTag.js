@@ -5,46 +5,49 @@ import { useDispatch, useSelector } from "react-redux";
 import BookCard from "../Cards/BookCard";
 import Loading from "../Loading";
 import { updateHomeBooks } from "../../redux-modules/books";
-import { useNavigate } from "react-router-dom";
 
+// 홈 - 태그 별 추천
 const RecommendByTag = () => {
   // 변수 선언
-  const navigate = useNavigate();
-  const todayBooks = useSelector((state) => state.books.homeBooks)[0];
-  const dataSet = useSelector((state) => state.books.homeBooks).filter(
-    (element, index) => index > 0
-  );
   const user = useSelector((state) => state.userData);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const [nowSelect, setNowSelect] = useState({ data: "" });
-  const [nowTID, setNowTID] = useState(0);
+  const [nowTMID, setNowTMID] = useState(0);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+
+  // 도서 데이터 Set
+  const dataSet = useSelector((state) => state.books.homeBooks).filter(
+    (element, index) => index > 0
+  );
 
   // getData() : 서버 데이터 통신 함수 (책 목록 불러오기)
   function getData() {
     axios
-      .get("http://203.255.3.144:8002/v1/home", {
+      .get(baseURL + "home", {
         headers: {
           "access-token": user.accessToken,
         },
       })
       .then((res) => {
+        console.log(res);
         dispatch(updateHomeBooks(res.data.result.bookList));
         setNowSelect(res.data.result.bookList[1]);
-        setNowTID(res.data.result.bookList[1].TID);
+        setNowTMID(res.data.result.bookList[1].TMID);
         setLoading(false);
       });
   }
 
-  // 태그 선택시 책 리스트 출력
-  const ListOfBooks = () =>
-    nowSelect.data.map((el, cnt) => {
+  // ListOfBooks() : 태그 선택시 책 리스트 출력
+  function ListOfBooks() {
+    return nowSelect.data.map((el, cnt) => {
       if (cnt < 7) {
         return (
           <BookCard
             className="nodrag"
-            key={el.BID}
-            bid={el.BID}
+            key={el.TBID}
+            bid={el.TBID}
             title={el.TITLE}
             thumnail={el.thumbnailImage}
             author={el.AUTHOR}
@@ -52,29 +55,33 @@ const RecommendByTag = () => {
           />
         );
       } else {
-        return <div key={el.BID}></div>;
+        return <div key={el.TBID}></div>;
       }
     });
-
+  }
   // 최초 렌더링 시, getData()
-  useEffect(getData, [user.accessToken, dispatch]);
+  useEffect(getData, [user.accessToken]);
 
+  // 로딩 버튼 출력
   if (loading === true) {
     return <Loading />;
-  } else
+  }
+  // View
+  else
     return (
       <RecommendByTagContainer>
+        {/* 태그 출력 영역*/}
         <div className="tagArray">
           {dataSet.map((el) => {
             return (
               <TagCard
                 color={nowSelect.tag === el.tag ? "#ffffff" : "#000000"}
                 backgroundColor={
-                  nowSelect.tag === el.tag ? "#6e95ff" : "#f1f1f1"
+                  nowSelect.tag === el.tag ? "var(--main-color)" : "#f1f1f1"
                 }
                 onClick={() => {
                   setNowSelect(el);
-                  setNowTID(el.TID);
+                  setNowTMID(el.TMID);
                 }}
                 key={el.tag}
               >
@@ -83,6 +90,8 @@ const RecommendByTag = () => {
             );
           })}
         </div>
+
+        {/* 도서 출력 영역*/}
         <Books>
           <ListOfBooks />
           <BookCard
@@ -90,19 +99,17 @@ const RecommendByTag = () => {
             title={"#" + nowSelect.tag}
             thumnail={require("../../assets/icons/home/more.png")}
             more={true}
-            nowTID={nowTID}
+            nowTMID={nowTMID}
           />
         </Books>
       </RecommendByTagContainer>
     );
 };
 
+//////////////////////////////////////// Styled-Components
 const RecommendByTagContainer = styled.div`
   display: grid;
   width: 80vw;
-
-  .tagArray {
-  }
 `;
 
 const TagCard = styled.div`

@@ -1,16 +1,13 @@
 import styled from "styled-components";
+import { ReactComponent as DarkMode } from "../../assets/icons/sideNav/moon-fill.svg";
 
 // SideBar - 하단 메뉴 (내 정보, 다크모드, 로그아웃)
 function BottomMenu() {
-  // 변수 선언
-
+  // View
   return (
     <BottomMenuContainer>
       <button className="btn" onClick={() => console.log("다크모드")}>
-        <img
-          src={require("../../assets/icons/sideNav/night-mode.png")}
-          alt=""
-        />
+        <DarkMode />
         DARK
       </button>
     </BottomMenuContainer>
@@ -26,11 +23,10 @@ const BottomMenuContainer = styled.div`
   .btn {
     position: relative;
     background-color: #f7f7f7;
-    display: block;
+    display: flex;
     width: 80%;
     line-height: 35px;
     margin: 0 auto;
-    padding-left: 25px;
     border-radius: 30px;
     font-size: 0.8em;
     border: 2px solid #808080;
@@ -38,14 +34,20 @@ const BottomMenuContainer = styled.div`
     font-weight: bold;
     text-align: center;
     transition: all 0.4s;
+    justify-content: center;
+    align-items: center;
 
-    img {
-      position: absolute;
-      left: 15px;
-      top: 9px;
+    svg {
+      transition: all 0.4s;
+      fill: #808080;
       width: 18px;
+      height: 18px;
+      margin-right: 5px;
     }
 
+    :hover svg {
+      fill: #ffffff;
+    }
     :hover {
       background-color: #808080;
       color: #ffffff;

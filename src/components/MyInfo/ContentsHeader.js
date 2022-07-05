@@ -1,10 +1,13 @@
 import styled from "styled-components";
 
+// 내 정보 - 각 항목의 헤더 (관심분야, 관심도서, 내 게시글,내 리뷰)
 const ContentsHeader = ({ title }) => {
   return <Title>{title}</Title>;
 };
 
+//////////////////////////////////////// Styled-Components
 const Title = styled.div`
+  width: fit-content;
   font-size: 1.2em;
   font-weight: bold;
 

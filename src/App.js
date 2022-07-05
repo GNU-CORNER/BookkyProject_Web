@@ -19,7 +19,9 @@ function App() {
   const [email, setEmail] = useState(undefined);
   const [password, setPassword] = useState(undefined);
   const [loginMethod, setLoginMethod] = useState(undefined);
-  const SideNavState = useSelector((state) => state.SideNavState);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const SideNavState = state.SideNavState;
 
   // 최초 email, pwToken 설정
   const Init = () => {
@@ -29,6 +31,7 @@ function App() {
       setPassword(localStorage.getItem("password"));
       setLoginMethod(localStorage.getItem("loginMethod"));
     }
+
     // Case 2 : 다른 경우에는 쿠키의 email, pwToken 사용
     else if (cookies[0].email !== "" && cookies[0].password !== "") {
       setEmail(cookies[0].email);
@@ -39,25 +42,26 @@ function App() {
 
   // 자동로그인 통신
   const AutoLogin = () => {
-    // email, pwToken이 undefined가 아닐 때만 통신 (불필요한 통신 방지)
-    if ((email !== undefined) | (password !== undefined)) {
+    // email, pwToken, loginMethod !== undefined 일때만 통신 (불필요한 통신 방지)
+    if (
+      email !== undefined &&
+      password !== undefined &&
+      loginMethod !== undefined
+    ) {
       // 통신 - 로그인 시도 (이메일, 비밀번호)
       axios
         .post(
-          "http://203.255.3.144:8002/v1/user/signin",
+          baseURL + "user/signin",
           JSON.stringify({
             email: email,
             pwToken: password,
             loginMethod: loginMethod,
-          }),
-          {
-            "Content-Type": "application/json",
-          }
+          })
         )
         .then((res) => {
           // 로그인 통신 성공 시
           if (res.data.success === true) {
-            console.log("자동로그인 성공");
+            console.log("자동로그인 성공", res);
             dispatch(
               updateUser(
                 res.data.result.access_token,
@@ -65,7 +69,8 @@ function App() {
                 res.data.result.userData.loginMethod,
                 res.data.result.userData.nickname,
                 password,
-                res.data.result.userData.tag_array
+                res.data.result.userData.tag_array,
+                res.data.result.userData.thumbnail
               )
             );
           }
@@ -73,13 +78,16 @@ function App() {
           else {
             console.log("로그인 실패");
           }
-        });
+        })
+        .catch((error) => console.log(error));
     }
   };
 
   // 최초 렌더링 시, Init() AutoLogin()
   useEffect(Init, [cookies]);
-  useEffect(AutoLogin, [email, password, loginMethod, dispatch]);
+
+  // 자동 로그인
+  useEffect(AutoLogin, [email, password, loginMethod, dispatch, baseURL]);
 
   // App View
   return (
@@ -108,12 +116,16 @@ const GlobalStyle = createGlobalStyle`
   :root {
     --main-color : #6e95ff;
     --sub-color : #FFA24D;
-    --bright-base-color : #ffffff;
-    --dark-base-color : #000000;
+    --bright-base-bg-color : #ffffff;
+    --dark-base-bg-color : #000000;
+    --bright-base-font-color : #000000;
+    --dark-base-font-color : #ffffff;
     --none-folded-width : calc(100vw - 160px);
     --folded-width : calc(100vw);
     line-height: 1;
+    font-family: "KoddiUD";
 
+    
   }
   
   ::-webkit-scrollbar {
@@ -123,6 +135,8 @@ const GlobalStyle = createGlobalStyle`
 	body {
     margin : 0;
     padding : 0;
+    background-color: var(--bright-base-bg-color);
+    
 
   /* 스크롤바 hidden */
 

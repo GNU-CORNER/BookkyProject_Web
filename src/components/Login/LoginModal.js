@@ -8,7 +8,7 @@ import LoginContainer from "../../redux-containers/LoginContainer";
 
 // SideBar - 로그인 버튼 클릭 시의 Modal 창
 function LoginModal({ modal, modalOpen }) {
-  // 로그인 모달
+  // 로그인 모달 View
   return (
     <ModalContainer>
       <button className="LoginBtn" onClick={() => modalOpen(true)}>

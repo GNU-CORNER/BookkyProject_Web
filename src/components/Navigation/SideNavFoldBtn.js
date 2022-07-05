@@ -1,49 +1,50 @@
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { setFold } from "../../redux-modules/sideNav";
+import { ReactComponent as ToRight } from "../../assets/icons/sideNav/alt-from-left.svg";
+import { ReactComponent as ToLeft } from "../../assets/icons/sideNav/alt-from-right.svg";
 
 // Sidebar 접기 버튼 >> <<
 const SideNavFoldBtn = () => {
+  // 변수 선언
   const SideNavState = useSelector((state) => state.SideNavState);
   const dispatch = useDispatch();
 
-  // 임시로 div로 만들어 놓은거 styled-components 화 하기
+  // 사이드바 비활성화 시 (접기)
   if (SideNavState.isfold === false) {
     return (
       <SideNavFoldBtnContainer
         left="120px"
         onClick={() => dispatch(setFold(true, "100vw"))}
       >
-        <img
-          className="left"
-          src={require("../../assets/icons/sideNav/to-left-arrow.png")}
-          alt="Sidenav-fold-btn left"
-        />
+        <ToLeft className="left" />
       </SideNavFoldBtnContainer>
     );
-  } else {
+  }
+  // 사이드바 활성화 시 (펼치기)
+  else {
     return (
       <SideNavFoldBtnContainer
         left="10px"
         onClick={() => dispatch(setFold(false, "calc(100vw - 160px)"))}
       >
-        <img
-          className="right"
-          src={require("../../assets/icons/sideNav/to-right-arrow.png")}
-          alt="Sidenav-fold-btn Right"
-        />
+        <ToRight className="right" />
       </SideNavFoldBtnContainer>
     );
   }
 };
 
+//////////////////////////////////////// Styled-Components
 const SideNavFoldBtnContainer = styled.div`
   position: fixed;
   left: ${(props) => props.left};
-  bottom: 20px;
+  bottom: 15px;
   z-index: 99;
 
-  img {
+  svg {
+    fill: #6e95ff;
+    width: 30px;
+    height: 30px;
     transition: all 0.4s;
   }
   :hover {

@@ -3,10 +3,8 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Profile from "./Profile";
 import LoginModalContainer from "../../redux-containers/LoginModalContainer";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import BottomMenu from "./BottomMenu";
-import { setFold, setWidth } from "../../redux-modules/sideNav";
-import SideNavFoldBtn from "./SideNavFoldBtn";
 
 // 사이드 네비게이션 바
 function SideNav() {
@@ -55,14 +53,14 @@ function SideNav() {
 
 //////////////////////////////////////// Styled-Components
 const SideNavContainer = styled.div`
-  //사이드바 접으면 여기 바꿔야아함 (display:flex)
   display: block;
   flex-direction: column;
   position: fixed;
   width: 160px;
   height: calc(100vh - 64px);
   margin-top: 64px;
-  background-color: #ffffff;
+  background-color: var(--bright-base-bg-color);
+  color: var(--bright-base-font-color);
   transition: all 0.4s;
 
   .sidemenu-area {
@@ -97,7 +95,6 @@ const SideNavContainer = styled.div`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: black;
 `;
 
 export default SideNav;

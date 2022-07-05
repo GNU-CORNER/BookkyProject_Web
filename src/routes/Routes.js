@@ -29,19 +29,26 @@ import SearchResult from "./SearchResult";
 import TagDetail from "./TagDetail";
 import WritePost from "./Community/WritePost";
 import PostDetail from "./Community/PostDetail";
+import RoadMap from "../components/Recommend/Guide/RoadMap";
+import ModifyPost from "./Community/ModifyPost";
 
 // 전체 URL 경로에 대한 명세
 function BookkyRoutes() {
+  // 변수 선언
   const user = useSelector((state) => state.userData);
   const navigate = useNavigate();
 
+  // 사용자 태그 유무를 검사
   function isNullInterestField() {
     if (user.tagArray === null) {
       navigate("/setinterests");
     }
   }
 
+  // 사용자 태그 목록이 없으면, 관심분야 설정으로 이동
   useEffect(isNullInterestField, [navigate, user.tagArray]);
+
+  // 경로 명세
   return (
     <RoutesContainer>
       <Routes>
@@ -63,9 +70,11 @@ function BookkyRoutes() {
         <Route path="/trade/:page" element={<TradeBoard />} />
         <Route path="/postdetail/:board/:pid" element={<PostDetail />} />
         <Route path="/writepost" element={<WritePost />} />
+        <Route path="/modifypost" element={<ModifyPost />} />
 
         <Route path="/detective" element={<Detective />} />
         <Route path="/guide" element={<Guide />} />
+        <Route path="/roadmap/:course" element={<RoadMap />} />
 
         <Route path="/setinterests" element={<SetInterests />} />
         <Route path="/books/:BID" element={<BookDetail />} />

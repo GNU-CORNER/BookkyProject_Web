@@ -17,9 +17,11 @@ function FreeBoard() {
   const dispatch = useDispatch();
   const location = useLocation().pathname.split("/");
   const boardName = location[1];
-  const posts = useSelector((state) => state.posts.free);
-  const user = useSelector((state) => state.userData);
-  const SideNavState = useSelector((state) => state.SideNavState);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
+  const SideNavState = state.SideNavState;
+  const posts = state.posts.free;
   const [page, setPage] = useState(parseInt(location[2]));
   const [count, setCount] = useState(1);
 
@@ -27,7 +29,7 @@ function FreeBoard() {
   function getPosts() {
     axios
       .get(
-        "http://203.255.3.144:8002/v1/community/postlist/0",
+        baseURL + "community/postlist/0", // postlist/0 or postlist/1 or postlist/2 or postlist/3 or /hotcommunity
         {
           params: {
             quantity: 10,
@@ -42,7 +44,7 @@ function FreeBoard() {
       )
       .then((res) => {
         setCount(res.data.result.total_size);
-        dispatch(updateFree(res.data.result.postList));
+        dispatch(updateFree(res.data.result.postList)); // updateFree or updateHot or updateMyPosts or updateQnA or updateTrade
       });
   }
 
@@ -59,8 +61,11 @@ function FreeBoard() {
     return parseInt(count / 10) + remainder;
   }
 
-  useEffect(getPosts, [page]);
-  useEffect(() => navigate("/free/" + page), [page]);
+  // 최초 로드시 게시글 정보 업데이트
+  useEffect(getPosts, [page, dispatch, user.accessToken]);
+
+  // 페이지 이동 시, 해당 페이지로 url 변경
+  useEffect(() => navigate("/free/" + page), [page, navigate]);
 
   // 자유게시판 View
   return (
@@ -76,7 +81,7 @@ function FreeBoard() {
             content={post.contents}
             likes={post.likeCnt}
             comments={post.commentCnt}
-            board={0}
+            communityType={0}
           />
         ))}
       </Posts>
@@ -124,7 +129,7 @@ const Bottom = styled.div`
   .write {
     padding: 10px;
     border-radius: 4px;
-    background-color: #6e95ff;
+    background-color: var(--main-color);
     position: absolute;
     right: 12vw;
     color: white;

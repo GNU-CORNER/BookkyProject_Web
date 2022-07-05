@@ -1,9 +1,12 @@
 import styled from "styled-components";
+import { ReactComponent as MegaPhone } from "../../assets/icons/community/megaphone.svg"; // 모달 닫기 버튼
 
+// 커뮤니티 게시판 - 공지 사항 출력 (게시판 최상단)
 const Notice = ({ notice }) => {
+  // View
   return (
     <NoticeContainer>
-      <img src={require("../../assets/icons/community/notice.png")} />
+      <MegaPhone />
       {notice}
     </NoticeContainer>
   );
@@ -21,10 +24,11 @@ const NoticeContainer = styled.div`
   font-size: 0.9em;
   font-weight: 500;
   color: gray;
-  img {
+
+  svg {
     margin: 0 10px;
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
   }
 `;
 export default Notice;

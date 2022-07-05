@@ -15,31 +15,28 @@ function MyPost() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation().pathname.split("/");
-  const boardName = location[1];
-  const posts = useSelector((state) => state.posts.myposts);
-  const SideNavState = useSelector((state) => state.SideNavState);
-  const user = useSelector((state) => state.userData);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
+  const posts = state.posts.myposts;
+  const SideNavState = state.SideNavState;
   const [page, setPage] = useState(parseInt(location[2]));
   const [count, setCount] = useState(1);
 
   // getPosts() : 서버로부터 page에 따른 데이터를 가져와 redux store에 저장.
   function getPosts() {
     axios
-      .get(
-        "http://203.255.3.144:8002/v1/community/postlist/0",
-        {
-          params: {
-            quantity: 10,
-            page: page,
-          },
+      .get(baseURL + "community/postlist/3", {
+        headers: {
+          "access-token": user.accessToken,
         },
-        {
-          headers: {
-            "access-token": user.accessToken,
-          },
-        }
-      )
+        params: {
+          quantity: 10,
+          page: page,
+        },
+      })
       .then((res) => {
+        console.log(res);
         setCount(res.data.result.total_size);
         dispatch(updateMyPosts(res.data.result.postList));
       });
@@ -58,8 +55,11 @@ function MyPost() {
     return parseInt(count / 10) + remainder;
   }
 
-  useEffect(getPosts, [page]);
-  useEffect(() => navigate("/myposts/" + page), [page]);
+  // 최초 로드시 게시글 정보 업데이트
+  useEffect(getPosts, [page, dispatch, user.accessToken]);
+
+  // 페이지 이동 시, 해당 페이지로 url 변경
+  useEffect(() => navigate("/myposts/" + page), [page, navigate]);
 
   // 내 글 보기 View
   return (

@@ -2,8 +2,10 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 // 추천받개 - 메뉴 한 개마다의 표현 단위
-function MenuCard({ title, explain, isnew, kind }) {
+function MenuCard({ title, explain, isnew, kind, course }) {
+  // 변수 선언
   const navigate = useNavigate();
+
   // 신 메뉴 표시 (NEW 뱃지)
   function RenderNew() {
     if (isnew)
@@ -17,6 +19,21 @@ function MenuCard({ title, explain, isnew, kind }) {
     else return <></>;
   }
 
+  // move() : 메뉴 종류에 따른 경로 지정, 이동
+  function move() {
+    switch (kind) {
+      case "명탐정 북키":
+        navigate("/detective");
+        break;
+      case "안내견 북키":
+        navigate("/error/" + course);
+
+        // navigate("/roadmap/" + course);
+        break;
+      default:
+        break;
+    }
+  }
   // 메뉴 종류에 따른 배경 그림 지정
   function RenderImg() {
     switch (kind) {
@@ -39,7 +56,7 @@ function MenuCard({ title, explain, isnew, kind }) {
       case "새로운 아이디어":
         return (
           <img
-            className="BackGroundImg"
+            className="BackGroundImg newIdea"
             src={require("../../assets/Bookky/북키_추천받개_생각.png")}
             alt=""
           />
@@ -53,8 +70,8 @@ function MenuCard({ title, explain, isnew, kind }) {
   return (
     <>
       <MenuCardContainer
-        className="nodrag"
-        onClick={() => navigate("/detective")}
+        className={kind === "새로운아이디어" ? "nodrag" : "hover-shadow nodrag"}
+        onClick={move}
       >
         <RenderNew />
         <div className="contents">
@@ -75,11 +92,11 @@ const MenuCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border: 2px solid #6e95ff;
+  border: 2px solid var(--main-color);
   border-radius: 4px;
   width: 750px;
   height: 300px;
-  color: #6e95ff;
+  color: var(--main-color);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 

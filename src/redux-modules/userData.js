@@ -5,6 +5,7 @@ const UPDATE_ACCESS_TOKEN = "userData/UPDATE_ACCESS_TOKEN";
 const UPDATE_USER_NICKNAME = "userData/UPDATE_USER_NICKNAME";
 const UPDATE_USER_PASSWORD = "userData/UPDATE_USER_PASSWORD";
 const UPDATE_USER_TAGARRAY = "userData/UPDATE_USER_TAGARRAY";
+const UPDATE_USER_THUMBNAIL = "userData/UPDATE_USER_THUMBNAIL";
 
 // 액션 생성함수. 함수를 만들고 타입을 지정. export 필수
 export const updateUser = (
@@ -13,7 +14,8 @@ export const updateUser = (
   loginMethod,
   nickname,
   password,
-  tagArray
+  tagArray,
+  thumbnail
 ) => ({
   type: UPDATE_USER,
   accessToken,
@@ -22,6 +24,7 @@ export const updateUser = (
   nickname,
   password,
   tagArray,
+  thumbnail,
 });
 
 export const updateAccessToken = (accessToken) => ({
@@ -40,6 +43,10 @@ export const updateUserTagArray = (tagArray) => ({
   type: UPDATE_USER_TAGARRAY,
   tagArray,
 });
+export const updateUserThumbnail = (thumbnail) => ({
+  type: UPDATE_USER_THUMBNAIL,
+  thumbnail,
+});
 
 //초기상태와 Reducer 정의
 const initialState = {
@@ -49,6 +56,7 @@ const initialState = {
   nickname: "",
   password: "",
   tagArray: ["a"],
+  thumbnail: "",
 };
 
 function userData(state = initialState, action) {
@@ -60,6 +68,7 @@ function userData(state = initialState, action) {
         nickname: action.nickname,
         loginMethod: action.loginMethod,
         tagArray: action.tagArray,
+        thumbnail: action.thumbnail,
       };
     case UPDATE_ACCESS_TOKEN:
       return {
@@ -81,6 +90,12 @@ function userData(state = initialState, action) {
         ...state,
         tagArray: action.tagArray,
       };
+    case UPDATE_USER_THUMBNAIL:
+      return {
+        ...state,
+        thumbnail: action.thumbnail,
+      };
+
     default:
       return state;
   }
