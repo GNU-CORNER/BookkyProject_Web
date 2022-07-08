@@ -78,6 +78,7 @@ function MyPost() {
             content={post.contents}
             likes={post.likeCnt}
             comments={post.commentCnt}
+            communityType={post.communityType}
             board={0}
           />
         ))}

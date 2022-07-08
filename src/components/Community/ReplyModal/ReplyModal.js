@@ -1,7 +1,7 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PageHeader from "../../PageHeader";
 import BookSelectArea from "../BookSelectArea";
@@ -16,11 +16,10 @@ const ReplyModal = ({
 }) => {
   // 변수 선언
   const today = new Date();
-  const navigate = useNavigate();
   const state = useSelector((state) => state);
   const baseURL = state.baseURL.url;
   const user = state.userData;
-  const [slug, setSlug] = useState(0);
+  const [slug] = useState(0);
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
   const [TBID, setTBID] = useState(0);

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import MiniProfile from "../BookDetail/miniProfile";
 import Rating from "@mui/material/Rating";
 import axios from "axios";
-import { useState } from "react";
+// import { useState } from "react";
 
 // BookDetail - ReviewCard
 const ReviewCard = ({
@@ -26,7 +26,7 @@ const ReviewCard = ({
   const state = useSelector((state) => state);
   const baseURL = state.baseURL.url;
   const user = state.userData;
-  const [like, setLike] = useState(isLiked !== undefined ? isLiked : false);
+  // const [like, setLike] = useState(isLiked ?? false);
 
   function likeReview() {
     axios

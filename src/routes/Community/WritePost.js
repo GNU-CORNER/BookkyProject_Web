@@ -24,6 +24,19 @@ const WritePost = () => {
   const [TBID, setTBID] = useState(0);
   const [parentQPID] = useState(0);
   const [images, setImages] = useState([]);
+  const [testimg, setImg] = useState();
+
+  function test() {
+    let formData = new FormData();
+
+    console.log("테스트이미지", testimg);
+    formData.append("image", testimg);
+    console.log(formData.get("image"));
+
+    axios
+      .post("https://mandarin.api.weniv.co.kr/image/uploadfiles", formData)
+      .then((res) => console.log(res));
+  }
 
   // 최초 렌더링 시 초기화
   function init() {
@@ -148,7 +161,20 @@ const WritePost = () => {
             style={{ display: "none" }}
           />
         </ImgSelectArea>
+        <button onClick={test}>zzz</button>
+        <input
+          type="file"
+          id="input-img"
+          accept="image/*"
+          onChange={(e) => {
+            console.log(e.target.files[0]);
+            setImg(e.target.files[0]);
 
+            // const reader = new FileReader(); // FileReader 객체 생성
+            // reader.readAsDataURL(e.target.files[0]);
+            // reader.onloadend = () => setImages([...images, reader.result]);
+          }}
+        />
         {/* 내용 input */}
         <textarea
           className="contents-Input input"

@@ -75,7 +75,12 @@ const CommentModal = ({
       });
   }
 
-  useEffect(getCommentData, [PID, setPostCommentCnt, user.accessToken]);
+  useEffect(getCommentData, [
+    baseURL,
+    PID,
+    setPostCommentCnt,
+    user.accessToken,
+  ]);
 
   // 댓글 보기 모달 창 View
   return (
