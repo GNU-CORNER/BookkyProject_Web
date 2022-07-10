@@ -99,7 +99,7 @@ const EditUserModal = ({ setEditUserModal, userData }) => {
           <input
             id="image-input"
             type="file"
-            accept="image/*"
+            accept="image/jpg, image/png, image/jpeg"
             style={{ display: "none" }}
             onChange={(e) => {
               const reader = new FileReader();

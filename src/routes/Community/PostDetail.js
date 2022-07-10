@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PostDetailBookCard from "../../components/Cards/PostDetailBookCard";
@@ -11,6 +11,8 @@ import ReplyPost from "../../components/Community/ReplyPost";
 import PageHeader from "../../components/PageHeader";
 import { ReactComponent as UnLike } from "../../assets/icons/community/heart.svg"; // 모달 닫기 버튼
 import { ReactComponent as Like } from "../../assets/icons/community/heart-fill.svg"; // 모달 닫기 버튼
+import { useCookies } from "react-cookie";
+import { updateAccessToken } from "../../redux-modules/userData";
 
 // 커뮤니티 - 게시글 상세보기
 const PostDetail = () => {
@@ -29,6 +31,27 @@ const PostDetail = () => {
   const [commentModal, setCommentModal] = useState(false);
   const [replyWriteModal, setReplyWriteModal] = useState(false);
   const [userComment, setUserComment] = useState("");
+  const cookies = useCookies();
+  const dispatch = useDispatch();
+
+  // 만료된 AT 갱신
+  function updateToken() {
+    axios
+      .post(
+        baseURL + "auth/refresh",
+        {},
+        {
+          headers: {
+            "access-token": user.accessToken,
+            "refresh-token": cookies[0].refresh_token,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("토큰갱신 Response", res);
+        dispatch(updateAccessToken(res.data.result.access_token));
+      });
+  }
 
   // 첨부 도서 형태
   const [book, setBook] = useState({
@@ -123,6 +146,11 @@ const PostDetail = () => {
           setReplyPost(res.data.result.replydata);
           setReplyCnt(res.data.result.replyCnt);
           setBook(res.data.result.Book);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            updateToken();
+          }
         });
   }
 

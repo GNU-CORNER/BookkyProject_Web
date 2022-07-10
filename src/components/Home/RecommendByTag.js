@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import BookCard from "../Cards/BookCard";
 import Loading from "../Loading";
 import { updateHomeBooks } from "../../redux-modules/books";
+import { useCookies } from "react-cookie";
+import { updateAccessToken } from "../../redux-modules/userData";
 
 // 홈 - 태그 별 추천
 const RecommendByTag = () => {
@@ -16,6 +18,26 @@ const RecommendByTag = () => {
   const [nowTMID, setNowTMID] = useState(0);
   const state = useSelector((state) => state);
   const baseURL = state.baseURL.url;
+  const cookies = useCookies();
+
+  // 만료된 AT 갱신
+  function updateToken() {
+    axios
+      .post(
+        baseURL + "auth/refresh",
+        {},
+        {
+          headers: {
+            "access-token": state.userData.accessToken,
+            "refresh-token": cookies[0].refresh_token,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("토큰갱신 Response", res);
+        dispatch(updateAccessToken(res.data.result.access_token));
+      });
+  }
 
   // 도서 데이터 Set
   const dataSet = useSelector((state) => state.books.homeBooks).filter(
@@ -31,11 +53,15 @@ const RecommendByTag = () => {
         },
       })
       .then((res) => {
-        console.log(res);
         dispatch(updateHomeBooks(res.data.result.bookList));
         setNowSelect(res.data.result.bookList[1]);
         setNowTMID(res.data.result.bookList[1].TMID);
         setLoading(false);
+      })
+      .catch((error) => {
+        if (error.response.status === 401) {
+          updateToken();
+        }
       });
   }
 
@@ -61,7 +87,7 @@ const RecommendByTag = () => {
   }
   // 최초 렌더링 시, getData()
   useEffect(getData, [user.accessToken]);
-
+  useEffect(updateToken, []);
   // 로딩 버튼 출력
   if (loading === true) {
     return <Loading />;
