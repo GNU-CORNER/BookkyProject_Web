@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
 import SearchBar from "./SearchBar";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
+import { ReactComponent as HamburgerBtn } from "../../assets/icons/topNav/menu-burger.svg";
 
 // 상단 네비게이션 바
 function TopNav() {
@@ -101,55 +99,55 @@ function TopNav() {
     // 모바일 버전
     return (
       <MobileTopNav>
-        <button
+        <HamburgerBtn
           className="toggle-btn"
-          onClick={() => {
-            setMenu(!isMenuOpened);
-            console.log(isMenuOpened);
-          }}
-        >
-          토글버튼
-        </button>
+          onClick={() => setMenu(!isMenuOpened)}
+        />
         <div style={{ display: isMenuOpened ? "initial" : "none" }}>
-          <ul>
-            <li>
-              <StyledLink to="/">
-                <img
-                  src={require("../../assets/Bookky/북키_메인로고.png")}
-                  alt=""
-                />
-              </StyledLink>
-            </li>
+          <ul onClick={() => setMenu(!isMenuOpened)}>
             <li>
               <Link to="/" onClick={() => setMenu(false)}>
                 홈
               </Link>
             </li>
             <li>
-              <Accordion>
-                <AccordionSummary>커뮤니티</AccordionSummary>
-                <AccordionDetails>
-                  <Link to="/community" onClick={() => setMenu(false)}>
-                    커뮤니티 홈
-                  </Link>
-                  <Link to="/hot/1" onClick={() => setMenu(false)}>
-                    H🔥T게시판
-                  </Link>
-                  <Link to="/hot/1" onClick={() => setMenu(false)}>
-                    자유게시판
-                  </Link>
-                  <Link to="/hot/1" onClick={() => setMenu(false)}>
-                    Q{"&"}A게시판
-                  </Link>
-                  <Link to="/hot/1" onClick={() => setMenu(false)}>
-                    책 장터
-                  </Link>
-                </AccordionDetails>
-              </Accordion>
+              <Link to="/community" onClick={() => setMenu(false)}>
+                커뮤니티 홈
+              </Link>
+            </li>
+            <li>
+              <Link to="/hot/1" onClick={() => setMenu(false)}>
+                - H🔥T게시판
+              </Link>
+            </li>
+            <li>
+              <Link to="/free/1" onClick={() => setMenu(false)}>
+                - 자유게시판
+              </Link>
+            </li>
+            <li>
+              <Link to="/qna/1" onClick={() => setMenu(false)}>
+                - Q{"&"}A게시판
+              </Link>
+            </li>
+            <li>
+              <Link to="/trade/1" onClick={() => setMenu(false)}>
+                - 책 장터
+              </Link>
             </li>
             <li>
               <Link to="/recommend" onClick={() => setMenu(false)}>
                 추천받개
+              </Link>
+            </li>
+            <li>
+              <Link to="/detective" onClick={() => setMenu(false)}>
+                명탐정 북키
+              </Link>
+            </li>
+            <li>
+              <Link to="/guide" onClick={() => setMenu(false)}>
+                안내견 북키
               </Link>
             </li>
           </ul>
@@ -288,24 +286,33 @@ const StyledLink = styled(Link)`
 `;
 
 const MobileTopNav = styled.div`
+  width: 100vw;
   z-index: 99;
   position: fixed;
+  background-color: var(--bright-base-bg-color);
 
   .toggle-btn {
-    width: 64px;
-    height: 64px;
+    margin: 14px;
+    width: 36px;
+    height: 36px;
   }
 
   ul {
-    width: 90vw;
-    background-color: white;
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 100vw;
+    height: 100vh;
+    overflow-y: scroll;
     position: absolute;
 
     li {
+      padding-left: 30px;
+      width: 60vw;
+      background-color: white;
       display: flex;
       flex-direction: column;
       height: 64px;
     }
   }
 `;
+
 export default TopNav;
