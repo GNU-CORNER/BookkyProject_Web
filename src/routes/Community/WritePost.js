@@ -161,7 +161,7 @@ const WritePost = () => {
             style={{ display: "none" }}
           />
         </ImgSelectArea>
-        <button onClick={test}>zzz</button>
+        {/* 
         <input
           type="file"
           id="input-img"
@@ -174,7 +174,7 @@ const WritePost = () => {
             // reader.readAsDataURL(e.target.files[0]);
             // reader.onloadend = () => setImages([...images, reader.result]);
           }}
-        />
+        />*/}
         {/* 내용 input */}
         <textarea
           className="contents-Input input"
