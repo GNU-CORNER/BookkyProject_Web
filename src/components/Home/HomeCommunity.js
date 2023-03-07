@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Posts from "./Posts";
@@ -12,10 +13,12 @@ const HomeCommunity = () => {
   const [QnaPosts, setQnaPosts] = useState([{ title: "", PID: 0 }]);
   const [HotPosts, sethotPosts] = useState([{ title: "", PID: 0 }]);
   const [TradePosts, setTradePosts] = useState([{ title: "", PID: 0 }]);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
 
   // getPosts() : 게시글 정보를 불러와 변수에 저장
   function getPosts() {
-    axios.get("http://203.255.3.144:8002/v1/community/home").then((res) => {
+    axios.get(baseURL + "community/home").then((res) => {
       setFreePosts(res.data.result.AnyList);
       setQnaPosts(res.data.result.QnAList);
       sethotPosts(res.data.result.HotList);
@@ -24,7 +27,7 @@ const HomeCommunity = () => {
   }
 
   // 최초 로드시, getPosts 호출
-  useEffect(getPosts, []);
+  useEffect(getPosts, [baseURL]);
 
   // View
   return (

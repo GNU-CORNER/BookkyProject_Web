@@ -7,9 +7,11 @@ import MiniProfile from "./miniProfile";
 // 도서 상세보기 - 리뷰 쓰기 영역
 const ReviewWriting = ({ BID, getBookData }) => {
   // 변수 선언
-  const user = useSelector((state) => state.userData);
   const [contents, setContents] = useState("");
   const today = new Date();
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
 
   // writeReview() : 작성한 리뷰 서버로 전송
   function submitReview() {
@@ -19,7 +21,7 @@ const ReviewWriting = ({ BID, getBookData }) => {
     });
 
     axios
-      .post("http://203.255.3.144:8002/v1/review/" + BID, params, {
+      .post(baseURL + "review/" + BID, params, {
         headers: { "access-token": user.accessToken },
       })
       .then((res) => console.log(res));

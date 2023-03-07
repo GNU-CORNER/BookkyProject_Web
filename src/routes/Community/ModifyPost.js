@@ -1,19 +1,22 @@
 import styled from "styled-components";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import BookSelectArea from "../../components/Community/BookSelectArea";
 import PageHeader from "../../components/PageHeader";
 import { ReactComponent as Upload } from "../../assets/icons/community/upload.svg"; // 모달 닫기 버튼
+import { Buffer } from "buffer";
 
 const ModifyPost = () => {
   // 변수 선언
   const location = useLocation();
   const today = new Date();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.userData);
-  const SideNavState = useSelector((state) => state.SideNavState);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
+  const SideNavState = state.SideNavState;
 
   // 게시글에서 넘어온 데이터로 초기화
   const postData = location.state;
@@ -23,6 +26,26 @@ const ModifyPost = () => {
   const [parentQPID] = useState(postData.post.parentQPID);
   const [images, setImages] = useState(postData.post.postImage);
 
+  // init() : 최초 로드시, 이미지 배열 초기화 작업(url to base64)
+  const init = () => {
+    console.log("초기 배열", images);
+    images.map((el) => {
+      axios
+        .get(el, {
+          responseType: "arraybuffer",
+        })
+        .then((res) => {
+          setImages([
+            ...images,
+            "data:image/png;base64," +
+              Buffer.from(res.data, "binary").toString("base64"),
+          ]);
+
+          setImages([...images]);
+        });
+    });
+  };
+
   // onSubmit() :  버튼 클릭 시, 서버와 통신하여 게시글 수정
   function onSubmit() {
     console.log("Images 형태 검사 (base64)", images);
@@ -30,8 +53,7 @@ const ModifyPost = () => {
 
     axios
       .put(
-        "http://203.255.3.144:8002/v1/community/modifypost/" +
-          postData.boardNum,
+        baseURL + "community/modifypost/" + postData.boardNum,
         {
           title: title,
           contents: contents,
@@ -52,6 +74,9 @@ const ModifyPost = () => {
           navigate("/postdetail/" + postData.boardNum + "/" + postData.PID);
       });
   }
+
+  // 최초 로드시 초기화 작업
+  useEffect(init, []);
 
   // View
   return (

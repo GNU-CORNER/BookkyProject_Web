@@ -13,11 +13,12 @@ import TagCard from "../components/Cards/TagCard";
 // 도서 상세정보
 function BookDetail() {
   // 변수 선언
+  const state = useSelector((state) => state);
+  const user = state.userData;
+  const baseURL = state.baseURL.url;
   const [fold, setFold] = useState(true);
-  const SideNavState = useSelector((state) => state.SideNavState);
   const location = useLocation();
   const BID = location.pathname.split("/")[2];
-  const user = useSelector((state) => state.userData);
   const [book, setBook] = useState({
     BOOK_INDEX: "",
     tagData: [{ tag: "", TMID: 0 }],
@@ -47,7 +48,7 @@ function BookDetail() {
   function getBookData() {
     if (user.accessToken.length > 0)
       axios
-        .get("http://203.255.3.144:8002/v1/books/detail/" + BID, {
+        .get(baseURL + "books/detail/" + BID, {
           headers: { "access-token": user.accessToken },
         })
         .then((res) => {
@@ -60,7 +61,7 @@ function BookDetail() {
   function getReviewData() {
     if (user.accessToken.length > 0)
       axios
-        .get("http://203.255.3.144:8002/v1/books/reviews/" + BID, {
+        .get(baseURL + "books/reviews/" + BID, {
           headers: { "access-token": user.accessToken },
         })
         .then((res) => {
@@ -76,7 +77,7 @@ function BookDetail() {
 
   // 도서 상세정보 View
   return (
-    <BookDetailContainer width={SideNavState.width}>
+    <BookDetailContainer width={state.SideNavState.width}>
       <PageHeader title="도서 상세정보" subTitle="선택한 책의 정보에요" />
       <Summary>
         <img src={book.thumbnailImage} alt="book thumbnail" />

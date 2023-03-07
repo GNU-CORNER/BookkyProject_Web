@@ -15,8 +15,10 @@ import { ReactComponent as Like } from "../../assets/icons/community/heart-fill.
 // 커뮤니티 - 게시글 상세보기
 const PostDetail = () => {
   //변수 선언
-  const SideNavState = useSelector((state) => state.SideNavState);
-  const user = useSelector((state) => state.userData);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
+  const SideNavState = state.SideNavState;
   const navigate = useNavigate();
   const location = useLocation().pathname.split("/");
   const PID = parseInt(location[3]);
@@ -108,17 +110,11 @@ const PostDetail = () => {
   function getPostData() {
     if (user.accessToken.length > 0)
       axios
-        .get(
-          "http://203.255.3.144:8002/v1/community/postdetail/" +
-            boardNum +
-            "/" +
-            PID,
-          {
-            headers: {
-              "access-token": user.accessToken,
-            },
-          }
-        )
+        .get(baseURL + "community/postdetail/" + boardNum + "/" + PID, {
+          headers: {
+            "access-token": user.accessToken,
+          },
+        })
         .then((res) => {
           console.log("게시글 데이터 요청", res);
           setPost(res.data.result.postdata);
@@ -145,7 +141,7 @@ const PostDetail = () => {
       }
     }
     axios
-      .delete("http://203.255.3.144:8002/v1/community/deletepost/" + boardNum, {
+      .delete(baseURL + "community/deletepost/" + boardNum, {
         data: {
           PID: PID,
         },
@@ -166,7 +162,7 @@ const PostDetail = () => {
     if (user.accessToken.length > 0)
       axios
         .post(
-          "http://203.255.3.144:8002/v1/community/like/" + boardNum + "/" + PID,
+          baseURL + "community/like/" + boardNum + "/" + PID,
           {},
           {
             headers: {
@@ -197,7 +193,7 @@ const PostDetail = () => {
   function submitComment() {
     axios
       .post(
-        "http://203.255.3.144:8002/v1/community/writecomment/" + boardNum,
+        baseURL + "community/writecomment/" + boardNum,
         {
           comment: userComment,
           parentID: 0,
@@ -226,20 +222,21 @@ const PostDetail = () => {
       {/* 헤더*/}
       <PageHeader title="게시글 상세보기" subTitle={boardName} />
       <ContentArea>
-        {/* 작성자 프로필 */}
-        <div className="profile">
-          <img src={post.thumbnail} alt="e" />
-          <p>{post.nickname}</p>
-        </div>
-
         {/* 게시글 컨텐츠 영역 상단 (제목, 작성일, 조회수)*/}
         <div className="title">{post.title}</div>
+        {/* 작성자 프로필 */}
         <div className="subData">
-          <p className="createAt">
-            {post.createAt === post.updateAt ? "Created at " : "Modified at "}
-            {post.createAt === post.updateAt ? post.createAt : post.updateAt}
-          </p>
-          <p className="views">{post.views} views</p>
+          <div className="subData_profile">
+            <img src={post.thumbnail} alt="e" />
+            <p>{post.nickname}</p>
+          </div>
+          <div className="subData_post">
+            <p className="createAt">
+              {post.createAt === post.updateAt ? post.createAt : post.updateAt}
+              {post.createAt === post.updateAt ? " 작성됨" : " 수정됨"}
+            </p>
+            <p className="views">{post.views} views</p>
+          </div>
         </div>
 
         {/* 게시글 컨텐츠 영역 하단 (내용, 이미지, 첨부 도서, 좋아요, 댓글, 답글)*/}
@@ -413,56 +410,57 @@ const ContentArea = styled.div`
   border-radius: 4px;
   padding: 15px;
   box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
-
-  .profile {
-    display: flex;
-    position: absolute;
-    right: 0;
-
-    p {
-      margin: 0 10px;
-      font-weight: bold;
-      line-height: 32px;
-    }
-
-    img {
-      object-fit: cover;
-      border-radius: 4px;
-      width: 32px;
-      height: 32px;
-    }
-  }
   .title {
     font-size: 1.8em;
     font-weight: bold;
     line-height: 32px;
   }
-
   .subData {
-    margin: 5px 0;
-    padding: 0 10px;
-    width: fit-content;
-    background-color: #f5f5f5;
-    border-radius: 10px;
-    line-height: 20px;
-    font-size: 0.9em;
     display: flex;
-    color: #c5c5c5;
+    align-items: center;
 
-    .createAt {
+    .subData_profile {
+      display: flex;
+      margin: 10px 0;
+
+      p {
+        margin: 0 10px;
+        font-weight: bold;
+        line-height: 32px;
+      }
+
+      img {
+        object-fit: cover;
+        border-radius: 4px;
+        width: 32px;
+        height: 32px;
+      }
     }
 
-    .views {
-      margin-left: 15px;
+    .subData_post {
+      margin: 5px 0;
+      padding: 0 10px;
+      width: fit-content;
+      border-radius: 10px;
+      line-height: 20px;
+      font-size: 0.9em;
+      display: flex;
 
-      ::before {
-        content: "";
-        width: 15px;
-        height: 15px;
-        display: inline-block;
-        margin-right: 5px;
-        background-size: cover;
-        background-image: url(${require("../../assets/icons/community/views.png")});
+      .createAt {
+      }
+
+      .views {
+        margin-left: 15px;
+
+        ::before {
+          content: "";
+          width: 15px;
+          height: 15px;
+          display: inline-block;
+          margin-right: 5px;
+          background-size: cover;
+          background-image: url(${require("../../assets/icons/community/views.png")});
+        }
       }
     }
   }

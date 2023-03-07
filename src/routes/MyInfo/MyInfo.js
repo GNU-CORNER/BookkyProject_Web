@@ -14,8 +14,10 @@ import { useNavigate } from "react-router-dom";
 // SideBar - 내 정보
 function MyInfo() {
   // 변수 정의
-  const user = useSelector((state) => state.userData);
-  const SideNavState = useSelector((state) => state.SideNavState);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
+  const SideNavState = state.SideNavState;
   const [myPostCnt, setMyPostCnt] = useState(0);
   const [editUserModal, setEditUserModal] = useState(false);
   const [userData, setUserData] = useState({ nickname: "", userThumbnail: "" });
@@ -39,7 +41,7 @@ function MyInfo() {
   function getPosts() {
     if (user.accessToken.length > 0)
       axios
-        .get("http://203.255.3.144:8002/v1/myprofile", {
+        .get(baseURL + "myprofile", {
           headers: {
             "access-token": user.accessToken,
           },

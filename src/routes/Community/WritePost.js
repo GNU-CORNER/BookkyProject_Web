@@ -12,8 +12,10 @@ const WritePost = () => {
   // 변수 선언
   const today = new Date();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.userData);
-  const SideNavState = useSelector((state) => state.SideNavState);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
+  const SideNavState = state.SideNavState;
   const location = useLocation().state;
   const [boardName, setBoardname] = useState("");
   const [slug, setSlug] = useState(0);
@@ -22,6 +24,19 @@ const WritePost = () => {
   const [TBID, setTBID] = useState(0);
   const [parentQPID] = useState(0);
   const [images, setImages] = useState([]);
+  const [testimg, setImg] = useState();
+
+  function test() {
+    let formData = new FormData();
+
+    console.log("테스트이미지", testimg);
+    formData.append("image", testimg);
+    console.log(formData.get("image"));
+
+    axios
+      .post("https://mandarin.api.weniv.co.kr/image/uploadfiles", formData)
+      .then((res) => console.log(res));
+  }
 
   // 최초 렌더링 시 초기화
   function init() {
@@ -75,16 +90,12 @@ const WritePost = () => {
 
     // post 통신 : 게시글 작성
     axios
-      .post(
-        "http://203.255.3.144:8002/v1/community/writepost/" + slug,
-        params,
-        {
-          headers: {
-            "access-token": user.accessToken,
-          },
-          "Content-Type": "application/json",
-        }
-      )
+      .post(baseURL + "community/writepost/" + slug, params, {
+        headers: {
+          "access-token": user.accessToken,
+        },
+        "Content-Type": "application/json",
+      })
       .then((res) => {
         console.log("게시글 작성 response", res);
         if (res.data.success === true) navigate(`/${setPathName()}/1`);
@@ -150,7 +161,20 @@ const WritePost = () => {
             style={{ display: "none" }}
           />
         </ImgSelectArea>
+        <button onClick={test}>zzz</button>
+        <input
+          type="file"
+          id="input-img"
+          accept="image/*"
+          onChange={(e) => {
+            console.log(e.target.files[0]);
+            setImg(e.target.files[0]);
 
+            // const reader = new FileReader(); // FileReader 객체 생성
+            // reader.readAsDataURL(e.target.files[0]);
+            // reader.onloadend = () => setImages([...images, reader.result]);
+          }}
+        />
         {/* 내용 input */}
         <textarea
           className="contents-Input input"

@@ -15,22 +15,21 @@ const Reply = ({
   getCommentData,
 }) => {
   // 변수 선언
-  const user = useSelector((state) => state.userData);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
 
   // deleteComment() : 댓글 삭제
   function deleteComment() {
     axios
-      .delete(
-        "http://203.255.3.144:8002/v1/community/deletecomment/" + boardNum,
-        {
-          data: {
-            CID: CID,
-          },
-          headers: {
-            "access-token": user.accessToken,
-          },
-        }
-      )
+      .delete(baseURL + "community/deletecomment/" + boardNum, {
+        data: {
+          CID: CID,
+        },
+        headers: {
+          "access-token": user.accessToken,
+        },
+      })
       .then((res) => {
         console.log(res);
         getPostData();

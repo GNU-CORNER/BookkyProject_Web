@@ -10,15 +10,15 @@ const SecondStep = ({ ToBefore }) => {
   // 변수 선언
   const [Tags, setTags] = useState([{ TMID: "", nameTag: "" }]);
   const [pickedTags, setPickedTags] = useState([]);
-  const user = useSelector((state) => state.userData);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   // getTags() : 서버 데이터 통신 함수 (태그 목록 불러오기)
   function getTags() {
-    axios
-      .get("http://203.255.3.144:8002/v1/tags")
-      .then((res) => setTags(res.data.result.tag));
+    axios.get(baseURL + "tags").then((res) => setTags(res.data.result.tag));
   }
 
   // Submit() : 선택한 태그 서버로 전송
@@ -26,7 +26,7 @@ const SecondStep = ({ ToBefore }) => {
     console.log(pickedTags);
     axios
       .put(
-        "http://203.255.3.144:8002/v1/user/tag",
+        baseURL + "user/tag",
         { tag: pickedTags },
         {
           headers: {

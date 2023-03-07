@@ -10,8 +10,10 @@ import { useCookies } from "react-cookie";
 // 회원가입 (소셜 회원일 때, 닉네임만 추가 등록)
 const SignUpMore = () => {
   // 변수 선언
-  const user = useSelector((state) => state.userData);
-  const SideNavState = useSelector((state) => state.SideNavState);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
+  const SideNavState = state.SideNavState;
   const dispatch = useDispatch();
   const [nickName, setNickName] = useState("");
   const [, setCookie] = useCookies();
@@ -29,7 +31,7 @@ const SignUpMore = () => {
 
     // 통신 - 회원가입 데이터 전송
     axios
-      .post("http://203.255.3.144:8002/v1/user/signup", params, {
+      .post(baseURL + "user/signup", params, {
         "Content-Type": "application/json",
       })
       .then((res) => {

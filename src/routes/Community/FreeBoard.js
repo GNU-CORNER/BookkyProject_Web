@@ -17,9 +17,11 @@ function FreeBoard() {
   const dispatch = useDispatch();
   const location = useLocation().pathname.split("/");
   const boardName = location[1];
-  const posts = useSelector((state) => state.posts.free);
-  const user = useSelector((state) => state.userData);
-  const SideNavState = useSelector((state) => state.SideNavState);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
+  const SideNavState = state.SideNavState;
+  const posts = state.posts.free;
   const [page, setPage] = useState(parseInt(location[2]));
   const [count, setCount] = useState(1);
 
@@ -27,7 +29,7 @@ function FreeBoard() {
   function getPosts() {
     axios
       .get(
-        "http://203.255.3.144:8002/v1/community/postlist/0", // postlist/0 or postlist/1 or postlist/2 or postlist/3 or /hotcommunity
+        baseURL + "community/postlist/0", // postlist/0 or postlist/1 or postlist/2 or postlist/3 or /hotcommunity
         {
           params: {
             quantity: 10,

@@ -10,13 +10,15 @@ import PageHeader from "../components/PageHeader";
 const SearchResult = () => {
   // 변수 선언
   const query = useLocation().state.query;
-  const SideNavState = useSelector((state) => state.SideNavState);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const SideNavState = state.SideNavState;
   const [books, setBooks] = useState([]);
 
   // getSearchResult() : 검색을 위한 서버와의 통신
   function getSearchResult() {
     axios
-      .get("http://203.255.3.144:8002/v1/books/search", {
+      .get(baseURL + "books/search", {
         params: { keyword: query },
       })
       .then((res) => {

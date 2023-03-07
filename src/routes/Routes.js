@@ -19,7 +19,7 @@ import MyPost from "./Community/MyPosts";
 
 import Recommend from "./Recommend/Recommend";
 import Detective from "./Recommend/Detective";
-import Guide from "./Recommend/Guide";
+import Guide from "./Recommend/GuideHome";
 import Error from "./Error";
 
 import FindPassWord from "./Authentication/FindPassword";

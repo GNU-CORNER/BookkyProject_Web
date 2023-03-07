@@ -14,6 +14,8 @@ const RecommendByTag = () => {
   const dispatch = useDispatch();
   const [nowSelect, setNowSelect] = useState({ data: "" });
   const [nowTMID, setNowTMID] = useState(0);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
 
   // 도서 데이터 Set
   const dataSet = useSelector((state) => state.books.homeBooks).filter(
@@ -23,7 +25,7 @@ const RecommendByTag = () => {
   // getData() : 서버 데이터 통신 함수 (책 목록 불러오기)
   function getData() {
     axios
-      .get("http://203.255.3.144:8002/v1/home", {
+      .get(baseURL + "home", {
         headers: {
           "access-token": user.accessToken,
         },

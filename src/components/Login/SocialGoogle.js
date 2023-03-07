@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { GoogleLogin } from "react-google-login";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { modalOpen } from "../../redux-modules/loginModal";
 import { updateUser } from "../../redux-modules/userData";
@@ -12,6 +12,9 @@ const SocialGoogle = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [, setCookie] = useCookies();
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
 
   // Google 통신에 성공했을 때
   const onSuccess = (res) => {
@@ -33,7 +36,7 @@ const SocialGoogle = () => {
     console.log("여기는 소셜로그인", params);
     // 통신 - 로그인 데이터 전송
     axios
-      .post("http://203.255.3.144:8002/v1/user/signin", params, {
+      .post(baseURL + "user/signin", params, {
         "Content-Type": "application/json",
       })
       .then((res) => {

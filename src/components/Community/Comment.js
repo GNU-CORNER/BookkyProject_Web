@@ -19,7 +19,9 @@ const Comment = ({
   getCommentData,
 }) => {
   // 변수 선언
-  const user = useSelector((state) => state.userData);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
   const [replyForm, setReplyForm] = useState(false);
   const [userComment, setUserComment] = useState("");
 
@@ -28,7 +30,7 @@ const Comment = ({
     console.log("postID", PID);
     axios
       .post(
-        "http://203.255.3.144:8002/v1/community/writecomment/" + boardNum,
+        baseURL + "community/writecomment/" + boardNum,
         {
           comment: userComment,
           parentID: CID, // CID(대댓글의 경우) or 0(댓글작성의 경우)
@@ -57,17 +59,14 @@ const Comment = ({
   function deleteComment() {
     console.log(CID);
     axios
-      .delete(
-        "http://203.255.3.144:8002/v1/community/deletecomment/" + boardNum,
-        {
-          data: {
-            CID: CID,
-          },
-          headers: {
-            "access-token": user.accessToken,
-          },
-        }
-      )
+      .delete(baseURL + "community/deletecomment/" + boardNum, {
+        data: {
+          CID: CID,
+        },
+        headers: {
+          "access-token": user.accessToken,
+        },
+      })
       .then((res) => {
         console.log("삭제 완", res);
         getPostData();

@@ -16,9 +16,11 @@ function TradeBoard() {
   const dispatch = useDispatch();
   const location = useLocation().pathname.split("/");
   const boardName = location[1];
-  const posts = useSelector((state) => state.posts.trade);
-  const user = useSelector((state) => state.userData);
-  const SideNavState = useSelector((state) => state.SideNavState);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
+  const posts = state.posts.trade;
+  const SideNavState = state.SideNavState;
   const [page, setPage] = useState(parseInt(location[2]));
   const [count, setCount] = useState(1);
 
@@ -26,7 +28,7 @@ function TradeBoard() {
   function getPosts() {
     axios
       .get(
-        "http://203.255.3.144:8002/v1/community/postlist/1",
+        baseURL + "community/postlist/1",
         {
           params: {
             quantity: 10,

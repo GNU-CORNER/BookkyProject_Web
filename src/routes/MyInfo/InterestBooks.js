@@ -8,17 +8,19 @@ import { useEffect } from "react";
 // SideBar - 내 관심도서
 function Interests() {
   // 변수 정의
-  const user = useSelector((state) => state.userData);
-  const mybooks = useSelector((state) => state.books.interests);
-  const SideNavState = useSelector((state) => state.SideNavState);
   const dispatch = useDispatch();
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
+  const mybooks = state.books.interests;
+  const SideNavState = state.SideNavState;
 
   // getBooks() : 서버로부터 사용자의 관심도서를 받아 redux-store에 저장
   function getBooks() {
     if (user.accessToken) {
       console.log("성공");
       axios
-        .get("http://203.255.3.144:8002/v1/user/favoritebook/0", {
+        .get(baseURL + "user/favoritebook/0", {
           headers: {
             "access-token": user.accessToken,
           },
