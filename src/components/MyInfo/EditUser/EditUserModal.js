@@ -6,6 +6,7 @@ import {
   updateUserNickname,
   updateUserThumbnail,
 } from "../../../redux-modules/userData";
+import { ReactComponent as Close } from "../../../assets/icons/community/cross.svg"; // 모달 닫기 버튼
 
 // 내 정보 - 사용자 정보 수정
 const EditUserModal = ({ setEditUserModal, userData }) => {
@@ -13,7 +14,9 @@ const EditUserModal = ({ setEditUserModal, userData }) => {
   const [nickname, setNickname] = useState(userData.nickname);
   const [message, setMessage] = useState("닉네임을 입력하세요");
   const [image, setImage] = useState("");
-  const user = useSelector((state) => state.userData);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
   const dispatch = useDispatch();
 
   // submit() : 수정하기 버튼 클릭 시
@@ -25,7 +28,7 @@ const EditUserModal = ({ setEditUserModal, userData }) => {
     });
 
     axios
-      .put("http://203.255.3.144:8002/v1/user/myprofile", params, {
+      .put(baseURL + "user/myprofile", params, {
         headers: {
           "access-token": user.accessToken,
         },
@@ -33,9 +36,9 @@ const EditUserModal = ({ setEditUserModal, userData }) => {
       .then((res) => {
         console.log("정보 변경 완료", res);
         if (res.status === 200) {
+          dispatch(updateUserThumbnail(res.data.result.route));
+          dispatch(updateUserNickname(res.data.result.nickname));
           setEditUserModal(false);
-          dispatch(updateUserThumbnail(res.data.route));
-          dispatch(updateUserNickname(res.data.nickname));
         }
       });
   }
@@ -43,7 +46,7 @@ const EditUserModal = ({ setEditUserModal, userData }) => {
   // checkNickname(nickname) : 닉네임 중복검사
   function checkNickname(nickname) {
     axios
-      .get("http://203.255.3.144:8002/v1/user/nickname", {
+      .get(baseURL + "user/nickname", {
         params: {
           nickname: nickname,
         },
@@ -79,6 +82,15 @@ const EditUserModal = ({ setEditUserModal, userData }) => {
   // View
   return (
     <EditUserModalContainer>
+      {/* 모달 닫기 버튼 */}
+      <Close
+        className="close-btn"
+        onClick={() =>
+          window.confirm("회원 정보 변경을 취소하시겠습니까?")
+            ? setEditUserModal(false)
+            : ""
+        }
+      />
       <div className="inner">
         <h2 className="header">프로필 수정</h2>
 
@@ -87,7 +99,7 @@ const EditUserModal = ({ setEditUserModal, userData }) => {
           <input
             id="image-input"
             type="file"
-            accept="image/*"
+            accept="image/jpg, image/png, image/jpeg"
             style={{ display: "none" }}
             onChange={(e) => {
               const reader = new FileReader();
@@ -162,6 +174,18 @@ const EditUserModal = ({ setEditUserModal, userData }) => {
 const EditUserModalContainer = styled.div`
   position: relative;
   height: 100%;
+
+  .close-btn {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 20px;
+    top: 2vh;
+
+    :hover {
+      cursor: pointer;
+    }
+  }
 
   .inner {
     padding: 30px;

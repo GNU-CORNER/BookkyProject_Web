@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
 import SearchBar from "./SearchBar";
+import { ReactComponent as HamburgerBtn } from "../../assets/icons/topNav/menu-burger.svg";
 
 // 상단 네비게이션 바
 function TopNav() {
@@ -10,6 +11,18 @@ function TopNav() {
   const [CommunityActive, setCommunityActive] = useState("");
   const [recommendActive, setRecommendActive] = useState("");
   const location = useLocation();
+  const [isMobile, setMobile] = useState(false);
+
+  // 모바일-PC 반응형
+  const windowWidth = window.matchMedia("screen and (max-width : 756px)");
+
+  const onWidthChange = () => {
+    setMenu(false);
+    setMobile(windowWidth.matches);
+    return windowWidth.removeEventListener("change", onWidthChange);
+  };
+
+  windowWidth.addEventListener("change", onWidthChange);
 
   // setBorderBottom() : TopNav 현재 탭 표시
   const setBorderBottom = () => {
@@ -76,54 +89,119 @@ function TopNav() {
 
   // URL이 바뀌면, setBorderBottom()
   useEffect(setBorderBottom, [location.pathname]);
+  useEffect(onWidthChange, []);
 
   // 상단 네비게이션 View
-  return (
-    <TopNavContainer>
-      <StyledLink to="/">
-        <img src={require("../../assets/Bookky/북키_메인로고.png")} alt="" />
-      </StyledLink>
 
-      <div className="dropdown">
-        <StyledLink className="dropbtn home" to="/" borderbottom={homeActive}>
-          홈
-        </StyledLink>
-      </div>
+  const [isMenuOpened, setMenu] = useState(false);
 
-      <div className="dropdown">
-        <StyledLink
-          className="dropbtn"
-          to="/community"
-          borderbottom={CommunityActive}
-        >
-          커뮤니티
-        </StyledLink>
-        <div className="dropdown-content a">
-          <StyledLink to="/community">커뮤니티 홈</StyledLink>
-          <StyledLink to="/hot/1">H🔥T게시판</StyledLink>
-          <StyledLink to="/free/1">자유게시판</StyledLink>
-          <StyledLink to="/qna/1">Q{"&"}A게시판</StyledLink>
-          <StyledLink to="/trade/1">중고장터</StyledLink>
+  if (isMobile)
+    // 모바일 버전
+    return (
+      <MobileTopNav>
+        <HamburgerBtn
+          className="toggle-btn"
+          onClick={() => setMenu(!isMenuOpened)}
+        />
+        <div style={{ display: isMenuOpened ? "initial" : "none" }}>
+          <ul onClick={() => setMenu(!isMenuOpened)}>
+            <li>
+              <Link to="/" onClick={() => setMenu(false)}>
+                홈
+              </Link>
+            </li>
+            <li>
+              <Link to="/community" onClick={() => setMenu(false)}>
+                커뮤니티 홈
+              </Link>
+            </li>
+            <li>
+              <Link to="/hot/1" onClick={() => setMenu(false)}>
+                - H🔥T게시판
+              </Link>
+            </li>
+            <li>
+              <Link to="/free/1" onClick={() => setMenu(false)}>
+                - 자유게시판
+              </Link>
+            </li>
+            <li>
+              <Link to="/qna/1" onClick={() => setMenu(false)}>
+                - Q{"&"}A게시판
+              </Link>
+            </li>
+            <li>
+              <Link to="/trade/1" onClick={() => setMenu(false)}>
+                - 책 장터
+              </Link>
+            </li>
+            <li>
+              <Link to="/recommend" onClick={() => setMenu(false)}>
+                추천받개
+              </Link>
+            </li>
+            <li>
+              <Link to="/detective" onClick={() => setMenu(false)}>
+                명탐정 북키
+              </Link>
+            </li>
+            <li>
+              <Link to="/guide" onClick={() => setMenu(false)}>
+                안내견 북키
+              </Link>
+            </li>
+          </ul>
         </div>
-      </div>
-
-      <div className="dropdown">
-        <StyledLink
-          className="dropbtn"
-          to="/recommend"
-          borderbottom={recommendActive}
-        >
-          추천받개
+      </MobileTopNav>
+    );
+  // PC 버전
+  else
+    return (
+      <TopNavContainer>
+        <StyledLink to="/">
+          <img src={require("../../assets/Bookky/북키_메인로고.png")} alt="" />
         </StyledLink>
-        <div className="dropdown-content">
-          <StyledLink to="/recommend">추천받개 홈</StyledLink>
-          <StyledLink to="/detective">명탐정 북키</StyledLink>
-          <StyledLink to="/guide">안내견 북키</StyledLink>
+
+        <div className="dropdown">
+          <StyledLink className="dropbtn home" to="/" borderbottom={homeActive}>
+            홈
+          </StyledLink>
         </div>
-      </div>
-      <SearchBar />
-    </TopNavContainer>
-  );
+
+        <div className="dropdown">
+          <StyledLink
+            className="dropbtn"
+            to="/community"
+            borderbottom={CommunityActive}
+          >
+            커뮤니티
+          </StyledLink>
+          <div className="dropdown-content a">
+            <StyledLink to="/community">커뮤니티 홈</StyledLink>
+            <StyledLink to="/hot/1">H🔥T게시판</StyledLink>
+            <StyledLink to="/free/1">자유게시판</StyledLink>
+            <StyledLink to="/qna/1">Q{"&"}A게시판</StyledLink>
+            <StyledLink to="/trade/1">책 장터</StyledLink>
+          </div>
+        </div>
+
+        <div className="dropdown">
+          <StyledLink
+            className="dropbtn"
+            to="/recommend"
+            borderbottom={recommendActive}
+          >
+            추천받개
+          </StyledLink>
+          <div className="dropdown-content">
+            <StyledLink to="/recommend">추천받개 홈</StyledLink>
+            <StyledLink to="/detective">명탐정 북키</StyledLink>
+            <StyledLink to="/guide">안내견 북키</StyledLink>
+          </div>
+        </div>
+        <SearchBar />
+      </TopNavContainer>
+    );
 }
 
 //////////////////////////////////////// Styled-Components
@@ -183,6 +261,18 @@ const TopNavContainer = styled.div`
     display: block;
     color: #6c95ff;
   }
+
+  // 미디어쿼리
+  @media (max-width: 1024px) {
+    .toggleBtn {
+      display: initial;
+      position: absolute;
+      right: 0;
+      top: 0;
+      line-height: 64px;
+      background-color: black;
+    }
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -192,6 +282,36 @@ const StyledLink = styled(Link)`
     margin: 10px 20px 0 20px;
     min-width: 120px;
     width: 120px;
+  }
+`;
+
+const MobileTopNav = styled.div`
+  width: 100vw;
+  z-index: 99;
+  position: fixed;
+  background-color: var(--bright-base-bg-color);
+
+  .toggle-btn {
+    margin: 14px;
+    width: 36px;
+    height: 36px;
+  }
+
+  ul {
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 100vw;
+    height: 100vh;
+    overflow-y: scroll;
+    position: absolute;
+
+    li {
+      padding-left: 30px;
+      width: 60vw;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      height: 64px;
+    }
   }
 `;
 

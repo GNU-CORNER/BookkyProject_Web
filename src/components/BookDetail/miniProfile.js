@@ -1,12 +1,16 @@
 import styled from "styled-components";
 
 // 도서 상세보기 - 리뷰작성 사용자 미니프로필
-const MiniProfile = ({ nickname, date }) => {
+const MiniProfile = ({ userThumbnail, nickname, date }) => {
   // 미니 프로필 View
   return (
     <MiniProfileContainer>
       <img
-        src={require("../../assets/icons/sideNav/welcome.png")}
+        src={
+          userThumbnail
+            ? userThumbnail
+            : require("../../assets/icons/sideNav/welcome.png")
+        }
         width="35px"
         alt="user Profile"
       />
@@ -19,6 +23,12 @@ const MiniProfile = ({ nickname, date }) => {
 //////////////////////////////////////// Styled-Components
 const MiniProfileContainer = styled.div`
   display: flex;
+
+  img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+  }
 
   div {
     display: flex;

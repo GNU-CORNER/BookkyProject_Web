@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import SocialGoogle from "./SocialGoogle";
+import { useSelector } from "react-redux";
 
 // LoginModal - 로그인 View 구성
 function Login({ modalOpen, updateUser }) {
@@ -14,6 +15,8 @@ function Login({ modalOpen, updateUser }) {
   const [autologin, setAutoLogin] = useState(false);
   const dispatch = useDispatch();
   const [, setCookie] = useCookies();
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
 
   // 체크박스 Checked 여부
   const checked = (autologin) => {
@@ -42,8 +45,9 @@ function Login({ modalOpen, updateUser }) {
 
     // 통신 - 로그인 데이터 전송
     axios
-      .post("http://203.255.3.144:8002/v1/user/signin", params, {})
+      .post(baseURL + "user/signin", params, {})
       .then((res) => {
+        console.log(res);
         // 로그인 통신 성공 시
         if (res.data.success === true) {
           // 통신에 성공했을 때, 쿠키의 만료시간 생성 (만료시간 == 1시간)
@@ -84,6 +88,7 @@ function Login({ modalOpen, updateUser }) {
       // 로그인 통신 실패 시
       .catch((error) => {
         console.log(error.response.data);
+        alert(error.response.data.errorMessage);
       });
   }
 

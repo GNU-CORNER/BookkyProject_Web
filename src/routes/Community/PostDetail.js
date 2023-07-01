@@ -1,19 +1,26 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import PostDetailBookCard from "../../components/Cards/PostDetailBookCard";
 import Comment from "../../components/Community/Comment";
 import CommentModalContainer from "../../components/Community/CommentModal/CommentModalContainer";
 import ReplyModalContainer from "../../components/Community/ReplyModal/ReplyModalContainer";
 import ReplyPost from "../../components/Community/ReplyPost";
 import PageHeader from "../../components/PageHeader";
+import { ReactComponent as UnLike } from "../../assets/icons/community/heart.svg"; // 모달 닫기 버튼
+import { ReactComponent as Like } from "../../assets/icons/community/heart-fill.svg"; // 모달 닫기 버튼
+import { useCookies } from "react-cookie";
+import { updateAccessToken } from "../../redux-modules/userData";
 
 // 커뮤니티 - 게시글 상세보기
 const PostDetail = () => {
   //변수 선언
-  const SideNavState = useSelector((state) => state.SideNavState);
-  const user = useSelector((state) => state.userData);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
+  const SideNavState = state.SideNavState;
   const navigate = useNavigate();
   const location = useLocation().pathname.split("/");
   const PID = parseInt(location[3]);
@@ -24,8 +31,39 @@ const PostDetail = () => {
   const [commentModal, setCommentModal] = useState(false);
   const [replyWriteModal, setReplyWriteModal] = useState(false);
   const [userComment, setUserComment] = useState("");
+  const cookies = useCookies();
+  const dispatch = useDispatch();
 
-  // 게시글 틀
+  // 만료된 AT 갱신
+  function updateToken() {
+    axios
+      .post(
+        baseURL + "auth/refresh",
+        {},
+        {
+          headers: {
+            "access-token": user.accessToken,
+            "refresh-token": cookies[0].refresh_token,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("토큰갱신 Response", res);
+        dispatch(updateAccessToken(res.data.result.access_token));
+      });
+  }
+
+  // 첨부 도서 형태
+  const [book, setBook] = useState({
+    AUTHOR: "",
+    PUBLISHER: "위키북스",
+    RATING: 2.5,
+    TBID: 0,
+    TITLE: "",
+    thumbnailImage: "",
+  });
+
+  // 게시글 형태
   const [post, setPost] = useState({
     UID: 0,
     contents: "",
@@ -66,6 +104,8 @@ const PostDetail = () => {
       title: "",
       updateAt: "",
       views: 0,
+      Book: {},
+      isLiked: false,
     },
   ]);
 
@@ -93,24 +133,24 @@ const PostDetail = () => {
   function getPostData() {
     if (user.accessToken.length > 0)
       axios
-        .get(
-          "http://203.255.3.144:8002/v1/community/postdetail/" +
-            boardNum +
-            "/" +
-            PID,
-          {
-            headers: {
-              "access-token": user.accessToken,
-            },
-          }
-        )
+        .get(baseURL + "community/postdetail/" + boardNum + "/" + PID, {
+          headers: {
+            "access-token": user.accessToken,
+          },
+        })
         .then((res) => {
-          console.log(res);
+          console.log("게시글 데이터 요청", res);
           setPost(res.data.result.postdata);
           setCommentCnt(res.data.result.commentCnt);
           setCommentArray(res.data.result.commentdata);
           setReplyPost(res.data.result.replydata);
           setReplyCnt(res.data.result.replyCnt);
+          setBook(res.data.result.Book);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            updateToken();
+          }
         });
   }
 
@@ -129,7 +169,7 @@ const PostDetail = () => {
       }
     }
     axios
-      .delete("http://203.255.3.144:8002/v1/community/deletepost/" + boardNum, {
+      .delete(baseURL + "community/deletepost/" + boardNum, {
         data: {
           PID: PID,
         },
@@ -150,7 +190,7 @@ const PostDetail = () => {
     if (user.accessToken.length > 0)
       axios
         .post(
-          "http://203.255.3.144:8002/v1/community/like/" + boardNum + "/" + PID,
+          baseURL + "community/like/" + boardNum + "/" + PID,
           {},
           {
             headers: {
@@ -158,19 +198,30 @@ const PostDetail = () => {
             },
           }
         )
-        .then((res) => console.log(res));
+        .then((res) => {
+          if (res.data.success === true) getPostData();
+        });
   }
 
   // modifyPost() : 게시글 수정
   function modifyPost() {
-    navigate("/");
+    console.log(post.postImage);
+    navigate("/modifypost", {
+      state: {
+        post: post,
+        book: book,
+        PID: PID,
+        boardName: boardName,
+        boardNum: boardNum,
+      },
+    });
   }
 
   // submitComment() : 댓글 작성
   function submitComment() {
     axios
       .post(
-        "http://203.255.3.144:8002/v1/community/writecomment/" + boardNum,
+        baseURL + "community/writecomment/" + boardNum,
         {
           comment: userComment,
           parentID: 0,
@@ -196,32 +247,47 @@ const PostDetail = () => {
   // 게시글 상세보기 View
   return (
     <PostDetailContainer width={SideNavState.width}>
+      {/* 헤더*/}
       <PageHeader title="게시글 상세보기" subTitle={boardName} />
       <ContentArea>
-        <div className="profile">
-          <img src={post.thumbnail} alt="e" />
-          <p>{post.nickname}</p>
-        </div>
+        {/* 게시글 컨텐츠 영역 상단 (제목, 작성일, 조회수)*/}
         <div className="title">{post.title}</div>
+        {/* 작성자 프로필 */}
         <div className="subData">
-          <p className="createAt">
-            {post.createAt === post.updateAt ? "Created at " : "Modified at "}
-            {post.createAt === post.updateAt ? post.createAt : post.updateAt}
-          </p>
-          <p className="views">{post.views} views</p>
+          <div className="subData_profile">
+            <img src={post.thumbnail} alt="e" />
+            <p>{post.nickname}</p>
+          </div>
+          <div className="subData_post">
+            <p className="createAt">
+              {post.createAt === post.updateAt ? post.createAt : post.updateAt}
+              {post.createAt === post.updateAt ? " 작성됨" : " 수정됨"}
+            </p>
+            <p className="views">{post.views} views</p>
+          </div>
         </div>
+
+        {/* 게시글 컨텐츠 영역 하단 (내용, 이미지, 첨부 도서, 좋아요, 댓글, 답글)*/}
         <div className="body">
+          <PostDetailBookCard book={book} />
+          {/* 이미지 */}
           {post.postImage !== undefined
             ? post.postImage.map((el, cnt) => (
                 <img key={cnt} src={el} alt="post-img" />
               ))
             : ""}
 
+          {/* 내용 */}
           <div className="main-text">{post.contents}</div>
+
+          {/* 좋아요 */}
           <div className="reactions bottom">
             <div className="likes" onClick={() => likePost()}>
+              {post.isLiked ? <Like fill="rgb(255,122,122)" /> : <UnLike />}
               좋아요({post.like.length})
             </div>
+
+            {/* Q&A 게시판일 때, 댓글 모달 창 */}
             <CommentModalContainer
               commentModal={commentModal}
               setCommentModal={setCommentModal}
@@ -229,7 +295,6 @@ const PostDetail = () => {
               getPostData={getPostData}
               PID={PID}
             />
-            {/* Q&A 게시판일 때, 댓글 모달 창 */}
             {boardNum === 2 ? (
               <div
                 className="comments"
@@ -266,15 +331,19 @@ const PostDetail = () => {
         </div>
       </ContentArea>
 
+      {/* 댓글과 답글 출력 */}
       {
-        // Q&A 게시판일 경우
+        // Case 1 : Q&A 게시판일 경우
         boardNum === 2 ? (
           <ReplyArea>
             <ReplyHeader>
               <ReplyModalContainer
                 replyWriteModal={replyWriteModal}
                 setReplyWriteModal={setReplyWriteModal}
-                PID={PID}
+                parentQPID={PID}
+                parentTitle={post.title}
+                getPostData={getPostData}
+                replyCnt={replyCnt}
               />
               <div className="reply-cnt">{replyCnt}개의 답글</div>
               <div
@@ -289,21 +358,28 @@ const PostDetail = () => {
                 <ReplyPost
                   key={el.PID}
                   PID={el.PID}
-                  title={el.title}
-                  contents={el.contents}
+                  TBID={el.TBID}
+                  commentCnt={el.commentCnt}
                   createAt={el.createAt}
                   updateAt={el.updateAt}
+                  contents={el.contents}
+                  title={el.title}
                   like={el.like}
+                  postImage={el.postImage}
                   views={el.views}
                   nickname={el.nickname}
+                  parentQPID={el.parentQPID}
                   thumbnail={el.thumbnail}
-                  commentCnt={el.commentCnt}
+                  book={el.Book}
+                  isAccessible={el.isAccessible}
+                  setReplyWriteModal={setReplyWriteModal}
+                  replyWriteModal={replyWriteModal}
                 />
               );
             })}
           </ReplyArea>
         ) : (
-          // 그 외 게시판일 경우
+          // Case 2 : Q&A 게시판이 아닌 경우 (자유, 중고장터, Hot)
           <CommentArea>
             <WriteComment>
               <p className="reply-cnt">{commentCnt}개의 댓글</p>
@@ -323,6 +399,8 @@ const PostDetail = () => {
                 <div onClick={submitComment}>작성</div>
               </div>
             </WriteComment>
+
+            {/* 댓글 리스트 출력 */}
             {commentArray.map((el) => {
               return (
                 <Comment
@@ -355,68 +433,70 @@ const PostDetailContainer = styled.div`
 const ContentArea = styled.div`
   position: relative;
   min-width: 700px;
-  margin: 4vh 12vw 0 12vw;
+  margin: 0 12vw 0 12vw;
   border: 1px solid #f1f1f1;
   border-radius: 4px;
   padding: 15px;
   box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
-
-  .profile {
-    display: flex;
-    position: absolute;
-    right: 0;
-
-    p {
-      margin: 0 10px;
-      font-weight: bold;
-      line-height: 32px;
-    }
-
-    img {
-      object-fit: cover;
-      border-radius: 4px;
-      width: 32px;
-      height: 32px;
-    }
-  }
   .title {
     font-size: 1.8em;
     font-weight: bold;
     line-height: 32px;
   }
-
   .subData {
-    margin: 5px 0;
-    padding: 0 10px;
-    width: fit-content;
-    background-color: #f5f5f5;
-    border-radius: 10px;
-    line-height: 20px;
-    font-size: 0.9em;
     display: flex;
-    color: #c5c5c5;
+    align-items: center;
 
-    .createAt {
+    .subData_profile {
+      display: flex;
+      margin: 10px 0;
+
+      p {
+        margin: 0 10px;
+        font-weight: bold;
+        line-height: 32px;
+      }
+
+      img {
+        object-fit: cover;
+        border-radius: 4px;
+        width: 32px;
+        height: 32px;
+      }
     }
 
-    .views {
-      margin-left: 15px;
+    .subData_post {
+      margin: 5px 0;
+      padding: 0 10px;
+      width: fit-content;
+      border-radius: 10px;
+      line-height: 20px;
+      font-size: 0.9em;
+      display: flex;
 
-      ::before {
-        content: "";
-        width: 15px;
-        height: 15px;
-        display: inline-block;
-        margin-right: 5px;
-        background-size: cover;
-        background-image: url(${require("../../assets/icons/community/views.png")});
+      .createAt {
+      }
+
+      .views {
+        margin-left: 15px;
+
+        ::before {
+          content: "";
+          width: 15px;
+          height: 15px;
+          display: inline-block;
+          margin-right: 5px;
+          background-size: cover;
+          background-image: url(${require("../../assets/icons/community/views.png")});
+        }
       }
     }
   }
 
   .body {
     position: relative;
-    margin-top: 3vh;
+    padding: 10px;
+    margin-top: 1vh;
 
     .main-text {
       min-height: 30vh;
@@ -437,20 +517,16 @@ const ContentArea = styled.div`
 
     .likes {
       margin-right: 15px;
+      display: flex;
+      align-items: center;
 
+      svg {
+        width: 18px;
+        height: 18px;
+        margin-right: 5px;
+      }
       :hover {
         cursor: pointer;
-      }
-
-      ::before {
-        display: inline-block;
-        content: "";
-        margin-right: 3px;
-        width: 20px;
-        height: 20px;
-        vertical-align: -4px;
-        background-size: cover;
-        background-image: url(${require("../../assets/icons/community/heart.png")});
       }
     }
 

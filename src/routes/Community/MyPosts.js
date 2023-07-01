@@ -15,16 +15,18 @@ function MyPost() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation().pathname.split("/");
-  const posts = useSelector((state) => state.posts.myposts);
-  const SideNavState = useSelector((state) => state.SideNavState);
-  const user = useSelector((state) => state.userData);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
+  const posts = state.posts.myposts;
+  const SideNavState = state.SideNavState;
   const [page, setPage] = useState(parseInt(location[2]));
   const [count, setCount] = useState(1);
 
   // getPosts() : 서버로부터 page에 따른 데이터를 가져와 redux store에 저장.
   function getPosts() {
     axios
-      .get("http://203.255.3.144:8002/v1/community/postlist/3", {
+      .get(baseURL + "community/postlist/3", {
         headers: {
           "access-token": user.accessToken,
         },
@@ -76,6 +78,7 @@ function MyPost() {
             content={post.contents}
             likes={post.likeCnt}
             comments={post.commentCnt}
+            communityType={post.communityType}
             board={0}
           />
         ))}

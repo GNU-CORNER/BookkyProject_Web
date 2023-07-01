@@ -5,14 +5,17 @@ import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import BookSelectArea from "../../components/Community/BookSelectArea";
 import PageHeader from "../../components/PageHeader";
+import { ReactComponent as Upload } from "../../assets/icons/community/upload.svg"; // 모달 닫기 버튼
 
 // 커뮤니티 - 글쓰기
 const WritePost = () => {
   // 변수 선언
   const today = new Date();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.userData);
-  const SideNavState = useSelector((state) => state.SideNavState);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
+  const SideNavState = state.SideNavState;
   const location = useLocation().state;
   const [boardName, setBoardname] = useState("");
   const [slug, setSlug] = useState(0);
@@ -21,6 +24,19 @@ const WritePost = () => {
   const [TBID, setTBID] = useState(0);
   const [parentQPID] = useState(0);
   const [images, setImages] = useState([]);
+  const [testimg, setImg] = useState();
+
+  function test() {
+    let formData = new FormData();
+
+    console.log("테스트이미지", testimg);
+    formData.append("image", testimg);
+    console.log(formData.get("image"));
+
+    axios
+      .post("https://mandarin.api.weniv.co.kr/image/uploadfiles", formData)
+      .then((res) => console.log(res));
+  }
 
   // 최초 렌더링 시 초기화
   function init() {
@@ -31,7 +47,7 @@ const WritePost = () => {
         break;
       case "trade":
         setSlug(1);
-        setBoardname("중고장터");
+        setBoardname("책 장터");
         break;
       case "qna":
         setSlug(2);
@@ -74,16 +90,12 @@ const WritePost = () => {
 
     // post 통신 : 게시글 작성
     axios
-      .post(
-        "http://203.255.3.144:8002/v1/community/writepost/" + slug,
-        params,
-        {
-          headers: {
-            "access-token": user.accessToken,
-          },
-          "Content-Type": "application/json",
-        }
-      )
+      .post(baseURL + "community/writepost/" + slug, params, {
+        headers: {
+          "access-token": user.accessToken,
+        },
+        "Content-Type": "application/json",
+      })
       .then((res) => {
         console.log("게시글 작성 response", res);
         if (res.data.success === true) navigate(`/${setPathName()}/1`);
@@ -115,7 +127,7 @@ const WritePost = () => {
           {`${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`}
         </p>
 
-        {/* 도서 선택 모달 */}
+        {/* 도서 선택 영역 */}
         <BookSelectArea setTBID={setTBID} />
 
         {/* 업로드 된 이미지 Preview */}
@@ -131,11 +143,8 @@ const WritePost = () => {
           {/* 이미지 업로드 */}
           <label htmlFor="input-img">
             <div className="upload upload-btn">
-              <img
-                className="upload-btn"
-                src={require("../../assets/icons/community/upload.png")}
-                alt="upload-Btn-img"
-              />
+              <Upload className="upload-btn" />
+
               <div>이미지 업로드</div>
             </div>
           </label>
@@ -144,6 +153,7 @@ const WritePost = () => {
             id="input-img"
             accept="image/*"
             onChange={(e) => {
+              console.log(e.target.files[0]);
               const reader = new FileReader(); // FileReader 객체 생성
               reader.readAsDataURL(e.target.files[0]);
               reader.onloadend = () => setImages([...images, reader.result]);
@@ -151,7 +161,20 @@ const WritePost = () => {
             style={{ display: "none" }}
           />
         </ImgSelectArea>
+        {/* 
+        <input
+          type="file"
+          id="input-img"
+          accept="image/*"
+          onChange={(e) => {
+            console.log(e.target.files[0]);
+            setImg(e.target.files[0]);
 
+            // const reader = new FileReader(); // FileReader 객체 생성
+            // reader.readAsDataURL(e.target.files[0]);
+            // reader.onloadend = () => setImages([...images, reader.result]);
+          }}
+        />*/}
         {/* 내용 input */}
         <textarea
           className="contents-Input input"
@@ -244,7 +267,7 @@ const ImgSelectArea = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 2px solid var(--main-color);
+    border: 2px solid gray;
     border-radius: 4px;
     width: 100px;
     height: 100px;
@@ -256,9 +279,22 @@ const ImgSelectArea = styled.div`
       margin: 5px 0 0 0;
     }
 
-    img {
+    svg {
+      transition: all 0.3s;
+      fill: gray;
       width: 40px;
       height: 40px;
+    }
+
+    :hover {
+      color: var(--main-color);
+      border: 2px solid var(--main-color);
+      cursor: pointer;
+    }
+
+    :hover svg {
+      border: none;
+      fill: #6e95ff;
     }
   }
 

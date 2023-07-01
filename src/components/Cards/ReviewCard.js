@@ -1,15 +1,50 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import MiniProfile from "../BookDetail/miniProfile";
+import Rating from "@mui/material/Rating";
+import axios from "axios";
+// import { useState } from "react";
 
 // BookDetail - ReviewCard
-const ReviewCard = ({ nickname, contents, date, likeCnt, rating }) => {
-  const user = useSelector((state) => state.userData);
+const ReviewCard = ({
+  AUTHOR,
+  RID,
+  TBID,
+  UID,
+  bookTitle,
+  contents,
+  createAt,
+  isAccessible,
+  isLiked,
+  likeCnt,
+  nickname,
+  rating,
+  thumbnail,
+  views,
+  userThumbnail,
+}) => {
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const user = state.userData;
+  // const [like, setLike] = useState(isLiked ?? false);
+
+  function likeReview() {
+    axios
+      .put(
+        baseURL + "review/like/" + RID,
+        {},
+        {
+          headers: {
+            "access-token": user.accessToken,
+          },
+        }
+      )
+      .then((res) => console.log(res));
+  }
 
   // ReviewManagement() : 리뷰 관리 (수정, 삭제)
   function ReviewManagement() {
     if (user.nickname === nickname) {
-      console.log(user);
       return (
         <div className="ReviewManagement">
           <div
@@ -35,16 +70,27 @@ const ReviewCard = ({ nickname, contents, date, likeCnt, rating }) => {
   return (
     <ReviewCardContainer>
       <div className="rating">
-        <div>👍34</div>
-        <div>⭐⭐⭐⭐☆</div>
+        <div className="like-btn">
+          <span onClick={likeReview}>공감</span>({likeCnt ? likeCnt : 0}){" "}
+        </div>
+        {/* 별점, 관련태그 */}
+        <Rating
+          value={parseFloat(rating)}
+          defaultValue={0}
+          precision={0.5}
+          readOnly
+        />
+        <div className="like-btn">
+          ({String(rating).length === 1 ? rating + ".0" : rating})
+        </div>
       </div>
-      <MiniProfile nickname={nickname} date={date} />
+      <MiniProfile
+        userThumbnail={userThumbnail}
+        nickname={nickname}
+        date={createAt}
+      />
 
-      <div className="contents">
-        {
-          "반갑다 나는 인혁이다반갑다 이다반갑다 나인혁이다반반갑다 이다반갑다 나인혁이다반갑다 이다반갑다 나인혁이다반갑다 이다반갑다 나인혁이다반갑다 이다반갑다 나인혁이다반갑다 이다반갑다 나인혁이다반갑다 이다반갑다 나인혁이다반갑다 이다반갑다 나인혁이다반갑다 이다반갑다 나인혁이다반갑다 이다반갑다 나인혁이다반갑다 이다반갑다 나인혁이다반갑다 이다반갑다 나인혁이다반갑다 이다반갑다 나인혁이다반갑다 이다반갑다 나인혁이다갑다 나는 인혁이다반갑다 나는 인혁이다반갑다 나는 나는 인혁"
-        }
-      </div>
+      <div className="contents">{contents}</div>
       <ReviewManagement />
     </ReviewCardContainer>
   );
@@ -64,10 +110,17 @@ const ReviewCardContainer = styled.div`
     right: 15px;
     position: absolute;
     display: flex;
+    align-items: center;
+
+    .like-btn {
+      font-size: 0.9em;
+      margin-right: 5px;
+    }
   }
 
   .contents {
     display: flex;
+    padding: 10px;
     min-height: 80px;
   }
 

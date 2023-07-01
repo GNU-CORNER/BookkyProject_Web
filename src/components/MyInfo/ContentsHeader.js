@@ -7,6 +7,7 @@ const ContentsHeader = ({ title }) => {
 
 //////////////////////////////////////// Styled-Components
 const Title = styled.div`
+  width: fit-content;
   font-size: 1.2em;
   font-weight: bold;
 

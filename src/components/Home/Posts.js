@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { ReactComponent as Post } from "../../assets/icons/community/document.svg"; // 모달 닫기 버튼
 
 // 홈 - 홈 커뮤니티 게시판 요약 출력
 const Posts = ({ posts, slug }) => {
@@ -13,12 +14,15 @@ const Posts = ({ posts, slug }) => {
       {posts.map((el, cnt) => {
         if (cnt < 3)
           return (
-            <h4
-              key={el.PID}
-              onClick={() => navigate("/postdetail/" + slug + "/" + el.PID)}
-            >
-              {el.title}
-            </h4>
+            <div key={cnt} className="post">
+              <Post width="18px" height="18px" />
+              <h4
+                key={el.PID}
+                onClick={() => navigate("/postdetail/" + slug + "/" + el.PID)}
+              >
+                {el.title}
+              </h4>
+            </div>
           );
         else return "";
       })}
@@ -29,25 +33,24 @@ const Posts = ({ posts, slug }) => {
 //////////////////////////////////////// Styled-Components
 const PostsContainer = styled.div`
   min-width: 100%;
-  margin: auto;
-  margin-left: 10px;
+  margin: 5px auto auto 10px;
+
+  .post {
+    display: flex;
+    align-items: center;
+
+    svg {
+      margin-right: 5px;
+    }
+  }
 
   h4 {
+    font-size: 0.9em;
     width: fit-content;
     color: gray;
     line-height: 1.5em;
     transition: all 0.3s;
 
-    ::before {
-      margin-right: 5px;
-      content: "";
-      display: inline-block;
-      background: url(${require("../../assets/icons/community/post.png")});
-      background-size: 1.3em;
-      width: 1.3em;
-      height: 1.3em;
-      vertical-align: -4px;
-    }
     :hover {
       cursor: pointer;
       color: var(--bright-base-font-color);

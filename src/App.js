@@ -6,7 +6,7 @@ import SideNav from "./components/Navigation/SideNav";
 import Routes from "./routes/Routes";
 import { useCookies } from "react-cookie";
 import axios from "axios";
-import { updateUser } from "./redux-modules/userData";
+import { updateAccessToken, updateUser } from "./redux-modules/userData";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SideNavFoldBtn from "./components/Navigation/SideNavFoldBtn";
@@ -19,7 +19,9 @@ function App() {
   const [email, setEmail] = useState(undefined);
   const [password, setPassword] = useState(undefined);
   const [loginMethod, setLoginMethod] = useState(undefined);
-  const SideNavState = useSelector((state) => state.SideNavState);
+  const state = useSelector((state) => state);
+  const baseURL = state.baseURL.url;
+  const SideNavState = state.SideNavState;
 
   // 최초 email, pwToken 설정
   const Init = () => {
@@ -29,6 +31,7 @@ function App() {
       setPassword(localStorage.getItem("password"));
       setLoginMethod(localStorage.getItem("loginMethod"));
     }
+
     // Case 2 : 다른 경우에는 쿠키의 email, pwToken 사용
     else if (cookies[0].email !== "" && cookies[0].password !== "") {
       setEmail(cookies[0].email);
@@ -48,7 +51,7 @@ function App() {
       // 통신 - 로그인 시도 (이메일, 비밀번호)
       axios
         .post(
-          "http://203.255.3.144:8002/v1/user/signin",
+          baseURL + "user/signin",
           JSON.stringify({
             email: email,
             pwToken: password,
@@ -75,7 +78,8 @@ function App() {
           else {
             console.log("로그인 실패");
           }
-        });
+        })
+        .catch((error) => console.log(error));
     }
   };
 
@@ -83,7 +87,7 @@ function App() {
   useEffect(Init, [cookies]);
 
   // 자동 로그인
-  useEffect(AutoLogin, [email, password, loginMethod, dispatch]);
+  useEffect(AutoLogin, [email, password, loginMethod, dispatch, baseURL]);
 
   // App View
   return (
@@ -108,6 +112,7 @@ const FlexDiv = styled.div`
 `;
 
 const GlobalStyle = createGlobalStyle`
+
   :root {
     --main-color : #6e95ff;
     --sub-color : #FFA24D;
@@ -118,6 +123,7 @@ const GlobalStyle = createGlobalStyle`
     --none-folded-width : calc(100vw - 160px);
     --folded-width : calc(100vw);
     line-height: 1;
+    font-family: "KoddiUD";    
   }
   
   ::-webkit-scrollbar {
@@ -128,6 +134,7 @@ const GlobalStyle = createGlobalStyle`
     margin : 0;
     padding : 0;
     background-color: var(--bright-base-bg-color);
+    
 
   /* 스크롤바 hidden */
 
