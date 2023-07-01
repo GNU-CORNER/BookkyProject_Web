@@ -33,7 +33,11 @@
 | 언어           | HTML5, CSS, JavaScript                                                       |
 | 기타 협업 도구 | GitHub, Figma, Notion                                                        |
 
+**서비스 환경 구조도**
 ![service-environment](./docs/img/service-environment.png)
+
+**UI/UX 설계 (Figma)**
+![figma](./docs/img/figma.png)
 
 ### 📌 담당했던 업무
 
@@ -41,11 +45,6 @@
 - 웹 프론트엔드 전체 1인 개발
 
 ### 📌 **주요 기능 및 구현 과정**
-
-- **UI/UX 설계**
-
-  - Figma 활용
-  - ![figma](./docs/img/figma.png)
 
 - **회원관리**
 
