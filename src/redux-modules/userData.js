@@ -1,4 +1,9 @@
 // 사용자의 데이터를 관리
+
+import axios from "axios";
+import { useCookies } from "react-cookie";
+import { useDispatch, useSelector } from "react-redux";
+
 // 액션타입 정의 : 액션타입은 대문자로 정의, 문자열 내용은 "모듈이름 / 액션이름"
 const UPDATE_USER = "userData/UPDATE_USER";
 const UPDATE_ACCESS_TOKEN = "userData/UPDATE_ACCESS_TOKEN";

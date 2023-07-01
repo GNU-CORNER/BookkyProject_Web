@@ -9,7 +9,7 @@ export const setURL = (url) => ({
 });
 
 //초기상태와 Reducer 정의
-const initialState = { url: "http://123.214.10.119:8102/v1/" };
+const initialState = { url: "http://203.255.3.144:8002/v1/" };
 
 function baseURL(state = initialState, action) {
   switch (action.type) {

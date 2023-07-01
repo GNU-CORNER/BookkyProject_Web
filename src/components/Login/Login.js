@@ -88,6 +88,7 @@ function Login({ modalOpen, updateUser }) {
       // 로그인 통신 실패 시
       .catch((error) => {
         console.log(error.response.data);
+        alert(error.response.data.errorMessage);
       });
   }
 

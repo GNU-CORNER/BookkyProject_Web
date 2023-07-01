@@ -6,7 +6,7 @@ import SideNav from "./components/Navigation/SideNav";
 import Routes from "./routes/Routes";
 import { useCookies } from "react-cookie";
 import axios from "axios";
-import { updateUser } from "./redux-modules/userData";
+import { updateAccessToken, updateUser } from "./redux-modules/userData";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SideNavFoldBtn from "./components/Navigation/SideNavFoldBtn";
@@ -123,9 +123,7 @@ const GlobalStyle = createGlobalStyle`
     --none-folded-width : calc(100vw - 160px);
     --folded-width : calc(100vw);
     line-height: 1;
-    font-family: "KoddiUD";
-
-    
+    font-family: "KoddiUD";    
   }
   
   ::-webkit-scrollbar {
